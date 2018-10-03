@@ -69,9 +69,10 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">基盤構築・デプロイの自動化</a><ul>
-<li><a class="reference internal" href="#id2">基盤構築自動化の発展経緯</a></li>
-<li><a class="reference internal" href="#id3">継続的インテグレーション、継続的デリバリの発展</a></li>
-<li><a class="reference internal" href="#id4">マイクロサービスにおける基盤自動化・継続的インテグレーション・デリバリ</a></li>
+<li><a class="reference internal" href="#id2">はじめに</a></li>
+<li><a class="reference internal" href="#id8">基盤構築自動化の発展経緯</a></li>
+<li><a class="reference internal" href="#id11">継続的インテグレーション、継続的デリバリの発展</a></li>
+<li><a class="reference internal" href="#id12">マイクロサービスにおける基盤自動化・継続的インテグレーション・デリバリ</a></li>
 </ul>
 </li>
 </ul>
@@ -118,33 +119,61 @@
     <div class="col-md-12 content">
       
   <div class="section" id="section-automation-infra-devops-overview-label">
-<span id="id1"></span><h1>基盤構築・デプロイの自動化<a class="headerlink" href="#section-automation-infra-devops-overview-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<span id="id1"></span><h1><a class="toc-backref" href="#id13">基盤構築・デプロイの自動化</a><a class="headerlink" href="#section-automation-infra-devops-overview-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <div class="section" id="id2">
-<h2>基盤構築自動化の発展経緯<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h2><a class="toc-backref" href="#id14">はじめに</a><a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>本章では基盤・デプロイの自動化に関する最近の動向および、
+基盤自動化・継続的インテグレーション・デリバリを実際に実現する例について概要を説明する。本章は以下の構成から成る。</p>
+<div class="contents topic" id="id3">
+<p class="topic-title first">本章の構成</p>
+<ul class="simple">
+<li><a class="reference internal" href="#section-automation-infra-devops-overview-label" id="id13">基盤構築・デプロイの自動化</a><ul>
+<li><a class="reference internal" href="#id2" id="id14">はじめに</a></li>
+<li><a class="reference internal" href="#id8" id="id15">基盤構築自動化の発展経緯</a></li>
+<li><a class="reference internal" href="#id11" id="id16">継続的インテグレーション、継続的デリバリの発展</a></li>
+<li><a class="reference internal" href="#id12" id="id17">マイクロサービスにおける基盤自動化・継続的インテグレーション・デリバリ</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>まず最初に基盤自動化、継続的インテグレーション・デリバリの発展経緯を記載し、近年の動向を整理する。
+その後、マイクロサービスアーキテクチャに基づいた実現例の概要を述べる。
+実際のアプリケーション構成や想定する基盤の環境、一連のリリースサイクルを具体化して記述するが、実際の設定や実装について次回以降、詳述していく。
+なお、次回以降は以下のような章構成の予定である。</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/debugroom/sample-aws-ecs">アプリケーション基本構成・実装例</a></li>
+<li><a class="reference external" href="https://github.com/debugroom/sample-aws-codebuild">AWS CodeBuildの実装</a> ・ <a class="reference external" href="https://debugroom.github.io/doc/cloud/aws/article/devops.html#codebuild">AWS CodeBuildの設定例</a></li>
+<li><a class="reference external" href="https://github.com/debugroom/sample-aws-codepipeline">AWS CodePipelineの実装</a>  ・ <a class="reference external" href="https://debugroom.github.io/doc/cloud/aws/article/devops.html#codepipeline">AWS CodePipelineの設定例</a></li>
+<li>AWS CloudFormationの実装例・設定例</li>
+<li>[別途整理中：付録] <a class="reference external" href="https://github.com/debugroom/mynavi-ib-monolithic">モノリシック</a> ・マイクロサービスアプリケーションの設計・実装の比較(インターネットバンキングを例にして考察)</li>
+</ul>
+<p><br/></p>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id15">基盤構築自動化の発展経緯</a><a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/>
-商用アプリケーションを実行するための環境、例えば、ロードバランサやアプリケーションサーバ、データベースサーバ、監視サーバといった
-アプリケーション実行基盤を自動構築するニーズは、仮想化技術の進展とともに、Amazon Web ServiceといったIaaSや、
+ロードバランサやアプリケーションサーバ、データベースサーバ、監視サーバといったアプリケーション実行基盤を
+自動構築するニーズは、仮想化技術の進展とともに、Amazon Web ServiceといったIaaSや、
 Openstackなどのクラウドコンピューティングオープンソースソフトウェアの登場により高まりをみせてきた。</p>
-<p>従来、企業が自社のデータセンタへ各々サーバを構成し、アプリケーション実行環境を構築する場合は
-一度環境を作ってしまえば、その後、大きく環境を作り替えたりするケースは稀であった。
-しかし、IaaSなどのクラウド環境で、仮想マシン上にゲストOSをプロビジョニングして環境を構築する形になると、
-繰り返し、同一の実行基盤サーバ設定、環境を構築することになる。また、サーバリソースを動的に増減できることは、
-イミュータブルインフラストラクチャといった概念(一度サーバ環境を構築した後は、特に変更など加えず、破棄して新しく作り変える考え方)で、
+<p>従来、企業が自社のデータセンタへ各々サーバを構成し、環境を構築する場合は一度環境を作ってしまえば、その後、ゼロから作り替えたりするケースは稀であった。
+しかし、IaaSなどのクラウド環境で、仮想マシン上にゲストOSを <a class="reference external" href="https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%83%93%E3%82%B8%E3%83%A7%E3%83%8B%E3%83%B3%E3%82%B0">プロビジョニング</a> して環境を構築する形になると、
+繰り返し、同一の実行基盤サーバ設定、環境を構築することになる。また、オートスケールなど、サーバリソースを動的に増減できることは、
+環境の新規構築・破棄が自動で行われ、 <a class="reference external" href="https://ja.wikipedia.org/wiki/Immutable_Infrastructure">イミュータブルインフラストラクチャ</a> といった概念(一度サーバ環境を構築した後は、特に変更など加えず、破棄して新しく作り変える考え方)で、
 アプリケーション実行環境構築手法に新たな考え方をもたらしている。こうした背景のもと、
-環境構築の作業品質や実行スピードの向上を目的に、Infrastructure As Codeとして基盤構築をコード化して実行することにより、
-サーバ・ミドルウェア環境を自動構築する、「Puppet」、「Ansible」、「Chef」といった構成管理ツールが普及していくようになる。。</p>
+環境構築の作業品質や実行スピードの向上を目的に、基盤構築作業をコード化して実行すること(Infrastructure As Code)により、
+サーバ・ミドルウェア環境を自動構築できる、「Puppet」、「Ansible」、「Chef」といった構成管理ツールが普及していくようになる。</p>
 <p>一方、仮想化技術は発展を続け、OSを丸ごと実行するハイパーバイザ型と比べて、ハードウェアリソースの消費コストが小さい
 Dockerなどのコンテナ技術が発達し、近年広く普及しつつある。また、Kubernetesなどの
 コンテナのリソース管理・スケール調整などを行い、大規模なコンテナアプリケーション実行環境を管理する
 オーケストレションツールが脚光を浴びている。このようなアプリケーション実行環境全体の包括的な
-Infrastructure As Codeとしてのツールとして、「Amazon Cloud Formation」や「Terraform」を使った
+Infrastructure As Codeのツールとして、「Amazon Cloud Formation」や「Terraform」を使った
 基盤構築のコード化が近年のトレンドとなっている。</p>
 <p><br/></p>
 </div>
-<div class="section" id="id3">
-<h2>継続的インテグレーション、継続的デリバリの発展<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id16">継続的インテグレーション、継続的デリバリの発展</a><a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
-<p>継続的インテグレーション(Continuous Integration:CI)・継続的デリバリ(Continuous Delivery:CD)では、
+<p>他方、継続的インテグレーション(Continuous Integration:CI)・継続的デリバリ(Continuous Delivery:CD)では、
 オープンソースソフトウェアのJenkinsを中心として、</p>
 <ol class="arabic simple">
 <li>GitHubなどのソースコードチェックアウト</li>
@@ -153,15 +182,15 @@ Infrastructure As Codeとしてのツールとして、「Amazon Cloud Formation
 <li>静的解析ツールを用いたインスペクション</li>
 <li>商用環境サーバやライブラリ管理ツールへのデプロイ</li>
 </ol>
-<p>といった一連のソフトウェア開発・リリースサイクルを自動化する手法が主流として発展して来たが、
+<p>といった一連のソフトウェア開発・リリースサイクルを自動化する手法が主流として発展してきたが、
 こちらも仮想化技術やコンテナ技術の普及により、ベアメタルサーバをベースとした単一のサーバ環境だけに留まらなくなってきている。
 また、ブルーグリーンデプロイメントといった、クラウド環境のメリットを生かして、ローリングアップデートするリリース手法に加え、
 マルチコンテナ化により複雑化するCI/CD実行環境からステージング環境・プロダクション環境への一連のリリースサイクルをパイプライン化して可視化する、
 AWS CodePipelineなどのツールも活用の機会が増えつつある。</p>
 <p><br/></p>
 </div>
-<div class="section" id="id4">
-<h2>マイクロサービスにおける基盤自動化・継続的インテグレーション・デリバリ<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id12">
+<h2><a class="toc-backref" href="#id17">マイクロサービスにおける基盤自動化・継続的インテグレーション・デリバリ</a><a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
 <p>こうした状況の中で、疎結合性・独立性を重視し、開発のアジリティを向上させるマイクロサービスアーキテクチャが
 基盤構築の自動化・継続的インテグレーションにも変化をもたらしている。というのも、従来のモノリシックなアプリケーション
@@ -220,7 +249,7 @@ AWS CodePipelineなどのツールも活用の機会が増えつつある。</p>
 <li>パスベースルーティング</li>
 </ul>
 <p>こうしたアプリケーション実行環境の構成は、AWS CloudFormationやTerraformを使って自動構築することができる。
-次節以降、SpringBootを使用したアプリケーションの構成や実装、Cloud Formationによる基盤構築の自動化の具体例について詳述していく。</p>
+次回以降、SpringBootを使用したアプリケーションの構成や実装、Cloud Formationによる基盤構築の自動化の具体例について詳述していく。</p>
 <p>DevOpsとして、下記のように、各サービスを構成するマルチコンテナ環境下でのステージング・
 プロダクション環境へのデプロイまでの一連のサイクルを可視化するパイプラインを構成する。</p>
 <div class="figure">
@@ -231,7 +260,7 @@ AWS CodeBuildを使って、ビルド・テスト・インスペクションを�
 アプリケーションをステージング環境のAWS ECSへデプロイさせる一連の流れを自動化・可視化する。</p>
 <p>ステージング環境での検証の後、改めてGitHubのMasterブランチへソースコードをコミットもしくはプルリクエストに対し、
 同様にプロダクション環境へのリリースを自動化して行う。</p>
-<p>こちらも同様に、次節以降、各プロダクトの設定の要領やポイントについて詳述する。</p>
+<p>こちらも同様に、次回以降、各プロダクトの設定の要領やポイントについて詳述する。</p>
 </div>
 </div>
 
