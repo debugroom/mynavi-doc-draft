@@ -70,9 +70,9 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">基盤構築・デプロイの自動化</a><ul>
 <li><a class="reference internal" href="#id2">はじめに</a></li>
-<li><a class="reference internal" href="#id8">基盤構築自動化の発展経緯</a></li>
-<li><a class="reference internal" href="#id11">継続的インテグレーション、継続的デリバリの発展</a></li>
-<li><a class="reference internal" href="#id12">マイクロサービスにおける基盤自動化・継続的インテグレーション・デリバリ</a></li>
+<li><a class="reference internal" href="#id7">基盤構築自動化の発展経緯</a></li>
+<li><a class="reference internal" href="#id10">継続的インテグレーション、継続的デリバリの発展</a></li>
+<li><a class="reference internal" href="#id11">マイクロサービスにおける基盤自動化・継続的インテグレーション・デリバリ</a></li>
 </ul>
 </li>
 </ul>
@@ -119,19 +119,19 @@
     <div class="col-md-12 content">
       
   <div class="section" id="section-automation-infra-devops-overview-label">
-<span id="id1"></span><h1><a class="toc-backref" href="#id13">基盤構築・デプロイの自動化</a><a class="headerlink" href="#section-automation-infra-devops-overview-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<span id="id1"></span><h1><a class="toc-backref" href="#id12">基盤構築・デプロイの自動化</a><a class="headerlink" href="#section-automation-infra-devops-overview-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <div class="section" id="id2">
-<h2><a class="toc-backref" href="#id14">はじめに</a><a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">はじめに</a><a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>本章では基盤・デプロイの自動化に関する最近の動向および、
 基盤自動化・継続的インテグレーション・デリバリを実際に実現する例について概要を説明する。本章は以下の構成から成る。</p>
 <div class="contents topic" id="id3">
 <p class="topic-title first">本章の構成</p>
 <ul class="simple">
-<li><a class="reference internal" href="#section-automation-infra-devops-overview-label" id="id13">基盤構築・デプロイの自動化</a><ul>
-<li><a class="reference internal" href="#id2" id="id14">はじめに</a></li>
-<li><a class="reference internal" href="#id8" id="id15">基盤構築自動化の発展経緯</a></li>
-<li><a class="reference internal" href="#id11" id="id16">継続的インテグレーション、継続的デリバリの発展</a></li>
-<li><a class="reference internal" href="#id12" id="id17">マイクロサービスにおける基盤自動化・継続的インテグレーション・デリバリ</a></li>
+<li><a class="reference internal" href="#section-automation-infra-devops-overview-label" id="id12">基盤構築・デプロイの自動化</a><ul>
+<li><a class="reference internal" href="#id2" id="id13">はじめに</a></li>
+<li><a class="reference internal" href="#id7" id="id14">基盤構築自動化の発展経緯</a></li>
+<li><a class="reference internal" href="#id10" id="id15">継続的インテグレーション、継続的デリバリの発展</a></li>
+<li><a class="reference internal" href="#id11" id="id16">マイクロサービスにおける基盤自動化・継続的インテグレーション・デリバリ</a></li>
 </ul>
 </li>
 </ul>
@@ -141,16 +141,17 @@
 実際のアプリケーション構成や想定する基盤の環境、一連のリリースサイクルを具体化して記述するが、実際の設定や実装について次回以降、詳述していく。
 なお、次回以降は以下のような章構成の予定である。</p>
 <ul class="simple">
-<li><a class="reference external" href="https://github.com/debugroom/sample-aws-ecs">アプリケーション基本構成・実装例</a></li>
-<li><a class="reference external" href="https://github.com/debugroom/sample-aws-codebuild">AWS CodeBuildの実装</a> ・ <a class="reference external" href="https://debugroom.github.io/doc/cloud/aws/article/devops.html#codebuild">AWS CodeBuildの設定例</a></li>
-<li><a class="reference external" href="https://github.com/debugroom/sample-aws-codepipeline">AWS CodePipelineの実装</a>  ・ <a class="reference external" href="https://debugroom.github.io/doc/cloud/aws/article/devops.html#codepipeline">AWS CodePipelineの設定例</a></li>
-<li>AWS CloudFormationの実装例・設定例</li>
+<li>第1回：[概要編] 基盤・デプロイ自動化の発展経緯・最近の動向・事例(本章)</li>
+<li>第2回：[実践編] 前準備 <a class="reference external" href="https://github.com/debugroom/sample-aws-ecs">ECSを前提としたマイクロサービスアプリケーション基本構成・実装例</a></li>
+<li>第3回：[実践編] AWSにおけるCI/CD構築例その1 <a class="reference external" href="https://github.com/debugroom/sample-aws-codebuild">AWS CodeBuildの実装</a> ・ <a class="reference external" href="https://debugroom.github.io/doc/cloud/aws/article/devops.html#codebuild">AWS CodeBuildの設定例</a></li>
+<li>第4回：[実践編] AWSにおけるCI/CD構築例その2 <a class="reference external" href="https://github.com/debugroom/sample-aws-codepipeline">AWS CodePipelineの実装</a>  ・ <a class="reference external" href="https://debugroom.github.io/doc/cloud/aws/article/devops.html#codepipeline">AWS CodePipelineの設定例</a></li>
+<li>第5回：[実践編] AWSにおける基盤自動化 AWS CloudFormationの実装例・設定例</li>
 <li>[別途整理中：付録] <a class="reference external" href="https://github.com/debugroom/mynavi-ib-monolithic">モノリシック</a> ・マイクロサービスアプリケーションの設計・実装の比較(インターネットバンキングを例にして考察)</li>
 </ul>
 <p><br/></p>
 </div>
-<div class="section" id="id8">
-<h2><a class="toc-backref" href="#id15">基盤構築自動化の発展経緯</a><a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id14">基盤構築自動化の発展経緯</a><a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/>
 ロードバランサやアプリケーションサーバ、データベースサーバ、監視サーバといったアプリケーション実行基盤を
 自動構築するニーズは、仮想化技術の進展とともに、Amazon Web ServiceといったIaaSや、
@@ -170,8 +171,8 @@ Infrastructure As Codeのツールとして、「Amazon Cloud Formation」や「
 基盤構築のコード化が近年のトレンドとなっている。</p>
 <p><br/></p>
 </div>
-<div class="section" id="id11">
-<h2><a class="toc-backref" href="#id16">継続的インテグレーション、継続的デリバリの発展</a><a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id15">継続的インテグレーション、継続的デリバリの発展</a><a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
 <p>他方、継続的インテグレーション(Continuous Integration:CI)・継続的デリバリ(Continuous Delivery:CD)では、
 オープンソースソフトウェアのJenkinsを中心として、</p>
@@ -189,8 +190,8 @@ Infrastructure As Codeのツールとして、「Amazon Cloud Formation」や「
 AWS CodePipelineなどのツールも活用の機会が増えつつある。</p>
 <p><br/></p>
 </div>
-<div class="section" id="id12">
-<h2><a class="toc-backref" href="#id17">マイクロサービスにおける基盤自動化・継続的インテグレーション・デリバリ</a><a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id16">マイクロサービスにおける基盤自動化・継続的インテグレーション・デリバリ</a><a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
 <p>こうした状況の中で、疎結合性・独立性を重視し、開発のアジリティを向上させるマイクロサービスアーキテクチャが
 基盤構築の自動化・継続的インテグレーションにも変化をもたらしている。というのも、従来のモノリシックなアプリケーション

@@ -19,10 +19,11 @@
 実際のアプリケーション構成や想定する基盤の環境、一連のリリースサイクルを具体化して記述するが、実際の設定や実装について次回以降、詳述していく。
 なお、次回以降は以下のような章構成の予定である。
 
-* `アプリケーション基本構成・実装例 <https://github.com/debugroom/sample-aws-ecs>`_
-* `AWS CodeBuildの実装 <https://github.com/debugroom/sample-aws-codebuild>`_ ・ `AWS CodeBuildの設定例 <https://debugroom.github.io/doc/cloud/aws/article/devops.html#codebuild>`_
-* `AWS CodePipelineの実装 <https://github.com/debugroom/sample-aws-codepipeline>`_  ・ `AWS CodePipelineの設定例 <https://debugroom.github.io/doc/cloud/aws/article/devops.html#codepipeline>`_
-* AWS CloudFormationの実装例・設定例
+* 第1回：[概要編] 基盤・デプロイ自動化の発展経緯・最近の動向・事例(本章)
+* 第2回：[実践編] 前準備 `ECSを前提としたマイクロサービスアプリケーション基本構成・実装例 <https://github.com/debugroom/sample-aws-ecs>`_
+* 第3回：[実践編] AWSにおけるCI/CD構築例その1 `AWS CodeBuildの実装 <https://github.com/debugroom/sample-aws-codebuild>`_ ・ `AWS CodeBuildの設定例 <https://debugroom.github.io/doc/cloud/aws/article/devops.html#codebuild>`_
+* 第4回：[実践編] AWSにおけるCI/CD構築例その2 `AWS CodePipelineの実装 <https://github.com/debugroom/sample-aws-codepipeline>`_  ・ `AWS CodePipelineの設定例 <https://debugroom.github.io/doc/cloud/aws/article/devops.html#codepipeline>`_
+* 第5回：[実践編] AWSにおける基盤自動化 AWS CloudFormationの実装例・設定例
 * [別途整理中：付録] `モノリシック <https://github.com/debugroom/mynavi-ib-monolithic>`_ ・マイクロサービスアプリケーションの設計・実装の比較(インターネットバンキングを例にして考察)
 
 |br|
