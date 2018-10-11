@@ -9,7 +9,7 @@
 ------------------------------------------------------------------
 
 本章では基盤・デプロイの自動化に関する最近の動向および、
-基盤自動化・継続的インテグレーション・デリバリを実際に実現する例について概要を説明する。本章は以下の構成から成る。
+基盤自動化・継続的インテグレーション・デリバリ(CI/CD)を実際に実現する例について概要を説明する。本章は以下の構成から成る。
 
 .. contents:: 本章の構成
    :depth: 2
@@ -21,9 +21,9 @@
 
 * 第1回：[概要編] 基盤・デプロイ自動化の発展経緯・最近の動向・事例(本章)
 * 第2回：[実践編] 前準備 `ECSを前提としたマイクロサービスアプリケーション基本構成・実装例 <https://github.com/debugroom/sample-aws-ecs>`_
-* 第3回：[実践編] AWSにおけるCI/CD構築例その1 `AWS CodeBuildの実装 <https://github.com/debugroom/sample-aws-codebuild>`_ ・ `AWS CodeBuildの設定例 <https://debugroom.github.io/doc/cloud/aws/article/devops.html#codebuild>`_
-* 第4回：[実践編] AWSにおけるCI/CD構築例その2 `AWS CodePipelineの実装 <https://github.com/debugroom/sample-aws-codepipeline>`_  ・ `AWS CodePipelineの設定例 <https://debugroom.github.io/doc/cloud/aws/article/devops.html#codepipeline>`_
-* 第5回：[実践編] AWSにおける基盤自動化 AWS CloudFormationの実装例・設定例
+* 第3回：[実践編] CI構築例 `CodeBuildの実装 <https://github.com/debugroom/sample-aws-codebuild>`_ ・ `CodeBuildの設定例 <https://debugroom.github.io/doc/cloud/aws/article/devops.html#codebuild>`_
+* 第4回：[実践編] CD構築例 `CodePipelineの実装 <https://github.com/debugroom/sample-aws-codepipeline>`_  ・ `CodePipelineの設定例 <https://debugroom.github.io/doc/cloud/aws/article/devops.html#codepipeline>`_
+* 第5回：[実践編] 基盤自動化 Terraformの実装例・設定例
 * [別途整理中：付録] `モノリシック <https://github.com/debugroom/mynavi-ib-monolithic>`_ ・マイクロサービスアプリケーションの設計・実装の比較(インターネットバンキングを例にして考察)
 
 |br|
