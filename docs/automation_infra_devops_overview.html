@@ -230,7 +230,7 @@ AWS CodePipelineなどのツールも活用の機会が増えつつあります�
 <li>ECSコンテナ内の各サービスは組み込みTomcatを内蔵するSpringBootアプリケーションで実装する。</li>
 <li>各サービス間はRESTベースのHTTPリクエストでメッセージ通信を行い、ApplicationLoadBalancerを介して負荷分散する。</li>
 </ul>
-<p>なお、サービスをフロントエンドとバックエンドに分割するのは以下の理由・目的のためです。</p>
+<p>サービスをフロントエンドとバックエンドに分割した場合のそれぞれの役割は以下の通りです。</p>
 <table border="1" class="colwidths-given docutils" id="id12">
 <caption><span class="caption-text">フロントエンドとバックエンドの役割</span><a class="headerlink" href="#id12" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
@@ -271,7 +271,7 @@ AWS CodePipelineなどのツールも活用の機会が増えつつあります�
 <p class="last">クライアントはSPA(シングルページアーキテクチャ)で、サーバ側は単純なAPIを提供する場合など、フロントエンド部分をAPI Gatewayなどの商用のプロダクト・サービスで代替する例も多くあります。</p>
 </div>
 <p><br/></p>
-<p>他方、各マイクロサービスがECSコンテナにより管理、ApplicationLoadBalancer(ALB)を介することで、以下のようなマイクロサービスアーキテクチャの設計要素をカバーできます。</p>
+<p>各マイクロサービスがECSコンテナにより管理、ApplicationLoadBalancer(ALB)を介することで、以下のようなマイクロサービスアーキテクチャの設計要素をカバーできます。</p>
 <ul class="simple">
 <li>ヘルスチェックによるサービス監視</li>
 <li>サービスディスカバリ(ヘルスチェックでNGだと再起動)</li>
