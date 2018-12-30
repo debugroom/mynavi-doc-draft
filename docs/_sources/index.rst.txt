@@ -10,4 +10,5 @@
    :maxdepth: 2
    :caption: Contents:
 
+   table_of_contents_draft.rst
    automation_infra_devops_overview.rst
