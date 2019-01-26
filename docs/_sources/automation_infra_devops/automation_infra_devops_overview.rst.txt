@@ -1,4 +1,4 @@
-.. include:: module.txt
+.. include:: ../module.txt
 
 .. _section-automation-infra-devops-overview-label:
 

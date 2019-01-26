@@ -96,12 +96,15 @@
 #. AWS SQSの利用
 #. AWS CloudFrontの利用
 #. AWS API Gatewayの利用
+#. AWS ECSの利用
 
 [発展]
 
 #. AWS Cognitoの利用
+#. AWS EKSの利用
 #. AWS Kinesisの利用
 #. AWS IoTの利用
+#. AWS Cloud9の利用
 
 3. 関連記事：マイクロサービスの設計指針
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
