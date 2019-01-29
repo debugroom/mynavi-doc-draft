@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AWSで作るクラウドネイティブアプリケーションの基本 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-lambda-and-api-gateway-3.html" />
+    <link rel="prev" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-lambda-and-api-gateway-1.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
+<li><a class="reference internal" href="#api-gatewaylambdaspring-2">第1回 API GatewayとLambdaを使ったサーバレスSpringアプリケーション(2)</a><ul>
+<li><a class="reference internal" href="#aws-lambda">(2)AWS Lambdaの設定</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id1">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="aws-lambda-and-api-gateway-1.html" title="Previous Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; AWSで作るクラウドネイテ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="aws-lambda-and-api-gateway-3.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/cloud_native/aws-lambda-and-api-gateway-2.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="aws">
+<span id="section-cloud-native-api-gateway-and-lambda-label-2"></span><h1>AWSで作るクラウドネイティブアプリケーションの基本<a class="headerlink" href="#aws" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="api-gatewaylambdaspring-2">
+<span id="section-cloud-native-api-gateway-and-lambda-2nd-label"></span><h2>第1回 API GatewayとLambdaを使ったサーバレスSpringアプリケーション(2)<a class="headerlink" href="#api-gatewaylambdaspring-2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>クラウド時代が到来し、ますます広がりを見せつつあるサーバレス開発。初回はAWS LambdaとAPI Gatewayを使ったサーバレス環境下でSpringアプリケーションを構築する方法を解説します。</p>
+<p><br/></p>
+<p>前回の記事「 <a class="reference internal" href="aws-lambda-and-api-gateway-1.html#section-cloud-native-api-gateway-and-lambda-1st-label"><span class="std std-ref">第1回 API GatewayとLambdaを使ったサーバレスSpringアプリケーション(1)</span></a> 」ではSpring Cloud Functionでサーバレスアプリケーションを実装しました。
+今回は、作成したアプリケーションをAWS Lambdaへ登録してみましょう。</p>
+<p><br/></p>
+<div class="section" id="aws-lambda">
+<span id="section-setting-aws-lambda-label"></span><h3>(2)AWS Lambdaの設定<a class="headerlink" href="#aws-lambda" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>作成したサーバレスアプリケーションをAWS Lambda Functionとして設定します。AWSコンソールのLambdaサービスを選択し、
+「関数の作成」ボタンを押下してください。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-lambda-create-function-1.png"><img alt="../_images/management-console-lambda-create-function-1.png" src="../_images/management-console-lambda-create-function-1.png" style="width: 904.0px; height: 496.0px;" /></a>
+</div>
+<p><br/></p>
+<p>次に、「１から作成」メニューを選択し、以下の通り設定を行います。</p>
+<ul class="simple">
+<li>名前：任意の名前を設定</li>
+<li>ランタイム：Java8を選択</li>
+<li>ロール：初めてLambdaを使用する場合でロールを初めて作成する場合はカスタムロールの作成を選択してください。</li>
+</ul>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-lambda-create-function-2.png"><img alt="../_images/management-console-lambda-create-function-2.png" src="../_images/management-console-lambda-create-function-2.png" style="width: 876.0px; height: 830.0px;" /></a>
+</div>
+<p><br/></p>
+<p>カスタムロールの作成を選択すると、IAMロール画面へのウィンドウが開き、Lambda関数の実行やCloudWatchのログ書き込み権限など最低限の権限を設定したIAMロールが自動で表示されます。
+「新しいIAMロールの作成」を選んだまま、任意のロール名を入力し、「許可ボタン」を押してください。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-lambda-create-function-3.png"><img alt="../_images/management-console-lambda-create-function-3.png" src="../_images/management-console-lambda-create-function-3.png" style="width: 900.0px; height: 829.0px;" /></a>
+</div>
+<p><br/></p>
+<p>その後、Lambda作成画面に戻り、「関数の作成」ボタンを押下すると、Lambda関数が作成されます。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-lambda-create-function-4.png"><img alt="../_images/management-console-lambda-create-function-4.png" src="../_images/management-console-lambda-create-function-4.png" style="width: 1055.0px; height: 611.0px;" /></a>
+</div>
+<p><br/></p>
+<p>そのまま下にスクロールすると、関数のコードや実行条件に関する詳細な設定項目が表示されます。関数コード・環境変数の設定で以下の要領に則って作成します。</p>
+<table border="1" class="colwidths-given docutils" id="id2">
+<caption><span class="caption-text">関数のコードと環境変数での入力の要領</span><a class="headerlink" href="#id2" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>入力項目</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td>コードエントリタイプ</td>
+<td>Lambda関数として実行するアプリケーションをアップロードする方式を決定します。<br/> ファイルを直接アップロードするか、S3経由でアップロードするかになりますが、<br/> JavaではJAR形式のファイルをアップロードする形になります。
+<br/> 10MBをオーバーしていてもアップロードできないことはありませんが、ファイルサイズが大幅に大きくなる場合は <br/> S3へアップロードする方法を指定してください。</td>
+</tr>
+<tr class="row-odd"><td>ランタイム</td>
+<td>Lambda関数として実行するアプリケーションのランタイムを指定します。 <br/> 今回はJava8を指定しておいてください。</td>
+</tr>
+<tr class="row-even"><td>ハンドラ</td>
+<td>今回作成した3種類のクラスのうち、HandlerクラスをFQCNで設定します。</td>
+</tr>
+<tr class="row-odd"><td>関数パッケージ</td>
+<td>コードエントリタイプでzip、jar形式を指定していた状態で、押下すると <br/> アップロードダイアログが表示されます。作成したアプリケーションのJARファイルを指定してください。<br/> S3経由のアップロードを選択していた場合は、オブジェクトキーを指定します。</td>
+</tr>
+<tr class="row-even"><td>環境変数</td>
+<td>Spring Cloud Functionでは、実行する関数を環境変数FUNCTION_NAMEで指定した <br/> Bean名で取得します。
+ここでは、今回作成した3種類のクラスのうち、FunctionクラスのBean名を指定します。<br/>
+クラス名をキャメルケース(最初の英大文字を小文字にする形で)指定してください。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>最低限設定が必要なものは上記になります、実行条件はデフォルトのままで問題ありませんので、入力後は画面上部にある保存ボタンを押下してください。</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">重たい処理などはあらかじめ実行メモリを大きめにとっておいた方が良い場合があります。HelloWorldだけのシンプルなアプリケーションでも最低100MBはメモリ消費します。</p>
+</div>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-lambda-create-function-5.png"><img alt="../_images/management-console-lambda-create-function-5.png" src="../_images/management-console-lambda-create-function-5.png" style="width: 942.0px; height: 531.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">設定を保存して「テスト」ボタンを実行しても、この段階ではエラーになります。次回詳細を記述しますが、API Gatewayで、Lambdaプロキシ統合オプションに基づくリクエストが必要になるので、ここでエラーになっても気にしないでください。</p>
+</div>
+<p><br/></p>
+<p>これで、作成したアプリケーションをLambda Functionとして設定できました。次回は、サーバレスアプリケーションを設定したLambdaをAmazon API Gatewayを使って呼び出してみます。</p>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>著者紹介<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei)</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+</div>
+<p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

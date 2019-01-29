@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AWSで作るクラウドネイティブアプリケーションの基本 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-lambda-and-api-gateway-2.html" />
+    <link rel="prev" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-lambda-and-api-gateway.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
+<li><a class="reference internal" href="#api-gatewaylambdaspring-1">第1回 API GatewayとLambdaを使ったサーバレスSpringアプリケーション(1)</a><ul>
+<li><a class="reference internal" href="#spring-cloud-funtion">サーバレス開発・Spring Cloud Funtionとは</a></li>
+<li><a class="reference internal" href="#spring-cloud-function">(1) Spring Cloud Functionを使用したサーバレスアプリケーション実装</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id2">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="aws-lambda-and-api-gateway.html" title="Previous Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; AWSで作るクラウドネイテ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="aws-lambda-and-api-gateway-2.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/cloud_native/aws-lambda-and-api-gateway-1.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="aws">
+<span id="section-cloud-native-api-gateway-and-lambda-label-1"></span><h1>AWSで作るクラウドネイティブアプリケーションの基本<a class="headerlink" href="#aws" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="api-gatewaylambdaspring-1">
+<span id="section-cloud-native-api-gateway-and-lambda-1st-label"></span><h2>第1回 API GatewayとLambdaを使ったサーバレスSpringアプリケーション(1)<a class="headerlink" href="#api-gatewaylambdaspring-1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>クラウド時代が到来し、ますます広がりを見せつつあるサーバレス開発。初回はAWS LambdaとAPI Gatewayを使ったサーバレス環境下でSpringアプリケーションを構築する方法を解説します。
+本稿は以下の前提知識がある開発者を想定しています。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>対象読者</td>
+<td>前提知識</td>
+</tr>
+<tr class="row-even"><td>エンタープライズ開発者</td>
+<td>Java言語及びSpringFrameworkを使った開発に従事したことがある経験者。経験がなければ、<br/>
+<a class="reference external" href="http://terasolunaorg.github.io/guideline/5.4.1.RELEASE/ja/Tutorial/index.html">こちらのチュートリアル</a> を実施することを推奨します。TERASOLUNAはSpringのベストプラクティスをまとめた開発方法論で、このチュートリアルでは、JavaやSpring Frameworkを使った開発に必要な最低限の知識を得ることができます。</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>GitHubなどのバージョン管理ツールやApache Mavenなどのライブラリ管理ツールを使った開発に従事したことがある経験者。</td>
+</tr>
+<tr class="row-even"><td>AWS開発経験者</td>
+<td>AWSアカウントをもち、コンソール上で各サービスを実行したことがある経験者</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>また、動作環境は以下のバージョンで実施しています、将来的には、AWSコンソール上の画面イメージや操作、バージョンアップによりJavaのソースコード内で使用するクラスが異なる可能性があります。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>動作対象</td>
+<td>バージョン</td>
+</tr>
+<tr class="row-even"><td>Java</td>
+<td>1.8</td>
+</tr>
+<tr class="row-odd"><td>Spring Boot</td>
+<td>2.1.2.RELEASE</td>
+</tr>
+<tr class="row-even"><td>Spring Cloud Function</td>
+<td>2.0.0.RC</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<div class="section" id="spring-cloud-funtion">
+<span id="section-serverless-and-spring-cloud-function-overview-label"></span><h3>サーバレス開発・Spring Cloud Funtionとは<a class="headerlink" href="#spring-cloud-funtion" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>通常、アプリケーション開発において、リクエストを受け付けるためのアプリケーションサーバ・それを動かすための実行マシン等が必要になります。
+AWSにおいてもEC2やElasticBeansTalkといったサービスが提供されており、その上にアプリケーションをデプロイする方法もありますが、
+サーバや実行環境をほぼ意識することなく、最少限度のプログラムを用いて、アプリケーション実行環境を構築するのがサーバレス開発です。
+AWSでは、リクエストを受け付ける(APサーバの役割を代替する)API Gatewayと、アプリケーションの実行ランタイムを提供するAWS Lamdaを用いて、標準的なサーバレス開発が実現できます。</p>
+<p>一方、エンタープライズアプリケーションでよく使用されるJava言語において、今やデファクトスタンダードと言っても過言ではないSpring frameworkですが、
+Framework開発元のサブプロジェクトとして、Spring Cloud Functionがあります。その特徴やメリットとして、</p>
+<ul class="simple">
+<li>関数型のビジネスロジック実行をベースとしたフレームワーク</li>
+<li>AWS Lambdaのみならず、Microsoft AzureやApache OpenWhiskといった他のサーバレス環境でも同じプログラミング実装を可能とする(ポータビリティ性がある)。</li>
+<li>SpringFrameworkの機能をフル活用でき、SpringBootをベースとした簡易なアプリケーション設定を利用して、最小限のコーディングで構築できる。</li>
+<li>Spring Cloud AWSやSpring Data DynamoDBなどの他のクラウドベースのフレームワークとの統合が可能。</li>
+</ul>
+<p>などが挙げられます。今回はこのフレームワークを用いて、AWS Lambda上で実行されるサーバレスアプリケーションを実装してみましょう。
+なお、実際に作成したアプリケーションは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-aws-lambda">GitHub</a> 上にコミットしています。
+以降記載されているソースコードで、インポート文など本質的でない記述を省略している部分がありますので、実行コードを作成する場合は、必要に応じて適宜GitHubソースコードも参照してください。</p>
+<p>第一回は以降、</p>
+<ol class="arabic simple">
+<li>Spring Cloud Functionを使用したサーバレスアプリケーションの実装方法</li>
+<li>AWS Lambdaの設定</li>
+<li>Amazon API Gatewayの設定</li>
+</ol>
+<p>という、３つのステップに分け、解説を進めていきます。</p>
+<p><br/></p>
+</div>
+<div class="section" id="spring-cloud-function">
+<span id="section-severless-implementation-using-spring-cloud-function-label"></span><h3>(1) Spring Cloud Functionを使用したサーバレスアプリケーション実装<a class="headerlink" href="#spring-cloud-function" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>Spring Cloud Functionを使用するには、まず、Mavenプロジェクトのpom.xmlで、以下の通り、必要なライブラリの依存性を定義します。以下の4つのライブラリが必要です。
+アプリケーションを実装するためのspring-cloud-function-web、実行環境としてアダプタとなるspring-cloud-function-adapter-aws、
+そして、AWSのSDK(SoftwareDevelopersKit)として提供される、aws-lambda-java-eventsとaws-lambda-java-coreです。</p>
+<p><br/></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependencies&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>spring-cloud-function-web<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>spring-cloud-function-adapter-aws<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>com.amazonaws<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>aws-lambda-java-events<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>com.amazonaws<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>aws-lambda-java-core<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>これらのライブラリを用いて、サーバレス環境で実行するために必要なアプリケーションを作成します。最低限必要なクラスは、以下３種類です。</p>
+<ol class="arabic simple">
+<li>SpringBootアプリケーションとして実行するメイン実行クラス</li>
+<li>リクエストを受け取り、実行するためのHandlerクラス</li>
+<li>Handlerから受け取ったリクエストを元に実行するビジネスロジッククラス</li>
+</ol>
+<p><br/></p>
+<p>では、それぞれのクラスの実装について解説していきましょう。</p>
+<p><br/></p>
+<ol class="arabic simple">
+<li>SpringBootアプリケーションとして実行するメイン実行クラス</li>
+</ol>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.lambda</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
+
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+       <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">App</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>まず最初に、アプリケーションをSpring Frameworkで動かすために必要となる起動クラスです。
+SpringAppcaliton.run()メソッドを実行するmain()メソッドを持つ実行クラスに、＠SpringBootAppcalitonアノテーションを付与するだけで、
+SpringBootによりSpringFramework実行に必要な設定が自動実行されていきます。
+DB接続設定の追加など必要に応じてカスタマイズできますが、最低限、このクラスを作成しておくことが必要です。</p>
+<p><br/>
+<br/></p>
+<ol class="arabic simple" start="2">
+<li>リクエストを受け取り、実行するためのHandlerクラス</li>
+</ol>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.lambda</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.function.adapter.aws.SpringBootApiGatewayRequestHandler</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ApiGatewayEventHandler</span> <span class="kd">extends</span> <span class="n">SpringBootApiGatewayRequestHandler</span> <span class="o">{</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>続いて必要になるのが、APIからリクエストを受け取り、イベントとしてLambda関数を実行するためのハンドラクラスです。org.springframework.cloud.function.adapter.aws.SpringBootApiGatewayRequestHandlerを継承しているだけで、
+上記で作成しているクラスは何も実装していませんが、それはSpringBootApiGatewayRequesthandlerが最低限の機能を実行するのに必要な処理を実装していて、
+それを継承することで特に追加実装する必要がないためです。
+他にも汎用的なリクエストを受け取るSpringBootRequestHandlerや、Kinesisからのイベントを契機としてリクエストを受け取るためのSpringBootKinesisEventHandlerなどがあります。
+今回は、API Gatewayからリクエストを受け取るために必要なSpringBootApiGatewayRequesthandlerを設定しておきましょう。</p>
+<p><br/>
+<br/></p>
+<ol class="arabic simple" start="3">
+<li>Handlerから受け取ったリクエストを元に実行するビジネスロジッククラス</li>
+</ol>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.lambda.functions</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.function.Function</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.messaging.Message</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.messaging.MessageHeaders</span><span class="o">;</span>
+
+<span class="nd">@Slf4j</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ApiGatewayEventFunction</span> <span class="kd">implements</span> <span class="n">Function</span><span class="o">&lt;</span><span class="n">Message</span><span class="o">&lt;</span><span class="n">Input</span><span class="o">&gt;,</span> <span class="n">Message</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;&gt;</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Message</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">apply</span><span class="o">(</span><span class="n">Message</span><span class="o">&lt;</span><span class="n">Input</span><span class="o">&gt;</span> <span class="n">inputMessage</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;Message : &quot;</span> <span class="o">+</span> <span class="n">inputMessage</span><span class="o">.</span><span class="na">getPayload</span><span class="o">().</span><span class="na">getTest</span><span class="o">());</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">Message</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="n">String</span> <span class="nf">getPayload</span><span class="o">()</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="s">&quot;Complete!&quot;</span><span class="o">;</span>
+            <span class="o">}</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="n">MessageHeaders</span> <span class="nf">getHeaders</span><span class="o">()</span> <span class="o">{</span>
+                <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">headers</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+                <span class="k">return</span> <span class="k">new</span> <span class="n">MessageHeaders</span><span class="o">(</span><span class="n">headers</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">};</span>
+    <span class="o">}</span>
+ <span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>最後に、実際にLambda関数として実行するためのビジネスロジッククラスです。java.util.function.Functionを実装して、org.springframework.messaging.Message及び、その型パラメータとして、
+受け取りたいJSONリクエストをモデル化したインプットクラスを指定してください。このクラスでは受け取ったJSONリクエストをPOJOクラスへ変換し(ここではInputというModelクラスを作成しています)、
+そのクラス中に定義されているString型のtestという変数の値をログ出力しています。処理実行後は単なるString型の文字列&quot;Complete!&quot;をJSONレスポンスとして返すような形で実装するサンプルとしています。</p>
+<p><br/></p>
+<p>実案件のアプリケーション開発では、こうした単純なロジックだけではなく、インプットデータをDynamoDBなどに追加する処理ロジックなど追加する要件などが出てきますが、
+Springベースのアプリケーションで構築していれば、データベースアクセス用のRepositoryクラスをDIインジェクションするだけで簡単にデータ投入のロジックを実装できます。
+その他、SQSへキュー処理を移譲したい場合は、Spring Cloud AWSなどのフレームワークを組み合わせれば良いでしょう。</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">Spring Cloud AWSを用いた詳細な使い方は、NTTが公開している <a class="reference external" href="https://macchinetta.github.io/cloud-guideline/current/ja/AWSCollaboration/index.html">Macchinetta</a> などを参考にしてください。</p>
+</div>
+<p>また、関数型のクラスは、1で実装したアプリケーションクラス内で直接＠Beanアノテーションで定義しておくか、以下のようにapplication.ymlといった設定ファイルで、
+spring.cloud.function.scan.packagesプロパティにコンポーネントスキャンするパッケージを指定しておけば、自動でSpringBootが読み取ってくれます。</p>
+<p><br/></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>spring:
+  cloud:
+    function:
+      scan:
+        packages: org.debugroom.mynavi.sample.aws.lambda.functions
+</pre></div>
+</div>
+<p><br/></p>
+<p>さて、最低限の実装が終わったら、いよいよAWS Lambdaへこの実行クラスをJAR形式にしてアップロードしてデプロイします。
+JARファイルを作成するには、通常では、Mavenでゴールをpackageに設定し、mvn packageコマンドを実行すれば良いですが、
+AWS Lambdaへアップロードするには、これまで作成した３つのクラスに加えて、実行に必要な全ての依存JARライブラリを１つにまとめてアップロードする必要があります。</p>
+<p>そのためにpom.xmlに以下の定義も合わせて追加するようにしてください。
+maven-shade-pluginの定義等を追加しておけば、Mavenのビルド時に必要なJARファイルを全て含めた形で１つのJAR形式のファイルを作成できます。
+mvn packageコマンドを実行すると、プロジェクト名に下記のshareClassifierNameタグに定義した名称が付与された、
+全てのJARファイルを包含した大きめのサイズのJARファイルがtargetディレクトリ上に出来上がるはずです。</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;build&gt;</span>
+    <span class="nt">&lt;plugins&gt;</span>
+        <span class="nt">&lt;plugin&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>maven-deploy-plugin<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;configuration&gt;</span>
+                <span class="nt">&lt;skip&gt;</span>true<span class="nt">&lt;/skip&gt;</span>
+            <span class="nt">&lt;/configuration&gt;</span>
+        <span class="nt">&lt;/plugin&gt;</span>
+        <span class="nt">&lt;plugin&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-boot-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;dependencies&gt;</span>
+                <span class="nt">&lt;dependency&gt;</span>
+                    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot.experimental<span class="nt">&lt;/groupId&gt;</span>
+                    <span class="nt">&lt;artifactId&gt;</span>spring-boot-thin-layout<span class="nt">&lt;/artifactId&gt;</span>
+                <span class="nt">&lt;/dependency&gt;</span>
+            <span class="nt">&lt;/dependencies&gt;</span>
+        <span class="nt">&lt;/plugin&gt;</span>
+        <span class="nt">&lt;plugin&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>maven-shade-plugin<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;configuration&gt;</span>
+                <span class="nt">&lt;createDependencyReducedPom&gt;</span>false<span class="nt">&lt;/createDependencyReducedPom&gt;</span>
+                <span class="nt">&lt;shadedArtifactAttached&gt;</span>true<span class="nt">&lt;/shadedArtifactAttached&gt;</span>
+                <span class="nt">&lt;shadedClassifierName&gt;</span>aws<span class="nt">&lt;/shadedClassifierName&gt;</span>
+            <span class="nt">&lt;/configuration&gt;</span>
+        <span class="nt">&lt;/plugin&gt;</span>
+    <span class="nt">&lt;/plugins&gt;</span>
+<span class="nt">&lt;/build&gt;</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>JARファイル形式で、アプリケーションが作成できれば完成です。次回は作成したアプリケーションをAWS Lambdaへ設定して見ます。</p>
+<p><br/></p>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>著者紹介<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>川畑 光平(KAWABATA Kohei)</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+</div>
+<p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
