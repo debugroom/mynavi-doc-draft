@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AWSで作るクラウドネイティブアプリケーションの基本 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-ecs-3.html" />
+    <link rel="prev" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-ecs-1.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
+<li><a class="reference internal" href="#aws-ecsspring-2">第2回 AWS ECS上に構築するSpringアプリケーション(2)</a><ul>
+<li><a class="reference internal" href="#id1">(2)アプリケーションロードバランサーの作成</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id2">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="aws-ecs-1.html" title="Previous Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; AWSで作るクラウドネイテ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="aws-ecs-3.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/cloud_native/aws-ecs-2.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="aws">
+<span id="section-cloud-native-ecs-label-2"></span><h1>AWSで作るクラウドネイティブアプリケーションの基本<a class="headerlink" href="#aws" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="aws-ecsspring-2">
+<span id="section-cloud-native-ecs-2nd-label"></span><h2>第2回 AWS ECS上に構築するSpringアプリケーション(2)<a class="headerlink" href="#aws-ecsspring-2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>クラウド時代が到来し、ますます広がりを見せつつあるコンテナ技術。第2回は、AWS ECS上でSpringアプリケーションを構築する方法を説明します。本稿は以下のステップに沿って、解説しています。</p>
+<ol class="arabic simple">
+<li>VPC(Virtual Private Cloud)環境の構築</li>
+<li>アプリケーションロードバランサ(ALB)の作成</li>
+<li>Springを使用したコンテナアプリケーションの実装方法</li>
+<li>Dockerコンテナの作成・DockerHubへのプッシュ</li>
+<li>ECSクラスタの作成</li>
+<li>ECSタスクの定義</li>
+<li>ECSサービスの定義</li>
+</ol>
+<p>前回の記事「 <a class="reference internal" href="aws-ecs-1.html#section-cloud-native-ecs-1st-label"><span class="std std-ref">第2回 AWS ECS上に構築するSpringアプリケーション(1)</span></a> 」では、以下イメージの構成に沿って、VPC環境を構築しました。今回は2.アプリケーションロードバランサの作成です。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/ecs-architecture.png"><img alt="../_images/ecs-architecture.png" src="../_images/ecs-architecture.png" style="width: 786.0px; height: 743.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="section" id="id1">
+<h3>(2)アプリケーションロードバランサーの作成<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>VPCの環境では、パブリックとプライベートにサブネットを分割しています。プライベートサブネットのECSコンテナへは、基本VPC以外からのアクセスは受け付けないよう、セキュリティグループを設定しておく必要があり、
+一方、パブリックサブネットのECSコンテナはインターネットからの接続を受け付けるようにするため、ロードバランサーもパブリック用とプライベート用２種類作成します。</p>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p>AWSでロードバランサーはElastic Load Balancer(ELB)というサービス名で提供されてます。ELBにはいくつか種類があり、代表的なものはアプリケーションロードバランサー(ALB)です。ALBの代表的な機能としては、パケットの内容に応じたコンテントベースのルーティングで、レイヤー7（L7）スイッチが備える機能をもちます。ALBが提供される以前のロードバランシングサービスは「Classic Load Balancer（CLB）」という名称に変更されました。 ELBは、新しいALBと従来のCLB、後述するNLBを合わせたロードバランシングサービスの総称として表現されます。ALBの特徴は以下の通りです。<br/></p>
+<p>[ALBの特徴]</p>
+<ul class="simple">
+<li>パスベースルーティング</li>
+<li>コンテナ化されたアプリケーションのサポート</li>
+<li>HTTP/2サポート</li>
+<li>WebSocketサポート</li>
+<li>StickySessionの強化</li>
+<li>ヘルスチェックの強化</li>
+<li>インスタンスのヘルスチェックは従来通りHTTP/HTTPSでpingを実行</li>
+<li>レスポンスコードの指定（200〜299複数）</li>
+<li>CloudWatchのメトリクス強化（ターゲットグループ単位）</li>
+</ul>
+<p><br/> ALB、ELBはリバースプロキシ型の負荷分散サービスを提供する一方、もっとも最新のNLBはL4 NATロードバランサです。</p>
+<p>[NLBの特徴]</p>
+<ul class="simple">
+<li>固定IPアドレス</li>
+<li>Pre-warming申請不要</li>
+<li>ゾーナリティ</li>
+<li>Source Address Preservation</li>
+<li>フェイルオーバーに対応</li>
+</ul>
+<p class="last"><br/> 各ロードバランシングサービスの比較は <a class="reference external" href="https://aws.amazon.com/jp/elasticloadbalancing/features/#compare">Elastic Load Balancing 製品の詳細</a> に詳細がまとめられていますので適宜参考にしてください。</p>
+</div>
+<p><br/></p>
+<p>次回後述しますが、実装するアプリケーション内でバックエンドのコンテナアプリケーションを呼び出す際に、ロードバランサーを経由するHTTPリクエストを送信します。この時、ロードバランサーでは、ALBのパスベースルーティングによりコンテナで実行しているアプリケーションを識別しますので、ロードバランサーにはALBを指定しておいてください。</p>
+<p><br/></p>
+<p>「EC2」サービスから、「ロードバランサー」メニューを選択し、「ロードバランサーの作成」を押下します。ALBを選択し、「作成」ボタンを押下します。</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-ec2-create-alb-1.png"><img alt="../_images/management-console-ec2-create-alb-1.png" src="../_images/management-console-ec2-create-alb-1.png" style="width: 1163.0px; height: 741.0px;" /></a>
+</div>
+<p><br/></p>
+<p>以下の要領に従って、ALBを設定します。「セキュリティ設定の構成」ボタンを押下後、そのまま「セキュリティグループの設定」ボタンを押下し、先に進んでください。</p>
+<table border="1" class="colwidths-given docutils" id="id3">
+<caption><span class="caption-text">ALBの設定項目</span><a class="headerlink" href="#id3" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>入力項目</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td>名前</td>
+<td>ALBに設定する任意の名前を入力します。</td>
+</tr>
+<tr class="row-odd"><td>スキーム</td>
+<td>ALBが使用されるサブネットに従って、設定します。パブリックサブネットはインターネット向け、プライベートサブネットは内部向けを設定してください。</td>
+</tr>
+<tr class="row-even"><td>アドレスタイプ</td>
+<td>ロードバランサーで取り扱うIPアドレスタイプを設定します。ここではIPv4を設定してください。</td>
+</tr>
+<tr class="row-odd"><td>リスナー：ロードバランサーのプロトコル・ポート</td>
+<td>HTTPかHTTPSかを指定します。本番環境などはHTTPSを指定しますが、今回はHTTP:80を設定しておきます。</td>
+</tr>
+<tr class="row-even"><td>アベイラビリティゾーン：VPC</td>
+<td>前回作成したVPCを指定します。</td>
+</tr>
+<tr class="row-odd"><td>アベイラビリティゾーン：アベイラビリティゾーンおよびサブネット</td>
+<td>ロードバランシングするアベイラビリティゾーンおよびそのサブネットを指定します。スキームに合わせて設定してください。</td>
+</tr>
+</tbody>
+</table>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-ec2-create-alb-2.png"><img alt="../_images/management-console-ec2-create-alb-2.png" src="../_images/management-console-ec2-create-alb-2.png" style="width: 1178.0px; height: 804.0px;" /></a>
+</div>
+<p><br/></p>
+<p>ロードバランサーのセキュリティグループを作成します。次回、作成するECSクラスタのセキュリティグループにロードバランサーのセキュリティグループを許可対象として設定するので、ここではユニークなセキュリティグループを新規作成してください。</p>
+<ul class="simple">
+<li>セキュリティグループの割り当て：新しいセキュリティグループを作成する</li>
+<li>セキュリティグループ名：任意のセキュリティグループ名を入力</li>
+<li>タイプ：HTTP</li>
+<li>プロトコル：TCP</li>
+<li>ポート範囲：80</li>
+<li>ソース：0.0.0.0/0</li>
+</ul>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-ec2-create-alb-3.png"><img alt="../_images/management-console-ec2-create-alb-3.png" src="../_images/management-console-ec2-create-alb-3.png" style="width: 880.0px; height: 419.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p>プライベートサブネットのロードバランサー設定では、以下の通り、VPC内からのアクセスしか許可しないよう、セキュリティグループを設定しておきます。</p>
+<ul class="simple">
+<li>タイプ：HTTP</li>
+<li>プロトコル：TCP</li>
+<li>ポート範囲：80</li>
+<li>ソース：172.0.0.0/16</li>
+</ul>
+<div class="last figure">
+<a class="reference internal image-reference" href="../_images/management-console-ec2-create-alb-4.png"><img alt="../_images/management-console-ec2-create-alb-4.png" src="../_images/management-console-ec2-create-alb-4.png" style="width: 879.0px; height: 421.0px;" /></a>
+</div>
+</div>
+<p><br/></p>
+<p>コンテナを実行するECSクラスタ向けのターゲットグループを指定します。将来的には各コンテナアプリケーションごとにターゲットグループが指定されることになります。</p>
+<p>[ターゲットグループ]</p>
+<ul class="simple">
+<li>ターゲットグループ：新しいターゲットグループ</li>
+<li>名前：任意のターゲットグループ名(32文字以内)</li>
+<li>ターゲットの種類：ECSクラスタとなるインスタンスを指定するため、インスタンスを指定して下さい。</li>
+<li>プロトコル：HTTP</li>
+<li>ポート：80</li>
+</ul>
+<p>[ヘルスチェック]</p>
+<ul class="simple">
+<li>プロトコル：HTTP</li>
+<li>パス：アプリケーションを実行した時に正常応答する場合のパスを指定してください。</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">ヘルスチェックするアプリケーションのURLがhttp://localhost:8080/backend-for-frontend/index.htmlであれば、パス名をアプリケーションコンテキストパス以下の/backend-for-frontend/index.htmlで指定します。</p>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-ec2-create-alb-5.png"><img alt="../_images/management-console-ec2-create-alb-5.png" src="../_images/management-console-ec2-create-alb-5.png" style="width: 888.0px; height: 612.0px;" /></a>
+</div>
+<p><br/></p>
+<p>ターゲットグループにはECSクラスタを作成後、登録するので現状は特に何もターゲットの登録をせずALBを作成してください。</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-ec2-create-alb-7.png"><img alt="../_images/management-console-ec2-create-alb-7.png" src="../_images/management-console-ec2-create-alb-7.png" style="width: 882.0px; height: 606.0px;" /></a>
+</div>
+<p><br/></p>
+<p>作成したロードバランサーでパスベースのルーティングをターゲットグループに対して設定します。「EC2」サービスから「ロードバランサー」メニューを選択し、作成した２つのパブリック・プライベート用のロードバランサーを各々選択し、「リスナー」タブから「ルールの表示/編集」リンクを押下します。</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-ec2-setting-path-1.png"><img alt="../_images/management-console-ec2-setting-path-1.png" src="../_images/management-console-ec2-setting-path-1.png" style="width: 1119.0px; height: 550.0px;" /></a>
+</div>
+<p><br/></p>
+<p>画面上部のプラスボタンを押下し、ルールを追加します。各ターゲットグループにどのパスでルーティングするかを設定します。条件を設定した後、「保存」ボタンを押して、パスベースのルーティングのルールを保存してください。</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-ec2-setting-path-2.png"><img alt="../_images/management-console-ec2-setting-path-2.png" src="../_images/management-console-ec2-setting-path-2.png" style="width: 1165.0px; height: 519.0px;" /></a>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">パスとして指定する値は、アプリケーションのコンテキストルートに相当するものを設定しておくと、次回作成するSpringアプリケーションで柔軟なサービス指定ができます。</p>
+</div>
+<p>以上で、ALBの設定は終了です。次回はコンテナで実行するSpringアプリケーションについて実装方法を解説します。</p>
+<p><br/></p>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>著者紹介<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei)</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+</div>
+<p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

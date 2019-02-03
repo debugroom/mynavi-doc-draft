@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AWSで作るクラウドネイティブアプリケーションの基本 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-ecs-4.html" />
+    <link rel="prev" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-ecs-2.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
+<li><a class="reference internal" href="#aws-ecsspring-3">第2回 AWS ECS上に構築するSpringアプリケーション(3)</a><ul>
+<li><a class="reference internal" href="#spring">(3)Springを使用したコンテナアプリケーションの実装方法</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id1">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="aws-ecs-2.html" title="Previous Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; AWSで作るクラウドネイテ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="aws-ecs-4.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/cloud_native/aws-ecs-3.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="aws">
+<span id="section-cloud-native-ecs-label-3"></span><h1>AWSで作るクラウドネイティブアプリケーションの基本<a class="headerlink" href="#aws" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="aws-ecsspring-3">
+<span id="section-cloud-native-ecs-3rd-label"></span><h2>第2回 AWS ECS上に構築するSpringアプリケーション(3)<a class="headerlink" href="#aws-ecsspring-3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>クラウド時代が到来し、ますます広がりを見せつつあるコンテナ技術。第2回は、AWS ECS上でSpringアプリケーションを構築する方法を説明します。本稿は以下のステップに沿って、解説しています。</p>
+<ol class="arabic simple">
+<li>VPC(Virtual Private Cloud)環境の構築</li>
+<li>アプリケーションロードバランサ(ALB)の作成</li>
+<li>Springを使用したコンテナアプリケーションの実装方法</li>
+<li>Dockerコンテナの作成・DockerHubへのプッシュ</li>
+<li>ECSクラスタの作成</li>
+<li>ECSタスクの定義</li>
+<li>ECSサービスの定義</li>
+</ol>
+<p>前回の記事「 <a class="reference internal" href="aws-ecs-2.html#section-cloud-native-ecs-2nd-label"><span class="std std-ref">第2回 AWS ECS上に構築するSpringアプリケーション(2)</span></a> 」までに、以下イメージの構成に沿って、VPC環境・ALBを構築しました。今回は3.Springを使用したコンテナアプリケーションの実装方法です。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/ecs-architecture.png"><img alt="../_images/ecs-architecture.png" src="../_images/ecs-architecture.png" style="width: 786.0px; height: 743.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="section" id="spring">
+<h3>(3)Springを使用したコンテナアプリケーションの実装方法<a class="headerlink" href="#spring" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>ECSの実行環境はDockerコンテナなので、ECSで実行するSpringアプリケーションは、単純にLinuxベースのコンテナイメージの中で実行するアプリケーションをSpring Bootを使って実装する方法が簡易です。
+ただ、ECSを用いると、単にDockerをEC2上で実行する場合に比べて、アプリケーションのIPアドレスやポートの管理がAWSのマネージドになり、アプリケーション間のサービス連携・通信はALB(アプリケーションロードバランサー)を介して行う方がよいので
+こうしたECSの特徴を理解して、アプリケーションを実装しておく必要があります。</p>
+<p>なお、実際に作成したアプリケーションは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-aws-ecs">GitHub</a> 上にコミットしています。
+以降、解説で記載されているソースコードで、インポート文など本質的でない記述を省略している部分がありますので、実行コードを作成する場合は、必要に応じて適宜GitHubソースコードも参照してください。</p>
+<p>Spring Bootを使用してアプリケーションを構築するには、まず、Mavenプロジェクトのpom.xmlで必要なライブラリの依存性を定義します。
+今回は、プライベートサブネットに配置する、単純なAPIをもつアプリケーション(Backend)と、パブリックサブネットに配置する、簡単なHTMLを返すWebアプリケーション(Backend For Frontend：以降BFF)を作成するので、
+各アプリケーションプロジェクトには、以下のライブラリを定義します。どちらもspring-boot-starter-webが必須ですが、BFFアプリケーションはHTMLページを生成するので、テンプレートエンジンであるThymeleafも含めておきましょう。
+また、BFFでは、ALBのDNS名をプロパティファイルに記述するので、spring-boot-configuration-processorも依存関係に含めておいてください。</p>
+<p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">プライベートサブネット(Backend)アプリケーションのpom.xml</span><a class="headerlink" href="#id2" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependencies&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+</div>
+</div>
+<p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">パブリックサブネット(Backend For Frontend)アプリケーションのpom.xml</span><a class="headerlink" href="#id3" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependencies&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-thymeleaf<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-configuration-processor<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;optional&gt;</span>true<span class="nt">&lt;/optional&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+</div>
+</div>
+<p><br/></p>
+<p>まず、プライベートサブネットでバックエンドAPIサーバとして、/api/v1/usersというURLのパスでリクエストを受け取り、ユーザのリストを返却する簡単なアプリケーションを作成しておきます。
+SpringBootでこれを実装するには、Controllerクラスと起動・設定ファイルクラスが最低限必要です。</p>
+<p><br/></p>
+<ol class="arabic simple">
+<li>Backendアプリケーションのリクエストを受け付けるControllerクラス</li>
+</ol>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.ecs.backend.app.web</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.ecs.backend.app.model.User</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.GetMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RestController</span><span class="o">;</span>
+
+<span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&quot;/api/v1&quot;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BackendRestController</span> <span class="o">{</span>
+
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&quot;/users&quot;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">getUsers</span><span class="o">(){</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="n">users</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">User</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">userId</span><span class="o">(</span><span class="s">&quot;1&quot;</span><span class="o">).</span><span class="na">userName</span><span class="o">(</span><span class="s">&quot;Taro&quot;</span><span class="o">).</span><span class="na">build</span><span class="o">());</span>
+        <span class="n">users</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">User</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">userId</span><span class="o">(</span><span class="s">&quot;2&quot;</span><span class="o">).</span><span class="na">userName</span><span class="o">(</span><span class="s">&quot;Jiro&quot;</span><span class="o">).</span><span class="na">build</span><span class="o">());</span>
+        <span class="k">return</span> <span class="n">users</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<ol class="arabic simple" start="2">
+<li>BackendアプリケーションのSpirngBoot起動クラス</li>
+</ol>
+<div class="highlight-Java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.ecs.backend.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.ComponentScan</span><span class="o">;</span>
+
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">App</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>また、Controllerクラスを読み取り、REST APIとして動作させるために、以下の通り、WebMvcConfigurerを実装し、&#64;ComponentScanでコントローラのパッケージを設定したクラスを上記2の起動クラスと同じパッケージに配置しておきましょう。</p>
+<ol class="arabic simple" start="3">
+<li>BackendアプリケーションのWebMVC設定クラス</li>
+</ol>
+<div class="highlight-Java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.ecs.backend.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.ComponentScan</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.config.annotation.WebMvcConfigurer</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="nd">@ComponentScan</span><span class="o">(</span><span class="s">&quot;org.debugroom.mynavi.sample.ecs.backend.app.web&quot;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MvcConfig</span> <span class="kd">implements</span> <span class="n">WebMvcConfigurer</span> <span class="o">{</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>ここまではSpringBootで作るシンプルなREST APIアプリケーションですが、ポイントとして、前回設定したプライベートサブネットのアプリケーションロードバランサー(ALB)がルーティングしてくるパスを
+アプリケーションコンテキストパスとするよう、application.ymlに、server.servlet.context-pathプロパティを設定しておいてください。</p>
+<p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Backendアプリケーションのapplicaiton.yml</span><a class="headerlink" href="#id4" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>server:
+  servlet:
+   context-path: /backend
+</pre></div>
+</div>
+</div>
+<p><br/></p>
+<p>続いて、パブリックサブネットに配置するBFFアプリケーションを実装します。下記イメージの通り、index.htmlページにある、ボタンを押下すると、
+BackendアプリケーションのGET API(/backend/api/v1/users)を呼び出し、結果をHTMLページに埋め込んで返す処理を行います。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/ecs-bff-application.png"><img alt="../_images/ecs-bff-application.png" src="../_images/ecs-bff-application.png" style="width: 608.0px; height: 480.0px;" /></a>
+</div>
+<p><br/></p>
+<p>index.htmlページから送信したリクエストを受け付けるBFFアプリケーションのControllerは次の通りになります。
+SpringBoot起動クラス構成はBackendとほぼ同じですが、Controllerでは、Backendアプリケーションを呼び出し、結果をThymeleafのテンプレートに渡してHTMLページを返却する点が異なります。</p>
+<ol class="arabic simple" start="5">
+<li>index.htmlからのリクエストを受けて、BackendアプリケーションのAPIを呼び出し、戻った結果をusers.htmlに設定してクライアントにHTMLページを返却するControllerクラス</li>
+</ol>
+<div class="highlight-Java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.ecs.backendforfrontend.app.web</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Controller</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.ui.Model</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMethod</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.client.RestOperations</span><span class="o">;</span>
+
+<span class="nd">@Controller</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BackendForFrontendController</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">RestOperations</span> <span class="n">restOperations</span><span class="o">;</span>
+
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">&quot;users&quot;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getUsers</span><span class="o">(</span><span class="n">Model</span> <span class="n">model</span><span class="o">){</span>
+        <span class="n">String</span> <span class="n">service</span> <span class="o">=</span> <span class="s">&quot;/backend/api/v1/users&quot;</span><span class="o">;</span>
+        <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&quot;users&quot;</span><span class="o">,</span>
+            <span class="n">restOperations</span><span class="o">.</span><span class="na">getForObject</span><span class="o">(</span><span class="n">service</span><span class="o">,</span> <span class="n">User</span><span class="o">[].</span><span class="na">class</span><span class="o">));</span>
+        <span class="k">return</span> <span class="s">&quot;users&quot;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>ここでは、RestTemplateのインターフェースであるorg.springframework.web.client.RestOperationsを使用してBackendサービスを呼び出しています。
+ここで実装を工夫して、ALBのDNSドメインをプロパティファイルから取得して設定する形にしていれば、ソースコード上でAWS環境に依存しないアプリケーション実装にしておくことができます。</p>
+<p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">BFFアプリケーションのapplicaiton.yml</span><a class="headerlink" href="#id5" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>service:
+  dns: http://internal-mynavi-sample-private-alb-XXXXXXX.ap-northeast-1.elb.amazonaws.com
+</pre></div>
+</div>
+</div>
+<p><br/></p>
+<p>プロパティの取得はorg.springframework.boot.context.properties.ConfigurationPropertiesなどを使って、ymlに定義したプロパティ定義を自動でBeanにインジェクションするようにしておけば簡易です。</p>
+<p><br/></p>
+<div class="highlight-Java notranslate"><div class="highlight"><pre><span></span> <span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.ecs.backendforfrontend.app.web</span><span class="o">;</span>
+
+ <span class="kn">import</span> <span class="nn">org.springframework.boot.context.properties.ConfigurationProperties</span><span class="o">;</span>
+ <span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
+
+ <span class="nd">@Component</span>
+ <span class="nd">@ConfigurationProperties</span><span class="o">(</span><span class="n">prefix</span><span class="o">=</span><span class="s">&quot;service&quot;</span><span class="o">)</span>
+ <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ServiceProperties</span> <span class="o">{</span>
+
+   <span class="kd">private</span> <span class="n">String</span> <span class="n">dns</span><span class="o">;</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>また、RestOpearationsの生成時に設定クラス上でorg.springframework.boot.web.client.RestTemplateBuilderのrootUri()メソッドで、下記のように、ALBのルートとなるURLをプロパティから取得して設定しておけば、設定は１箇所で済みます。</p>
+<p><br/></p>
+<div class="highlight-Java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.ecs.backendforfrontend.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.ecs.backendforfrontend.app.web.ServiceProperties</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.web.client.RestTemplateBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.ComponentScan</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.client.RestOperations</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.config.annotation.WebMvcConfigurer</span><span class="o">;</span>
+
+<span class="nd">@ComponentScan</span><span class="o">(</span><span class="s">&quot;org.debugroom.mynavi.sample.ecs.backendforfrontend.app.web&quot;</span><span class="o">)</span>
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MvcConfig</span> <span class="kd">implements</span> <span class="n">WebMvcConfigurer</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">ServiceProperties</span> <span class="n">properties</span><span class="o">;</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">RestOperations</span> <span class="nf">restOperations</span><span class="o">(</span><span class="n">RestTemplateBuilder</span> <span class="n">restTemplateBuilder</span><span class="o">){</span>
+       <span class="k">return</span> <span class="n">restTemplateBuilder</span><span class="o">.</span><span class="na">rootUri</span><span class="o">(</span><span class="n">properties</span><span class="o">.</span><span class="na">getDns</span><span class="o">()).</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+ <span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>上記のポイントを踏まえ、アプリケーションを実装しておけば、パブリックサブネットのBFFアプリケーションからプライベートサブネット内のBackendアプリケーションのAPIの呼び出しを
+ごく少量のコーディングで実現することができます。また、AWS環境に依存した内容は設定ファイルのALBのURL1箇所に限定されるので、非常にポータリビリティの高いアプリケーションにしておくことができます。
+別のECSコンテナアプリケーションを直接呼び出すのではなく、ALBを介してサービスを呼び出すことで、以下のようなメリットを享受することができます。</p>
+<ul class="simple">
+<li>呼び出したいアプリケーションのコンテナのIPやポートを意識しなくて済む</li>
+<li>ヘルスチェックによるアプリケーション監視が行える</li>
+<li>サービスディスカバリを実現できる(ヘルスチェックでNGだと再起動)</li>
+<li>複数のコンテナが実行されていた場合に処理を分散できる</li>
+<li>CloudWatchによる監視ができる。</li>
+</ul>
+<p>次回は、実装したSpringアプリケーションのDockerコンテナイメージを作り、レジトストリへプッシュします。</p>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>著者紹介<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei)</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+</div>
+<p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

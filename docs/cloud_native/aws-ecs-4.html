@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AWSで作るクラウドネイティブアプリケーションの基本 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-ecs-5.html" />
+    <link rel="prev" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-ecs-3.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
+<li><a class="reference internal" href="#aws-ecsspring-4">第2回 AWS ECS上に構築するSpringアプリケーション(4)</a><ul>
+<li><a class="reference internal" href="#dockerdockerhub">(4)Dockerコンテナの作成・DockerHubへのプッシュ</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id1">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="aws-ecs-3.html" title="Previous Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; AWSで作るクラウドネイテ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="aws-ecs-5.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/cloud_native/aws-ecs-4.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="aws">
+<span id="section-cloud-native-ecs-label-4"></span><h1>AWSで作るクラウドネイティブアプリケーションの基本<a class="headerlink" href="#aws" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="aws-ecsspring-4">
+<span id="section-cloud-native-ecs-4th-label"></span><h2>第2回 AWS ECS上に構築するSpringアプリケーション(4)<a class="headerlink" href="#aws-ecsspring-4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>クラウド時代が到来し、ますます広がりを見せつつあるコンテナ技術。第2回は、AWS ECS上でSpringアプリケーションを構築する方法を説明します。本稿は以下のステップに沿って、解説しています。</p>
+<ol class="arabic simple">
+<li>VPC(Virtual Private Cloud)環境の構築</li>
+<li>アプリケーションロードバランサ(ALB)の作成</li>
+<li>Springを使用したコンテナアプリケーションの実装方法</li>
+<li>Dockerコンテナの作成・DockerHubへのプッシュ</li>
+<li>ECSクラスタの作成</li>
+<li>ECSタスクの定義</li>
+<li>ECSサービスの定義</li>
+</ol>
+<p>前回の記事「 <a class="reference internal" href="aws-ecs-3.html#section-cloud-native-ecs-3rd-label"><span class="std std-ref">第2回 AWS ECS上に構築するSpringアプリケーション(3)</span></a> 」までに、以下イメージの構成に沿って、VPC環境・ALBを構築し、ECSコンテナ上で動くパブリック・プライベートサブネット用２種類のアプリケーションを作成しました。
+今回は「4. Dockerコンテナの作成・DockerHubへのプッシュ」です。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/ecs-architecture.png"><img alt="../_images/ecs-architecture.png" src="../_images/ecs-architecture.png" style="width: 786.0px; height: 743.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="section" id="dockerdockerhub">
+<h3>(4)Dockerコンテナの作成・DockerHubへのプッシュ<a class="headerlink" href="#dockerdockerhub" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>ECSの実態はDockerコンテナなので、前回実装したSpringアプリケーションのコンテナイメージを作成し、DockerHubやAWS Elastic Container Registry(ECR)などのレジストリにプッシュしておくと、
+次回以降後述する、ECSクラスタ・タスク・サービスの定義で、レジストリからコンテナイメージを取得して、ECSコンテナとして実行することができるようになります。</p>
+<p>それでは、前回実装したSpringアプリケーションのプロジェクトを元にDockerイメージを作成していきます。Dockerイメージを作成する場合は、Dockerfileと呼ばれる定義ファイルを作成します。</p>
+<p>前回作成したSpringBootアプリケーションのMavenプロジェクト内に、各々以下のようなDockerファイルを作成してコミットし、GitHubへプッシュします。</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Backendアプリケーションのプロジェクトに作成するDockerファイル</span><a class="headerlink" href="#id2" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dockerfile for sample service using embedded tomcat server</span>
+
+<span class="c1"># (A)</span>
+FROM centos:centos7
+<span class="c1"># (B)</span>
+MAINTAINER debugroom
+
+<span class="c1"># (C)</span>
+RUN yum install -y <span class="se">\</span>
+    java-1.8.0-openjdk <span class="se">\</span>
+    java-1.8.0-openjdk-devel <span class="se">\</span>
+    wget tar iproute git
+
+<span class="c1"># (D)</span>
+RUN wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
+<span class="c1"># (E)</span>
+RUN sed -i s/<span class="se">\$</span>releasever/6/g /etc/yum.repos.d/epel-apache-maven.repo
+<span class="c1"># (F)</span>
+RUN yum install -y apache-maven
+<span class="c1"># (G)</span>
+ENV JAVA_HOME /etc/alternatives/jre
+<span class="c1"># (H)</span>
+RUN git clone https://github.com/debugroom/mynavi-sample-aws-ecs.git /var/local/mynavi-sample-aws-ecs
+<span class="c1"># (I)</span>
+RUN mvn install -f /var/local/mynavi-sample-aws-ecs/pom.xml
+
+<span class="c1"># (J)</span>
+RUN cp /etc/localtime /etc/localtime.org
+<span class="c1"># (K)</span>
+RUN ln -sf  /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+
+<span class="c1"># (L)</span>
+EXPOSE <span class="m">8080</span>
+
+<span class="c1"># (M)</span>
+CMD java -jar -Dspring.profiles.active<span class="o">=</span>production /var/local/mynavi-sample-aws-ecs/backend/target/mynavi-sample-aws-ecs-backend-0.0.1-SNAPSHOT.jar
+</pre></div>
+</div>
+</div>
+<p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">BFFアプリケーションのプロジェクトに作成するDockerファイル</span><a class="headerlink" href="#id3" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dockerfile for sample service using embedded tomcat server</span>
+
+<span class="c1"># (A)</span>
+FROM centos:centos7
+<span class="c1"># (B)</span>
+MAINTAINER debugroom
+
+<span class="c1"># (C)</span>
+RUN yum install -y <span class="se">\</span>
+       java-1.8.0-openjdk <span class="se">\</span>
+       java-1.8.0-openjdk-devel <span class="se">\</span>
+       wget tar iproute git
+
+<span class="c1"># (D)</span>
+RUN wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
+<span class="c1"># (E)</span>
+RUN sed -i s/<span class="se">\$</span>releasever/6/g /etc/yum.repos.d/epel-apache-maven.repo
+<span class="c1"># (F)</span>
+RUN yum install -y apache-maven
+<span class="c1"># (G)</span>
+ENV JAVA_HOME /etc/alternatives/jre
+<span class="c1"># (H)</span>
+RUN git clone https://github.com/debugroom/mynavi-sample-aws-ecs.git /var/local/mynavi-sample-aws-ecs
+<span class="c1"># (I)</span>
+RUN mvn install -f /var/local/mynavi-sample-aws-ecs/pom.xml
+
+<span class="c1"># (J)</span>
+RUN cp /etc/localtime /etc/localtime.org
+<span class="c1"># (K)</span>
+RUN ln -sf  /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+
+<span class="c1"># (L)</span>
+EXPOSE <span class="m">8080</span>
+
+<span class="c1"># (M)</span>
+CMD java -jar -Dspring.profiles.active<span class="o">=</span>production /var/local/mynavi-sample-aws-ecs/backend-for-frontend/target/mynavi-sample-aws-ecs-backend-for-frontend-0.0.1-SNAPSHOT.jar
+</pre></div>
+</div>
+</div>
+<p><br/></p>
+<p>内容は２つともほぼ同一のため、BackendアプリケーションプロジェクトのDockerfileを元に解説します。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id4">
+<caption><span class="caption-text">Dockerfileの実行コマンド</span><a class="headerlink" href="#id4" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>項番</td>
+<td>コマンド</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>説明</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple">
+<li></li>
+</ol>
+</td>
+<td>FROM centos:centos7</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>コンテナイメージのベースとなるOSイメージを指定します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="2">
+<li></li>
+</ol>
+</td>
+<td>MAINTAINER debugroom</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>メンテナンスしている組織や個人の名称を指定します。省略可能です。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="3">
+<li></li>
+</ol>
+</td>
+<td>RUN yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel wget tar iproute git</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>OSにJDK、wgetコマンド、tarコマンド、iprouteコマンド、gitをインストールしてます。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="4">
+<li></li>
+</ol>
+</td>
+<td>RUN wget <a class="reference external" href="http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo">http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo</a> -O /etc/yum.repos.d/epel-apache-maven.repo</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>Apache Mavenのインストールに必要な資材をwgetコマンドで取得しています。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="5">
+<li></li>
+</ol>
+</td>
+<td>RUN sed -i s/$releasever/6/g /etc/yum.repos.d/epel-apache-maven.repo</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>/etc/yum.repos.d/epel-apache-maven.repoのリリースバージョンを置換しています。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="6">
+<li></li>
+</ol>
+</td>
+<td>RUN yum install -y apache-maven</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>Apache Mavenをインストールしています。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="7">
+<li></li>
+</ol>
+</td>
+<td>ENV JAVA_HOME /etc/alternatives/jre</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>JAVA_HOME環境変数をインストールされたJDKのディレクトリに設定しています。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="8">
+<li></li>
+</ol>
+</td>
+<td>RUN git clone <a class="reference external" href="https://github.com/debugroom/mynavi-sample-aws-ecs.git">https://github.com/debugroom/mynavi-sample-aws-ecs.git</a> /var/local/mynavi-sample-aws-ecs</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>コミットしたSpringアプリケーションを/var/local/mynavi-sample-aws-ecsへgit cloneしています。ディレクトリは適宜変更しても可能です。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperroman simple">
+<li></li>
+</ol>
+</td>
+<td>RUN mvn install -f /var/local/mynavi-sample-aws-ecs/pom.xml</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>アプリケーションをmvn installコマンドでビルドしています。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="10">
+<li></li>
+</ol>
+</td>
+<td>RUN cp /etc/localtime /etc/localtime.org</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>アプリケーションの実行環境のタイムゾーンを変更するため、タイムゾーンファイルを一度バックアップします。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="11">
+<li></li>
+</ol>
+</td>
+<td>RUN ln -sf  /usr/share/zoneinfo/Asia/Tokyo /etc/localtime</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>シンボリックリンクを上書き作成して、アプリケーション実行環境のタイムゾーンを東京に変更しています。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="12">
+<li></li>
+</ol>
+</td>
+<td>EXPOSE 8080</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>コンテナのポート8080をオープンします。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="13">
+<li></li>
+</ol>
+</td>
+<td>CMD java -jar -Dspring.profiles.active=production /var/local/mynavi-sample-aws-ecs/backend-for-frontend/target/mynavi-sample-aws-ecs-backend-for-frontend-0.0.1-SNAPSHOT.jar</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>(I)でビルドしたSpringBootアプリケーションをプロファイルproductionで実行しています。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>上記のDockerfileを、DockerがインストールされたLinuxマシン上で、docker buildコマンドを実行することによりDockerイメージを作成することができます。</p>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p>CentOSのDockerインストール方法について</p>
+<p>以下の通り、EC2上にLaunchされたCentOS7では、以下のコマンドでDockerをインストールできます。</p>
+<div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>centos@ip-XXXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo yum update -y
+// omit
+<span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo yum install -y docker
+// omit
+<span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo systemctl <span class="nb">enable</span> docker.service
+Created symlink from /etc/systemd/system/multi-user.target.wants/docker.service to /usr/lib/systemd/system/docker.service.
+<span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo systemctl start docker.service
+</pre></div>
+</div>
+</div>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p>dockerコマンドの実行について</p>
+<p>dockerコマンドを利用する際は sudoが必要です。 sudoなしでdockerコマンドを実行するには、dockerグループを作成し、実行ユーザを追加する必要があります。</p>
+<div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo groupadd docker
+<span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo gpasswd -a <span class="nv">$USER</span> docker
+ Adding user centos to group docker
+<span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo systemctl restart docker
+<span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ <span class="nb">exit</span>
+</pre></div>
+</div>
+</div>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p>CentOSのGitインストール方法について</p>
+<p>以下の通り、EC2上にLaunchされたCentOS7では、以下のコマンドでGitをインストールできます。インストールディレクトリは任意に変更可能です。</p>
+<div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>centos@ip-XXXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo yum -y install wget make gcc perl-ExtUtils-MakeMaker curl-devel expat-devel gettext-devel openssl-devel zlib-devel autoconf
+// omit
+<span class="o">[</span>centos@ip-XXXX-XXX-XXX-XXX ~<span class="o">]</span>$ <span class="nb">cd</span> /var/local/
+<span class="o">[</span>centos@ip-XXXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo wget https://www.kernel.org/pub/software/scm/git/git-2.9.5.tar.gz
+// omit
+<span class="o">[</span>centos@ip-XXXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo tar xvzf git-2.9.5.tar.gz
+// omit
+<span class="o">[</span>centos@ip-XXXX-XXX-XXX-XXX ~<span class="o">]</span>$ <span class="nb">cd</span> git-2.9.5
+<span class="o">[</span>centos@ip-XXXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo make configure
+// omit
+<span class="o">[</span>centos@ip-XXXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo ./configure --prefix<span class="o">=</span>/usr
+// omit
+<span class="o">[</span>centos@ip-XXXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo make install
+// omit
+<span class="o">[</span>centos@ip-XXXX-XXX-XXX-XXX ~<span class="o">]</span>$ git --version
+git version <span class="m">2</span>.9.5
+</pre></div>
+</div>
+</div>
+<p><br/></p>
+<p>以降は、EC2環境等でゲストOSとしてCentOS7をLaunchさせて、DockerやGitをインストール済みしたマシン上での操作を前提に話を進めていきます。</p>
+<p>GitにあるソースコードプロジェクトにあるDockerfileを元に、Dockerイメージを作成します。以下では、ソースコードをGitHubからクローンし、
+Backendアプリケーションのプロジェクト直下にあるDockerfileを指定して、docker buildコマンドでDockerイメージを作成しています。
+GitHubからチェックアウトするソースコードのプロジェクトやdocker buildコマンドで指定する-tオプションのレポジトリ名は適宜、自身の環境に合わせて変更してください。
+下記ではDocker Hubを前提にしたコマンド実行例です。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo git clone https://github.com/debugroom/mynavi-sample-aws-ecs.git
+<span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ <span class="nb">cd</span> mynavi-sample-aws-ecs
+<span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX mynavi-sample-aws-ecs<span class="o">]</span>$ docker build backend/ -t debugroom/mynavi-sample-ecs-backend:latest
+</pre></div>
+</div>
+<p><br/></p>
+<p>Dockerイメージが作成されたら、Docker HubもしくはAmazon ECRへプッシュします。下記は、DockerHubへコンテナイメージをプッシュする例です。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ docker login
+// omit  - enter USERID and password
+<span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ docker push debugroom/mynavi-sample-ecs-backend:latest
+</pre></div>
+</div>
+<p><br/></p>
+<p>これでコンテナイメージをレジストリにプッシュできました。次回は、実際にECSコンテナを実行するためのECSクラスタを構築します。</p>
+<p><br/></p>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>著者紹介<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei)</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+</div>
+<p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

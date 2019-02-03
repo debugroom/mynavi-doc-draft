@@ -12,8 +12,13 @@
 
    table_of_contents_draft.rst
    automation_infra_devops/automation_infra_devops_overview.rst
-   cloud_native/aws-lambda-and-api-gateway.rst
    cloud_native/aws-lambda-and-api-gateway-1.rst
    cloud_native/aws-lambda-and-api-gateway-2.rst
    cloud_native/aws-lambda-and-api-gateway-3.rst
-   cloud_native/aws-ecs.rst
+   cloud_native/aws-ecs-1.rst
+   cloud_native/aws-ecs-2.rst
+   cloud_native/aws-ecs-3.rst
+   cloud_native/aws-ecs-4.rst
+   cloud_native/aws-ecs-5.rst
+   cloud_native/aws-ecs-6.rst
+   cloud_native/aws-ecs-7.rst
