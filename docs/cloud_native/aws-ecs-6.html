@@ -85,7 +85,7 @@
 <li><a class="reference internal" href="#ecs">(6)ECSタスクの定義</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id1">著者紹介</a></li>
+<li><a class="reference internal" href="#id2">著者紹介</a></li>
 </ul>
 </li>
 </ul>
@@ -148,20 +148,20 @@
 <li>Dockerコンテナの作成・DockerHubへのプッシュ</li>
 <li>ECSクラスタの作成</li>
 <li>ECSタスクの定義</li>
-<li>ECSサービスの定義</li>
+<li>ECSサービスの実行</li>
 </ol>
 <p>前回の記事「 <a class="reference internal" href="aws-ecs-5.html#section-cloud-native-ecs-5th-label"><span class="std std-ref">第2回 AWS ECS上に構築するSpringアプリケーション(5)</span></a> 」までに、以下イメージの構成に沿って、VPC環境・ALBを構築した後、ECSコンテナ上で動くパブリック・プライベートサブネット用２種類のアプリケーションを作成し、
-Dockerコンテナイメージにしてレジストリにプッシュしました。そして、コンテナを実行するためのECSクラスタを作成しています。今回は「6. ECSタスクの定義」です。</p>
+Dockerコンテナイメージを作成してレジストリにプッシュしました。そして、コンテナを実行するためのECSクラスタを作成し、今回は「6. ECSタスクの定義」です。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/ecs-architecture.png"><img alt="../_images/ecs-architecture.png" src="../_images/ecs-architecture.png" style="width: 786.0px; height: 743.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/ecs-architecture.png"><img alt="../_images/ecs-architecture.png" src="../_images/ecs-architecture.png" style="width: 786.0px; height: 723.0px;" /></a>
 </div>
 <p><br/></p>
 <div class="section" id="ecs">
-<h3>(6)ECSタスクの定義<a class="headerlink" href="#ecs" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<span id="section-cloud-native-ecs-define-task-label"></span><h3>(6)ECSタスクの定義<a class="headerlink" href="#ecs" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
 <p>ECSタスク定義では、前回プッシュしたDockerコンテナイメージのレジストリURLや割り当てるCPU、メモリ、マッピングするポートといったECSコンテナに関する設定を行います。
-ECSタスク定義を実行する際には、コンテナに割り当てるECSタスク実行用のIAMロールがロールが必要です。また、必要に応じてコンテナ内のアプリケーションの動作のために必要なロールも事前に定義しておく必要があります。</p>
+ECSタスクが実際にサービスとして実行されるには、コンテナイメージをプルしたり、CloudWachへログを送信するためのECSタスク実行用のIAMロールが必要です。また、必要に応じてコンテナ内のアプリケーションの動作のために必要なロールも事前に定義しておく必要があります。</p>
 <p><br/></p>
 <p>まずはECSコンテナに割り当てるタスク実行用のIAMロールを作成します。「IAM」サービスから「ロール」メニューを選択し、「ロールの作成」ボタンを押下します。
 「Elastic Container Service」を選び、「ユースケースの選択」で「Elastic Container Service Task」を選択してください。</p>
@@ -170,7 +170,7 @@ ECSタスク定義を実行する際には、コンテナに割り当てるECS�
 <a class="reference internal image-reference" href="../_images/management-console-iam-create-ecsrole-1.png"><img alt="../_images/management-console-iam-create-ecsrole-1.png" src="../_images/management-console-iam-create-ecsrole-1.png" style="width: 664.0px; height: 713.0px;" /></a>
 </div>
 <p><br/></p>
-<p>アタッチするアクセス権限のポリシーに「AmazonECSTaskExecutionPolicy」をアタッチします。</p>
+<p>アタッチするアクセス権限のポリシーに「AmazonECSTaskExecutionRolePolicy」をアタッチします。</p>
 <p><br/></p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/management-console-iam-create-ecsrole-2.png"><img alt="../_images/management-console-iam-create-ecsrole-2.png" src="../_images/management-console-iam-create-ecsrole-2.png" style="width: 660.0px; height: 521.0px;" /></a>
@@ -182,6 +182,7 @@ ECSタスク定義を実行する際には、コンテナに割り当てるECS�
 <a class="reference internal image-reference" href="../_images/management-console-iam-create-ecsrole-3.png"><img alt="../_images/management-console-iam-create-ecsrole-3.png" src="../_images/management-console-iam-create-ecsrole-3.png" style="width: 782.0px; height: 503.0px;" /></a>
 </div>
 <p><br/></p>
+<p>同様に、アプリケーションの処理に応じて、必要なロールを作成してください。(例えば、アプリケーションがS3へアクセスするならS3アクセスポリシーを割り当てたIAMロールを設定します)。</p>
 <p>引き続き、ECSタスク定義を実行します。「ECS」サービスで、「タスク定義」メニューを選択し、「新しいタスク定義の作成」ボタンを押下してください。「起動タイプの互換性の選択」には「EC2」を選択します。</p>
 <p><br/></p>
 <div class="figure">
@@ -189,11 +190,11 @@ ECSタスク定義を実行する際には、コンテナに割り当てるECS�
 </div>
 <p><br/></p>
 <p>以下の要領に従って、ECSタスク定義の設定を行います。</p>
-<table border="1" class="colwidths-given docutils" id="id2">
-<caption><span class="caption-text">ECSタスク定義の入力項目</span><a class="headerlink" href="#id2" title="このテーブルへのパーマリンク">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id3">
+<caption><span class="caption-text">ECSタスク定義の入力項目</span><a class="headerlink" href="#id3" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col width="20%" />
+<col width="80%" />
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td>入力項目</td>
@@ -203,13 +204,13 @@ ECSタスク定義を実行する際には、コンテナに割り当てるECS�
 <td>タスク定義として任意の名称を入力します。</td>
 </tr>
 <tr class="row-odd"><td>タスクロール</td>
-<td>上記で作成したタスク実行用のIAMロールを指定します。</td>
+<td>アプリケーションの処理内容に応じて必要なIAMロールを設定します。特にAWSのサービスを利用する処理がなければ、「なし」も選択できます。 詳細は 「 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AmazonECS/latest/developerguide/task-iam-roles.html">タスク用のIAMロール</a> 」を参照してください。</td>
 </tr>
 <tr class="row-even"><td>ネットワークモード</td>
 <td>コンテナとクラスタ間のネットワーク変換の方式を指定します。通常はデフォルトでかまいません。</td>
 </tr>
 <tr class="row-odd"><td>タスク実行ロール</td>
-<td>アプリケーションの処理内容に応じて必要なIAMロールを設定します(例えば、S3へアクセスするならS3アクセスポリシーを割り当てたIAMロールを設定します)</td>
+<td>上記で作成したタスク実行用のIAMロールを指定します。詳細は「 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AmazonECS/latest/developerguide/task_execution_IAM_role.html">タスク実行用のIAMロール</a> 」を参照してください。</td>
 </tr>
 <tr class="row-even"><td>タスクメモリ</td>
 <td>コンテナに割り当てるメモリを指定します。Springアプリケーションを実行する際は最低1024MB以上は割り当ててください。</td>
@@ -221,15 +222,15 @@ ECSタスク定義を実行する際には、コンテナに割り当てるECS�
 </table>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ecs-create-task-2.png"><img alt="../_images/management-console-ecs-create-task-2.png" src="../_images/management-console-ecs-create-task-2.png" style="width: 920.0px; height: 614.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/management-console-ecs-create-task-2.png"><img alt="../_images/management-console-ecs-create-task-2.png" src="../_images/management-console-ecs-create-task-2.png" style="width: 926.0px; height: 610.0px;" /></a>
 </div>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ecs-create-task-3.png"><img alt="../_images/management-console-ecs-create-task-3.png" src="../_images/management-console-ecs-create-task-3.png" style="width: 928.0px; height: 846.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/management-console-ecs-create-task-3.png"><img alt="../_images/management-console-ecs-create-task-3.png" src="../_images/management-console-ecs-create-task-3.png" style="width: 925.0px; height: 847.0px;" /></a>
 </div>
 <p><br/></p>
 <p>また、コンテナの定義は以下の要領に従って、実行してください。</p>
-<table border="1" class="colwidths-given docutils" id="id3">
-<caption><span class="caption-text">コンテナ定義の入力項目</span><a class="headerlink" href="#id3" title="このテーブルへのパーマリンク">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id4">
+<caption><span class="caption-text">コンテナ定義の入力項目</span><a class="headerlink" href="#id4" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col width="20%" />
 <col width="80%" />
@@ -242,7 +243,7 @@ ECSタスク定義を実行する際には、コンテナに割り当てるECS�
 <td>コンテナの任意の名称を入力します。</td>
 </tr>
 <tr class="row-odd"><td>イメージ</td>
-<td>DockerイメージのあるレジストリURLを指定します。</td>
+<td>DockerイメージのあるレジストリURLを[registry-url]/[namespace]/[image]:[tag]の形式で指定します。Docker Hubの公開レポジトリであれば、[namespace]/[image]の形式でも可能です。</td>
 </tr>
 <tr class="row-even"><td>プライベートレジストリの認証</td>
 <td>認証が必要なプライベートレジストリからコンテナイメージを取得する場合に指定します。</td>
@@ -269,8 +270,8 @@ ECSタスク定義を実行する際には、コンテナに割り当てるECS�
 <p><br/></p>
 </div>
 </div>
-<div class="section" id="id1">
-<h2>著者紹介<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id2">
+<h2>著者紹介<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei)</p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>

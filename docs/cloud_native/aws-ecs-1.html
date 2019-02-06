@@ -63,6 +63,10 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 </ul>
 </ul>
 </li>
@@ -192,17 +196,17 @@
 </table>
 <p><br/></p>
 <div class="section" id="aws-ecs">
-<h3>AWS ECSの概要とアプリケーション環境構成<a class="headerlink" href="#aws-ecs" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<span id="section-cloud-native-ecs-overview-label"></span><h3>AWS ECSの概要とアプリケーション環境構成<a class="headerlink" href="#aws-ecs" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
 <p>Amazon Elastic Container Service (Amazon ECS) は、クラスター単位でDockerコンテナを簡単にスケーラブルかつ高速に実行、停止、管理できるコンテナ管理サービスです。
-単純にDockerコンテナを実行する場合と比較して、ECSではリージョン内の複数のアベイラビリティーゾーンを跨いでコンテナを実行できるため、可用性の高い運用が可能となっており
+Linuxサーバ環境でDockerコンテナを単純に運用する場合と比較して、ECSではリージョン内の複数のアベイラビリティーゾーンを跨いでコンテナを実行できるため、可用性の高い運用が可能であり、
 2019年1月現在時点では、ひとつまたは複数のEC2上にクラスタを構築し、その上に任意のレジストリにあるDockerイメージをデプロイするEC2起動型と、
 実行するクラスタ自体をマネージドとしてAWSが自動で管理し、コンテナだけを意識するFargateに分類できます。本稿では理解を深めるために、EC2クラスタ型でECSアプリケーションを構築するものとし、
-以下のようなイメージでECSアプリケーションを実装する形式とします。</p>
+以下のようなイメージでECSアプリケーションを構築する形式とします。</p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/ecs-architecture.png"><img alt="../_images/ecs-architecture.png" src="../_images/ecs-architecture.png" style="width: 786.0px; height: 743.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/ecs-architecture.png"><img alt="../_images/ecs-architecture.png" src="../_images/ecs-architecture.png" style="width: 786.0px; height: 723.0px;" /></a>
 </div>
-<p>第二回は以降、</p>
+<p>ネットワーク環境の構築からアプリケーションの実装、コンテナイメージの作成、クラスタの実行など広範囲に及びますので、第二回は以降、</p>
 <ol class="arabic simple">
 <li>VPC(Virtual Private Cloud)環境の構築</li>
 <li>アプリケーションロードバランサ(ALB)の作成</li>
@@ -210,20 +214,21 @@
 <li>Dockerコンテナの作成・DockerHubへのプッシュ</li>
 <li>ECSクラスタの作成</li>
 <li>ECSタスクの定義</li>
-<li>ECSサービスの定義</li>
+<li>ECSサービスの実行</li>
 </ol>
 <p>という、7つのステップに分け、解説を進めていきます。最初のステップでは、ALBやECSクラスタを配置するための、VPCおよびサブネットを構築します。</p>
-<p>サブネットはパブリックとプライベートに分割し、可用性を考慮して、複数のアベイラビリティゾーンでECSコンテナが配置されるよう設定します。サブネットをパブリックとプライベートに分割するのは、AWSではよく行われる構成で、</p>
+<p>構築するVPC環境において、サブネットはパブリックとプライベートに分割し、可用性を考慮して、複数のアベイラビリティゾーンでECSコンテナが配置されるよう設定します。
+サブネットをパブリックとプライベートに分割するのは、AWSではよく行われる構成で、</p>
 <ul class="simple">
-<li>パブリックサブネットはインターネットからのアクセスを受け付け、プライベートはVPC内のサーバの接続のみ許可するようアクセス制御。</li>
-<li>プライベートサブネットにDBへの接続や、オンプレミスとのVPNアクセスするサーバを配置し、セキュリティを向上。</li>
+<li>パブリックサブネットはインターネットからのアクセスを受け付け、プライベートサブネットはVPC内からの接続のみ許可するようアクセス制御。</li>
+<li>プライベートサブネットでは、DBへの接続や、オンプレミスとのVPNアクセスするサーバを配置し、セキュリティを向上。</li>
 </ul>
-<p>などの事情により構築されるものですが、ブラウザからのリクエストがメインのWebアプリケーションやモバイルアプリケーション等、クライアントが多様化している昨今、ECSでアプリケーションを構成する場合は、</p>
+<p>などの用途により構築されるものですが、ブラウザからのリクエストがメインのWebアプリケーションやモバイルアプリケーション等、クライアントが多様化している昨今、ECSでアプリケーションを構成する場合は、</p>
 <ul class="simple">
-<li>パブリックサブネットにはBackend For Frontend(BFF)として、Webアプリケーション向けのHTMLを生成するサーバなどを配置する。</li>
+<li>パブリックサブネットにはBackend For Frontend(以下BFF)として、Webアプリケーション向けのHTMLを生成するサーバなどを配置する。</li>
 <li>プライベートサブネットのECSコンテナにAPIサーバを配置し、データベース接続などを行う。</li>
 </ul>
-<p>といった用途で、各サブネットにECSコンテナを配置するユースケースが発生します。本稿ではこうしたユースケースを前提とした構成で、ECSアプリケーションを構築しましょう。</p>
+<p>といった用途で、各サブネットに役割を分けてECSコンテナを配置するユースケースが発生します。本稿ではこうしたユースケースを前提とした構成で、ECSアプリケーションを構築しましょう。</p>
 <div class="admonition note">
 <p class="first admonition-title">注釈</p>
 <p class="last">モバイル向けなど、シングルページアーキテクチャ(SPA)でアプリケーション構成する場合、パブリックサブネットにはBFFアプリケーションの代わりに、API GatewayやKongなどのAPI Aggregationミドルウェアを設定する場合もあります。
@@ -232,7 +237,7 @@
 <p><br/></p>
 </div>
 <div class="section" id="vpc-virtual-private-cloud">
-<h3>(1)VPC(Virtual Private Cloud)環境の構築<a class="headerlink" href="#vpc-virtual-private-cloud" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<span id="section-cloud-native-ecs-create-vpc-label"></span><h3>(1)VPC(Virtual Private Cloud)環境の構築<a class="headerlink" href="#vpc-virtual-private-cloud" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
 <p>パブリックサブネットとプライベートサブネットをもつVPCは、AWSコンソールのVPCダッシュボードにある「VPCを作成」ウィザードから作成できます。ウィザードでは</p>
 <ul class="simple">
@@ -277,7 +282,7 @@
 <td>VPCに設定する任意の名前を設定します。</td>
 </tr>
 <tr class="row-odd"><td>パブリックサブネットのIPv4 CIDRブロック</td>
-<td>パブリックサブネットに設定するネットワークIPアドレス体系を指定します。<br/> 形式はVPCと同様ですが、サブネットに割り当てるネットワークアドレス領域はVPCよりも大きく設定する必要があります。</td>
+<td>パブリックサブネットに設定するネットワークIPアドレス体系を指定します。<br/> 形式はVPCと同様ですが、サブネットに割り当てるネットワークアドレス領域はVPCよりも小さく設定する必要があります。</td>
 </tr>
 <tr class="row-even"><td>アベイラビリティゾーン</td>
 <td>パブリックサブネットのアベイラビリティゾーンを指定します。</td>
@@ -286,7 +291,7 @@
 <td>パブリックサブネットに設定する任意の名前を設定します。</td>
 </tr>
 <tr class="row-even"><td>プライベートサブネットのIPv4 CIDRブロック</td>
-<td>プライベートサブネットに設定するネットワークIPアドレス体系を指定します。<br/> プライベートと同様ですが、他のサブネットとネットワークアドレスが異なるように設定する必要があります。</td>
+<td>プライベートサブネットに設定するネットワークIPアドレス体系を指定します。<br/> 設定はパブリックサブネットと同様ですが、他のサブネットとネットワークアドレスが異なるように設定する必要があります。</td>
 </tr>
 <tr class="row-odd"><td>アベイラビリティゾーン</td>
 <td>プライベートサブネットのアベイラビリティゾーンを指定します。</td>
@@ -298,7 +303,7 @@
 <td>NATゲートウェイに割り当てるElasticIPアドレスIDを指定します。上述でElasitcIPアドレスを取得していると <br/> カーソルを合わせれば自動的にIDが入力候補でサジェストされるので、そのまま入力してください。</td>
 </tr>
 <tr class="row-even"><td>サービスエンドポイントの追加</td>
-<td>エンドポイントはインターネットに経由せず別のサービスにアクセスできる機能です。 <br/> ここでは特に指定しません。</td>
+<td>サービスエンドポイントはインターネットに経由せず別のサービスにアクセスできる機能です。 <br/> ここでは特に指定しません。</td>
 </tr>
 <tr class="row-odd"><td>DNSホスト名を有効化</td>
 <td>VPC内で実行するEC2インスタンスなどにDNS名を割り当てるかの設定です。 <br/> ここでは、有効化するにチェックを入れておいて下さい。</td>
@@ -317,8 +322,8 @@
 「サブネット」メニューから「サブネットの作成ボタン」を押下し、以下の項目を入力して、パブリック・プライベート各々サブネットを作成して下さい。</p>
 <ul class="simple">
 <li>名前タグ：サブネットの名前を設定します。</li>
-<li>VPC：サブネットを作成するVPCを設定します。ここでは先ほど作成したVPCを指定してください。</li>
-<li>アベイラビリティゾーン：先ほど作成したサブネットとは異なるサブネットを指定してください。</li>
+<li>VPC：サブネットを作成するVPCを設定します。ここでは上記で作成したVPCを指定してください。</li>
+<li>アベイラビリティゾーン：上記で作成したサブネットとは異なるサブネットを指定してください。</li>
 <li>IPv4 CIDRブロック：サブネットのネットワークIP体系を設定します。他のサブネットとネットワークアドレスが異なるように設定してください。</li>
 </ul>
 <p><br/></p>
@@ -326,19 +331,19 @@
 <a class="reference internal image-reference" href="../_images/management-console-vpc-create-subnet-1.png"><img alt="../_images/management-console-vpc-create-subnet-1.png" src="../_images/management-console-vpc-create-subnet-1.png" style="width: 948.0px; height: 525.0px;" /></a>
 </div>
 <p><br/></p>
-<p>作成した2つのサブネットは、(NATゲートウェイのルーティングが有効になっているプライベートサブネット用の)デフォルトのメインルートテーブルにしか関連づけられていないため、
+<p>作成した2つのサブネットは、(NATゲートウェイのルーティングが有効になっているプライベートサブネット向けの)デフォルトのメインルートテーブルにしか関連づけられていないため、
 パブリックサブネットを(インターネットゲートウェイのルーティングが設定されている)カスタムルートテーブルに関連づける必要があります。</p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/management-console-vpc-edit-routetable-1.png"><img alt="../_images/management-console-vpc-edit-routetable-1.png" src="../_images/management-console-vpc-edit-routetable-1.png" style="width: 1349.0px; height: 806.0px;" /></a>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">注釈</p>
-<p class="last">正確にはサブネットはどこのルートテーブルにも関連づけないと、デフォルトのメインルートテーブルに暗黙的に関連づけられるようになっています。
-ウィーザードで作成したメインルートテーブルはプライベートサブネット用のNATゲートウェイのルーティングが設定されています。</p>
+<p class="last">正確にはサブネットは明示的にどれか一つのルートテーブルにも関連づけないと、デフォルトのメインルートテーブルに暗黙的に関連づけられるようになっています。
+ウィザードで作成したメインルートテーブルはプライベートサブネット用のNATゲートウェイのルーティングが設定されています。</p>
 </div>
 <p><br/></p>
 <p>「ルートテーブル」メニューから、作成したVPCのカスタムルートテーブルを選択し、「Subnet Associations」タブにある、「Edit subnet associations」ボタンから
-パブリックサブネットを関連づけます。</p>
+新たに作成したパブリックサブネットを関連づけます。</p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/management-console-vpc-edit-routetable-2.png"><img alt="../_images/management-console-vpc-edit-routetable-2.png" src="../_images/management-console-vpc-edit-routetable-2.png" style="width: 1167.0px; height: 655.0px;" /></a>
 </div>

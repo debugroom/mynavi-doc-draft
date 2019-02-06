@@ -65,6 +65,8 @@
 <li class="toctree-l1"><a class="reference internal" href="aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 </ul>
 </ul>
 </li>
@@ -146,24 +148,24 @@
 <li>Dockerコンテナの作成・DockerHubへのプッシュ</li>
 <li>ECSクラスタの作成</li>
 <li>ECSタスクの定義</li>
-<li>ECSサービスの定義</li>
+<li>ECSサービスの実行</li>
 </ol>
 <p>前回の記事「 <a class="reference internal" href="aws-ecs-3.html#section-cloud-native-ecs-3rd-label"><span class="std std-ref">第2回 AWS ECS上に構築するSpringアプリケーション(3)</span></a> 」までに、以下イメージの構成に沿って、VPC環境・ALBを構築し、ECSコンテナ上で動くパブリック・プライベートサブネット用２種類のアプリケーションを作成しました。
 今回は「4. Dockerコンテナの作成・DockerHubへのプッシュ」です。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/ecs-architecture.png"><img alt="../_images/ecs-architecture.png" src="../_images/ecs-architecture.png" style="width: 786.0px; height: 743.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/ecs-architecture.png"><img alt="../_images/ecs-architecture.png" src="../_images/ecs-architecture.png" style="width: 786.0px; height: 723.0px;" /></a>
 </div>
 <p><br/></p>
 <div class="section" id="dockerdockerhub">
-<h3>(4)Dockerコンテナの作成・DockerHubへのプッシュ<a class="headerlink" href="#dockerdockerhub" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<span id="section-cloud-native-ecs-create-docker-image-label"></span><h3>(4)Dockerコンテナの作成・DockerHubへのプッシュ<a class="headerlink" href="#dockerdockerhub" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
 <p>ECSの実態はDockerコンテナなので、前回実装したSpringアプリケーションのコンテナイメージを作成し、DockerHubやAWS Elastic Container Registry(ECR)などのレジストリにプッシュしておくと、
 次回以降後述する、ECSクラスタ・タスク・サービスの定義で、レジストリからコンテナイメージを取得して、ECSコンテナとして実行することができるようになります。</p>
 <p>それでは、前回実装したSpringアプリケーションのプロジェクトを元にDockerイメージを作成していきます。Dockerイメージを作成する場合は、Dockerfileと呼ばれる定義ファイルを作成します。</p>
 <p>前回作成したSpringBootアプリケーションのMavenプロジェクト内に、各々以下のようなDockerファイルを作成してコミットし、GitHubへプッシュします。</p>
 <div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Backendアプリケーションのプロジェクトに作成するDockerファイル</span><a class="headerlink" href="#id2" title="このコードへのパーマリンク">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">Backendアプリケーションのプロジェクトに作成するDockerfile</span><a class="headerlink" href="#id2" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dockerfile for sample service using embedded tomcat server</span>
 
 <span class="c1"># (A)</span>
@@ -331,7 +333,7 @@ CMD java -jar -Dspring.profiles.active<span class="o">=</span>production /var/lo
 <td>RUN git clone <a class="reference external" href="https://github.com/debugroom/mynavi-sample-aws-ecs.git">https://github.com/debugroom/mynavi-sample-aws-ecs.git</a> /var/local/mynavi-sample-aws-ecs</td>
 </tr>
 <tr class="row-even"><td>&#160;</td>
-<td>コミットしたSpringアプリケーションを/var/local/mynavi-sample-aws-ecsへgit cloneしています。ディレクトリは適宜変更しても可能です。</td>
+<td>GitHubへプッシュしたSpringアプリケーションを/var/local/mynavi-sample-aws-ecsへgit cloneしています。ディレクトリは適宜変更しても可能です。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperroman simple">
 <li></li>
@@ -349,7 +351,7 @@ CMD java -jar -Dspring.profiles.active<span class="o">=</span>production /var/lo
 <td>RUN cp /etc/localtime /etc/localtime.org</td>
 </tr>
 <tr class="row-even"><td>&#160;</td>
-<td>アプリケーションの実行環境のタイムゾーンを変更するため、タイムゾーンファイルを一度バックアップします。</td>
+<td>OSのタイムゾーンを変更するため、タイムゾーンファイルを一度バックアップします。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="11">
 <li></li>
@@ -376,7 +378,7 @@ CMD java -jar -Dspring.profiles.active<span class="o">=</span>production /var/lo
 <td>CMD java -jar -Dspring.profiles.active=production /var/local/mynavi-sample-aws-ecs/backend-for-frontend/target/mynavi-sample-aws-ecs-backend-for-frontend-0.0.1-SNAPSHOT.jar</td>
 </tr>
 <tr class="row-even"><td>&#160;</td>
-<td>(I)でビルドしたSpringBootアプリケーションをプロファイルproductionで実行しています。</td>
+<td>IでビルドしたSpringBootアプリケーションをプロファイルproductionで実行しています。ExecutableJar形式ですので、アプリケーションが組み込みTomcat内で起動します。</td>
 </tr>
 </tbody>
 </table>
@@ -385,8 +387,8 @@ CMD java -jar -Dspring.profiles.active<span class="o">=</span>production /var/lo
 <p><br/></p>
 <div class="admonition note">
 <p class="first admonition-title">注釈</p>
-<p>CentOSのDockerインストール方法について</p>
-<p>以下の通り、EC2上にLaunchされたCentOS7では、以下のコマンドでDockerをインストールできます。</p>
+<p>CentOSのDockerインストール方法</p>
+<p>EC2でCentOS7を実行した場合、以下のコマンドでDockerをインストールできます。</p>
 <div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>centos@ip-XXXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo yum update -y
 // omit
 <span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo yum install -y docker
@@ -400,7 +402,7 @@ Created symlink from /etc/systemd/system/multi-user.target.wants/docker.service 
 <p><br/></p>
 <div class="admonition note">
 <p class="first admonition-title">注釈</p>
-<p>dockerコマンドの実行について</p>
+<p>dockerコマンドの実行</p>
 <p>dockerコマンドを利用する際は sudoが必要です。 sudoなしでdockerコマンドを実行するには、dockerグループを作成し、実行ユーザを追加する必要があります。</p>
 <div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo groupadd docker
 <span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo gpasswd -a <span class="nv">$USER</span> docker
@@ -413,11 +415,10 @@ Created symlink from /etc/systemd/system/multi-user.target.wants/docker.service 
 <p><br/></p>
 <div class="admonition note">
 <p class="first admonition-title">注釈</p>
-<p>CentOSのGitインストール方法について</p>
-<p>以下の通り、EC2上にLaunchされたCentOS7では、以下のコマンドでGitをインストールできます。インストールディレクトリは任意に変更可能です。</p>
+<p>CentOSのGitインストール方法</p>
+<p>EC2でCentOS7を実行した場合では、以下のコマンドでGitをインストールできます。適当なディレクトリでインストールコマンドを実行してください。</p>
 <div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>centos@ip-XXXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo yum -y install wget make gcc perl-ExtUtils-MakeMaker curl-devel expat-devel gettext-devel openssl-devel zlib-devel autoconf
 // omit
-<span class="o">[</span>centos@ip-XXXX-XXX-XXX-XXX ~<span class="o">]</span>$ <span class="nb">cd</span> /var/local/
 <span class="o">[</span>centos@ip-XXXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo wget https://www.kernel.org/pub/software/scm/git/git-2.9.5.tar.gz
 // omit
 <span class="o">[</span>centos@ip-XXXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo tar xvzf git-2.9.5.tar.gz
@@ -435,19 +436,23 @@ git version <span class="m">2</span>.9.5
 </div>
 </div>
 <p><br/></p>
-<p>以降は、EC2環境等でゲストOSとしてCentOS7をLaunchさせて、DockerやGitをインストール済みしたマシン上での操作を前提に話を進めていきます。</p>
-<p>GitにあるソースコードプロジェクトにあるDockerfileを元に、Dockerイメージを作成します。以下では、ソースコードをGitHubからクローンし、
-Backendアプリケーションのプロジェクト直下にあるDockerfileを指定して、docker buildコマンドでDockerイメージを作成しています。
-GitHubからチェックアウトするソースコードのプロジェクトやdocker buildコマンドで指定する-tオプションのレポジトリ名は適宜、自身の環境に合わせて変更してください。
-下記ではDocker Hubを前提にしたコマンド実行例です。</p>
+<p>以降は、EC2でCentOS7を実行し、DockerやGitをインストール済みしたマシン上での操作を前提に話を進めていきます。</p>
+<p>GitHubへプッシュしたBackend、Backend For Frontend双方のソースコードプロジェクトにあるDockerfileを使って、Dockerイメージを作成します。
+以下では、ソースコードをGitHubからクローンし、Backendアプリケーションのプロジェクト直下にあるDockerfileを指定して、docker buildコマンドでDockerイメージを作成しています。
+GitHubからチェックアウトするソースコードのプロジェクトやdocker buildコマンドで指定する-tオプションのレポジトリ名は適宜、自身が実行する環境に合わせて変更してください。
+また、下記ではレジストリをDocker Hubを前提にしたコマンド実行例です。</p>
 <p><br/></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo git clone https://github.com/debugroom/mynavi-sample-aws-ecs.git
 <span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ <span class="nb">cd</span> mynavi-sample-aws-ecs
 <span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX mynavi-sample-aws-ecs<span class="o">]</span>$ docker build backend/ -t debugroom/mynavi-sample-ecs-backend:latest
+// omit
+<span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ docker images
+REPOSITORY                                                   TAG                 IMAGE ID            CREATED             SIZE
+debugroom/mynavi-sample-ecs-backend                          latest              1f3ea8c79c62        <span class="m">1</span> minites ago       <span class="m">985</span> MB
 </pre></div>
 </div>
 <p><br/></p>
-<p>Dockerイメージが作成されたら、Docker HubもしくはAmazon ECRへプッシュします。下記は、DockerHubへコンテナイメージをプッシュする例です。</p>
+<p>Dockerイメージが作成されたら、Docker Hubへプッシュします。</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ docker login
 // omit  - enter USERID and password
 <span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ docker push debugroom/mynavi-sample-ecs-backend:latest

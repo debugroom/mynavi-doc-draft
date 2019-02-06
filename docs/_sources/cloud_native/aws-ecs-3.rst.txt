@@ -20,9 +20,9 @@ AWSで作るクラウドネイティブアプリケーションの基本
 #. Dockerコンテナの作成・DockerHubへのプッシュ
 #. ECSクラスタの作成
 #. ECSタスクの定義
-#. ECSサービスの定義
+#. ECSサービスの実行
 
-前回の記事「 :ref:`section-cloud-native-ecs-2nd-label` 」までに、以下イメージの構成に沿って、VPC環境・ALBを構築しました。今回は3.Springを使用したコンテナアプリケーションの実装方法です。
+前回の記事「 :ref:`section-cloud-native-ecs-2nd-label` 」までに、以下イメージの構成に沿って、VPC環境・ALBを構築しました。今回は「3. Springを使用したコンテナアプリケーションの実装方法」です。
 
 |br|
 
@@ -31,13 +31,15 @@ AWSで作るクラウドネイティブアプリケーションの基本
 
 |br|
 
+.. _section-cloud-native-ecs-spring-app-implementation-label:
+
 (3)Springを使用したコンテナアプリケーションの実装方法
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 |br|
 
-ECSの実行環境はDockerコンテナなので、ECSで実行するSpringアプリケーションは、単純にLinuxベースのコンテナイメージの中で実行するアプリケーションをSpring Bootを使って実装する方法が簡易です。
-ただ、ECSを用いると、単にDockerをEC2上で実行する場合に比べて、アプリケーションのIPアドレスやポートの管理がAWSのマネージドになり、アプリケーション間のサービス連携・通信はALB(アプリケーションロードバランサー)を介して行う方がよいので
+ECSの実態はDockerコンテナなので、ECSで実行するSpringアプリケーションは、単純にLinuxベースのOSで実行するアプリケーションをSpring Bootを使って実装し、ExcutableJar形式で実行するコンテナイメージを作成する方法が簡易です。
+ただ、ECSを用いると、単にDockerをEC2上で実行する場合に比べて、クラスタのポートの管理やコンテナ実行がAWSのマネージドになり、コンテナアプリケーション間のサービス連携はALB(アプリケーションロードバランサー)を介して行う方がよいので
 こうしたECSの特徴を理解して、アプリケーションを実装しておく必要があります。
 
 なお、実際に作成したアプリケーションは `GitHub <https://github.com/debugroom/mynavi-sample-aws-ecs>`_ 上にコミットしています。
@@ -83,7 +85,22 @@ Spring Bootを使用してアプリケーションを構築するには、まず
 
 |br|
 
-まず、プライベートサブネットでバックエンドAPIサーバとして、/api/v1/usersというURLのパスでリクエストを受け取り、ユーザのリストを返却する簡単なアプリケーションを作成しておきます。
+また、アプリケーションをExcutableJar実行形式とするために、spring-boot-maven-pluginもpom.xmlのビルドオプションへ含んでおく必要があります。
+
+.. sourcecode:: xml
+
+   <build>
+     <plugins>
+       <plugin>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-maven-plugin</artifactId>
+       </plugin>
+     </plugins>
+   </build>
+
+|br|
+
+では、アプリケーションを実装していきます。まず、プライベートサブネットでバックエンドAPIサーバとして、/api/v1/usersというURLのパスでリクエストを受け取り、ユーザのリストを返却する簡単なアプリケーションを作成しておきます。
 SpringBootでこれを実装するには、Controllerクラスと起動・設定ファイルクラスが最低限必要です。
 
 |br|
@@ -154,7 +171,7 @@ SpringBootでこれを実装するには、Controllerクラスと起動・設定
 
 |br|
 
-ここまではSpringBootで作るシンプルなREST APIアプリケーションですが、ポイントとして、前回設定したプライベートサブネットのアプリケーションロードバランサー(ALB)がルーティングしてくるパスを
+ここまではSpringBootで作るシンプルなREST APIアプリケーションですが、ポイントとして、前回(2)で設定したプライベートサブネットのアプリケーションロードバランサー(ALB)がルーティングしてくるパスを
 アプリケーションコンテキストパスとするよう、application.ymlに、server.servlet.context-pathプロパティを設定しておいてください。
 
 |br|
@@ -168,7 +185,7 @@ SpringBootでこれを実装するには、Controllerクラスと起動・設定
 
 |br|
 
-続いて、パブリックサブネットに配置するBFFアプリケーションを実装します。下記イメージの通り、index.htmlページにある、ボタンを押下すると、
+続いて、パブリックサブネットに配置するBFFアプリケーションを実装します。アプリケーションの完成イメージは下記の通り、index.htmlページにある、ボタンを押下すると、
 BackendアプリケーションのGET API(/backend/api/v1/users)を呼び出し、結果をHTMLページに埋め込んで返す処理を行います。
 
 |br|
@@ -179,9 +196,9 @@ BackendアプリケーションのGET API(/backend/api/v1/users)を呼び出し�
 |br|
 
 index.htmlページから送信したリクエストを受け付けるBFFアプリケーションのControllerは次の通りになります。
-SpringBoot起動クラス構成はBackendとほぼ同じですが、Controllerでは、Backendアプリケーションを呼び出し、結果をThymeleafのテンプレートに渡してHTMLページを返却する点が異なります。
+SpringBoot起動クラスの構成はBackendとほぼ同じですが、Controllerでは、Backendアプリケーションを呼び出し、結果をThymeleafのテンプレートに渡してHTMLページを返却する点が異なります。
 
-5. index.htmlからのリクエストを受けて、BackendアプリケーションのAPIを呼び出し、戻った結果をusers.htmlに設定してクライアントにHTMLページを返却するControllerクラス
+5. index.htmlからのリクエストを受け、BackendのAPIを呼び出し、戻った結果をusers.htmlに出力して、クライアントにHTMLページを返却するControllerクラス
 
 .. sourcecode:: Java
 
@@ -212,7 +229,7 @@ SpringBoot起動クラス構成はBackendとほぼ同じですが、Controller�
 |br|
 
 ここでは、RestTemplateのインターフェースであるorg.springframework.web.client.RestOperationsを使用してBackendサービスを呼び出しています。
-ここで実装を工夫して、ALBのDNSドメインをプロパティファイルから取得して設定する形にしていれば、ソースコード上でAWS環境に依存しないアプリケーション実装にしておくことができます。
+ここで実装を工夫して、ALBのDNSドメインをプロパティファイルから取得して設定する形にしていれば、Javaソースコード上でAWS環境に依存しないアプリケーション実装にしておくことができます。
 
 |br|
 
@@ -246,7 +263,7 @@ SpringBoot起動クラス構成はBackendとほぼ同じですが、Controller�
 
 |br|
 
-また、RestOpearationsの生成時に設定クラス上でorg.springframework.boot.web.client.RestTemplateBuilderのrootUri()メソッドで、下記のように、ALBのルートとなるURLをプロパティから取得して設定しておけば、設定は１箇所で済みます。
+また、RestOpearationsの生成時に設定クラス上でorg.springframework.boot.web.client.RestTemplateBuilderのrootUri()メソッドで、下記のように、ALBのルートとなるURLをプロパティから取得して設定しておけば、URL設定の記述も１箇所で済みます。
 
 |br|
 
@@ -278,17 +295,11 @@ SpringBoot起動クラス構成はBackendとほぼ同じですが、Controller�
 
 |br|
 
-上記のポイントを踏まえ、アプリケーションを実装しておけば、パブリックサブネットのBFFアプリケーションからプライベートサブネット内のBackendアプリケーションのAPIの呼び出しを
-ごく少量のコーディングで実現することができます。また、AWS環境に依存した内容は設定ファイルのALBのURL1箇所に限定されるので、非常にポータリビリティの高いアプリケーションにしておくことができます。
-別のECSコンテナアプリケーションを直接呼び出すのではなく、ALBを介してサービスを呼び出すことで、以下のようなメリットを享受することができます。
+上記のポイントを踏まえ、アプリケーションを実装しておけば、パブリックサブネットのBFFアプリケーションからプライベートサブネット内のBackendのAPIの呼び出しを
+ごく少量のコーディングで実現することができます。また、AWS環境に依存した内容は設定ファイルのALBのURL1箇所に限定されるので、ポータリビリティの高いアプリケーションにしておくことができます。
 
-* 呼び出したいアプリケーションのコンテナのIPやポートを意識しなくて済む
-* ヘルスチェックによるアプリケーション監視が行える
-* サービスディスカバリを実現できる(ヘルスチェックでNGだと再起動)
-* 複数のコンテナが実行されていた場合に処理を分散できる
-* CloudWatchによる監視ができる。
 
-次回は、実装したSpringアプリケーションのDockerコンテナイメージを作り、レジトストリへプッシュします。
+これで、アプリケーションを実装できました。次回は、実装したSpringアプリケーションのDockerコンテナイメージを作り、レジストリへプッシュします。
 
 著者紹介
 ------------------------------------------------------------------

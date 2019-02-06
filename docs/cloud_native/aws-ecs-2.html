@@ -63,6 +63,10 @@
 <li class="toctree-l1"><a class="reference internal" href="aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 </ul>
 </ul>
 </li>
@@ -78,10 +82,10 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
 <li><a class="reference internal" href="#aws-ecsspring-2">第2回 AWS ECS上に構築するSpringアプリケーション(2)</a><ul>
-<li><a class="reference internal" href="#id1">(2)アプリケーションロードバランサーの作成</a></li>
+<li><a class="reference internal" href="#alb">(2)アプリケーションロードバランサー(ALB)の作成</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id2">著者紹介</a></li>
+<li><a class="reference internal" href="#id1">著者紹介</a></li>
 </ul>
 </li>
 </ul>
@@ -144,18 +148,18 @@
 <li>Dockerコンテナの作成・DockerHubへのプッシュ</li>
 <li>ECSクラスタの作成</li>
 <li>ECSタスクの定義</li>
-<li>ECSサービスの定義</li>
+<li>ECSサービスの実行</li>
 </ol>
-<p>前回の記事「 <a class="reference internal" href="aws-ecs-1.html#section-cloud-native-ecs-1st-label"><span class="std std-ref">第2回 AWS ECS上に構築するSpringアプリケーション(1)</span></a> 」では、以下イメージの構成に沿って、VPC環境を構築しました。今回は2.アプリケーションロードバランサの作成です。</p>
+<p>前回の記事「 <a class="reference internal" href="aws-ecs-1.html#section-cloud-native-ecs-1st-label"><span class="std std-ref">第2回 AWS ECS上に構築するSpringアプリケーション(1)</span></a> 」では、以下イメージの構成に沿って、VPC環境を構築しました。今回は「2.アプリケーションロードバランサ(ALB)の作成」です。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/ecs-architecture.png"><img alt="../_images/ecs-architecture.png" src="../_images/ecs-architecture.png" style="width: 786.0px; height: 743.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/ecs-architecture.png"><img alt="../_images/ecs-architecture.png" src="../_images/ecs-architecture.png" style="width: 786.0px; height: 723.0px;" /></a>
 </div>
 <p><br/></p>
-<div class="section" id="id1">
-<h3>(2)アプリケーションロードバランサーの作成<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="alb">
+<span id="section-cloud-native-ecs-create-alb-label"></span><h3>(2)アプリケーションロードバランサー(ALB)の作成<a class="headerlink" href="#alb" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
-<p>VPCの環境では、パブリックとプライベートにサブネットを分割しています。プライベートサブネットのECSコンテナへは、基本VPC以外からのアクセスは受け付けないよう、セキュリティグループを設定しておく必要があり、
+<p>VPCの環境では、パブリックとプライベートにサブネットを分割しました。プライベートサブネットのECSコンテナへは、基本VPC内以外からのアクセスは受け付けないよう、ロードバランサーにもセキュリティグループを設定しておく必要があり、
 一方、パブリックサブネットのECSコンテナはインターネットからの接続を受け付けるようにするため、ロードバランサーもパブリック用とプライベート用２種類作成します。</p>
 <p><br/></p>
 <div class="admonition note">
@@ -182,10 +186,10 @@
 <li>Source Address Preservation</li>
 <li>フェイルオーバーに対応</li>
 </ul>
-<p class="last"><br/> 各ロードバランシングサービスの比較は <a class="reference external" href="https://aws.amazon.com/jp/elasticloadbalancing/features/#compare">Elastic Load Balancing 製品の詳細</a> に詳細がまとめられていますので適宜参考にしてください。</p>
+<p class="last"><br/> 各ロードバランシングサービスの比較は <a class="reference external" href="https://aws.amazon.com/jp/elasticloadbalancing/features/#compare">Elastic Load Balancing 製品の詳細</a> に詳細がまとめられていますので、適宜参考にしてください。</p>
 </div>
 <p><br/></p>
-<p>次回後述しますが、実装するアプリケーション内でバックエンドのコンテナアプリケーションを呼び出す際に、ロードバランサーを経由するHTTPリクエストを送信します。この時、ロードバランサーでは、ALBのパスベースルーティングによりコンテナで実行しているアプリケーションを識別しますので、ロードバランサーにはALBを指定しておいてください。</p>
+<p>次回(3)でも後述しますが、パブリックサブネットのBFFアプリケーションでは、バックエンドのコンテナアプリケーションを呼び出す際に、ロードバランサーを経由するHTTPリクエストを送信します。この時、ロードバランサーでは、ALBのパスベースルーティング機能を使ってコンテナアプリケーションを識別しますので、ロードバランサーにはALBを指定しておいてください。</p>
 <p><br/></p>
 <p>「EC2」サービスから、「ロードバランサー」メニューを選択し、「ロードバランサーの作成」を押下します。ALBを選択し、「作成」ボタンを押下します。</p>
 <div class="figure">
@@ -193,8 +197,8 @@
 </div>
 <p><br/></p>
 <p>以下の要領に従って、ALBを設定します。「セキュリティ設定の構成」ボタンを押下後、そのまま「セキュリティグループの設定」ボタンを押下し、先に進んでください。</p>
-<table border="1" class="colwidths-given docutils" id="id3">
-<caption><span class="caption-text">ALBの設定項目</span><a class="headerlink" href="#id3" title="このテーブルへのパーマリンク">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id2">
+<caption><span class="caption-text">ALBの設定項目</span><a class="headerlink" href="#id2" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col width="30%" />
 <col width="70%" />
@@ -219,7 +223,7 @@
 <td>前回作成したVPCを指定します。</td>
 </tr>
 <tr class="row-odd"><td>アベイラビリティゾーン：アベイラビリティゾーンおよびサブネット</td>
-<td>ロードバランシングするアベイラビリティゾーンおよびそのサブネットを指定します。スキームに合わせて設定してください。</td>
+<td>ロードバランシングするアベイラビリティゾーンおよびそのサブネットを指定します。上記のスキームに合わせて設定してください。</td>
 </tr>
 </tbody>
 </table>
@@ -227,7 +231,7 @@
 <a class="reference internal image-reference" href="../_images/management-console-ec2-create-alb-2.png"><img alt="../_images/management-console-ec2-create-alb-2.png" src="../_images/management-console-ec2-create-alb-2.png" style="width: 1178.0px; height: 804.0px;" /></a>
 </div>
 <p><br/></p>
-<p>ロードバランサーのセキュリティグループを作成します。次回、作成するECSクラスタのセキュリティグループにロードバランサーのセキュリティグループを許可対象として設定するので、ここではユニークなセキュリティグループを新規作成してください。</p>
+<p>ロードバランサーのセキュリティグループを作成します。後々、作成するECSクラスタのセキュリティグループの発信元ソースに、このロードバランサーのセキュリティグループを許可対象として設定することになるので、ここでは今回ユニークに割り当てるセキュリティグループを新規作成してください。</p>
 <ul class="simple">
 <li>セキュリティグループの割り当て：新しいセキュリティグループを作成する</li>
 <li>セキュリティグループ名：任意のセキュリティグループ名を入力</li>
@@ -254,7 +258,7 @@
 </div>
 </div>
 <p><br/></p>
-<p>コンテナを実行するECSクラスタ向けのターゲットグループを指定します。将来的には各コンテナアプリケーションごとにターゲットグループが指定されることになります。</p>
+<p>コンテナを実行するECSクラスタ向けのターゲットグループを指定します。ちなみに複数の違う種類のコンテナを配置する場合は、各コンテナアプリケーションごとにターゲットグループを指定されることになります。</p>
 <p>[ターゲットグループ]</p>
 <ul class="simple">
 <li>ターゲットグループ：新しいターゲットグループ</li>
@@ -270,36 +274,36 @@
 </ul>
 <div class="admonition note">
 <p class="first admonition-title">注釈</p>
-<p class="last">ヘルスチェックするアプリケーションのURLがhttp://localhost:8080/backend-for-frontend/index.htmlであれば、パス名をアプリケーションコンテキストパス以下の/backend-for-frontend/index.htmlで指定します。</p>
+<p class="last">ヘルスチェックするアプリケーションのURLがhttp://localhost:8080/backend-for-frontend/index.htmlであれば、パス名はアプリケーションコンテキストパス以下となる/backend-for-frontend/index.htmlを指定します。</p>
 </div>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/management-console-ec2-create-alb-5.png"><img alt="../_images/management-console-ec2-create-alb-5.png" src="../_images/management-console-ec2-create-alb-5.png" style="width: 888.0px; height: 612.0px;" /></a>
 </div>
 <p><br/></p>
-<p>ターゲットグループにはECSクラスタを作成後、登録するので現状は特に何もターゲットの登録をせずALBを作成してください。</p>
+<p>ターゲットグループにはECSサービスの作成で改めて登録するので、ここでは特に何もターゲットの登録をせずALBを作成してください。</p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/management-console-ec2-create-alb-7.png"><img alt="../_images/management-console-ec2-create-alb-7.png" src="../_images/management-console-ec2-create-alb-7.png" style="width: 882.0px; height: 606.0px;" /></a>
 </div>
 <p><br/></p>
-<p>作成したロードバランサーでパスベースのルーティングをターゲットグループに対して設定します。「EC2」サービスから「ロードバランサー」メニューを選択し、作成した２つのパブリック・プライベート用のロードバランサーを各々選択し、「リスナー」タブから「ルールの表示/編集」リンクを押下します。</p>
+<p>作成したロードバランサーにパスベースのルーティングをターゲットグループに対して設定します。「EC2」サービスから「ロードバランサー」メニューを選択し、作成した２つのパブリック・プライベート用のロードバランサーを各々選択し、「リスナー」タブから「ルールの表示/編集」リンクを押下します。</p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/management-console-ec2-setting-path-1.png"><img alt="../_images/management-console-ec2-setting-path-1.png" src="../_images/management-console-ec2-setting-path-1.png" style="width: 1119.0px; height: 550.0px;" /></a>
 </div>
 <p><br/></p>
-<p>画面上部のプラスボタンを押下し、ルールを追加します。各ターゲットグループにどのパスでルーティングするかを設定します。条件を設定した後、「保存」ボタンを押して、パスベースのルーティングのルールを保存してください。</p>
+<p>画面上部のプラスボタンを押下し、ルールを追加します。各ターゲットグループにどのパスで、どのターゲットグループへルーティングするかを設定します。条件を設定した後、「保存」ボタンを押して、パスベースのルーティングのルールを保存してください。</p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/management-console-ec2-setting-path-2.png"><img alt="../_images/management-console-ec2-setting-path-2.png" src="../_images/management-console-ec2-setting-path-2.png" style="width: 1165.0px; height: 519.0px;" /></a>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">注釈</p>
-<p class="last">パスとして指定する値は、アプリケーションのコンテキストルートに相当するものを設定しておくと、次回作成するSpringアプリケーションで柔軟なサービス指定ができます。</p>
+<p class="last">パスとして指定する値は、アプリケーションのコンテキストルートに相当するだけを設定しておくと、次回(3)で作成するSpringアプリケーションで柔軟なサービス呼び出しができます。</p>
 </div>
-<p>以上で、ALBの設定は終了です。次回はコンテナで実行するSpringアプリケーションについて実装方法を解説します。</p>
+<p>以上で、ALBの設定は終了です。次回はECSコンテナで実行するSpringアプリケーションについて実装方法を解説します。</p>
 <p><br/></p>
 </div>
 </div>
-<div class="section" id="id2">
-<h2>著者紹介<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id1">
+<h2>著者紹介<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei)</p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>

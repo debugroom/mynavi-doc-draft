@@ -20,7 +20,7 @@ AWSで作るクラウドネイティブアプリケーションの基本
 #. Dockerコンテナの作成・DockerHubへのプッシュ
 #. ECSクラスタの作成
 #. ECSタスクの定義
-#. ECSサービスの定義
+#. ECSサービスの実行
 
 前回の記事「 :ref:`section-cloud-native-ecs-3rd-label` 」までに、以下イメージの構成に沿って、VPC環境・ALBを構築し、ECSコンテナ上で動くパブリック・プライベートサブネット用２種類のアプリケーションを作成しました。
 今回は「4. Dockerコンテナの作成・DockerHubへのプッシュ」です。
@@ -31,6 +31,8 @@ AWSで作るクラウドネイティブアプリケーションの基本
    :scale: 100%
 
 |br|
+
+.. _section-cloud-native-ecs-create-docker-image-label:
 
 (4)Dockerコンテナの作成・DockerHubへのプッシュ
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -45,7 +47,7 @@ ECSの実態はDockerコンテナなので、前回実装したSpringアプリ�
 前回作成したSpringBootアプリケーションのMavenプロジェクト内に、各々以下のようなDockerファイルを作成してコミットし、GitHubへプッシュします。
 
 .. sourcecode:: bash
-   :caption: Backendアプリケーションのプロジェクトに作成するDockerファイル
+   :caption: Backendアプリケーションのプロジェクトに作成するDockerfile
 
    # Dockerfile for sample service using embedded tomcat server
 
@@ -187,7 +189,7 @@ ECSの実態はDockerコンテナなので、前回実装したSpringアプリ�
      - RUN git clone https://github.com/debugroom/mynavi-sample-aws-ecs.git /var/local/mynavi-sample-aws-ecs
 
    * -
-     - コミットしたSpringアプリケーションを/var/local/mynavi-sample-aws-ecsへgit cloneしています。ディレクトリは適宜変更しても可能です。
+     - GitHubへプッシュしたSpringアプリケーションを/var/local/mynavi-sample-aws-ecsへgit cloneしています。ディレクトリは適宜変更しても可能です。
 
    * - (I)
      - RUN mvn install -f /var/local/mynavi-sample-aws-ecs/pom.xml
@@ -199,7 +201,7 @@ ECSの実態はDockerコンテナなので、前回実装したSpringアプリ�
      - RUN cp /etc/localtime /etc/localtime.org
 
    * -
-     - アプリケーションの実行環境のタイムゾーンを変更するため、タイムゾーンファイルを一度バックアップします。
+     - OSのタイムゾーンを変更するため、タイムゾーンファイルを一度バックアップします。
 
    * - (K)
      - RUN ln -sf  /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
@@ -217,7 +219,7 @@ ECSの実態はDockerコンテナなので、前回実装したSpringアプリ�
      - CMD java -jar -Dspring.profiles.active=production /var/local/mynavi-sample-aws-ecs/backend-for-frontend/target/mynavi-sample-aws-ecs-backend-for-frontend-0.0.1-SNAPSHOT.jar
 
    * -
-     - (I)でビルドしたSpringBootアプリケーションをプロファイルproductionで実行しています。
+     - IでビルドしたSpringBootアプリケーションをプロファイルproductionで実行しています。ExecutableJar形式ですので、アプリケーションが組み込みTomcat内で起動します。
 
 |br|
 
@@ -225,9 +227,9 @@ ECSの実態はDockerコンテナなので、前回実装したSpringアプリ�
 
 |br|
 
-.. note:: CentOSのDockerインストール方法について
+.. note:: CentOSのDockerインストール方法
 
-   以下の通り、EC2上にLaunchされたCentOS7では、以下のコマンドでDockerをインストールできます。
+   EC2でCentOS7を実行した場合、以下のコマンドでDockerをインストールできます。
 
    .. sourcecode:: bash
 
@@ -241,7 +243,7 @@ ECSの実態はDockerコンテナなので、前回実装したSpringアプリ�
 
 |br|
 
-.. note:: dockerコマンドの実行について
+.. note:: dockerコマンドの実行
 
    dockerコマンドを利用する際は sudoが必要です。 sudoなしでdockerコマンドを実行するには、dockerグループを作成し、実行ユーザを追加する必要があります。
 
@@ -255,15 +257,14 @@ ECSの実態はDockerコンテナなので、前回実装したSpringアプリ�
 
 |br|
 
-.. note:: CentOSのGitインストール方法について
+.. note:: CentOSのGitインストール方法
 
-   以下の通り、EC2上にLaunchされたCentOS7では、以下のコマンドでGitをインストールできます。インストールディレクトリは任意に変更可能です。
+   EC2でCentOS7を実行した場合では、以下のコマンドでGitをインストールできます。適当なディレクトリでインストールコマンドを実行してください。
 
    .. sourcecode:: bash
 
       [centos@ip-XXXX-XXX-XXX-XXX ~]$ sudo yum -y install wget make gcc perl-ExtUtils-MakeMaker curl-devel expat-devel gettext-devel openssl-devel zlib-devel autoconf
       // omit
-      [centos@ip-XXXX-XXX-XXX-XXX ~]$ cd /var/local/
       [centos@ip-XXXX-XXX-XXX-XXX ~]$ sudo wget https://www.kernel.org/pub/software/scm/git/git-2.9.5.tar.gz
       // omit
       [centos@ip-XXXX-XXX-XXX-XXX ~]$ sudo tar xvzf git-2.9.5.tar.gz
@@ -280,12 +281,12 @@ ECSの実態はDockerコンテナなので、前回実装したSpringアプリ�
 
 |br|
 
-以降は、EC2環境等でゲストOSとしてCentOS7をLaunchさせて、DockerやGitをインストール済みしたマシン上での操作を前提に話を進めていきます。
+以降は、EC2でCentOS7を実行し、DockerやGitをインストール済みしたマシン上での操作を前提に話を進めていきます。
 
-GitにあるソースコードプロジェクトにあるDockerfileを元に、Dockerイメージを作成します。以下では、ソースコードをGitHubからクローンし、
-Backendアプリケーションのプロジェクト直下にあるDockerfileを指定して、docker buildコマンドでDockerイメージを作成しています。
-GitHubからチェックアウトするソースコードのプロジェクトやdocker buildコマンドで指定する-tオプションのレポジトリ名は適宜、自身の環境に合わせて変更してください。
-下記ではDocker Hubを前提にしたコマンド実行例です。
+GitHubへプッシュしたBackend、Backend For Frontend双方のソースコードプロジェクトにあるDockerfileを使って、Dockerイメージを作成します。
+以下では、ソースコードをGitHubからクローンし、Backendアプリケーションのプロジェクト直下にあるDockerfileを指定して、docker buildコマンドでDockerイメージを作成しています。
+GitHubからチェックアウトするソースコードのプロジェクトやdocker buildコマンドで指定する-tオプションのレポジトリ名は適宜、自身が実行する環境に合わせて変更してください。
+また、下記ではレジストリをDocker Hubを前提にしたコマンド実行例です。
 
 |br|
 
@@ -294,10 +295,14 @@ GitHubからチェックアウトするソースコードのプロジェクト�
    [centos@ip-XXX-XXX-XXX-XXX ~]$ sudo git clone https://github.com/debugroom/mynavi-sample-aws-ecs.git
    [centos@ip-XXX-XXX-XXX-XXX ~]$ cd mynavi-sample-aws-ecs
    [centos@ip-XXX-XXX-XXX-XXX mynavi-sample-aws-ecs]$ docker build backend/ -t debugroom/mynavi-sample-ecs-backend:latest
+   // omit
+   [centos@ip-XXX-XXX-XXX-XXX ~]$ docker images
+   REPOSITORY                                                   TAG                 IMAGE ID            CREATED             SIZE
+   debugroom/mynavi-sample-ecs-backend                          latest              1f3ea8c79c62        1 minites ago       985 MB
 
 |br|
 
-Dockerイメージが作成されたら、Docker HubもしくはAmazon ECRへプッシュします。下記は、DockerHubへコンテナイメージをプッシュする例です。
+Dockerイメージが作成されたら、Docker Hubへプッシュします。
 
 .. sourcecode:: bash
 

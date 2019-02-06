@@ -84,8 +84,8 @@
 <li><a class="reference internal" href="#ecs">(7)ECSサービスの実行</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id2">まとめ</a></li>
-<li><a class="reference internal" href="#id3">著者紹介</a></li>
+<li><a class="reference internal" href="#id5">まとめ</a></li>
+<li><a class="reference internal" href="#id6">著者紹介</a></li>
 </ul>
 </li>
 </ul>
@@ -147,16 +147,19 @@
 <li>ECSサービスの実行</li>
 </ol>
 <p>前回の記事「 <a class="reference internal" href="aws-ecs-6.html#section-cloud-native-ecs-6th-label"><span class="std std-ref">第2回 AWS ECS上に構築するSpringアプリケーション(6)</span></a> 」までに、以下イメージの構成に沿って、VPC環境・ALBを構築した後、ECSコンテナ上で動くパブリック・プライベートサブネット用２種類のアプリケーションを作成し、
-Dockerコンテナイメージにしてレジストリにプッシュしました。そして、コンテナを実行するためのECSクラスタを作成し、ECSコンテナの定義まで完了しました。第二回の最後となる今回は「7. ECSサービスの実行」です。</p>
+Dockerコンテナイメージを作成してレジストリにプッシュしました。そして、コンテナを実行するためのECSクラスタを作成し、ECSコンテナの定義まで完了しました。第二回の最後となる今回は「7. ECSサービスの実行」です。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/ecs-architecture.png"><img alt="../_images/ecs-architecture.png" src="../_images/ecs-architecture.png" style="width: 786.0px; height: 743.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/ecs-architecture.png"><img alt="../_images/ecs-architecture.png" src="../_images/ecs-architecture.png" style="width: 786.0px; height: 723.0px;" /></a>
 </div>
 <p><br/></p>
 <div class="section" id="ecs">
-<h3>(7)ECSサービスの実行<a class="headerlink" href="#ecs" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<span id="section-cloud-native-ecs-create-service-label"></span><h3>(7)ECSサービスの実行<a class="headerlink" href="#ecs" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
-<p>ECSサービス実行では、実際にECSクラスタ上にコンテナをLaunchします。「ECS」サービスから「ECSクラスタ」メニューを選択し、コンテナを実行するクラスタを選択します。</p>
+<p>ECSタスク定義と同様、ネットワークインターフェースをコンテナにアタッチするなどのサービス実行に必要な権限を持つロールが必要になります。
+「 <a class="reference internal" href="aws-ecs-6.html#section-cloud-native-ecs-define-task-label"><span class="std std-ref">(6)ECSタスクの定義</span></a> 」に記載するIAMロール作成と同様の手順で、AmazonECSServiceRolePolicyをアタッチしたIAMロールを作成しておいてください。
+なお、ECSを初回起動する場合には、以降の手順を実施していく中で、「AWSServiceRoleForECS」という名前で自動作成してくれますので、そのやり方で実行する場合は、スキップしてもかまいません。</p>
+<p>ECSサービス実行では、ECSクラスタ上にコンテナを起動します。「ECS」サービスから「ECSクラスタ」メニューを選択し、コンテナを実行するクラスタを選択します。</p>
 <p><br/></p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/management-console-ecs-create-service-1.png"><img alt="../_images/management-console-ecs-create-service-1.png" src="../_images/management-console-ecs-create-service-1.png" style="width: 1064.0px; height: 826.0px;" /></a>
@@ -169,8 +172,8 @@ Dockerコンテナイメージにしてレジストリにプッシュしまし�
 </div>
 <p><br/></p>
 <p>以下の要領に従って、ECSサービス定義の設定を行います。</p>
-<table border="1" class="colwidths-given docutils" id="id4">
-<caption><span class="caption-text">ECSサービス定義の入力項目</span><a class="headerlink" href="#id4" title="このテーブルへのパーマリンク">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id7">
+<caption><span class="caption-text">ECSサービス定義の入力項目</span><a class="headerlink" href="#id7" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col width="20%" />
 <col width="80%" />
@@ -198,52 +201,52 @@ Dockerコンテナイメージにしてレジストリにプッシュしまし�
 <td>クラスタで実行するコンテナ数を設定します。</td>
 </tr>
 <tr class="row-even"><td>最小ヘルス率</td>
-<td>&#160;</td>
+<td>コンテナの最小実行数の割合を設定します。</td>
 </tr>
 <tr class="row-odd"><td>最大率</td>
-<td>&#160;</td>
+<td>コンテナの最大実行数の割合を設定します。</td>
 </tr>
 <tr class="row-even"><td>デプロイメントタイプ</td>
-<td>&#160;</td>
+<td>コンテナをアップデートする場合の戦略を選択します。ローリングアップデートするかAWS CodeDeployを使用したブルーグリーンデプロイメントを選択できます。詳細は「 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AmazonECS/latest/developerguide/deployment-types.html">Amazon ECS デプロイタイプ</a> 」を参照してください。</td>
 </tr>
 <tr class="row-odd"><td>配置テンプレート</td>
-<td>&#160;</td>
+<td>コンテナを配置する戦略を選択します。詳細は「 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AmazonECS/latest/developerguide/task-placement-strategies.html">Amazon ECS タスク配置戦略</a> 」を参照してください。</td>
 </tr>
 <tr class="row-even"><td>ヘルスチェックの猶予時間</td>
-<td>&#160;</td>
+<td>ECSコンテナを起動してからのヘルスチェックの猶予時間を設定します。Springアプリケーションを起動するのに数秒〜数十秒を要するので、その辺を考慮した値を設定しましょう。</td>
 </tr>
 <tr class="row-odd"><td>ELBタイプ</td>
-<td>&#160;</td>
+<td>ECSコンテナに処理を分散させるロードバランサーを指定します。ここではALBを指定してください。</td>
 </tr>
 <tr class="row-even"><td>サービス用IAMロールの選択</td>
-<td>&#160;</td>
+<td>ECSサービス実行用のロールを設定してください。前述した通り、初回ECSを起動する場合は、新しくロールを作成するを選択すると、「AWSServiceRoleForECS」が作成されます。なお、詳細は「 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AmazonECS/latest/developerguide/using-service-linked-roles.html">Amazon ECS のサービスにリンクされたロールの使用</a> 」を参考にしてください。</td>
 </tr>
 <tr class="row-odd"><td>ELB名</td>
-<td>&#160;</td>
+<td>「 <a class="reference internal" href="aws-ecs-2.html#section-cloud-native-ecs-create-alb-label"><span class="std std-ref">(2)アプリケーションロードバランサー(ALB)の作成</span></a> 」で作成したALBを選択します。コンテナアプリケーションに合わせて、パブリック・プライベート各々サブネットと対応したALBを選択してください。</td>
 </tr>
 <tr class="row-even"><td>リスナーポート</td>
-<td>&#160;</td>
+<td>ALBを作成時に設定していたポートを選択されます。</td>
 </tr>
 <tr class="row-odd"><td>リスナープロトコル</td>
-<td>&#160;</td>
+<td>ALBを作成時に設定していたプロトコルを選択されます。</td>
 </tr>
 <tr class="row-even"><td>ターゲットグループ名</td>
-<td>&#160;</td>
+<td>ALBに設定されているターゲットグループを選択します。複数サービスがある場合はここでターゲットグループをコンテナに関連づけることになります。</td>
 </tr>
 <tr class="row-odd"><td>ターゲットグループのプロトコル</td>
-<td>&#160;</td>
+<td>ALBを作成時に設定していたプロトコルがされます。</td>
 </tr>
 <tr class="row-even"><td>パスパターン</td>
-<td>&#160;</td>
+<td>選択したターゲットグループにより自動指定されます。</td>
 </tr>
 <tr class="row-odd"><td>ヘルスチェックパス</td>
-<td>&#160;</td>
+<td>選択したターゲットグループにより自動設定されます。</td>
 </tr>
 <tr class="row-even"><td>サービス検出統合の有効化</td>
-<td>&#160;</td>
+<td>2018年9月に東京リージョンで追加されたRoute53を使ったサービス検出・ディスカバリー機能を有効化するオプションです。詳細は「 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AmazonECS/latest/userguide/service-configure-servicediscovery.html">オプションサービス検出を使用するようにサービスを設定する</a> 」に記述がありますが、今回はALBのパスルーティングを使用して、コンテナを識別・負荷分散するので、設定をオフにしてください。</td>
 </tr>
 <tr class="row-odd"><td>ServiceAutoScaling</td>
-<td>&#160;</td>
+<td>AutoScaling機能を有効化する場合、オプションを設定します。</td>
 </tr>
 </tbody>
 </table>
@@ -270,8 +273,8 @@ Dockerコンテナイメージにしてレジストリにプッシュしまし�
 <a class="reference internal image-reference" href="../_images/management-console-ecs-create-service-8.png"><img alt="../_images/management-console-ecs-create-service-8.png" src="../_images/management-console-ecs-create-service-8.png" style="width: 891.0px; height: 820.0px;" /></a>
 </div>
 <p><br/></p>
-<p>同様にプライベートサブネットのアプリケーションコンテナもサービスを実行します。パブリックサブネットのALBのDNSにBFFアプリケーションのパスを加え、アプリケーションが正しく実行されるか確認します。</p>
-<p>BFFアプリケーションのURL：　<a class="reference external" href="http://mynavi-sample-alb-public-722388091.ap-northeast-1.elb.amazonaws.com/backend-for-frontend/index.html">http://mynavi-sample-alb-public-722388091.ap-northeast-1.elb.amazonaws.com/backend-for-frontend/index.html</a></p>
+<p>同様にプライベートサブネットのアプリケーションコンテナもサービスを実行します。パブリックサブネットのALBのDNSにBFFアプリケーションのパスを加え、アプリケーションが正しく実行されるか確認します。xxxxxxの部分は自身の環境のALBのDNS名に合わせてアクセスしてください。</p>
+<p>BFFアプリケーションのURL：　<a class="reference external" href="http://xxxxxxxx.ap-northeast-1.elb.amazonaws.com/backend-for-frontend/index.html">http://xxxxxxxx.ap-northeast-1.elb.amazonaws.com/backend-for-frontend/index.html</a></p>
 <p><br/></p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/ecs-bff-application.png"><img alt="../_images/ecs-bff-application.png" src="../_images/ecs-bff-application.png" style="width: 608.0px; height: 480.0px;" /></a>
@@ -284,14 +287,24 @@ Dockerコンテナイメージにしてレジストリにプッシュしまし�
 <p><br/></p>
 </div>
 </div>
-<div class="section" id="id2">
-<h2>まとめ<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id5">
+<h2>まとめ<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
-<p>AWS ECSでは、ネットワーク構成やロードバランサ、コンテナの定義など様々なことを考慮する必要がありますが、クラウド環境で可用性・セキュリティを保ちつつ、堅牢なSpringアプリケーションを構築することができます。</p>
+<p>ネットワーク構成やロードバランサ、コンテナの定義など様々なことを考慮する必要がありますが、AWS ECSを使って、クラウド環境でセキュリティを保ちつつ、可用性の高いアプリケーションを構築することができます。
+また、「 <a class="reference internal" href="aws-ecs-3.html#section-cloud-native-ecs-spring-app-implementation-label"><span class="std std-ref">(3)Springを使用したコンテナアプリケーションの実装方法</span></a> 」の様にSpringアプリケーションを実装し、別のECSコンテナアプリケーションを直接呼び出すのではなく、
+ALBのパスベースのルーティング機能を使い、サービスを呼び出す構成にしておくことで、以下のようなメリットを享受することができます。</p>
+<ul class="simple">
+<li>呼び出したいアプリケーションのコンテナのIPやポートを意識しなくて済む</li>
+<li>ヘルスチェックによるコンテナアプリケーション監視が行える</li>
+<li>コンテナのオートリカバリを実現できる(ヘルスチェックでNGだとコンテナを再起動)</li>
+<li>複数のコンテナが実行されていた場合に処理を分散できる</li>
+<li>CloudWatchによるリソース監視ができる。</li>
+</ul>
+<p>こうした構成はエンタープライズアプリケーションをクラウドネイティブ化する場合に十分有用なアーキテクチャです。</p>
 <p><br/></p>
 </div>
-<div class="section" id="id3">
-<h2>著者紹介<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id6">
+<h2>著者紹介<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei)</p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
