@@ -175,7 +175,7 @@ BFFアプリケーションのURL：　http://xxxxxxxx.ap-northeast-1.elb.amazon
 
 |br|
 
-.. note:: 正しくコンテナが実行されない場合、ECSクラスタにSSHログインし、docker ps -aすることでコンテナの実行を確認できます。また、コンテナ実行時のログは/var/log/ecs/ecs-agent.log_XXXXで確認できます。トラブルシューティングはこちらを参照してください。
+.. note:: 正しくコンテナが実行されない場合、ECSクラスタにSSHログインし、docker ps -aすることでコンテナの実行を確認できます。また、コンテナ実行時のログは/var/log/ecs/ecs-agent.log_XXXXで確認できます。トラブルシューティングはこうしたログを参照してください。
 
 |br|
 
