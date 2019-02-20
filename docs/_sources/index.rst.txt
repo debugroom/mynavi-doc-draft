@@ -23,3 +23,11 @@
    cloud_native/aws-ecs-5.rst
    cloud_native/aws-ecs-6.rst
    cloud_native/aws-ecs-7.rst
+   cloud_native/aws-nosql-1-1.rst
+   cloud_native/aws-nosql-1-2.rst
+   cloud_native/aws-nosql-2-1.rst
+   cloud_native/aws-nosql-2-2.rst
+   cloud_native/aws-nosql-2-3.rst
+   cloud_native/aws-nosql-3-1.rst
+   cloud_native/aws-nosql-3-2.rst
+   cloud_native/aws-nosql-3-3.rst

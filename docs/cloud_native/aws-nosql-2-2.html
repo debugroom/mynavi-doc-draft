@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AWSで作るクラウドネイティブアプリケーションの基本 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-nosql-2-3.html" />
+    <link rel="prev" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-nosql-2-1.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
+<li><a class="reference internal" href="#awsnosql-2-2">第3回 AWS上に構築するNoSQLアプリケーション(2)-2</a><ul>
+<li><a class="reference internal" href="#amazon-dynamodbspring">Amazon DynamoDBへアクセスするSpringアプリケーション</a><ul>
+<li><a class="reference internal" href="#spring-data-dynamodb">Spring Data DynamoDBの概要</a></li>
+<li><a class="reference internal" href="#spring-data-dynamodb-1">Spring Data DynamoDBを使ったアプリケーション実装(1)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="aws-nosql-2-1.html" title="Previous Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; AWSで作るクラウドネイテ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="aws-nosql-2-3.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/cloud_native/aws-nosql-2-2.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="aws">
+<span id="section-cloud-native-nosql-label-2-2"></span><h1>AWSで作るクラウドネイティブアプリケーションの基本<a class="headerlink" href="#aws" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="awsnosql-2-2">
+<span id="section-cloud-native-nosql-2nd-2-label"></span><h2>第3回 AWS上に構築するNoSQLアプリケーション(2)-2<a class="headerlink" href="#awsnosql-2-2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<div class="section" id="amazon-dynamodbspring">
+<span id="section-cloud-native-nosql-spring-applicaiton-2-2-label"></span><h3>Amazon DynamoDBへアクセスするSpringアプリケーション<a class="headerlink" href="#amazon-dynamodbspring" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
+Amazon Elastic CacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。</p>
+<p><br/></p>
+<ol class="arabic simple">
+<li>NoSQLデータベースの特徴とデータ特性<ul>
+<li>CAP定理を元にしたデータベースの分類とデータ特性</li>
+<li>AP型データベースAmazon DynamoDBとApache Cassandraの特徴</li>
+</ul>
+</li>
+<li>Amazon DynamoDBへアクセスするSpringアプリケーション<ul>
+<li>Amazon DynamoDBの概要及び構築と認証情報の設定</li>
+<li>Spring Data DynamoDBを用いたアプリケーション(1)</li>
+<li>Spring Data DynamoDBを用いたアプリケーション(2)</li>
+</ul>
+</li>
+<li>Apache CassandraへアクセスするSpringアプリケーション<ul>
+<li>AWS ECS上に構築するApache Cassandra</li>
+<li>Spring Data Cassandraを用いたアプリケーション(1)</li>
+<li>Spring Data Cassandraを用いたアプリケーション(2)</li>
+</ul>
+</li>
+<li>Amazon Elastic CacheへアクセスするSpringアプリケーション<ul>
+<li>Amazon Elastic Cacheの設定</li>
+<li>Spring Cloud AWSを用いたアプリケーション</li>
+</ul>
+</li>
+</ol>
+<p><br/></p>
+<p>前回 <a class="reference internal" href="aws-nosql-2-1.html#section-cloud-native-dynamodb-overview-label"><span class="std std-ref">Amazon DynamoDBの概要</span></a> では、AP型データベースである、Amazon DynamoDBの概要を説明し、テーブル構築しました。また、アプリケーションでアクセスするためのユーザを作成しています。
+今回はSpring Data DynamoDBを使ってデータベースアクセスするアプリケーションを実装してみます。</p>
+<p><br/></p>
+<div class="section" id="spring-data-dynamodb">
+<span id="section-cloud-native-spring-data-dynamodb-overview-label"></span><h4>Spring Data DynamoDBの概要<a class="headerlink" href="#spring-data-dynamodb" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p><br/></p>
+<p>Spring Data DynamoDBは Spring DataのコミュニティプロジェクトでSpring Data JPAなどと同様、
+データベースアクセス処理を抽象化・簡易化し、CRUD操作などの処理実装を提供するフレームワークです。
+主な特徴は以下の通りです。</p>
+<ul class="simple">
+<li>DynamoDBテーブルに対するCRUDメソッドの実装の提供</li>
+<li>キーワードを元にしたクエリメソッドによる動的クエリの生成</li>
+<li>アノテーションベースの簡易なスキーマ表現</li>
+<li>ページネーション、カスタムデータアクセス・データ射影</li>
+<li>Spring Data RestとのRESTサポート</li>
+</ul>
+<p>今回はこのフレームワークを用いて、DynamoDBにアクセスするアプリケーションを実装してみましょう。
+なお、実際に作成したアプリケーションは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-spring-data-dynamodb">GitHub</a> 上にコミットしています。
+以降記載されているソースコードで、インポート文など本質的でない記述を省略している部分がありますので、実行コードを作成する場合は、
+必要に応じて適宜GitHubソースコードも参照してください。</p>
+<p><br/></p>
+</div>
+<div class="section" id="spring-data-dynamodb-1">
+<span id="section-cloud-native-spring-data-dynamodb-implementation-1-label"></span><h4>Spring Data DynamoDBを使ったアプリケーション実装(1)<a class="headerlink" href="#spring-data-dynamodb-1" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p><br/></p>
+<p>Spring Data DynamoDBを使用するには、まず、Mavenプロジェクトのpom.xmlで、spring-data-dynamodbのライブラリを定義します。
+なお、DynamoDBへのアクセスを画面から実行するアプリケーションを作成するために、Webアプリケーションを作るための
+spring-boot-starter-web、thymeleafテンプレートエンジンを使用するためのspring-boot-starter-thymeleaf、
+DynamoDBテーブルのエンティティクラスの実装を簡易化するためにLombokライブラリを追加しておきましょう。</p>
+<p><br/></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependencies&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.github.derjust<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-data-dynamodb<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-thymeleaf<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.projectlombok<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>lombok<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;optional&gt;</span>true<span class="nt">&lt;/optional&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>今回、アプリケーションは以下のコンポーネントで構成しますが、Spring Data DynamoDBで最低限作成しなければならない必須のクラスは以下の通りです。
+なお、thymeleafテンプレートエンジンに関する説明は省略しますが、index.htmlからfindOne、findAll、add、update、deleteなどのCRUD処理を呼び出し、
+Controllerを通じて、結果に遷移する画面HTMLを各々実装しています。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id4">
+<caption><span class="caption-text">アプリケーション</span><a class="headerlink" href="#id4" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="30%" />
+<col width="60%" />
+<col width="10%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>コンポーネント</td>
+<td>説明</td>
+<td>必須</td>
+</tr>
+<tr class="row-even"><td>WebApp</td>
+<td>SpringBootアプリケーションを実行する起動クラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-odd"><td>MvcConfig</td>
+<td>Webアプリケーションの設定を行うクラス</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>DomainConfig</td>
+<td>サービスレイヤの設定を行うクラス</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>DynamoDBConfig</td>
+<td>DynamoDBへの接続に関する設定クラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-even"><td>SampleModel</td>
+<td>画面からのインプットパラメータを表すモデル</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>SampleController</td>
+<td>画面からのリクエストを受け付け、Serviceを実行し、結果をテンプレートエンジンに渡す</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>SampleModelMapper</td>
+<td>SampleModelとMynaviSampleTableのパラメータをマッピングする。</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>SampleService</td>
+<td>トランザクション境界となり、Repositoryを実行する。</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>SampleRepository</td>
+<td>データベースアクセスを実行する。</td>
+<td>◯</td>
+</tr>
+<tr class="row-odd"><td>MynaviSampleTable</td>
+<td>DynamoDBのテーブルを表現するエンティティクラス</td>
+<td>◯</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>以降、各々のクラスについて解説を進めていきますが、事前に <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/cli-configure-files.html">こちらのリンク</a> を参考に
+ユーザホームフォルダに.awsディレクトリを作成し、credentialという名前で、以下の形式で前回取得したアプリケーションのユーザ認証情報を保存してください。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>default<span class="o">]</span>
+<span class="nv">aws_access_key_id</span><span class="o">=</span>XXXXXXXXXXXXXXXX
+<span class="nv">aws_secret_access_key</span><span class="o">=</span>YYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+</pre></div>
+</div>
+<p><br/></p>
+<p>それでは、実装していくクラスを説明します。まず、最初にSpringBoot起動クラス及び、各種設定クラスです。
+&#64;SpringBootApplicaitonアノテーションが付与された起動クラスは、&#64;Configurationアノテーションが付与された同一パッケージの設定クラス及び、
+設定クラス内で&#64;ComponentScanされたパッケージにあるクラスを読み取ります。今回は目的に応じて以下の3つに分類して定義します。</p>
+<ul class="simple">
+<li>SpringMVCの設定クラスであるWebMvcConfigurerを実装した設定クラス：MvcConfigクラス</li>
+<li>Serviceをコンポーネントスキャンで読み取る設定クラス：DomainConfigクラス</li>
+<li>DynamoDBの接続を行う設定クラス：DynamoDBConfigクラス</li>
+</ul>
+<p>設定クラスは必ずしも複数である必要はなく一つにまとめても動作上問題ありませんが、クラス名と役割を対応づけて作成していた方が、
+後々設定内容を混乱することなく、クラス名から識別できてベターです。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.spring.data.dynamodb.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
+
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WebApp</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">WebApp</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>同一パッケージに配置するMvcConfigクラスでは、HTMLやCSSなどの静的リソースのURLと実際のリソースの物理配置の対応づけの定義をResourceHandlerRegistryに追加しておきます。
+また、Controllerクラスを読み取るためのComponentScanアノテーションにパッケージを指定しておきます。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.spring.data.dynamodb.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.ComponentScan</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.config.annotation.WebMvcConfigurer</span><span class="o">;</span>
+
+<span class="nd">@ComponentScan</span><span class="o">(</span><span class="s">&quot;org.debugroom.mynavi.sample.spring.data.dynamodb.app.web&quot;</span><span class="o">)</span>
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MvcConfig</span> <span class="kd">implements</span> <span class="n">WebMvcConfigurer</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addResourceHandlers</span><span class="o">(</span><span class="n">ResourceHandlerRegistry</span> <span class="n">registry</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">registry</span><span class="o">.</span><span class="na">addResourceHandler</span><span class="o">(</span><span class="s">&quot;/static/**&quot;</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">addResourceLocations</span><span class="o">(</span><span class="s">&quot;classpath:/static/&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>DomainConfigクラスではServiceなどビジネスロジックレイヤに属するコンポーネントをスキャンする定義を追加しておきます。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.spring.data.dynamodb.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.ComponentScan</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+
+<span class="nd">@ComponentScan</span><span class="o">(</span><span class="s">&quot;org.debugroom.mynavi.sample.spring.data.dynamodb.domain&quot;</span><span class="o">)</span>
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DomainConfig</span> <span class="o">{</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>続いて、DynamoDBへの接続で必須になる設定クラスがDynamoDBConfigクラスです。&#64;EnableDynamoDBRepositoriesアノテーションを付与すると、
+DynamoDBの接続に必要なクラスがアプリケーション起動時に自動で構築されていく様になります。&#64;EnableDynamoDBRepositoriesには
+同時にDynamoDBテーブルへアクセスするRepositoryクラスがあるベースパッケージを同時に指定しなければなりません。</p>
+<p>必要なクラスはデフォルトで自動構築してくれますが、最低限、接続先のDynamoDBのリージョンやエンドポイント、認証情報の３つを個別に設定する必要があります。
+Spring Data DynamoDBでも内部では、DynamoDBとの接続にAWS SDKが提供しているcom.amazonaws.services.dynamodbv2.AmazonDynamoDBを利用しており、
+com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilderを使って、リージョンや認証情報を含めてインスタンスを作成するのが一般的です。
+そのため、設定クラス上でAmazonDynamoDBを生成し、個別の設定を行ってBean定義します。</p>
+<p>なお、AmazonDynamoDBClientBuilderは、デフォルトで、事前に設定しておいた.aws内にあるCredentialの中にある
+アクセスIDとシークレットキーを参照しにいく実装になっています。たまにサンプルでアプリケーション内で直接
+ClientBuilderにアクセスIDとシークレットキーを設定するコードがありますが、AWSとしてこのやり方は推奨していないので、
+アプリケーションにキーを設定するコードを記載するのはやめておきましょう。以下のコードでは、
+AwsClientBuilderにEndpoistConfigrationに東京リージョンとDynamoDBのサービスエンドポイントを設定ファイルapplication.ymlから取得して、
+AmazonDynamoDBClientBuilderへ設定しています。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.spring.data.dynamodb.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.amazonaws.client.builder.AwsClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.dynamodbv2.AmazonDynamoDB</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.socialsignin.spring.data.dynamodb.repository.config.EnableDynamoDBRepositories</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Value</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="nd">@EnableDynamoDBRepositories</span><span class="o">(</span><span class="n">basePackages</span> <span class="o">=</span> <span class="s">&quot;org.debugroom.mynavi.sample.spring.data.dynamodb.domain.repository&quot;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DynamoDBConfig</span> <span class="o">{</span>
+
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">&quot;${amazon.dynamodb.region}&quot;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">region</span><span class="o">;</span>
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">&quot;${amazon.dynamodb.endpoint}&quot;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">endpoint</span><span class="o">;</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">AmazonDynamoDB</span> <span class="nf">amazonDynamoDB</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">AmazonDynamoDBClientBuilder</span><span class="o">.</span><span class="na">standard</span><span class="o">().</span><span class="na">withEndpointConfiguration</span><span class="o">(</span>
+             <span class="k">new</span> <span class="n">AwsClientBuilder</span><span class="o">.</span><span class="na">EndpointConfiguration</span><span class="o">(</span><span class="n">endpoint</span><span class="o">,</span> <span class="n">region</span><span class="o">)).</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>application.yml</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>amazon:
+  dynamodb:
+    region: ap-northeast-1
+    endpoint: https://dynamodb.ap-northeast-1.amazonaws.com
+</pre></div>
+</div>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p>DynamoDBオブジェクトの生成に利用したAWS SDKのAmazonDynamoDBClientBuilderですが、正確に言えば以下の順序で認証情報を取得していく実装になっています。</p>
+<ol class="arabic simple">
+<li>環境変数AWS_ACCESS_KEY_IDとAWS_SECRET_ACCESS_KEY</li>
+<li>システムプロパティaws.accessKeyIdとaws.secretKey</li>
+<li>ユーザのAWS認証情報ファイル</li>
+<li>AWSインスタンスプロファイルの認証情報</li>
+</ol>
+<p class="last">これまでの設定では、ローカル環境ではユーザのAWS認証情報ファイルで取得する状態になっていますが、この実装のまま本番環境へ持って行っても、最後のAWSインスタンスプロファイルから認証情報を取得できます。
+この辺の挙動の詳細を知りたい方は <a class="reference external" href="https://github.com/aws/aws-sdk-java/blob/master/aws-java-sdk-core/src/main/java/com/amazonaws/auth/DefaultAWSCredentialsProviderChain.java">DefaultAWSCredentialsProviderChainの実装</a> を参照してみてください。
+最後のインスタンスプロファイル情報はアプリケーションを実行するEC2インスタンスないしはECSコンテナがもつ認証情報で、
+<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html">インスタンスやコンテナを実行する際、権限を割り当てるオプション</a> があります。
+開発環境・本番環境が変わるからといって、環境依存をなくすためにアプリケーション内でアクセスキーIDやシークレットキーを割り当てる実装は必要ありませんので、本稿の様に、
+開発環境(AWS内ではないローカル環境の場合)は.aws配下の認証情報を取得し、本番環境では、インスタンスのプロファイル上から認証情報を取得する実装を心がけてください。</p>
+</div>
+<p><br/></p>
+<p>アプリケーションの設定に関する実装はここまでです。引き続きアプリケーションのコンポーネントに関わる実装を進めていきます。</p>
+<p><br/></p>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>著者紹介<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei)</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+</div>
+<p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AWSで作るクラウドネイティブアプリケーションの基本 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-nosql-3-1.html" />
+    <link rel="prev" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-nosql-2-2.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
+<li><a class="reference internal" href="#awsnosql-2-3">第3回 AWS上に構築するNoSQLアプリケーション(2)-3</a><ul>
+<li><a class="reference internal" href="#amazon-dynamodbspring">Amazon DynamoDBへアクセスするSpringアプリケーション</a><ul>
+<li><a class="reference internal" href="#spring-data-dynamodb-2">Spring Data DynamoDBを使ったアプリケーション実装(2)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id1">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="aws-nosql-2-2.html" title="Previous Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; AWSで作るクラウドネイテ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="aws-nosql-3-1.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/cloud_native/aws-nosql-2-3.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="aws">
+<span id="section-cloud-native-nosql-label-2-3"></span><h1>AWSで作るクラウドネイティブアプリケーションの基本<a class="headerlink" href="#aws" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="awsnosql-2-3">
+<span id="section-cloud-native-nosql-2nd-3-label"></span><h2>第3回 AWS上に構築するNoSQLアプリケーション(2)-3<a class="headerlink" href="#awsnosql-2-3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<div class="section" id="amazon-dynamodbspring">
+<span id="section-cloud-native-nosql-spring-applicaiton-2-3-label"></span><h3>Amazon DynamoDBへアクセスするSpringアプリケーション<a class="headerlink" href="#amazon-dynamodbspring" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
+Amazon Elastic CacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。</p>
+<p><br/></p>
+<ol class="arabic simple">
+<li>NoSQLデータベースの特徴とデータ特性<ul>
+<li>CAP定理を元にしたデータベースの分類とデータ特性</li>
+<li>AP型データベースAmazon DynamoDBとApache Cassandraの特徴</li>
+</ul>
+</li>
+<li>Amazon DynamoDBへアクセスするSpringアプリケーション<ul>
+<li>Amazon DynamoDBの概要及び構築と認証情報の設定</li>
+<li>Spring Data DynamoDBを用いたアプリケーション(1)</li>
+<li>Spring Data DynamoDBを用いたアプリケーション(2)</li>
+</ul>
+</li>
+<li>Apache CassandraへアクセスするSpringアプリケーション<ul>
+<li>AWS ECS上に構築するApache Cassandra</li>
+<li>Spring Data Cassandraを用いたアプリケーション(1)</li>
+<li>Spring Data Cassandraを用いたアプリケーション(2)</li>
+</ul>
+</li>
+<li>Amazon Elastic CacheへアクセスするSpringアプリケーション<ul>
+<li>Amazon Elastic Cacheの設定</li>
+<li>Spring Cloud AWSを用いたアプリケーション</li>
+</ul>
+</li>
+</ol>
+<p><br/></p>
+<p>前回、<a class="reference internal" href="aws-nosql-2-2.html#section-cloud-native-spring-data-dynamodb-implementation-1-label"><span class="std std-ref">Spring Data DynamoDBを使ったアプリケーション実装(1)</span></a> に引き続き、 今回はSpring Data DynamoDBを使ってデータベースアクセスするアプリケーションを実装していていきます。</p>
+<p><br/></p>
+<div class="section" id="spring-data-dynamodb-2">
+<h4>Spring Data DynamoDBを使ったアプリケーション実装(2)<a class="headerlink" href="#spring-data-dynamodb-2" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p><br/></p>
+<p>アプリケーションコンポーネントの実装に移ります。画面から受け取るリクエストパラメータコンポーネントを以下の様に作成しています。</p>
+<p><br/></p>
+<p>リクエストパラメータオブジェクト</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span> <span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.spring.data.dynamodb.app.model</span><span class="o">;</span>
+
+ <span class="nd">@AllArgsConstructor</span>
+ <span class="nd">@NoArgsConstructor</span>
+ <span class="nd">@Builder</span>
+ <span class="nd">@Data</span>
+ <span class="kd">public</span> <span class="kd">class</span> <span class="nc">SampleModel</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
+
+     <span class="kd">private</span> <span class="n">String</span> <span class="n">samplePartitionKey</span><span class="o">;</span>
+     <span class="kd">private</span> <span class="n">String</span> <span class="n">sampleSortKey</span><span class="o">;</span>
+     <span class="kd">private</span> <span class="n">String</span> <span class="n">sampleText</span><span class="o">;</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>Controllerでは、以下5種類のリクエストを受け取り、ロジックを実行して結果をテンプレートに渡す処理を実装します。</p>
+<ul class="simple">
+<li>データを全件取得するServiceを実行し、実行結果をfindAll.htmlのテンプレートへ渡す処理。</li>
+<li>指定したパーティションキー・ソートキーをもつデータを取得するServiceを実行し、実行結果をfindOne.htmlのテンプレートへ渡す処理</li>
+<li>データ追加するServiceを実行し、実行結果をadd.htmlのテンプレートに渡す処理。</li>
+<li>指定したパーティションキー・ソートキーのデータを更新するServiceを実行し、実行結果update.htmlのテンプレートへ渡す処理</li>
+<li>指定したパーティションキー・ソートキーのデータを削除するServiceを実行し、実行結果delete.htmlのテンプレートへ渡す処理</li>
+</ul>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.spring.data.dynamodb.app.web</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Controller</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.ui.Model</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMethod</span><span class="o">;</span>
+
+<span class="nd">@Controller</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SampleController</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">SampleService</span> <span class="n">sampleService</span><span class="o">;</span>
+
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span> <span class="n">value</span><span class="o">=</span><span class="s">&quot;findAll&quot;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">findAll</span><span class="o">(</span><span class="n">Model</span> <span class="n">model</span><span class="o">){</span>
+        <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&quot;mynaviSampleTables&quot;</span><span class="o">,</span> <span class="n">sampleService</span><span class="o">.</span><span class="na">getMynaviSampleTables</span><span class="o">());</span>
+        <span class="k">return</span> <span class="s">&quot;findAll&quot;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span> <span class="n">value</span><span class="o">=</span><span class="s">&quot;findOne&quot;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">findOne</span><span class="o">(</span><span class="n">SampleModel</span> <span class="n">sampleModel</span><span class="o">,</span> <span class="n">Model</span> <span class="n">model</span><span class="o">){</span>
+        <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&quot;mynaviSampleTable&quot;</span><span class="o">,</span> <span class="n">sampleService</span><span class="o">.</span><span class="na">getMynaviSampleTable</span><span class="o">(</span>
+                <span class="n">SampleModelMapper</span><span class="o">.</span><span class="na">mapToMynaviSampleTableKey</span><span class="o">(</span><span class="n">sampleModel</span><span class="o">)));</span>
+        <span class="k">return</span> <span class="s">&quot;findOne&quot;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">,</span>  <span class="n">value</span><span class="o">=</span><span class="s">&quot;add&quot;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">add</span><span class="o">(</span><span class="n">SampleModel</span> <span class="n">sampleModel</span><span class="o">,</span> <span class="n">Model</span> <span class="n">model</span><span class="o">){</span>
+        <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&quot;mynaviSampleTable&quot;</span><span class="o">,</span>
+                <span class="n">sampleService</span><span class="o">.</span><span class="na">addMynaviSampleTable</span><span class="o">(</span><span class="n">SampleModelMapper</span><span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">sampleModel</span><span class="o">)));</span>
+        <span class="k">return</span> <span class="s">&quot;add&quot;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">&quot;update&quot;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">update</span><span class="o">(</span><span class="n">SampleModel</span> <span class="n">sampleModel</span><span class="o">,</span> <span class="n">Model</span> <span class="n">model</span><span class="o">){</span>
+        <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&quot;mynaviSampleTable&quot;</span><span class="o">,</span>
+                <span class="n">sampleService</span><span class="o">.</span><span class="na">updateMynaviSampleTable</span><span class="o">(</span><span class="n">SampleModelMapper</span><span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">sampleModel</span><span class="o">)));</span>
+        <span class="k">return</span> <span class="s">&quot;update&quot;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">&quot;delete&quot;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">delete</span><span class="o">(</span><span class="n">SampleModel</span> <span class="n">sampleModel</span><span class="o">,</span> <span class="n">Model</span> <span class="n">model</span><span class="o">){</span>
+        <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&quot;mynaviSampleTable&quot;</span><span class="o">,</span>
+                <span class="n">sampleService</span><span class="o">.</span><span class="na">deleteMynaviSampleTable</span><span class="o">(</span>
+                        <span class="n">SampleModelMapper</span><span class="o">.</span><span class="na">mapToMynaviSampleTableKey</span><span class="o">(</span><span class="n">sampleModel</span><span class="o">)));</span>
+        <span class="k">return</span> <span class="s">&quot;delete&quot;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>また、Serviceを呼び出す際にリクエストパラメータオブジェクトをServiceのインプットオブジェクトとなっているDynamoDBのテーブルクラスやプライマリキークラスへ変換するマッパーをインターフェースで実装します。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.spring.data.dynamodb.app.model</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.spring.data.dynamodb.domain.model.MynaviSampleTable</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">SampleModelMapper</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">MynaviSampleTable</span> <span class="nf">map</span><span class="o">(</span><span class="n">SampleModel</span> <span class="n">sampleModel</span><span class="o">){</span>
+        <span class="k">return</span> <span class="n">MynaviSampleTable</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">samplePartitionKey</span><span class="o">(</span><span class="n">sampleModel</span><span class="o">.</span><span class="na">getSamplePartitionKey</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">sampleSortKey</span><span class="o">(</span><span class="n">sampleModel</span><span class="o">.</span><span class="na">getSampleSortKey</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">sampleText</span><span class="o">(</span><span class="n">sampleModel</span><span class="o">.</span><span class="na">getSampleText</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">MynaviSampleTableKey</span> <span class="nf">mapToMynaviSampleTableKey</span><span class="o">(</span><span class="n">SampleModel</span> <span class="n">sampleModel</span><span class="o">){</span>
+        <span class="k">return</span> <span class="n">MynaviSampleTableKey</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">samplePartitionKey</span><span class="o">(</span><span class="n">sampleModel</span><span class="o">.</span><span class="na">getSamplePartitionKey</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">sampleSortKey</span><span class="o">(</span><span class="n">sampleModel</span><span class="o">.</span><span class="na">getSampleSortKey</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">Java8からstaticメソッドであれば、インターフェースでも実装できる様になっています。</p>
+</div>
+<p><br/></p>
+<p>Serviceの実装は、以下の通り、CRUD処理をRepositoryを通して実行します。</p>
+<ul class="simple">
+<li>findAll：作成したDynamoDBのテーブルの全件データをList型で受け取る処理</li>
+<li>findOne：指定したパーティションキー・ソートキーでデータを取得する処理</li>
+<li>add：パーティションキーにランダムなUUID文字列を、ソートキーには&quot;1&quot;を設定し、リクエストから受け取ったテキスト文字列を設定して保存するロジックです。</li>
+<li>update：指定したパーティションキー・ソートキーのテキストデータを更新する処理</li>
+<li>delete：指定したパーティションキー・ソートキーのデータを削除する処理</li>
+</ul>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.spring.data.dynamodb.domain.service</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Service</span><span class="o">;</span>
+
+<span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SampleServiceImpl</span> <span class="kd">implements</span> <span class="n">SampleService</span><span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">SampleRepository</span> <span class="n">sampleRepository</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">MynaviSampleTable</span> <span class="nf">getMynaviSampleTable</span><span class="o">(</span><span class="n">MynaviSampleTableKey</span> <span class="n">mynaviSampleTableKey</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">sampleRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">mynaviSampleTableKey</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">MynaviSampleTable</span><span class="o">&gt;</span> <span class="nf">getMynaviSampleTables</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">MynaviSampleTable</span><span class="o">&gt;</span> <span class="n">sampleTables</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="n">sampleRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">().</span><span class="na">iterator</span><span class="o">().</span><span class="na">forEachRemaining</span><span class="o">(</span><span class="n">sampleTables</span><span class="o">::</span><span class="n">add</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">sampleTables</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">MynaviSampleTable</span> <span class="nf">addMynaviSampleTable</span><span class="o">(</span><span class="n">MynaviSampleTable</span> <span class="n">mynaviSampleTable</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">mynaviSampleTable</span><span class="o">.</span><span class="na">setSamplePartitionKey</span><span class="o">(</span><span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
+        <span class="n">mynaviSampleTable</span><span class="o">.</span><span class="na">setSampleSortKey</span><span class="o">(</span><span class="s">&quot;1&quot;</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">sampleRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">mynaviSampleTable</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">MynaviSampleTable</span> <span class="nf">updateMynaviSampleTable</span><span class="o">(</span><span class="n">MynaviSampleTable</span> <span class="n">mynaviSampleTable</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">sampleRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">mynaviSampleTable</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">MynaviSampleTable</span> <span class="nf">deleteMynaviSampleTable</span><span class="o">(</span><span class="n">MynaviSampleTableKey</span> <span class="n">mynaviSampleTableKey</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">MynaviSampleTable</span> <span class="n">mynaviSampleTable</span> <span class="o">=</span> <span class="n">sampleRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">mynaviSampleTableKey</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
+        <span class="n">sampleRepository</span><span class="o">.</span><span class="na">deleteById</span><span class="o">(</span><span class="n">mynaviSampleTableKey</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">mynaviSampleTable</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>ここで、DynamoDBへアクセスするコンポーネントであるSampleRepositoryインターフェースは、以下の様な要領で実装しておく必要があります。</p>
+<ul class="simple">
+<li>org.socialsignin.spring.data.dynamodb.repository.EnableScanアノテーションを付与する</li>
+<li>org.springframework.data.repository.CrudRepositoryを継承する</li>
+<li>テーブルをモデル化したクラスとキーをCrudRepositoryの型パラメータに設定する。</li>
+</ul>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.spring.data.dynamodb.domain.repository</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.spring.data.dynamodb.domain.model.MynaviSampleTableKey</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.socialsignin.spring.data.dynamodb.repository.EnableScan</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.repository.CrudRepository</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.spring.data.dynamodb.domain.model.MynaviSampleTable</span><span class="o">;</span>
+
+<span class="nd">@EnableScan</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">SampleRepository</span> <span class="kd">extends</span> <span class="n">CrudRepository</span><span class="o">&lt;</span><span class="n">MynaviSampleTable</span><span class="o">,</span> <span class="n">MynaviSampleTableKey</span><span class="o">&gt;</span> <span class="o">{</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">特に実装クラスも作成せずインターフェースだけで、findAllやsaveメソッドが実行できる理由は、Spring Data DynamoDBが、GenericDAOパターンに基づく実装クラスを提供しているためです。
+GenericDAOパターンとはJavaの型パラメータを利用した実装で、CRUD処理をJavaのジェネリクス機構を使って実装しておき、テーブルの種類に応じて、
+型パラメータを設定することで、汎用的なCRUD共通処理を実装したDAO(DatabaseAccessObject)を作成しておくパターンです。
+Spring Data Dynamoに限らず、Spring Data JPAなど類似一連のプロダクトでは、同様にインターフェースを作成するだけで、
+基本的なCRUDはほぼ実装せずにデータベースアクセス処理を行うことが可能です。</p>
+</div>
+<p><br/></p>
+<p>型パラメータとして指定する、DynamoDBのテーブルクラスは以下の要領に則って作成します。</p>
+<ul class="simple">
+<li>テーブルクラスに&#64;DynamoDBTableアノテーションを付与し、前回作成したDynamoDBテーブルのテーブル名を指定します。</li>
+<li>テーブルクラスにコンストラクタやGetter、Setterメソッドを付与する実装を省略する目的でLombokアノテーションを付与します。</li>
+<li>パーティションキーには&#64;DynamoDBHashKey、ソートキーには&#64;DynamoDBRangeKeyアノテーションを付与します。</li>
+<li>その他、追加したい属性には&#64;DynamoDBAttributeアノテーションを付与します。</li>
+</ul>
+<p>また、プライマリキーがパーティションキーとソートキーで構成される場合、プライマリキークラスを作成し、テーブルクラスに定義する必要があります。
+プライマリキークラスには、org.springframework.data.annotation.Idアノテーションを付与し、Getter・Setterメソッドを付与してはいけません。
+パーティションキーのみで構成される場合は、テーブルクラスに&#64;DynamoDBHashKeyのみを設定し、Repositoryの型パラメータにはキーのプリミティブな型を設定してください。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.spring.data.dynamodb.domain.model</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.Serializable</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.*</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.data.annotation.Id</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute</span><span class="o">;</span>
+
+<span class="nd">@AllArgsConstructor</span>
+<span class="nd">@NoArgsConstructor</span>
+<span class="nd">@Builder</span>
+<span class="nd">@Data</span>
+<span class="nd">@DynamoDBTable</span><span class="o">(</span><span class="n">tableName</span> <span class="o">=</span> <span class="s">&quot;mynavi-sample-table&quot;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MynaviSampleTable</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
+
+    <span class="nd">@Id</span>
+    <span class="nd">@Getter</span><span class="o">(</span><span class="n">AccessLevel</span><span class="o">.</span><span class="na">NONE</span><span class="o">)</span>
+    <span class="nd">@Setter</span><span class="o">(</span><span class="n">AccessLevel</span><span class="o">.</span><span class="na">NONE</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">MynaviSampleTableKey</span> <span class="n">mynaviSampleTableKey</span><span class="o">;</span>
+    <span class="nd">@DynamoDBHashKey</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">samplePartitionKey</span><span class="o">;</span>
+    <span class="nd">@DynamoDBRangeKey</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">sampleSortKey</span><span class="o">;</span>
+    <span class="nd">@DynamoDBAttribute</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">sampleText</span><span class="o">;</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.spring.data.dynamodb.domain.model</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.Serializable</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.*</span><span class="o">;</span>
+
+<span class="nd">@AllArgsConstructor</span>
+<span class="nd">@NoArgsConstructor</span>
+<span class="nd">@Builder</span>
+<span class="nd">@Data</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MynaviSampleTableKey</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
+
+    <span class="nd">@DynamoDBHashKey</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">samplePartitionKey</span><span class="o">;</span>
+    <span class="nd">@DynamoDBRangeKey</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">sampleSortKey</span><span class="o">;</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">上記のテーブルクラスでは一律&#64;DataアノテーションによりSetter・Getterメソッドを付与していますが、プライマリキークラスにはAccessLevel.NONEを設定して除外しています。
+<a class="reference external" href="https://github.com/derjust/spring-data-dynamodb/wiki/Use-Hash-Range-keys">Spring Data DynamoDBの公式Wiki</a> にもありますが、
+プライマリキークラスにGetter・Setterメソッドをつけていると、「DynamoDBMappingException: not supported; requires &#64;DynamoDBTyped or &#64;DynamoDBTypeConverted」が発生します。</p>
+</div>
+<p><br/></p>
+<p>これでアプリケーションが作成しました。SpringBoot起動クラスを実行し、アプリケーションを実行しましょう。「<a class="reference external" href="http://localhost:8080/index.html">http://localhost:8080/index.html</a>」へブラウザからアクセスすると以下の様な画面が表示され、以下の５つのサービスが実行できます。</p>
+<ul class="simple">
+<li>「find All Data」ボタンを押下すると、全てのデータが取得されます。</li>
+<li>パーティションキーとソートキーを指定して「find One Data」ボタンを押下すると、該当のデータが取得されます。</li>
+<li>任意のテキストデータを入力し、「add Data」ボタンを押下すると、データが追加されます。パーティションキーはUUID、ソートキーは&quot;1&quot;固定です。</li>
+<li>パーティションキーとソートキーを指定して、テキストデータを入力し、「Update Data」ボタンを押下すると、該当のデータが更新されます。</li>
+<li>パーティションキーとソートキーを指定して「Delete Data」ボタンを押下すると、該当のデータが削除されます。</li>
+</ul>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/dynamodb-app.png"><img alt="../_images/dynamodb-app.png" src="../_images/dynamodb-app.png" style="width: 881.0px; height: 857.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/dynamodb-app-add.png"><img alt="../_images/dynamodb-app-add.png" src="../_images/dynamodb-app-add.png" style="width: 920.0px; height: 202.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/dynamodb-app-findAll.png"><img alt="../_images/dynamodb-app-findAll.png" src="../_images/dynamodb-app-findAll.png" style="width: 856.0px; height: 201.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/dynamodb-app-findOne.png"><img alt="../_images/dynamodb-app-findOne.png" src="../_images/dynamodb-app-findOne.png" style="width: 901.0px; height: 195.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/dynamodb-app-update.png"><img alt="../_images/dynamodb-app-update.png" src="../_images/dynamodb-app-update.png" style="width: 913.0px; height: 195.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/dynamodb-app-delete.png"><img alt="../_images/dynamodb-app-delete.png" src="../_images/dynamodb-app-delete.png" style="width: 909.0px; height: 187.0px;" /></a>
+</div>
+<p><br/></p>
+<p>このように、DynamoDBへCRUD処理するアプリケーションをSpring Data Cassandraを用いて簡単に実装することができます。
+実際のアプリケーションでは様々ユースケースに応じて、データモデルを検討しておく必要がありますが、応用編等で追々その辺りを触れたいと思います。
+次回以降はApache Cassandraを構築して、同様にSpring Data Cassandraを使ってCRUD処理するアプリケーションを実装していきます。</p>
+</div>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>著者紹介<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei)</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+</div>
+<p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -68,6 +68,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 </ul>
 </ul>
 </li>
@@ -242,16 +245,16 @@
 <li>各サービス間はRESTベースのHTTPリクエストでメッセージ通信を行い、ApplicationLoadBalancerを介して負荷分散する。</li>
 </ul>
 <p><br/></p>
-<p>各マイクロサービスはDockerをベースとするECSコンテナ単位で作成します。サービスの単位は主に以下の基本原則・考え方により、適切な粒度や分割単位を決定します。</p>
+<p>この例では、各マイクロサービスはDockerをベースとするECSコンテナ単位で作成していますが、サービスの単位は主に以下の基本原則・考え方により、適切な粒度や分割単位を決定します。</p>
 <ul class="simple">
 <li>ビジネスのユースケース</li>
-<li>部門・部署や開発プロジェクト体制ごとの役割分割</li>
+<li>部門・部署や開発プロジェクト体制ごとの役割分担</li>
 <li>各サービスの想定ユーザアクセス数</li>
 <li>サービスアプリケーションの規模、性能・パフォーマンス</li>
 <li>SLA(Service Level Agreement)</li>
 </ul>
 <p><br/></p>
-<p>また、セキュリティの観点やサービスのスケーラビリティ、ポータビリティ性・再利用性を考慮し、サービスを論理的にフロントエンド(BFF)とバックエンドに分割していますが、それぞれの役割は以下の通りです。</p>
+<p>また、セキュリティの観点やサービスのスケーラビリティ、ポータビリティ・再利用性を考慮し、サービスを論理的にフロントエンド(BFF)とバックエンドに分割していますが、それぞれの役割は以下の通りです。</p>
 <table border="1" class="colwidths-given docutils" id="id7">
 <caption><span class="caption-text">フロントエンド(BFF)とバックエンドの役割</span><a class="headerlink" href="#id7" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>

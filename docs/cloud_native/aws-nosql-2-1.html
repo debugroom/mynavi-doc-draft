@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AWSで作るクラウドネイティブアプリケーションの基本 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-nosql-2-2.html" />
+    <link rel="prev" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-nosql-1-2.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
+<li><a class="reference internal" href="#awsnosql-2-1">第3回 AWS上に構築するNoSQLアプリケーション(2)-1</a><ul>
+<li><a class="reference internal" href="#amazon-dynamodbspring">Amazon DynamoDBへアクセスするSpringアプリケーション</a><ul>
+<li><a class="reference internal" href="#amazon-dynamodb">Amazon DynamoDBの概要</a></li>
+<li><a class="reference internal" href="#id1">Amazon DynamoDBの構築と認証情報設定</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id2">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="aws-nosql-1-2.html" title="Previous Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; AWSで作るクラウドネイテ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="aws-nosql-2-2.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/cloud_native/aws-nosql-2-1.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="aws">
+<span id="section-cloud-native-nosql-label-2-1"></span><h1>AWSで作るクラウドネイティブアプリケーションの基本<a class="headerlink" href="#aws" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="awsnosql-2-1">
+<span id="section-cloud-native-nosql-2nd-1-label"></span><h2>第3回 AWS上に構築するNoSQLアプリケーション(2)-1<a class="headerlink" href="#awsnosql-2-1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<div class="section" id="amazon-dynamodbspring">
+<span id="section-cloud-native-nosql-spring-applicaiton-2-1-label"></span><h3>Amazon DynamoDBへアクセスするSpringアプリケーション<a class="headerlink" href="#amazon-dynamodbspring" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
+Amazon Elastic CacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。</p>
+<p><br/></p>
+<ol class="arabic simple">
+<li>NoSQLデータベースの特徴とデータ特性<ul>
+<li>CAP定理を元にしたデータベースの分類とデータ特性</li>
+<li>AP型データベースAmazon DynamoDBとApache Cassandraの特徴</li>
+</ul>
+</li>
+<li>Amazon DynamoDBへアクセスするSpringアプリケーション<ul>
+<li>Amazon DynamoDBの概要及び構築と認証情報の設定</li>
+<li>Spring Data DynamoDBを用いたアプリケーション(1)</li>
+<li>Spring Data DynamoDBを用いたアプリケーション(2)</li>
+</ul>
+</li>
+<li>Apache CassandraへアクセスするSpringアプリケーション<ul>
+<li>AWS ECS上に構築するApache Cassandra</li>
+<li>Spring Data Cassandraを用いたアプリケーション(1)</li>
+<li>Spring Data Cassandraを用いたアプリケーション(2)</li>
+</ul>
+</li>
+<li>Amazon Elastic CacheへアクセスするSpringアプリケーション<ul>
+<li>Amazon Elastic Cacheの設定</li>
+<li>Spring Cloud AWSを用いたアプリケーション</li>
+</ul>
+</li>
+</ol>
+<p><br/></p>
+<p>前回 <a class="reference internal" href="aws-nosql-1-2.html#section-cloud-native-nosql-feature-label"><span class="std std-ref">AP型データベースAmazon DynamoDBとApache Cassandraの特徴</span></a> では、AP型データベースである、Amazon DynamoDB及びApache Cassandraについて、分散モデルやデータ配置、リレーショナルデータベースとの機能的な差異を整理しました。
+今回はAmazon DynamoDBの概要を説明し、実際に構築してみます。</p>
+<p><br/></p>
+<div class="section" id="amazon-dynamodb">
+<span id="section-cloud-native-dynamodb-overview-label"></span><h4>Amazon DynamoDBの概要<a class="headerlink" href="#amazon-dynamodb" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p><br/></p>
+<p>Amazon DynamoDBは、AWSフルマネージドなAP型NoSQLデータベースで、特に項目属性定義が必要ないスキーマレスのテーブル構成です。
+リージョンごとにデータベースが構築されるサービスであり、異なるアベイラビリティゾーンにデータが３箇所レプリケーションされます。
+データは以下の通りのオプションで、読み込みは結果整合性か強い読み込み整合性かを選択できます。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id3">
+<caption><span class="caption-text">Amazon DynamoDBの結果整合性のオプション</span><a class="headerlink" href="#id3" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="60%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>結果整合性のオプション</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>読込</td>
+<td>【結果整合性のある読込】</td>
+<td>2/3以上の読込で結果一致した場合正常応答</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>【強い読込整合性】</td>
+<td>全てのReadRepairが完了している状態で、結果を応答</td>
+</tr>
+<tr class="row-even"><td>書込</td>
+<td>【結果整合性のある書込】</td>
+<td>2/3以上の書込が成功した場合正常応答</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>データを一意に識別するためのプライマリーキー(PrimaryKey)は、パーティションキー(PartitionKey)あるいはソートキー(SortKey)との組み合わせで構成されます。
+原則プライマリーキー以外の検索はできませんが、代わりに任意の属性をパーティションキーとするグローバルセカンダリインデックス(GlobalSecondaryIndex：GSI)と
+パーティションキーと別の属性とを組み合わせて作成するローカルセカンダリインデックス(LocalSecondaryIndex：LSI)が利用できます。</p>
+<p>また、DynamoDBでは、AWSの各種サービスと統合されています。デフォルトでIAMによりきめ細やかにアクセス制御され、実行メトリクスをCloudWatchと連携されますし、
+AWS Lambdaと統合して、項目レベルの変更が発生した場合に、通知を送信できます。また、Amazon Elasticsearchを使ってDB項目のフリーテキスト検索が可能になります。</p>
+<p>加えて、DynamoDBはクロスリージョンでグローバルテーブルの構築が可能です。複数のリージョンで同一のデータを参照・更新できますが、
+複数のリージョンを跨いで１つのテーブルとなる様にデータノードを配置するのではなく、リージョンごとにレプリケーションを作成する形になります。
+そのため、異なるリージョンでほぼ同時に更新が発生した場合、レプリカテーブルへの反映は数秒程度で反映されますが、最新の書き込みの方が反映されるため注意が必要です。</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">ローカルセカンダリインデックスはテーブルとインデックスの合計サイズが各パーティションキーごとに20GBまでで制限されます。</p>
+</div>
+<p><br/></p>
+</div>
+<div class="section" id="id1">
+<h4>Amazon DynamoDBの構築と認証情報設定<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p><br/></p>
+<p>それでは、DynamoDBを構築してみましょう。AWSコンソールの「DynamoDB」サービスから、「テーブルの作成」ボタンを押下し、以下の要領に則って入力します。</p>
+<ul class="simple">
+<li>テーブル名：任意のテーブル名を入力</li>
+<li>プライマリーキー：パーティションキー及びオプションでソートキー名を入力。</li>
+<li>デフォルトの設定：チェックする</li>
+</ul>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-dynamodb-create-db-1.png"><img alt="../_images/management-console-dynamodb-create-db-1.png" src="../_images/management-console-dynamodb-create-db-1.png" style="width: 641.0px; height: 563.0px;" /></a>
+</div>
+<p><br/></p>
+<p>データベースの作成は以上で完了です。合わせてコンソール上からテーブルにデータを追加してみましょう。作成したテーブルを選択し、「項目」タブから「項目の作成」ボタンを押下してください。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-dynamodb-add-data-1.png"><img alt="../_images/management-console-dynamodb-add-data-1.png" src="../_images/management-console-dynamodb-add-data-1.png" style="width: 922.0px; height: 371.0px;" /></a>
+</div>
+<p><br/></p>
+<p>パーティションキーやソートキーに加えて、テキストデータを「sampleText」という属性名を追加してデータ追加し、「保存」ボタンを押下します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-dynamodb-add-data-2.png"><img alt="../_images/management-console-dynamodb-add-data-2.png" src="../_images/management-console-dynamodb-add-data-2.png" style="width: 737.0px; height: 330.0px;" /></a>
+</div>
+<p><br/></p>
+<p>また、次回以降作成するアプリケーションでローカル環境からDynamoDBへアクセスするために必要なユーザ及び認証情報を作成しておきましょう。
+「IAM」サービスから「ユーザ」メニューを作成し、「ユーザの作成」ボタンを押下し、以下の要領に則って入力してください。</p>
+<ul class="simple">
+<li>ユーザ名：任意の名前を入力</li>
+<li>アクセスの種類：アプリケーションからアクセスするユーザを作成するので、「プログラムによるアクセス」を選択します。</li>
+</ul>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-iam-create-user-1.png"><img alt="../_images/management-console-iam-create-user-1.png" src="../_images/management-console-iam-create-user-1.png" style="width: 788.0px; height: 411.0px;" /></a>
+</div>
+<p><br/></p>
+<p>アクセス権限を追加します。グループを作成しても良いですが、ここでは、直接ユーザにDynamoDBのフルアクセス権限ポリシーをアタッチしましょう。
+「既存のポリシーを直接アタッチ」を選択し、「AmazonDynamoDBFullAccess」を選択してください。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-iam-create-user-2.png"><img alt="../_images/management-console-iam-create-user-2.png" src="../_images/management-console-iam-create-user-2.png" style="width: 782.0px; height: 772.0px;" /></a>
+</div>
+<p><br/></p>
+<p>タグは特に設定しなくてもかまいません。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-iam-create-user-3.png"><img alt="../_images/management-console-iam-create-user-3.png" src="../_images/management-console-iam-create-user-3.png" style="width: 779.0px; height: 304.0px;" /></a>
+</div>
+<p><br/></p>
+<p>設定内容が正しいかを確認したら、「ユーザの作成」ボタンを押してください。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-iam-create-user-4.png"><img alt="../_images/management-console-iam-create-user-4.png" src="../_images/management-console-iam-create-user-4.png" style="width: 789.0px; height: 505.0px;" /></a>
+</div>
+<p><br/></p>
+<p>ユーザが作成されます、アクセスキーIDとシークレットアクセスキーが表示されますが、ここで、CSV形式でこの認証キーをダウンロードしておいてください。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-iam-create-user-5.png"><img alt="../_images/management-console-iam-create-user-5.png" src="../_images/management-console-iam-create-user-5.png" style="width: 737.0px; height: 482.0px;" /></a>
+</div>
+<p>以上で、DynamoDBの作成は完了です。次回はこのテーブルにアクセスするSpringアプリケーションを作成します。</p>
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>著者紹介<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei)</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+</div>
+<p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
