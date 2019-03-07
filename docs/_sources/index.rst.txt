@@ -31,3 +31,4 @@
    cloud_native/aws-nosql-3-1.rst
    cloud_native/aws-nosql-3-2.rst
    cloud_native/aws-nosql-3-3.rst
+   cloud_native/aws-nosql-4-1.rst

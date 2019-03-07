@@ -20,7 +20,7 @@ Apache CassandraへアクセスするSpringアプリケーション
 |br|
 
 クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
-Amazon Elastic CacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。
+Amazon ElastiCacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。
 
 |br|
 
@@ -37,14 +37,17 @@ Amazon Elastic CacheへアクセスするSpringアプリケーションを構築
 
 #. Apache CassandraへアクセスするSpringアプリケーション
 
-   * AWS ECS上に構築するApache Cassandra
+   * ローカル環境におけるApache Cassandraの構築
    * Spring Data Cassandraを用いたアプリケーション(1)
    * Spring Data Cassandraを用いたアプリケーション(2)
 
-#. Amazon Elastic CacheへアクセスするSpringアプリケーション
+#. Amazon ElastiCacheへアクセスするSpringアプリケーション
 
-   * Amazon Elastic Cacheの設定
-   * Spring Cloud AWSを用いたアプリケーション
+   * ローカル環境におけるRedisの構築
+   * Spring SessionとSpring Cloud Data Redisを用いたアプリケーション(1)
+   * Spring SessionとSpring Cloud Data Redisを用いたアプリケーション(2)
+   * Amazon ElastiCacheの設定
+   * セッション共有するECSアプリケーションの構築
 
 |br|
 

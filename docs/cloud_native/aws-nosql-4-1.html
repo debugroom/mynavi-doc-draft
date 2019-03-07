@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AWSで作るクラウドネイティブアプリケーションの基本 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="prev" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-nosql-3-3.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
+<li><a class="reference internal" href="#awsnosql-4-1">第3回 AWS上に構築するNoSQLアプリケーション(4)-1</a><ul>
+<li><a class="reference internal" href="#amazon-elasticachespring">Amazon ElastiCacheへアクセスするSpringアプリケーション</a><ul>
+<li><a class="reference internal" href="#amazon-elasticache">Amazon ElastiCacheの概要</a></li>
+<li><a class="reference internal" href="#redis">ローカル環境におけるRedisの構築</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id1">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="aws-nosql-3-3.html" title="Previous Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; AWSで作るクラウドネイテ...</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/cloud_native/aws-nosql-4-1.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="aws">
+<span id="section-cloud-native-nosql-label-4-1"></span><h1>AWSで作るクラウドネイティブアプリケーションの基本<a class="headerlink" href="#aws" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="awsnosql-4-1">
+<span id="section-cloud-native-nosql-4th-1-label"></span><h2>第3回 AWS上に構築するNoSQLアプリケーション(4)-1<a class="headerlink" href="#awsnosql-4-1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<div class="section" id="amazon-elasticachespring">
+<span id="section-cloud-native-nosql-spring-applicaiton-4-1-label"></span><h3>Amazon ElastiCacheへアクセスするSpringアプリケーション<a class="headerlink" href="#amazon-elasticachespring" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
+Amazon ElastiCacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。</p>
+<p><br/></p>
+<ol class="arabic simple">
+<li>NoSQLデータベースの特徴とデータ特性<ul>
+<li>CAP定理を元にしたデータベースの分類とデータ特性</li>
+<li>AP型データベースAmazon DynamoDBとApache Cassandraの特徴</li>
+</ul>
+</li>
+<li>Amazon DynamoDBへアクセスするSpringアプリケーション<ul>
+<li>Amazon DynamoDBの概要及び構築と認証情報の設定</li>
+<li>Spring Data DynamoDBを用いたアプリケーション(1)</li>
+<li>Spring Data DynamoDBを用いたアプリケーション(2)</li>
+</ul>
+</li>
+<li>Apache CassandraへアクセスするSpringアプリケーション<ul>
+<li>ローカル環境におけるApache Cassandraの構築</li>
+<li>Spring Data Cassandraを用いたアプリケーション(1)</li>
+<li>Spring Data Cassandraを用いたアプリケーション(2)</li>
+</ul>
+</li>
+<li>Amazon ElastiCacheへアクセスするSpringアプリケーション<ul>
+<li>ローカル環境におけるRedisの構築</li>
+<li>Spring SessionとSpring Cloud Data Redisを用いたアプリケーション(1)</li>
+<li>Spring SessionとSpring Cloud Data Redisを用いたアプリケーション(2)</li>
+<li>Amazon ElastiCacheの設定</li>
+<li>セッション共有するECSアプリケーションの構築</li>
+</ul>
+</li>
+</ol>
+<p><br/></p>
+<p>前回は、AP型データベースである、Apache CassandraデータベースへアクセスするSpringアプリケーションを構築しました。
+今回はAmazon ElastiCache(Redis)の概要を説明し、実際に構築して見ます。</p>
+<p><br/></p>
+<div class="section" id="amazon-elasticache">
+<h4>Amazon ElastiCacheの概要<a class="headerlink" href="#amazon-elasticache" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p><br/></p>
+<p>Amazon ElastiCacheは、スケールアウト時のセッション状態や共通業務データなどを共有キャッシュすることにフォーカスしたサービスです。
+種類としてMemcachedとRedisをオプションとして選択でき、以下のような観点で使い分けを行います。</p>
+<table border="1" class="colwidths-given docutils" id="id2">
+<caption><span class="caption-text">ElastiCache(MemcachedとRedis)の共有キャッシュとして違い</span><a class="headerlink" href="#id2" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>&#160;</td>
+<td>Memcached</td>
+<td>Redis</td>
+</tr>
+<tr class="row-even"><td>アクセス</td>
+<td>マルチスレッド</td>
+<td>シングルスレッド</td>
+</tr>
+<tr class="row-odd"><td>データ構造・タイプ</td>
+<td>シンプル</td>
+<td>文字列からリスト・ハッシュ等複雑なデータ型をサポート</td>
+</tr>
+<tr class="row-even"><td>永続性</td>
+<td>なし</td>
+<td>あり</td>
+</tr>
+<tr class="row-odd"><td>マルチAZとフェイルオーバー</td>
+<td>なし</td>
+<td>あり</td>
+</tr>
+<tr class="row-even"><td>その他の特徴</td>
+<td>水平スケール可能</td>
+<td>スケールアウトは更新がマスターノードに集中するため不可(リードレプリカは可) <br/></td>
+</tr>
+</tbody>
+</table>
+<p>特にRedisは前回  <a class="reference internal" href="aws-nosql-1-1.html#section-cloud-native-nosql-category-by-cap-label"><span class="std std-ref">CAP定理を基づくデータベースの分類</span></a> でも紹介した通り、CP型の特徴を持つキーバリュー型データストアであり、
+シャーディングなどの高速化目的のキャッシュやスケールアウトしたアプリケーションでのセッションデータ共有で利用されます。今回は以下の図のように、Amazon ElastiCache(Redis)およびSpring Session、Spring Data Resisを使って、
+アプリケーション間でセッション情報を共有し、スケールアウト可能なステートフルアプリケーションを作成してみましょう。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/architecture-elasticache.png"><img alt="../_images/architecture-elasticache.png" src="../_images/architecture-elasticache.png" style="width: 582.0px; height: 624.0px;" /></a>
+</div>
+<p><br/></p>
+</div>
+<div class="section" id="redis">
+<h4>ローカル環境におけるRedisの構築<a class="headerlink" href="#redis" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>ElastiCacheはエンドポイントを持ち、任意の場所からアクセスできますが、通常セキュリティグループによりアクセス制御されます。
+そのため、相応のメモリが必要になるのですが、ローカル環境でシングルノードのRedisを構築すると開発時は便利なので、ここでは、
+Dockerを用いてゲストOSとして、CentOS7上にRedisを実行して見ます。ホストOSとなる端末はMacOS、Windowsどちらでもかまいませんが、
+Dockerを事前にインストールしてください。以降はDockerがインストールされた端末を前提に進めていきます。</p>
+<p><br/></p>
+<p>適当な任意のフォルダにDockerfileと言う名前で以下のファイルを作成してください。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dockerfile for redis server</span>
+
+<span class="c1"># (A)</span>
+FROM            docker.io/centos:latest
+<span class="c1"># (B)</span>
+MAINTAINER      debugroom
+
+<span class="c1"># (C)</span>
+RUN yum -y install epel-release
+<span class="c1"># (D)</span>
+RUN yum install -y redis
+<span class="c1"># (E)</span>
+RUN sed -i s/bind<span class="se">\ </span><span class="m">127</span><span class="se">\.</span><span class="m">0</span><span class="se">\.</span><span class="m">0</span><span class="se">\.</span><span class="m">1</span>/<span class="se">\#</span>bind<span class="se">\ </span><span class="m">127</span><span class="se">\.</span><span class="m">0</span><span class="se">\.</span><span class="m">0</span><span class="se">\.</span><span class="m">1</span>/g /etc/redis.conf
+<span class="c1"># (F)</span>
+RUN sed -i s/protected<span class="se">\-</span>mode<span class="se">\ </span>yes/protected<span class="se">\-</span>mode<span class="se">\ </span>no/g /etc/redis.conf
+<span class="c1"># (G)</span>
+RUN systemctl <span class="nb">enable</span> redis.service
+<span class="c1"># (H)</span>
+EXPOSE <span class="m">6379</span>
+</pre></div>
+</div>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id3">
+<caption><span class="caption-text">ローカル環境にあるCentOS7Dockerコンテナ上で、シングルノードRedisを構築するDockerfileの実行コマンド</span><a class="headerlink" href="#id3" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>項番</td>
+<td>コマンド</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>説明</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple">
+<li></li>
+</ol>
+</td>
+<td>FROM docker.io/centos:latest</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>コンテナイメージのベースとなるOSイメージを指定します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="2">
+<li></li>
+</ol>
+</td>
+<td>MAINTAINER debugroom</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>メンテナンスしている組織や個人の名称を指定します。省略可能です。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="3">
+<li></li>
+</ol>
+</td>
+<td>RUN yum -y install epel-release</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>OSにEPEL(Extra Packages for Enterprise Linux)リポジトリを追加します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="4">
+<li></li>
+</ol>
+</td>
+<td>RUN yum install -y redis</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>Redisをインストールします。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="5">
+<li></li>
+</ol>
+</td>
+<td>RUN sed -i s/bind127.0.0.1/#bind127.0.0.1/g /etc/redis.conf</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>コンテナ外からのアクセスを許可するために、ループバックアドレス以外も許可するようRedisの設定ファイルを変更します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="6">
+<li></li>
+</ol>
+</td>
+<td>RUN sed -i s/protected-modeyes/protected-modeno/g /etc/redis.conf</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>コンテナ外からのアクセスを許可するために、プロテクトモードをオフにするようRedisの設定ファイルを変更します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="7">
+<li></li>
+</ol>
+</td>
+<td>RUN systemctl enable redis.service</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>コンテナ実行時にRedisのサービスを起動するよう設定します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="8">
+<li></li>
+</ol>
+</td>
+<td>EXPOSE 6379</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>Redisで使用する6379ポートを解放します。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>上記のファイルを作成後、コマンドラインからDockerイメージを作成するコマンドを実行します。docker buildコマンドでイメージ名やタグを指定して、元になるDockerfileがあるディレクトリを指定してください。
+ここでは、DockerHub上でのxxxxxxレポジトリにsample-redis-localというイメージをlatestタグをつけて実行しています。最後にDockerfileがあるカレントディレクトリを指定しています。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker build -t xxxxxx/sample-redis-local:latest .
+</pre></div>
+</div>
+<p><br/></p>
+<p>Dockerイメージが作成されたら、コマンドラインからDockerプロセスを実行してください。なお、実行するコンテナ内でsystemctlサービスを実行するために、--privilegedオプションを付与する必要があります。
+実行コンテナ名称(redis-serverとします。)と、コンテナイメージ名、コンテナの起動時は/sbin/initを実行し、systemdを起動する形でコンテナを実行します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker run -d --privileged -p <span class="m">6379</span>:6379 --name redis-server xxxxxxx/sample-redis-local /sbin/init
+</pre></div>
+</div>
+<p><br/></p>
+<p>これで、Redisの環境が構築できました。次回はこの構築した環境にアクセスするSpringアプリケーションを実装してみます。</p>
+<p><br/></p>
+</div>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>著者紹介<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei)</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+</div>
+<p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
