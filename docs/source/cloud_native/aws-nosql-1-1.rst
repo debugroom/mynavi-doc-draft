@@ -19,7 +19,7 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 
 #. NoSQLデータベースの特徴とデータ特性
 
-   * CAP定理を元にしたデータベースの分類とデータ特性
+   * CAP定理を元にしたデータベースの分類とデータ特性                          …◯
    * AP型データベースAmazon DynamoDBとApache Cassandraの特徴
 
 #. Amazon DynamoDBへアクセスするSpringアプリケーション
@@ -37,10 +37,11 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 #. Amazon ElastiCacheへアクセスするSpringアプリケーション
 
    * ローカル環境におけるRedisの構築
-   * Spring SessionとSpring Cloud Data Redisを用いたアプリケーション(1)
-   * Spring SessionとSpring Cloud Data Redisを用いたアプリケーション(2)
+   * Spring SessionとSpring Data Redisを用いたアプリケーション(1)
+   * Spring SessionとSpring Data Redisを用いたアプリケーション(2)
    * Amazon ElastiCacheの設定
-   * セッション共有するECSアプリケーションの構築
+   * セッション共有するECSアプリケーションの構築(1)
+   * セッション共有するECSアプリケーションの構築(2)
 
 なお、本稿は以下の前提知識がある開発者を想定しています。
 

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AWSで作るクラウドネイティブアプリケーションの基本 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-nosql-4-3.html" />
+    <link rel="prev" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-nosql-4-1.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
+<li><a class="reference internal" href="#awsnosql-4-2">第3回 AWS上に構築するNoSQLアプリケーション(4)-2</a><ul>
+<li><a class="reference internal" href="#amazon-elasticachespring">Amazon ElastiCacheへアクセスするSpringアプリケーション</a><ul>
+<li><a class="reference internal" href="#spring-data-sessionspring-data-redis">Spring Data SessionとSpring Data Redisの概要</a></li>
+<li><a class="reference internal" href="#spring-sessionspring-data-redis-1">Spring SessionとSpring Data Redisを使ったアプリケーション実装(1)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id1">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="aws-nosql-4-1.html" title="Previous Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; AWSで作るクラウドネイテ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="aws-nosql-4-3.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/cloud_native/aws-nosql-4-2.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="aws">
+<span id="section-cloud-native-nosql-label-4-2"></span><h1>AWSで作るクラウドネイティブアプリケーションの基本<a class="headerlink" href="#aws" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="awsnosql-4-2">
+<span id="section-cloud-native-nosql-4th-2-label"></span><h2>第3回 AWS上に構築するNoSQLアプリケーション(4)-2<a class="headerlink" href="#awsnosql-4-2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<div class="section" id="amazon-elasticachespring">
+<span id="section-cloud-native-nosql-spring-applicaiton-4-2-label"></span><h3>Amazon ElastiCacheへアクセスするSpringアプリケーション<a class="headerlink" href="#amazon-elasticachespring" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
+Amazon ElastiCacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。</p>
+<p><br/></p>
+<ol class="arabic simple">
+<li>NoSQLデータベースの特徴とデータ特性<ul>
+<li>CAP定理を元にしたデータベースの分類とデータ特性</li>
+<li>AP型データベースAmazon DynamoDBとApache Cassandraの特徴</li>
+</ul>
+</li>
+<li>Amazon DynamoDBへアクセスするSpringアプリケーション<ul>
+<li>Amazon DynamoDBの概要及び構築と認証情報の設定</li>
+<li>Spring Data DynamoDBを用いたアプリケーション(1)</li>
+<li>Spring Data DynamoDBを用いたアプリケーション(2)</li>
+</ul>
+</li>
+<li>Apache CassandraへアクセスするSpringアプリケーション<ul>
+<li>ローカル環境におけるApache Cassandraの構築</li>
+<li>Spring Data Cassandraを用いたアプリケーション(1)</li>
+<li>Spring Data Cassandraを用いたアプリケーション(2)</li>
+</ul>
+</li>
+<li>Amazon ElastiCacheへアクセスするSpringアプリケーション<ul>
+<li>ローカル環境におけるRedisの構築</li>
+<li>Spring SessionとSpring Cloud Data Redisを用いたアプリケーション(1)           …◯</li>
+<li>Spring SessionとSpring Cloud Data Redisを用いたアプリケーション(2)</li>
+<li>Amazon ElastiCacheの設定</li>
+<li>セッション共有するECSアプリケーションの構築(1)</li>
+<li>セッション共有するECSアプリケーションの構築(2)</li>
+</ul>
+</li>
+</ol>
+<p><br/></p>
+<p>前回 <a class="reference internal" href="aws-nosql-4-1.html#section-cloud-native-nosql-spring-applicaiton-4-1-label"><span class="std std-ref">Amazon ElastiCacheへアクセスするSpringアプリケーション</span></a> では、CP型データベースである、Amazon ElastiCacheの概要を説明し、
+シングルノードでローカル環境へテーブル構築しました。今回はSpring SessionおよびSpring Data Redisを使ってアクセスするアプリケーションを実装してみます。</p>
+<p><br/></p>
+<div class="section" id="spring-data-sessionspring-data-redis">
+<span id="section-cloud-native-spring-session-and-spring-data-redis-label"></span><h4>Spring Data SessionとSpring Data Redisの概要<a class="headerlink" href="#spring-data-sessionspring-data-redis" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p><br/></p>
+<p><a class="reference external" href="https://spring.io/projects/spring-session">Spring Session</a> はSpringのトップレベルプロジェクトの１つで、ユーザのセッション情報に関するAPIとその実装を提供します。
+以下のセッション情報を透過的に(従来のセッション情報と変わらないやり方で)扱うことが可能です。</p>
+<ul class="simple">
+<li>HttpSession：従来アプリケーションサーバで保持していたセッション情報を共有キャッシュへ置き換える実装を提供します。</li>
+<li>WebSockets：従来のスティッキーセッションセッションが必要なくなり、WebSocketsメッセージを取り扱うことが可能になります。</li>
+<li>WebSession：Spring5からサポートされたノンブロッキングなWebSessionを取り扱うことが可能になります。</li>
+</ul>
+<p><br/></p>
+<p>また、 <a class="reference external" href="https://spring.io/projects/spring-data-redis">Spring Data Redis</a> は Spring Data JPAやこれまで紹介してきたSpring Data Cassandara、DynamoDBと同じく、
+Spring Dataのメインモジュールで、統一的なインターフェースでデータアクセスが行えます。Spring Data Redisの特徴としては、以下の通りです。</p>
+<ul class="simple">
+<li>Jedisとlettuceなど、複数のRedisドライバを通した抽象的なアクセス手段の提供</li>
+<li>CrudRepositoryの継承インターフェースによる基本的なデータアクセスコード実装量の軽減</li>
+<li>&#64;EnableRedisRepsitoriesアノテーションを使ったRepositoryインターフェースの拡張実装の提供</li>
+<li>Redis driverがスローする例外の、共通的なDataAccessExceptionなどへの透過的な変換</li>
+<li>Spring Frameworkとの統合、依存性の注入によるRedisTemplateクラスの提供。</li>
+<li>Pub/Subモデルのサポート</li>
+</ul>
+<p>今回はこれらのフレームワークを用いて、セッション情報をRedisで共有するアプリケーションを実装してみましょう。
+前回構築したローカル環境のRedisへのアクセス及び、次回以降構築するAWS ECSコンテナでアプリケーションをデプロイし、ElastiCacheへアクセスができるようにアプリケーションを実装していきます。</p>
+<p>なお、実際に作成したアプリケーションは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-aws-elasticache">GitHub</a> 上にコミットしています。
+以降記載されているソースコードで、インポート文など本質的でない記述を省略している部分がありますので、実行コードを作成する場合は、
+必要に応じて適宜GitHubソースコードも参照してください。</p>
+<p><br/></p>
+</div>
+<div class="section" id="spring-sessionspring-data-redis-1">
+<span id="section-cloud-native-spring-session-data-redis-implementation-1-label"></span><h4>Spring SessionとSpring Data Redisを使ったアプリケーション実装(1)<a class="headerlink" href="#spring-sessionspring-data-redis-1" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p><br/></p>
+<p>Spring SessionとSpring Data Redisを使用するには、Mavenプロジェクトのpom.xmlで、spring-session-data-redisのライブラリを定義します。
+加えて、lettuceのDriverを定義してください。なお、共有セッションへのアクセスを画面から確認するアプリケーションを作成するために、
+spring-boot-starter-web、thymeleafテンプレートエンジンを使用するためのspring-boot-starter-thymeleafを追加しておきましょう。</p>
+<p><br/></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span> <span class="nt">&lt;dependencies&gt;</span>
+   <span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>org.springframework.session<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>spring-session-data-redis<span class="nt">&lt;/artifactId&gt;</span>
+   <span class="nt">&lt;/dependency&gt;</span>
+   <span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>io.lettuce<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>lettuce-core<span class="nt">&lt;/artifactId&gt;</span>
+   <span class="nt">&lt;/dependency&gt;</span>
+   <span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-thymeleaf<span class="nt">&lt;/artifactId&gt;</span>
+   <span class="nt">&lt;/dependency&gt;</span>
+   <span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
+   <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>今回、アプリケーションは以下のコンポーネントで構成しますが、Spring Session とSpring Data Redisで最低限作成しなければならない必須のクラスは以下の通りです。
+なお、thymeleafテンプレートエンジンに関する説明は省略しますが、index.htmlからセッション情報を更新し、結果に遷移する画面HTMLを各々実装しています。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id2">
+<caption><span class="caption-text">アプリケーション</span><a class="headerlink" href="#id2" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="30%" />
+<col width="60%" />
+<col width="10%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>コンポーネント</td>
+<td>説明</td>
+<td>必須</td>
+</tr>
+<tr class="row-even"><td>WebApp</td>
+<td>SpringBootアプリケーションを実行する起動クラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-odd"><td>MvcConfig</td>
+<td>Webアプリケーションの設定を行うクラス</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>RedisConfig</td>
+<td>Redisへの接続に関する設定クラス</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ElastiCacheConfig</td>
+<td>ElastiCacheに接続する際に設定するクラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-even"><td>SampleSession</td>
+<td>セッション情報に格納するモデルクラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-odd"><td>SampleController</td>
+<td>画面からのリクエストを受け付け、セッション情報の更新を行い、結果をテンプレートエンジンに渡す</td>
+<td>◯</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>それでは、実装していくクラスを説明します。まず、最初にSpringBoot起動クラス及び、各種設定クラスです。&#64;SpringBootApplicaitonアノテーションが付与された起動クラスは、
+&#64;Configurationアノテーションが付与された同一パッケージの設定クラス及び、
+設定クラス内で&#64;ComponentScanされたパッケージにあるクラスを読み取ります。今回は目的に応じて以下の4つに分類して定義します。</p>
+<ul class="simple">
+<li>アプリケーションを起動するためのWebAppクラス</li>
+<li>SpringMVCの設定クラスであるWebMvcConfigurerを実装した設定クラス：MvcConfigクラス</li>
+<li>Redisへアクセスを行う設定クラス：RedisConfigクラス</li>
+<li>ElasticCache接続に必要な設定を行う設定クラス：ElastiCacheConfigクラス</li>
+</ul>
+<p>以下にアプリケーション起動クラスを示します。&#64;SpringBootApplicaitonアノテーションを設定し、SpringAppcalition.run()を実行するmain()メソッドを実装します。
+設定クラスは必ずしも複数である必要はなく一つにまとめても動作上問題ありませんが、クラス名と役割を対応づけて作成していた方が、後々設定内容を混乱することなく、クラス名から識別できてベターです。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.elasticache.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
+
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WebApp</span> <span class="o">{</span>
+
+ <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+     <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">WebApp</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+ <span class="o">}</span>
+</pre></div>
+</div>
+<p>}</p>
+<p><br/></p>
+<p>同一パッケージに配置するMvcConfigクラスでは、HTMLやCSSなどの静的リソースのURLと実際のリソースの物理配置の対応づけの定義をResourceHandlerRegistryに追加しておきます。
+また、Controllerクラスを読み取るためのComponentScanアノテーションにパッケージを指定しておきます。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.elasticache.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.ComponentScan</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.config.annotation.WebMvcConfigurer</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="nd">@ComponentScan</span><span class="o">(</span><span class="s">&quot;org.debugroom.mynavi.sample.aws.elasticache.app.web&quot;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MvcConfig</span> <span class="kd">implements</span> <span class="n">WebMvcConfigurer</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addResourceHandlers</span><span class="o">(</span><span class="n">ResourceHandlerRegistry</span> <span class="n">registry</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">registry</span><span class="o">.</span><span class="na">addResourceHandler</span><span class="o">(</span><span class="s">&quot;/static/**&quot;</span><span class="o">)</span>
+             <span class="o">.</span><span class="na">addResourceLocations</span><span class="o">(</span><span class="s">&quot;classpath:/static/&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>続いて、Redisのアクセス設定をRedisConfigクラス及びapplication.ymlで行います。基本的には、Spring SessionでRedisを使用する場合、Mavenのpom.xmlでライブラリを追加した後、
+&#64;EnableRedisHttpSessionアノテーションを付与したConfigクラスを作成する必要がありますが、application.ymlでspring.session.store-typeプロパティをredisに設定にすることで、
+同等の効果を得ることができます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>spring:
+  session:
+    store-type: redis
+</pre></div>
+</div>
+<p><br/></p>
+<p>application.ymlの設定があれば、Configクラスの設定は必ずしも必要ではありませんが、デフォルトではセッション情報保存時にJavaオブジェクトをシリアライズして保存するため、
+Redisクライアントから中身を確認するためにJSON形式で保存するようにデフォルトのシリアライザを変更します。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.elasticache.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.redis.serializer.RedisSerializer</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RedisConfig</span> <span class="o">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">RedisSerializer</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="nf">springSessionDefaultRedisSerializer</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">GenericJackson2JsonRedisSerializer</span><span class="o">();</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>また、ローカル環境のRedisでは問題ありませんが、ElastiCacheではconfigコマンドの実行が禁止されているため、ConfigureRedisActionをNO_OPに設定しておく必要があります。
+ElastiCache接続時に有効化すれば良いため、実行時にプロファイル「production」を指定するものとして、以下のようなConfigクラスを追加しておきましょう。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.elasticache.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Profile</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.session.data.redis.config.ConfigureRedisAction</span><span class="o">;</span>
+
+<span class="nd">@Profile</span><span class="o">(</span><span class="s">&quot;production&quot;</span><span class="o">)</span>
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ElastiCacheConfig</span> <span class="o">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">ConfigureRedisAction</span> <span class="nf">configureRedisAction</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">ConfigureRedisAction</span><span class="o">.</span><span class="na">NO_OP</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>加えて、Redisに接続するためのIPアドレス及びポートをspring.redis.host及びspring.redis.portプロパティに指定しておく必要があります。</p>
+<p>applicaiton.yml</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>spring:
+  redis:
+    host: localhost
+    port: <span class="m">6379</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>また、ElastiCacheに接続するAWS環境では、ECSタスクに設定する環境変数からElastiCacheのエンドポイントを取得するよう、application-production.ymlを作成しておきます。</p>
+<p><br/></p>
+<p>applicaiton-production.yml</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>spring:
+  redis:
+    host: <span class="si">${</span><span class="nv">REDIS_CLUSTER_ENDPOINT</span><span class="p">:</span><span class="nv">localhost</span><span class="si">}</span>
+    port: <span class="si">${</span><span class="nv">REDIS_CLUSTER_PORT</span><span class="p">:</span><span class="nv">6379</span><span class="si">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p><br/></p>
+<p>アプリケーションの設定に関する実装はここまでです。次回以降、引き続きアプリケーションのコンポーネントに関わる実装を進めていきます。</p>
+<p><br/></p>
+</div>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>著者紹介<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei)</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+</div>
+<p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

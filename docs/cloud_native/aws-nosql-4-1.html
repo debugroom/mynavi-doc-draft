@@ -18,6 +18,7 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-nosql-4-2.html" />
     <link rel="prev" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-nosql-3-3.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -76,6 +77,11 @@
 <li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 </ul>
 </ul>
 </li>
@@ -111,6 +117,10 @@
                 
   <li>
     <a href="aws-nosql-3-3.html" title="Previous Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; AWSで作るクラウドネイテ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="aws-nosql-4-2.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
     </a>
   </li>
               
@@ -174,11 +184,12 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 </ul>
 </li>
 <li>Amazon ElastiCacheへアクセスするSpringアプリケーション<ul>
-<li>ローカル環境におけるRedisの構築</li>
-<li>Spring SessionとSpring Cloud Data Redisを用いたアプリケーション(1)</li>
-<li>Spring SessionとSpring Cloud Data Redisを用いたアプリケーション(2)</li>
+<li>ローカル環境におけるRedisの構築                        　　　　　　　　  …◯</li>
+<li>Spring SessionとSpring Data Redisを用いたアプリケーション(1)</li>
+<li>Spring SessionとSpring Data Redisを用いたアプリケーション(2)</li>
 <li>Amazon ElastiCacheの設定</li>
-<li>セッション共有するECSアプリケーションの構築</li>
+<li>セッション共有するECSアプリケーションの構築(1)</li>
+<li>セッション共有するECSアプリケーションの構築(2)</li>
 </ul>
 </li>
 </ol>
@@ -187,7 +198,7 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 今回はAmazon ElastiCache(Redis)の概要を説明し、実際に構築して見ます。</p>
 <p><br/></p>
 <div class="section" id="amazon-elasticache">
-<h4>Amazon ElastiCacheの概要<a class="headerlink" href="#amazon-elasticache" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<span id="section-cloud-native-elasticache-overview-label"></span><h4>Amazon ElastiCacheの概要<a class="headerlink" href="#amazon-elasticache" title="このヘッドラインへのパーマリンク">¶</a></h4>
 <p><br/></p>
 <p>Amazon ElastiCacheは、スケールアウト時のセッション状態や共通業務データなどを共有キャッシュすることにフォーカスしたサービスです。
 種類としてMemcachedとRedisをオプションとして選択でき、以下のような観点で使い分けを行います。</p>
@@ -227,7 +238,7 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 </table>
 <p>特にRedisは前回  <a class="reference internal" href="aws-nosql-1-1.html#section-cloud-native-nosql-category-by-cap-label"><span class="std std-ref">CAP定理を基づくデータベースの分類</span></a> でも紹介した通り、CP型の特徴を持つキーバリュー型データストアであり、
 シャーディングなどの高速化目的のキャッシュやスケールアウトしたアプリケーションでのセッションデータ共有で利用されます。今回は以下の図のように、Amazon ElastiCache(Redis)およびSpring Session、Spring Data Resisを使って、
-アプリケーション間でセッション情報を共有し、スケールアウト可能なステートフルアプリケーションを作成してみましょう。</p>
+ECSコンテナ上の複数のアプリケーション間でセッション情報を共有し、スケールアウト可能なステートフルアプリケーションを作成してみましょう。</p>
 <p><br/></p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/architecture-elasticache.png"><img alt="../_images/architecture-elasticache.png" src="../_images/architecture-elasticache.png" style="width: 582.0px; height: 624.0px;" /></a>
@@ -235,7 +246,7 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 <p><br/></p>
 </div>
 <div class="section" id="redis">
-<h4>ローカル環境におけるRedisの構築<a class="headerlink" href="#redis" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<span id="section-cloud-native-create-local-redis-label"></span><h4>ローカル環境におけるRedisの構築<a class="headerlink" href="#redis" title="このヘッドラインへのパーマリンク">¶</a></h4>
 <p>ElastiCacheはエンドポイントを持ち、任意の場所からアクセスできますが、通常セキュリティグループによりアクセス制御されます。
 そのため、相応のメモリが必要になるのですが、ローカル環境でシングルノードのRedisを構築すると開発時は便利なので、ここでは、
 Dockerを用いてゲストOSとして、CentOS7上にRedisを実行して見ます。ホストOSとなる端末はMacOS、Windowsどちらでもかまいませんが、
@@ -364,7 +375,7 @@ EXPOSE <span class="m">6379</span>
 </pre></div>
 </div>
 <p><br/></p>
-<p>これで、Redisの環境が構築できました。次回はこの構築した環境にアクセスするSpringアプリケーションを実装してみます。</p>
+<p>これで、Redisの環境が構築できました。次回はこの構築したローカル環境のRedisにアクセスするSpringアプリケーションを実装してみます。</p>
 <p><br/></p>
 </div>
 </div>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AWSで作るクラウドネイティブアプリケーションの基本 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="prev" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-nosql-4-5.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
+<li><a class="reference internal" href="#awsnosql-4-6">第3回 AWS上に構築するNoSQLアプリケーション(4)-6</a><ul>
+<li><a class="reference internal" href="#amazon-elasticachespring">Amazon ElastiCacheへアクセスするSpringアプリケーション</a><ul>
+<li><a class="reference internal" href="#ecs-2">セッション共有するECSアプリケーションの構築(2)</a><ul>
+<li><a class="reference internal" href="#ecs">ECSクラスタ及びセキュリティグループの設定</a></li>
+<li><a class="reference internal" href="#section-cloud-native-create-ecs-task-for-elasticache-label">ECSタスクの定義</a></li>
+<li><a class="reference internal" href="#section-cloud-native-create-ecs-service-for-elasticache-label">ECSサービスの実行・アプリケーション起動の確認</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="aws-nosql-4-5.html" title="Previous Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; AWSで作るクラウドネイテ...</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/cloud_native/aws-nosql-4-6.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="aws">
+<span id="section-cloud-native-nosql-label-4-6"></span><h1>AWSで作るクラウドネイティブアプリケーションの基本<a class="headerlink" href="#aws" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="awsnosql-4-6">
+<span id="section-cloud-native-nosql-4th-6-label"></span><h2>第3回 AWS上に構築するNoSQLアプリケーション(4)-6<a class="headerlink" href="#awsnosql-4-6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<div class="section" id="amazon-elasticachespring">
+<span id="section-cloud-native-nosql-spring-applicaiton-4-6-label"></span><h3>Amazon ElastiCacheへアクセスするSpringアプリケーション<a class="headerlink" href="#amazon-elasticachespring" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
+Amazon ElastiCacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。</p>
+<p><br/></p>
+<ol class="arabic simple">
+<li>NoSQLデータベースの特徴とデータ特性<ul>
+<li>CAP定理を元にしたデータベースの分類とデータ特性</li>
+<li>AP型データベースAmazon DynamoDBとApache Cassandraの特徴</li>
+</ul>
+</li>
+<li>Amazon DynamoDBへアクセスするSpringアプリケーション<ul>
+<li>Amazon DynamoDBの概要及び構築と認証情報の設定</li>
+<li>Spring Data DynamoDBを用いたアプリケーション(1)</li>
+<li>Spring Data DynamoDBを用いたアプリケーション(2)</li>
+</ul>
+</li>
+<li>Apache CassandraへアクセスするSpringアプリケーション<ul>
+<li>ローカル環境におけるApache Cassandraの構築</li>
+<li>Spring Data Cassandraを用いたアプリケーション(1)</li>
+<li>Spring Data Cassandraを用いたアプリケーション(2)</li>
+</ul>
+</li>
+<li>Amazon ElastiCacheへアクセスするSpringアプリケーション<ul>
+<li>ローカル環境におけるRedisの構築</li>
+<li>Spring SessionとSpring Data Redisを用いたアプリケーション(1)</li>
+<li>Spring SessionとSpring Data Redisを用いたアプリケーション(2)</li>
+<li>Amazon ElastiCacheの設定</li>
+<li>セッション共有するECSアプリケーションの構築(1)</li>
+<li>セッション共有するECSアプリケーションの構築(2)              …◯</li>
+</ul>
+</li>
+</ol>
+<p><br/></p>
+<p>前回 <a class="reference internal" href="aws-nosql-4-5.html#section-cloud-native-create-session-sharing-application-1-label"><span class="std std-ref">セッション共有するECSアプリケーションの構築(1)</span></a> では、アプリケーション及びRedisクライアントのDockerイメージを作成し、アプリケーションロードバランサーを構築しました。
+下記のイメージ通りに、今回はECSクラスタを作成し、ECSタスク定義を行って、コンテナをデプロイしてアプリケーションを実行しましょう。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/architecture-elasticache.png"><img alt="../_images/architecture-elasticache.png" src="../_images/architecture-elasticache.png" style="width: 582.0px; height: 624.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="section" id="ecs-2">
+<span id="section-cloud-native-create-session-sharing-application-2-label"></span><h4>セッション共有するECSアプリケーションの構築(2)<a class="headerlink" href="#ecs-2" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p><br/></p>
+<div class="section" id="ecs">
+<span id="section-cloud-native-create-ecs-cluster-for-elasticache-label"></span><h5>ECSクラスタ及びセキュリティグループの設定<a class="headerlink" href="#ecs" title="このヘッドラインへのパーマリンク">¶</a></h5>
+<p><br/></p>
+<p>ECSコンテナを実行するためのECSクラスタ及びセキュリティグループを設定します。設定内容は <a class="reference internal" href="aws-ecs-5.html#section-cloud-native-ecs-create-cluster-label"><span class="std std-ref">(5)ECSクラスタの作成</span></a> ほぼ同一となりますので、詳細な入力の要領はリンク先を参考にしてください。</p>
+<p>なお、ECSクラスタに設定するセキュリティグループは、Redisクライアントを実行するためのSSH接続と、ALBからのリクエスト転送を動的ポートで接続するので、以下の通り、22番と、32768-61000のアクセス許可するものを作成しておきます。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-ec2-create-security-group-for-ecs-1.png"><img alt="../_images/management-console-ec2-create-security-group-for-ecs-1.png" src="../_images/management-console-ec2-create-security-group-for-ecs-1.png" style="width: 763.0px; height: 408.0px;" /></a>
+</div>
+<p><br/></p>
+<p>上記で作成したセキュリティグループを指定して、ECSクラスタを作成します。VPCはElastiCache構築時に作成したVPCを指定してください。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-ecs-create-cluster-for-elasticache-1.png"><img alt="../_images/management-console-ecs-create-cluster-for-elasticache-1.png" src="../_images/management-console-ecs-create-cluster-for-elasticache-1.png" style="width: 626.0px; height: 748.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-ecs-create-cluster-for-elasticache-2.png"><img alt="../_images/management-console-ecs-create-cluster-for-elasticache-2.png" src="../_images/management-console-ecs-create-cluster-for-elasticache-2.png" style="width: 622.0px; height: 786.0px;" /></a>
+</div>
+<p><br/></p>
+</div>
+<div class="section" id="section-cloud-native-create-ecs-task-for-elasticache-label">
+<span id="id1"></span><h5>ECSタスクの定義<a class="headerlink" href="#section-cloud-native-create-ecs-task-for-elasticache-label" title="このヘッドラインへのパーマリンク">¶</a></h5>
+<p>前回、DockerHubレポジトリへプッシュしたコンテナイメージを利用して、ECSタスク定義を行います。設定作業の要領は、<a class="reference internal" href="aws-ecs-6.html#section-cloud-native-ecs-define-task-label"><span class="std std-ref">(6)ECSタスクの定義</span></a> とほぼ同様になりますので、入力項目の詳細はこちらも参照してください。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-ecs-create-task-for-elasticache-1.png"><img alt="../_images/management-console-ecs-create-task-for-elasticache-1.png" src="../_images/management-console-ecs-create-task-for-elasticache-1.png" style="width: 660.0px; height: 566.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-ecs-create-task-for-elasticache-2.png"><img alt="../_images/management-console-ecs-create-task-for-elasticache-2.png" src="../_images/management-console-ecs-create-task-for-elasticache-2.png" style="width: 660.0px; height: 886.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-ecs-create-task-for-elasticache-3.png"><img alt="../_images/management-console-ecs-create-task-for-elasticache-3.png" src="../_images/management-console-ecs-create-task-for-elasticache-3.png" style="width: 863.0px; height: 465.0px;" /></a>
+</div>
+<p><br/></p>
+<p>上記のリンクの設定要領との差分の中で特筆すべき点として、アプリケーションではElastiCacheのエンドポイントを環境変数REDIS_CLUSTER_ENDPOINTで取得する実装になっているため、ElastiCacheのエンドポイントを下記の通りに設定してください。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-ecs-create-task-for-elasticache-4.png"><img alt="../_images/management-console-ecs-create-task-for-elasticache-4.png" src="../_images/management-console-ecs-create-task-for-elasticache-4.png" style="width: 836.0px; height: 141.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">メモリサイズは1024MB、CPUタスクは512以上を最低指定するようにしてください。ヘルスチェックの実行までにアプリケーションの起動が完了せず、強制停止・再起動となり、コンテナが永久起動ループになる可能性があります。</p>
+</div>
+<p><br/></p>
+</div>
+<div class="section" id="section-cloud-native-create-ecs-service-for-elasticache-label">
+<span id="id2"></span><h5>ECSサービスの実行・アプリケーション起動の確認<a class="headerlink" href="#section-cloud-native-create-ecs-service-for-elasticache-label" title="このヘッドラインへのパーマリンク">¶</a></h5>
+<p><br/></p>
+<p>ターゲットグループを指定して、コンテナをECSサービスとして起動します。作業の要領は、<a class="reference internal" href="aws-ecs-7.html#section-cloud-native-ecs-create-service-label"><span class="std std-ref">(7)ECSサービスの実行</span></a> とほぼ同様になりますので、入力項目の詳細はこちらも参照してください。
+今回、ロードバランサーからは２つのパスパターンごとに、ターゲットグループを指定していますので、ECSサービスを２つ起動するよう実行します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-ecs-create-service-for-elasticache-1.png"><img alt="../_images/management-console-ecs-create-service-for-elasticache-1.png" src="../_images/management-console-ecs-create-service-for-elasticache-1.png" style="width: 648.0px; height: 546.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-ecs-create-service-for-elasticache-2.png"><img alt="../_images/management-console-ecs-create-service-for-elasticache-2.png" src="../_images/management-console-ecs-create-service-for-elasticache-2.png" style="width: 663.0px; height: 876.0px;" /></a>
+</div>
+<p><br/></p>
+<p>サービスが問題なく起動したら、ブラウザで、ALBのDNSを指定して、以下の例のようなURLでアクセスします。</p>
+<ul class="simple">
+<li>アプリケーションのURLの例：<a class="reference external" href="http://xxxxxxxx.ap-northeast-1.elb.amazonaws.com/index.html">http://xxxxxxxx.ap-northeast-1.elb.amazonaws.com/index.html</a></li>
+</ul>
+<p><br/></p>
+<p>アプリケーションの画面が表示されたら、実行コンテナ番号を1もしくは2で指定して「sharedSession」ボタンを押下すると、それぞれ実行したコンテナのホスト名が切り替わって表示されます。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/aws-elasticache-app.png"><img alt="../_images/aws-elasticache-app.png" src="../_images/aws-elasticache-app.png" style="width: 980.0px; height: 202.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/aws-elasticache-app-sharedSession-1.png"><img alt="../_images/aws-elasticache-app-sharedSession-1.png" src="../_images/aws-elasticache-app-sharedSession-1.png" style="width: 603.0px; height: 174.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/aws-elasticache-app-sharedSession-2.png"><img alt="../_images/aws-elasticache-app-sharedSession-2.png" src="../_images/aws-elasticache-app-sharedSession-2.png" style="width: 592.0px; height: 178.0px;" /></a>
+</div>
+<p><br/></p>
+<p>ECSクラスタに、前回プッシュしたDockerイメージをpullして、Redis-Clientを構築し、実際にElastiCacheに格納されているデータを確認します。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>ec2-user@ip-172-0-0-226 ~<span class="o">]</span>$  docker pull debugroom/mynavi-sample-redis-client:latest
+ latest: Pulling from debugroom/mynavi-sample-redis-client
+ // omit
+ <span class="o">[</span>ec2-user@ip-172-0-0-226 ~<span class="o">]</span>$ docker run -it --name redis-client debugroom/mynavi-sample-redis-client /bin/bash
+ <span class="o">[</span>root@2952f1af394a /<span class="o">]</span><span class="c1"># redis-cli -h mynavi-elasticache.z95fpp.ng.0001.apne1.cache.amazonaws.com</span>
+ mynavi-elasticache.z95fpp.ng.0001.apne1.cache.amazonaws.com:6379&gt;
+</pre></div>
+</div>
+<p><br/></p>
+<p>コンテナ番号を指定し、「Shared Session」ボタンを押下します。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mynavi-elasticache.z95fpp.ng.0001.apne1.cache.amazonaws.com:6379&gt; keys *
+<span class="m">1</span><span class="o">)</span> <span class="s2">&quot;spring:session:expirations:1552130880000&quot;</span>
+<span class="m">2</span><span class="o">)</span> <span class="s2">&quot;spring:session:sessions:expires:e1237df7-5646-4382-aa12-41435ed09dc7&quot;</span>
+<span class="m">3</span><span class="o">)</span> <span class="s2">&quot;spring:session:sessions:e1237df7-5646-4382-aa12-41435ed09dc7&quot;</span>
+mynavi-elasticache.z95fpp.ng.0001.apne1.cache.amazonaws.com:6379&gt; hgetall <span class="s2">&quot;spring:session:sessions:e1237df7-5646-4382-aa12-41435ed09dc7&quot;</span>
+<span class="m">1</span><span class="o">)</span> <span class="s2">&quot;creationTime&quot;</span>
+<span class="m">2</span><span class="o">)</span> <span class="s2">&quot;1552128921707&quot;</span>
+<span class="m">3</span><span class="o">)</span> <span class="s2">&quot;sessionAttr:scopedTarget.sampleSession&quot;</span>
+<span class="m">4</span><span class="o">)</span> <span class="s2">&quot;{\&quot;@class\&quot;:\&quot;org.debugroom.mynavi.sample.aws.elasticache.app.web.model.SampleSession\&quot;,\&quot;host\&quot;:\&quot;c95883d5424d\&quot;,\&quot;lastUpdatedAt\&quot;:[\&quot;java.util.Date\&quot;,1552129074569]}&quot;</span>
+<span class="m">5</span><span class="o">)</span> <span class="s2">&quot;lastAccessedTime&quot;</span>
+<span class="m">6</span><span class="o">)</span> <span class="s2">&quot;1552129074379&quot;</span>
+<span class="m">7</span><span class="o">)</span> <span class="s2">&quot;maxInactiveInterval&quot;</span>
+<span class="m">8</span><span class="o">)</span> <span class="s2">&quot;1800&quot;</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>別のコンテナ番号を指定し、再び「Shared Session」ボタンを押下します。SampleSession内のhostが切り替わっていることがわかります。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mynavi-elasticache.z95fpp.ng.0001.apne1.cache.amazonaws.com:6379&gt; hgetall <span class="s2">&quot;spring:session:sessions:e1237df7-5646-4382-aa12-41435ed09dc7&quot;</span>
+<span class="m">1</span><span class="o">)</span> <span class="s2">&quot;creationTime&quot;</span>
+<span class="m">2</span><span class="o">)</span> <span class="s2">&quot;1552128921707&quot;</span>
+<span class="m">3</span><span class="o">)</span> <span class="s2">&quot;sessionAttr:scopedTarget.sampleSession&quot;</span>
+<span class="m">4</span><span class="o">)</span> <span class="s2">&quot;{\&quot;@class\&quot;:\&quot;org.debugroom.mynavi.sample.aws.elasticache.app.web.model.SampleSession\&quot;,\&quot;host\&quot;:\&quot;f449a9d00143\&quot;,\&quot;lastUpdatedAt\&quot;:[\&quot;java.util.Date\&quot;,1552129676177]}&quot;</span>
+<span class="m">5</span><span class="o">)</span> <span class="s2">&quot;lastAccessedTime&quot;</span>
+<span class="m">6</span><span class="o">)</span> <span class="s2">&quot;1552129676176&quot;</span>
+<span class="m">7</span><span class="o">)</span> <span class="s2">&quot;maxInactiveInterval&quot;</span>
+<span class="m">8</span><span class="o">)</span> <span class="s2">&quot;1800&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>著者紹介<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei)</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+</div>
+<p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

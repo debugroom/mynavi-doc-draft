@@ -43,11 +43,12 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 
 #. Amazon ElastiCacheへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるRedisの構築
-   * Spring SessionとSpring Cloud Data Redisを用いたアプリケーション(1)
-   * Spring SessionとSpring Cloud Data Redisを用いたアプリケーション(2)
+   * ローカル環境におけるRedisの構築                        　　　　　　　　  …◯
+   * Spring SessionとSpring Data Redisを用いたアプリケーション(1)
+   * Spring SessionとSpring Data Redisを用いたアプリケーション(2)
    * Amazon ElastiCacheの設定
-   * セッション共有するECSアプリケーションの構築
+   * セッション共有するECSアプリケーションの構築(1)
+   * セッション共有するECSアプリケーションの構築(2)
 
 |br|
 
@@ -55,6 +56,8 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 今回はAmazon ElastiCache(Redis)の概要を説明し、実際に構築して見ます。
 
 |br|
+
+.. _section-cloud-native-elasticache-overview-label:
 
 Amazon ElastiCacheの概要
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -94,7 +97,7 @@ Amazon ElastiCacheは、スケールアウト時のセッション状態や共�
 
 特にRedisは前回  :ref:`section-cloud-native-nosql-category-by-cap-label` でも紹介した通り、CP型の特徴を持つキーバリュー型データストアであり、
 シャーディングなどの高速化目的のキャッシュやスケールアウトしたアプリケーションでのセッションデータ共有で利用されます。今回は以下の図のように、Amazon ElastiCache(Redis)およびSpring Session、Spring Data Resisを使って、
-アプリケーション間でセッション情報を共有し、スケールアウト可能なステートフルアプリケーションを作成してみましょう。
+ECSコンテナ上の複数のアプリケーション間でセッション情報を共有し、スケールアウト可能なステートフルアプリケーションを作成してみましょう。
 
 |br|
 
@@ -102,6 +105,8 @@ Amazon ElastiCacheは、スケールアウト時のセッション状態や共�
    :scale: 100%
 
 |br|
+
+.. _section-cloud-native-create-local-redis-label:
 
 ローカル環境におけるRedisの構築
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -217,7 +222,7 @@ Dockerイメージが作成されたら、コマンドラインからDockerプ�
 
 |br|
 
-これで、Redisの環境が構築できました。次回はこの構築した環境にアクセスするSpringアプリケーションを実装してみます。
+これで、Redisの環境が構築できました。次回はこの構築したローカル環境のRedisにアクセスするSpringアプリケーションを実装してみます。
 
 |br|
 

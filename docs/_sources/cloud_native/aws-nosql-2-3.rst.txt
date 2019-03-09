@@ -33,7 +33,7 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 
    * Amazon DynamoDBの概要及び構築と認証情報の設定
    * Spring Data DynamoDBを用いたアプリケーション(1)
-   * Spring Data DynamoDBを用いたアプリケーション(2)
+   * Spring Data DynamoDBを用いたアプリケーション(2)                          …◯
 
 #. Apache CassandraへアクセスするSpringアプリケーション
 
@@ -44,10 +44,11 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 #. Amazon ElastiCacheへアクセスするSpringアプリケーション
 
    * ローカル環境におけるRedisの構築
-   * Spring SessionとSpring Cloud Data Redisを用いたアプリケーション(1)
-   * Spring SessionとSpring Cloud Data Redisを用いたアプリケーション(2)
+   * Spring SessionとSpring Data Redisを用いたアプリケーション(1)
+   * Spring SessionとSpring Data Redisを用いたアプリケーション(2)
    * Amazon ElastiCacheの設定
-   * セッション共有するECSアプリケーションの構築
+   * セッション共有するECSアプリケーションの構築(1)
+   * セッション共有するECSアプリケーションの構築(2)
 
 |br|
 

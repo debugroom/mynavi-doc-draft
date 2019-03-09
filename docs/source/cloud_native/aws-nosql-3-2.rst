@@ -38,16 +38,17 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 #. Apache CassandraへアクセスするSpringアプリケーション
 
    * ローカル環境におけるApache Cassandraの構築
-   * Spring Data Cassandraを用いたアプリケーション(1)
+   * Spring Data Cassandraを用いたアプリケーション(1)                          …◯
    * Spring Data Cassandraを用いたアプリケーション(2)
 
 #. Amazon ElastiCacheへアクセスするSpringアプリケーション
 
    * ローカル環境におけるRedisの構築
-   * Spring SessionとSpring Cloud Data Redisを用いたアプリケーション(1)
-   * Spring SessionとSpring Cloud Data Redisを用いたアプリケーション(2)
+   * Spring SessionとSpring Data Redisを用いたアプリケーション(1)
+   * Spring SessionとSpring Data Redisを用いたアプリケーション(2)
    * Amazon ElastiCacheの設定
-   * セッション共有するECSアプリケーションの構築
+   * セッション共有するECSアプリケーションの構築(1)
+   * セッション共有するECSアプリケーションの構築(2)
 
 |br|
 

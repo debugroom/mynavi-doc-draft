@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AWSで作るクラウドネイティブアプリケーションの基本 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-nosql-4-5.html" />
+    <link rel="prev" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-nosql-4-3.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
+<li><a class="reference internal" href="#awsnosql-4-4">第3回 AWS上に構築するNoSQLアプリケーション(4)-4</a><ul>
+<li><a class="reference internal" href="#amazon-elasticachespring">Amazon ElastiCacheへアクセスするSpringアプリケーション</a><ul>
+<li><a class="reference internal" href="#amazon-elasticache-redis">Amazon ElastiCache(Redis)の構築</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id2">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="aws-nosql-4-3.html" title="Previous Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; AWSで作るクラウドネイテ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="aws-nosql-4-5.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/cloud_native/aws-nosql-4-4.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="aws">
+<span id="section-cloud-native-nosql-label-4-4"></span><h1>AWSで作るクラウドネイティブアプリケーションの基本<a class="headerlink" href="#aws" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="awsnosql-4-4">
+<span id="section-cloud-native-nosql-4th-4-label"></span><h2>第3回 AWS上に構築するNoSQLアプリケーション(4)-4<a class="headerlink" href="#awsnosql-4-4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<div class="section" id="amazon-elasticachespring">
+<span id="section-cloud-native-nosql-spring-applicaiton-4-4-label"></span><h3>Amazon ElastiCacheへアクセスするSpringアプリケーション<a class="headerlink" href="#amazon-elasticachespring" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
+Amazon ElastiCacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。</p>
+<p><br/></p>
+<ol class="arabic simple">
+<li>NoSQLデータベースの特徴とデータ特性<ul>
+<li>CAP定理を元にしたデータベースの分類とデータ特性</li>
+<li>AP型データベースAmazon DynamoDBとApache Cassandraの特徴</li>
+</ul>
+</li>
+<li>Amazon DynamoDBへアクセスするSpringアプリケーション<ul>
+<li>Amazon DynamoDBの概要及び構築と認証情報の設定</li>
+<li>Spring Data DynamoDBを用いたアプリケーション(1)</li>
+<li>Spring Data DynamoDBを用いたアプリケーション(2)</li>
+</ul>
+</li>
+<li>Apache CassandraへアクセスするSpringアプリケーション<ul>
+<li>ローカル環境におけるApache Cassandraの構築</li>
+<li>Spring Data Cassandraを用いたアプリケーション(1)</li>
+<li>Spring Data Cassandraを用いたアプリケーション(2)</li>
+</ul>
+</li>
+<li>Amazon ElastiCacheへアクセスするSpringアプリケーション<ul>
+<li>ローカル環境におけるRedisの構築</li>
+<li>Spring SessionとSpring Data Redisを用いたアプリケーション(1)</li>
+<li>Spring SessionとSpring Data Redisを用いたアプリケーション(2)</li>
+<li>Amazon ElastiCacheの設定                                   …◯</li>
+<li>セッション共有するECSアプリケーションの構築(1)</li>
+<li>セッション共有するECSアプリケーションの構築(2)</li>
+</ul>
+</li>
+</ol>
+<p><br/></p>
+<p>前回 <a class="reference internal" href="aws-nosql-4-3.html#section-cloud-native-spring-session-data-redis-implementation-2-label"><span class="std std-ref">Spring SessionとSpring Data Redisを使ったアプリケーション実装(2)</span></a> では、Spring SessionとSpring Data Redisを使ってセッション情報を共有するアプリケーションを実装し、
+ローカル環境に構築したRedisへのアクセスまで確認しました。今回はAmazon ElastiCache(Redis)を実際に構築してみましょう。</p>
+<p><br/></p>
+<div class="section" id="amazon-elasticache-redis">
+<span id="section-cloud-native-create-elasticache-redis-label"></span><h4>Amazon ElastiCache(Redis)の構築<a class="headerlink" href="#amazon-elasticache-redis" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p><br/></p>
+<p>ElastiCacheを作成するにあたり、下記のイメージ図のように、事前にElastiCacheノードを配置するためのVPCを構築しておく必要があります。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/architecture-elasticache.png"><img alt="../_images/architecture-elasticache.png" src="../_images/architecture-elasticache.png" style="width: 582.0px; height: 624.0px;" /></a>
+</div>
+<p><br/></p>
+<p>VPCの作成方法は、第２回 <a class="reference internal" href="aws-ecs-1.html#section-cloud-native-ecs-overview-label"><span class="std std-ref">AWS ECSの概要とアプリケーション環境構成</span></a> に詳細な構築手順・要領をまとめていますので、必要に応じてリンク先を確認し、VPCを作成しておいてください。
+ただし、上記のイメージに従えば、NATゲートウェイやインターネットゲートウェイ、プライベートサブネットは今回必ずしも必要ではありません。
+パブリックサブネットだけの構築でも入力内容は変わりませんので、適宜リンク先の要領を参考にしてVPCを作成してください。</p>
+<p>また、ElastiCacheはセキュリティグループによりアクセス制御されます。セキュリティ上、VPCネットワーク内からのアクセスのみ受け付ける設定が望ましいため、VPC作成後に、以下の手順通り、ElastiCacheに割り当てるセキュリティグループを作成してください。</p>
+<p>AWSコンソールの「EC2」サービスから、セキュリティグループメニューを選択肢、「セキュリティグループの作成」ボタンを押下し、以下の要領に則って入力します。</p>
+<ul class="simple">
+<li>セキュリティグループ名：任意のセキュリティグループ名を入力します。</li>
+<li>説明：セキュリティグループで任意の説明文言を入力します。</li>
+<li>VPC：作成したVPCを選択します。</li>
+<li>セキュリティグループのルール<ul>
+<li>タイプ：カスタムTCPを選択します。</li>
+<li>プロトコル：TCPを入力します。</li>
+<li>ポート範囲：Redisのデフォルトポートである6379を設定します。</li>
+<li>ソース：VPCのCIDRを設定します。</li>
+</ul>
+</li>
+</ul>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-ec2-create-security-group-for-elasticache-1.png"><img alt="../_images/management-console-ec2-create-security-group-for-elasticache-1.png" src="../_images/management-console-ec2-create-security-group-for-elasticache-1.png" style="width: 764.0px; height: 410.0px;" /></a>
+</div>
+<p><br/></p>
+<p>セキュリティグループを作成した後、AWSコンソールの「ElastiCache」サービスから、「テーブルの作成」ボタンを押下し、以下の要領に則って入力します。</p>
+<ul class="simple">
+<li>クラスターエンジン：Redisを選択します。<ul>
+<li>クラスターモードが有効：シャーディングを有効化するクラスターモードを設定します。特にサンプルではシャーディングは必要ないのでここではチェックしません。</li>
+</ul>
+</li>
+<li>Redisの設定<ul>
+<li>名前：20文字内で任意のRedisクラスタ名を入力します。</li>
+<li>説明：任意の説明文言を入力します。</li>
+<li>エンジンバージョンの互換性：最新バージョンを選択します。</li>
+<li>ポート：デフォルト6279を選択します。</li>
+<li>パラメータグループ：Redisで使用するパラメータグループを指定します。詳細は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AmazonElastiCache/latest/red-ug/ParameterGroups.Redis.html">こちら</a> を参照してください。</li>
+<li>ノードのタイプ：キャッシュのスペックを選択します。</li>
+<li>レプリケーション数：リードレプリカの数を指定します。</li>
+</ul>
+</li>
+<li>Redisの詳細設定<ul>
+<li>自動フェイルオーバーを備えたマルチAZ：マルチAZ構成にする場合チェックします。</li>
+<li>サブネットグループ：新規作成を選択します。<ul>
+<li>名前：フェイルオーバーのための複数のサブネット構成に対する任意のグループ名を入力します。</li>
+<li>説明：任意の説明文言を入力します。</li>
+<li>VPC ID：作成しているVPCのIDを選択します。</li>
+<li>サブネット：Redisレプリカを配置するVPCサブネットを複数選択します。</li>
+</ul>
+</li>
+<li>優先アベイラビリティゾーン：フェイルオーバーで優先するAZを選択します。</li>
+</ul>
+</li>
+<li>セキュリティ<ul>
+<li>セキュリティグループ：上記で作成したセキュリティグループを指定します。</li>
+<li>保管時の暗号化：Redis内のデータを暗号化する必要がある場合チェックします。</li>
+<li>送信中の暗号化：Redisとの通信時に暗号化を行う場合チェックします。</li>
+</ul>
+</li>
+<li>クラスタへのデータのインポート<ul>
+<li>構築時にデータを設定する場合、S3にデータを配置し、オブジェクトキーを指定します。</li>
+</ul>
+</li>
+<li>バックアップ<ul>
+<li>自動バックアップの有効化：Redis内のデータをバックアップする場合チェックします。</li>
+<li>バックアップ保存期間：バックアップの保存期間を設定します。</li>
+<li>バックアップウィンドウ：バックアップ期間を細かく指定する場合にチェックします。</li>
+</ul>
+</li>
+<li>メンテナンス<ul>
+<li>メンテナンスウィンドウ：メンテナンス期間を指定する場合にチェックします。</li>
+<li>SNS通知のトピック：重要なクラスターイベントの通知が送信されるよう設定する場合はトピックを設定します。</li>
+</ul>
+</li>
+</ul>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-elasticache-create-1.png"><img alt="../_images/management-console-elasticache-create-1.png" src="../_images/management-console-elasticache-create-1.png" style="width: 713.0px; height: 541.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-elasticache-create-2.png"><img alt="../_images/management-console-elasticache-create-2.png" src="../_images/management-console-elasticache-create-2.png" style="width: 704.0px; height: 574.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-elasticache-create-3.png"><img alt="../_images/management-console-elasticache-create-3.png" src="../_images/management-console-elasticache-create-3.png" style="width: 704.0px; height: 693.0px;" /></a>
+</div>
+<p><br/></p>
+<p>以上で、ElastiCacheの作成は完了です。次回はロードバランサー及びアプリケーションをECSコンテナ化してデプロイし、セッション情報をRedisに共有するよう設定します。</p>
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>著者紹介<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei)</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+</div>
+<p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
