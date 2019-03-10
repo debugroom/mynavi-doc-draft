@@ -19,8 +19,10 @@ Amazon ElastiCacheへアクセスするSpringアプリケーション
 
 |br|
 
-クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
-Amazon ElastiCacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。
+クラウドの普及に伴い、ビッグデータやキーバリュー型データの格納など、ますます活用の機会が広がりつつあるNoSQLデータベース。
+第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、Amazon ElastiCacheへアクセスするSpringアプリケーションを開発する方法について、わかりやすく解説します。
+
+本連載では、以下の様なステップで進めています。
 
 |br|
 
@@ -31,22 +33,22 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 
 #. Amazon DynamoDBへアクセスするSpringアプリケーション
 
-   * Amazon DynamoDBの概要及び構築と認証情報の設定
+   * Amazon DynamoDBの概要及び構築と認証情報の作成
    * Spring Data DynamoDBを用いたアプリケーション(1)
    * Spring Data DynamoDBを用いたアプリケーション(2)
 
 #. Apache CassandraへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるApache Cassandraの構築
+   * Apache Cassandraの概要及びローカル環境構築
    * Spring Data Cassandraを用いたアプリケーション(1)
    * Spring Data Cassandraを用いたアプリケーション(2)
 
 #. Amazon ElastiCacheへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるRedisの構築
+   * AmazonElasiCacheの概要及びローカル環境でのRedisServer構築
    * Spring SessionとSpring Data Redisを用いたアプリケーション(1)
    * Spring SessionとSpring Data Redisを用いたアプリケーション(2)
-   * Amazon ElastiCacheの設定                                   …◯
+   * **Amazon ElastiCacheの設定**
    * セッション共有するECSアプリケーションの構築(1)
    * セッション共有するECSアプリケーションの構築(2)
 
@@ -59,12 +61,12 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 
 .. _section-cloud-native-create-elasticache-redis-label:
 
-Amazon ElastiCache(Redis)の構築
+Amazon ElastiCache(Redis)の設定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 |br|
 
-ElastiCacheを作成するにあたり、下記のイメージ図のように、事前にElastiCacheノードを配置するためのVPCを構築しておく必要があります。
+AWSで、ElastiCacheを構築するにあたり、下記のイメージ図のように、事前にElastiCacheノードを配置するためのVPCを構築しておく必要があります。
 
 |br|
 
@@ -74,7 +76,7 @@ ElastiCacheを作成するにあたり、下記のイメージ図のように、
 |br|
 
 VPCの作成方法は、第２回 :ref:`section-cloud-native-ecs-overview-label` に詳細な構築手順・要領をまとめていますので、必要に応じてリンク先を確認し、VPCを作成しておいてください。
-ただし、上記のイメージに従えば、NATゲートウェイやインターネットゲートウェイ、プライベートサブネットは今回必ずしも必要ではありません。
+ただし、NATゲートウェイやインターネットゲートウェイ、プライベートサブネットは今回必ずしも必要ではありません。
 パブリックサブネットだけの構築でも入力内容は変わりませんので、適宜リンク先の要領を参考にしてVPCを作成してください。
 
 また、ElastiCacheはセキュリティグループによりアクセス制御されます。セキュリティ上、VPCネットワーク内からのアクセスのみ受け付ける設定が望ましいため、VPC作成後に、以下の手順通り、ElastiCacheに割り当てるセキュリティグループを作成してください。
@@ -165,7 +167,7 @@ AWSコンソールの「EC2」サービスから、セキュリティグルー�
 
 |br|
 
-以上で、ElastiCacheの作成は完了です。次回はロードバランサー及びアプリケーションをECSコンテナ化してデプロイし、セッション情報をRedisに共有するよう設定します。
+以上で、ElastiCacheの作成は完了です。次回はアプリケーションロードバランサーを構築した後、アプリケーションをECSコンテナ化してデプロイし、セッション情報をRedisに共有するよう設定します。
 
 
 著者紹介

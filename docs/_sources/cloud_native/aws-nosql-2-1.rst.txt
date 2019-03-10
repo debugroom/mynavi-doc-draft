@@ -19,8 +19,10 @@ Amazon DynamoDBへアクセスするSpringアプリケーション
 
 |br|
 
-クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
-Amazon ElastiCacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。
+クラウドの普及に伴い、ビッグデータやキーバリュー型データの格納など、ますます活用の機会が広がりつつあるNoSQLデータベース。
+第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、Amazon ElastiCacheへアクセスするSpringアプリケーションを開発する方法について、わかりやすく解説します。
+
+本連載では、以下の様なステップで進めています。
 
 |br|
 
@@ -31,19 +33,19 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 
 #. Amazon DynamoDBへアクセスするSpringアプリケーション
 
-   * Amazon DynamoDBの概要及び構築と認証情報の設定                          …◯
+   * **Amazon DynamoDBの概要及び構築と認証情報の作成**
    * Spring Data DynamoDBを用いたアプリケーション(1)
    * Spring Data DynamoDBを用いたアプリケーション(2)
 
 #. Apache CassandraへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるApache Cassandraの構築
+   * Apache Cassandraの概要及びローカル環境構築
    * Spring Data Cassandraを用いたアプリケーション(1)
    * Spring Data Cassandraを用いたアプリケーション(2)
 
 #. Amazon ElastiCacheへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるRedisの構築
+   * AmazonElasiCacheの概要及びローカル環境でのRedisServer構築
    * Spring SessionとSpring Data Redisを用いたアプリケーション(1)
    * Spring SessionとSpring Data Redisを用いたアプリケーション(2)
    * Amazon ElastiCacheの設定
@@ -102,11 +104,15 @@ AWS Lambdaと統合して、項目レベルの変更が発生した場合に、�
 複数のリージョンを跨いで１つのテーブルとなる様にデータノードを配置するのではなく、リージョンごとにレプリケーションを作成する形になります。
 そのため、異なるリージョンでほぼ同時に更新が発生した場合、レプリカテーブルへの反映は数秒程度で反映されますが、最新の書き込みの方が反映されるため注意が必要です。
 
+|br|
+
 .. note:: ローカルセカンダリインデックスはテーブルとインデックスの合計サイズが各パーティションキーごとに20GBまでで制限されます。
 
 |br|
 
-Amazon DynamoDBの構築と認証情報設定
+.. _section-cloud-native-create-dynamodb-label:
+
+Amazon DynamoDBの構築
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 |br|
@@ -116,6 +122,8 @@ Amazon DynamoDBの構築と認証情報設定
 * テーブル名：任意のテーブル名を入力
 * プライマリーキー：パーティションキー及びオプションでソートキー名を入力。
 * デフォルトの設定：チェックする
+
+|br|
 
 .. figure:: img/aws-nosql/management-console-dynamodb-create-db-1.png
    :scale: 100%
@@ -140,7 +148,14 @@ Amazon DynamoDBの構築と認証情報設定
 
 |br|
 
-また、次回以降作成するアプリケーションでローカル環境からDynamoDBへアクセスするために必要なユーザ及び認証情報を作成しておきましょう。
+.. _section-cloud-native-create-user-and-credential-label:
+
+ユーザ・認証情報の作成
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+|br|
+
+次回以降作成するアプリケーションでローカル環境からDynamoDBへアクセスするために必要なユーザ及び認証情報を作成しておきましょう。
 「IAM」サービスから「ユーザ」メニューを作成し、「ユーザの作成」ボタンを押下し、以下の要領に則って入力してください。
 
 * ユーザ名：任意の名前を入力

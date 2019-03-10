@@ -161,8 +161,9 @@
 <div class="section" id="apache-cassandraspring">
 <span id="section-cloud-native-nosql-spring-applicaiton-3-3-label"></span><h3>Apache CassandraへアクセスするSpringアプリケーション<a class="headerlink" href="#apache-cassandraspring" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
-<p>クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
-Amazon ElastiCacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。</p>
+<p>クラウドの普及に伴い、ビッグデータやキーバリュー型データの格納など、ますます活用の機会が広がりつつあるNoSQLデータベース。
+第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、Amazon ElastiCacheへアクセスするSpringアプリケーションを開発する方法について、わかりやすく解説します。</p>
+<p>本連載では、以下の様なステップで進めています。</p>
 <p><br/></p>
 <ol class="arabic simple">
 <li>NoSQLデータベースの特徴とデータ特性<ul>
@@ -171,19 +172,19 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 </ul>
 </li>
 <li>Amazon DynamoDBへアクセスするSpringアプリケーション<ul>
-<li>Amazon DynamoDBの概要及び構築と認証情報の設定</li>
+<li>Amazon DynamoDBの概要及び構築と認証情報の作成</li>
 <li>Spring Data DynamoDBを用いたアプリケーション(1)</li>
 <li>Spring Data DynamoDBを用いたアプリケーション(2)</li>
 </ul>
 </li>
 <li>Apache CassandraへアクセスするSpringアプリケーション<ul>
-<li>ローカル環境におけるApache Cassandraの構築</li>
+<li>Apache Cassandraの概要及びローカル環境構築</li>
 <li>Spring Data Cassandraを用いたアプリケーション(1)</li>
-<li>Spring Data Cassandraを用いたアプリケーション(2)                          …◯</li>
+<li><strong>Spring Data Cassandraを用いたアプリケーション(2)</strong></li>
 </ul>
 </li>
 <li>Amazon ElastiCacheへアクセスするSpringアプリケーション<ul>
-<li>ローカル環境におけるRedisの構築</li>
+<li>AmazonElasiCacheの概要及びローカル環境でのRedisServer構築</li>
 <li>Spring SessionとSpring Data Redisを用いたアプリケーション(1)</li>
 <li>Spring SessionとSpring Data Redisを用いたアプリケーション(2)</li>
 <li>Amazon ElastiCacheの設定</li>
@@ -193,14 +194,14 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 </li>
 </ol>
 <p><br/></p>
-<p>前回、<a class="reference internal" href="aws-nosql-3-2.html#section-cloud-native-spring-data-cassandra-implementation-1-label"><span class="std std-ref">Spring Data Cassandraを使ったアプリケーション実装(1)</span></a> に引き続き、 今回はSpring Data Cassandraを使ってデータベースアクセスするアプリケーションを実装していていきます。</p>
+<p>前回、<a class="reference internal" href="aws-nosql-3-2.html#section-cloud-native-spring-data-cassandra-implementation-1-label"><span class="std std-ref">Spring Data Cassandraを使ったアプリケーション実装(1)</span></a> に引き続き、 今回はSpring Data Cassandraを使ってデータベースアクセスする処理等を実装していきます。</p>
 <p><br/></p>
 <div class="section" id="spring-data-cassandra-2">
-<h4>Spring Data Cassandraを使ったアプリケーション実装(2)<a class="headerlink" href="#spring-data-cassandra-2" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<span id="section-cloud-native-spring-data-cassandra-implementation-2-label"></span><h4>Spring Data Cassandraを使ったアプリケーション実装(2)<a class="headerlink" href="#spring-data-cassandra-2" title="このヘッドラインへのパーマリンク">¶</a></h4>
 <p><br/></p>
-<p>アプリケーションコンポーネントの実装に移ります。画面から受け取るリクエストパラメータコンポーネントを以下の様に作成しています。</p>
+<p>アプリケーションコンポーネントの実装に移ります。データ追加・更新処理で画面から受け取るリクエストパラメータクラスを以下の様に作成しています。</p>
 <p><br/></p>
-<p>リクエストパラメータオブジェクト</p>
+<p>リクエストパラメータクラス</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.spring.data.cassandra.app.model</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">lombok.AllArgsConstructor</span><span class="o">;</span>
@@ -321,16 +322,16 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 <p class="last">Java8からstaticメソッドであれば、インターフェースでも実装できる様になっています。</p>
 </div>
 <p><br/></p>
-<p>Serviceの実装は、以下の通り、CRUD処理をRepositoryを通して実行します。</p>
+<p>Serviceクラスでは、以下の通り、CRUD処理をRepositoryを通して実行する処理を実装します。</p>
 <ul class="simple">
-<li>findAll：作成したDynamoDBのテーブルの全件データをList型で受け取る処理</li>
-<li>findOne：指定したパーティションキー・ソートキーでデータを取得する処理</li>
-<li>add：パーティションキーにランダムなUUID文字列を、ソートキーには&quot;1&quot;を設定し、リクエストから受け取ったテキスト文字列を設定して保存するロジックです。</li>
-<li>update：指定したパーティションキー・ソートキーのテキストデータを更新する処理</li>
-<li>delete：指定したパーティションキー・ソートキーのデータを削除する処理</li>
+<li>【findAll】SampleRepository.findAll：作成したCassandraのテーブルの全件データをList型で受け取る処理</li>
+<li>【findOne】SampleRepository.findById()：指定したパーティションキー・ソートキーでデータを取得する処理</li>
+<li>【add】SampleRepository.save()：パーティションキーにランダムなUUID文字列を、ソートキーには&quot;1&quot;を設定し、リクエストから受け取ったテキスト文字列を設定して保存するロジックを実装。</li>
+<li>【update】SampleRepository.save()：指定したパーティションキー・ソートキーのテキストデータを更新する処理</li>
+<li>【delete】SampleRepository.deleteById()：指定したパーティションキー・ソートキーのデータを削除する処理</li>
 </ul>
 <p><br/></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.spring.data.dynamodb.domain.service</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.spring.data.cassandra.domain.service</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.springframework.stereotype.Service</span><span class="o">;</span>
@@ -348,15 +349,17 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">MynaviSampleTable</span><span class="o">&gt;</span> <span class="nf">getMynaviSampleTables</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">List</span><span class="o">&lt;</span><span class="n">MynaviSampleTable</span><span class="o">&gt;</span> <span class="n">sampleTables</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
-        <span class="n">sampleRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">().</span><span class="na">iterator</span><span class="o">().</span><span class="na">forEachRemaining</span><span class="o">(</span><span class="n">sampleTables</span><span class="o">::</span><span class="n">add</span><span class="o">);</span>
-        <span class="k">return</span> <span class="n">sampleTables</span><span class="o">;</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">MynaviSampleTable</span><span class="o">&gt;</span> <span class="n">mynaviSampleTables</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="n">sampleRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">().</span><span class="na">iterator</span><span class="o">().</span><span class="na">forEachRemaining</span><span class="o">(</span><span class="n">mynaviSampleTables</span><span class="o">::</span><span class="n">add</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">mynaviSampleTables</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="n">MynaviSampleTable</span> <span class="nf">addMynaviSampleTable</span><span class="o">(</span><span class="n">MynaviSampleTable</span> <span class="n">mynaviSampleTable</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">mynaviSampleTable</span><span class="o">.</span><span class="na">setSamplePartitionKey</span><span class="o">(</span><span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
-        <span class="n">mynaviSampleTable</span><span class="o">.</span><span class="na">setSampleSortKey</span><span class="o">(</span><span class="s">&quot;1&quot;</span><span class="o">);</span>
+        <span class="n">mynaviSampleTable</span><span class="o">.</span><span class="na">setMynaviSampleTableKey</span><span class="o">(</span><span class="n">MynaviSampleTableKey</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+             <span class="o">.</span><span class="na">partitionColumn</span><span class="o">(</span><span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">())</span>
+             <span class="o">.</span><span class="na">clusterColumn</span><span class="o">(</span><span class="s">&quot;1&quot;</span><span class="o">)</span>
+             <span class="o">.</span><span class="na">build</span><span class="o">());</span>
         <span class="k">return</span> <span class="n">sampleRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">mynaviSampleTable</span><span class="o">);</span>
     <span class="o">}</span>
 
@@ -371,11 +374,12 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
         <span class="n">sampleRepository</span><span class="o">.</span><span class="na">deleteById</span><span class="o">(</span><span class="n">mynaviSampleTableKey</span><span class="o">);</span>
         <span class="k">return</span> <span class="n">mynaviSampleTable</span><span class="o">;</span>
     <span class="o">}</span>
+
 <span class="o">}</span>
 </pre></div>
 </div>
 <p><br/></p>
-<p>ここで、DynamoDBへアクセスするコンポーネントであるSampleRepositoryインターフェースは、以下の様な要領で実装しておく必要があります。</p>
+<p>ここで、CassandraへアクセスするコンポーネントであるSampleRepositoryインターフェースは、以下の様な要領で実装しておく必要があります。</p>
 <ul class="simple">
 <li>org.springframework.data.repository.CrudRepositoryを継承する</li>
 <li>テーブルをモデル化したクラスとキーをCrudRepositoryの型パラメータに設定する。</li>
@@ -412,7 +416,6 @@ Spring Data Cassandraに限らず、Spring Data JPAなど類似一連のプロ�
 </ul>
 <p><br/></p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.spring.data.cassandra.domain.model.entity</span><span class="o">;</span>
-
 
 <span class="kn">import</span> <span class="nn">lombok.AllArgsConstructor</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">lombok.Builder</span><span class="o">;</span>
@@ -470,40 +473,60 @@ Spring Data Cassandraに限らず、Spring Data JPAなど類似一連のプロ�
 </div>
 <p><br/></p>
 <p>これでアプリケーションが作成しました。SpringBoot起動クラスを実行し、アプリケーションを実行しましょう。「<a class="reference external" href="http://localhost:8080/index.html">http://localhost:8080/index.html</a>」へブラウザからアクセスすると以下の様な画面が表示され、以下の５つのサービスが実行できます。</p>
-<ul class="simple">
-<li>任意のテキストデータを入力し、「add Data」ボタンを押下すると、データが追加されます。パーティションキーはUUID、ソートキーは&quot;1&quot;固定です。</li>
-<li>「find All Data」ボタンを押下すると、全てのデータが取得されます。</li>
-<li>パーティションキーとソートキーを指定して「find One Data」ボタンを押下すると、該当のデータが取得されます。</li>
-<li>パーティションキーとソートキーを指定して、テキストデータを入力し、「Update Data」ボタンを押下すると、該当のデータが更新されます。</li>
-<li>パーティションキーとソートキーを指定して「Delete Data」ボタンを押下すると、該当のデータが削除されます。</li>
-</ul>
 <p><br/></p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/cassandra-app.png"><img alt="../_images/cassandra-app.png" src="../_images/cassandra-app.png" style="width: 939.0px; height: 856.0px;" /></a>
 </div>
 <p><br/></p>
+<ul class="simple">
+<li>任意のテキストデータを入力し、「add Data」ボタンを押下すると、データが追加されます。パーティションキーはUUID、ソートキーは&quot;1&quot;固定です。</li>
+</ul>
+<p><br/></p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/cassandra-app-add.png"><img alt="../_images/cassandra-app-add.png" src="../_images/cassandra-app-add.png" style="width: 909.0px; height: 187.0px;" /></a>
 </div>
+<p><br/></p>
+<ul class="simple">
+<li>「find All Data」ボタンを押下すると、全てのデータが取得されます。</li>
+</ul>
 <p><br/></p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/cassandra-app-findAll.png"><img alt="../_images/cassandra-app-findAll.png" src="../_images/cassandra-app-findAll.png" style="width: 847.0px; height: 170.0px;" /></a>
 </div>
 <p><br/></p>
+<ul class="simple">
+<li>パーティションキーとソートキーを指定して「find One Data」ボタンを押下すると、該当のデータが取得されます。</li>
+</ul>
+<p><br/></p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/cassandra-app-findOne.png"><img alt="../_images/cassandra-app-findOne.png" src="../_images/cassandra-app-findOne.png" style="width: 919.0px; height: 182.0px;" /></a>
 </div>
 <p><br/></p>
+<ul class="simple">
+<li>パーティションキーとソートキーを指定して、テキストデータを入力し、「Update Data」ボタンを押下すると、該当のデータが更新されます。</li>
+</ul>
+<p><br/></p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/cassandra-app-update.png"><img alt="../_images/cassandra-app-update.png" src="../_images/cassandra-app-update.png" style="width: 921.0px; height: 183.0px;" /></a>
 </div>
+<p><br/></p>
+<ul class="simple">
+<li>パーティションキーとソートキーを指定して「Delete Data」ボタンを押下すると、該当のデータが削除されます。</li>
+</ul>
 <p><br/></p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/cassandra-app-delete.png"><img alt="../_images/cassandra-app-delete.png" src="../_images/cassandra-app-delete.png" style="width: 922.0px; height: 184.0px;" /></a>
 </div>
 <p><br/></p>
 <p>このように、CassandraへCRUD処理するアプリケーションをSpring Data Cassandraを用いて簡単に実装することができます。
-実際のアプリケーションでは様々ユースケースに応じて、データモデルを検討しておく必要がありますが、応用編等で追々その辺りを触れたいと思います。</p>
+<a class="reference internal" href="aws-nosql-2-3.html#section-cloud-native-spring-data-dynamodb-implementation-2-label"><span class="std std-ref">Spring Data DynamoDBを使ったアプリケーション実装(2)</span></a> と比較しても分かる通り、
+Amazon DynamoDBやApache CassandraにSpring Dataを使ってアクセスするアプリケーションは、
+簡単なCRUD処理であれば、かなり似通ったモデルで実装することが可能です。
+実際のアプリケーションでは様々ユースケースに応じて、データモデルを検討しておく必要がありますが、その辺りの実装方法は応用編などで触れればと思います。
+また、今回はローカル環境への構築しか行っていませんが、Dockerコンテナイメージを使って、AWS EC2やECS上へCassandraクラスタ環境を
+構築することができます。CloudFormationなど基盤環境構築を自動化するサービスと組み合わせた方法も合わせ、ゆくゆくご紹介できればと思いますが、
+次回以降は、CP型データベースの代表的プロダクトであるRedis及び、AWSのマネージドサービスとして提供されているAmazon ElastiCacheへ
+アクセスするアプリケーションをSpring Session及びSpring Data Redisを用いて実装する例をご紹介します。</p>
 <p><br/></p>
 </div>
 </div>

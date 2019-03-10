@@ -158,29 +158,30 @@
 <div class="section" id="awsnosql-1-1">
 <span id="section-cloud-native-nosql-1st-1-label"></span><h2>第3回 AWS上に構築するNoSQLアプリケーション(1)-1<a class="headerlink" href="#awsnosql-1-1" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
-<p>クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
-Amazon ElastiCacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。</p>
+<p>クラウドの普及に伴い、ビッグデータやキーバリュー型データの格納など、ますます活用の機会が広がりつつあるNoSQLデータベース。
+第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、Amazon ElastiCacheへアクセスするSpringアプリケーションを開発する方法について、わかりやすく解説します。</p>
+<p>本連載では、以下のステップで解説を進めていきます。</p>
 <p><br/></p>
 <ol class="arabic simple">
 <li>NoSQLデータベースの特徴とデータ特性<ul>
-<li>CAP定理を元にしたデータベースの分類とデータ特性                          …◯</li>
+<li><strong>CAP定理を元にしたデータベースの分類とデータ特性</strong></li>
 <li>AP型データベースAmazon DynamoDBとApache Cassandraの特徴</li>
 </ul>
 </li>
 <li>Amazon DynamoDBへアクセスするSpringアプリケーション<ul>
-<li>Amazon DynamoDBの概要及び構築と認証情報の設定</li>
+<li>Amazon DynamoDBの概要及び構築と認証情報の作成</li>
 <li>Spring Data DynamoDBを用いたアプリケーション(1)</li>
 <li>Spring Data DynamoDBを用いたアプリケーション(2)</li>
 </ul>
 </li>
 <li>Apache CassandraへアクセスするSpringアプリケーション<ul>
-<li>ローカル環境におけるApache Cassandraの構築</li>
+<li>Apache Cassandraの概要及びローカル環境構築</li>
 <li>Spring Data Cassandraを用いたアプリケーション(1)</li>
 <li>Spring Data Cassandraを用いたアプリケーション(2)</li>
 </ul>
 </li>
 <li>Amazon ElastiCacheへアクセスするSpringアプリケーション<ul>
-<li>ローカル環境におけるRedisの構築</li>
+<li>AmazonElasiCacheの概要及びローカル環境でのRedisServer構築</li>
 <li>Spring SessionとSpring Data Redisを用いたアプリケーション(1)</li>
 <li>Spring SessionとSpring Data Redisを用いたアプリケーション(2)</li>
 <li>Amazon ElastiCacheの設定</li>
@@ -189,7 +190,8 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 </ul>
 </li>
 </ol>
-<p>なお、本稿は以下の前提知識がある開発者を想定しています。</p>
+<p><br/></p>
+<p>なお、本連載は以下の前提知識がある開発者を想定しています。</p>
 <p><br/></p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
@@ -205,21 +207,18 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 <a class="reference external" href="http://terasolunaorg.github.io/guideline/5.4.1.RELEASE/ja/Tutorial/index.html">こちらのチュートリアル</a> を実施することを推奨します。TERASOLUNAはSpringのベストプラクティスをまとめた開発方法論で、このチュートリアルでは、JavaやSpring Frameworkを使った開発に必要な最低限の知識を得ることができます。</td>
 </tr>
 <tr class="row-odd"><td>&#160;</td>
-<td>リレーショナルデータベースを使用した開発に従事したことがある経験者。</td>
-</tr>
-<tr class="row-even"><td>&#160;</td>
 <td>GitHubなどのバージョン管理ツールやApache Mavenなどのライブラリ管理ツールを使った開発に従事したことがある経験者。</td>
 </tr>
-<tr class="row-odd"><td>AWS開発経験者</td>
+<tr class="row-even"><td>AWS開発経験者</td>
 <td>AWSアカウントをもち、コンソール上で各サービスを実行したことがある経験者</td>
 </tr>
-<tr class="row-even"><td>コンテナ及びUnix・Linux経験者</td>
+<tr class="row-odd"><td>コンテナ及びUnix・Linux経験者</td>
 <td>Dockerなどのコンテナ技術を使用した経験がある、またはPOSIXコマンドによるUNIX、LINUX系OSを操作したことがある経験者。</td>
 </tr>
 </tbody>
 </table>
 <p><br/></p>
-<p>また、動作環境は以下のバージョンで実施しています、将来的には、AWSコンソール上の画面イメージや操作、バージョンアップによりJavaのソースコード内で使用するクラスが異なる可能性があります。</p>
+<p>また、動作環境は以下のバージョンで実施しています。</p>
 <p><br/></p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
@@ -242,17 +241,31 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 <tr class="row-odd"><td>Spring Data Cassandra</td>
 <td>2.1.2.RELEASE</td>
 </tr>
+<tr class="row-even"><td>Spring Session</td>
+<td>2.1.4.RELEASE</td>
+</tr>
+<tr class="row-odd"><td>Spring Data Redis</td>
+<td>2.1.5.RELEASE</td>
+</tr>
+<tr class="row-even"><td>Docker</td>
+<td>18.09.2, build 6247962</td>
+</tr>
+<tr class="row-odd"><td>CentOS</td>
+<td>7.6.1810</td>
+</tr>
 <tr class="row-even"><td>Apache Cassandra</td>
 <td>3.0.6</td>
 </tr>
-<tr class="row-odd"><td>Docker</td>
-<td>1.8</td>
+<tr class="row-odd"><td>Redis(Local)</td>
+<td>3.2.12</td>
 </tr>
-<tr class="row-even"><td>CentOS</td>
-<td>7.1</td>
+<tr class="row-even"><td>ElastiCache(Redis)</td>
+<td>5.0.3</td>
 </tr>
 </tbody>
 </table>
+<p><br/></p>
+<p>将来的には、AWSコンソール上の画面イメージや操作、バージョンアップによりJavaのソースコード内で使用するクラスが異なる可能性があります。</p>
 <p><br/></p>
 <div class="section" id="nosql">
 <span id="section-cloud-native-nosql-overview-label"></span><h3>NoSQLデータベースの特徴とデータ特性<a class="headerlink" href="#nosql" title="このヘッドラインへのパーマリンク">¶</a></h3>
@@ -297,9 +310,10 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 <p class="last">CAP定理は、定理として成立するには狭義の条件を前提として証明されたものであるため、厳密に3つのうち常に２つが満たされる訳ではなく、原則論として、２つの特性を重視すると残りの1つが失われると捉えた方がよいです。</p>
 </div>
 <p><br/></p>
-<p>この観点から分類すると、RDBは一貫性(Consistency)と可用性(Availability)を重視したデータベースです(CA型)。</p>
-<p>定理を説明する単純な例として、広域(複数のアベイラビリティゾーン)を跨いで、都市に関するデータを、都市テーブルへ保存することを考えます。
+<p>この観点からデータベース全体を分類すると、RDBは一貫性(Consistency)と可用性(Availability)を重視したデータベースです(CA型)。</p>
+<p>定理を説明する単純な例として、広域(複数のアベイラビリティゾーン)を跨いで、都市名データをキーとともに都市テーブルへ保存することを考えます。
 こうした分散された環境下では、RDBは、以下の様ないずれかの方法でデータベース間の同期をとりながら更新するケースが一般的です。</p>
+<p><br/></p>
 <ol class="arabic simple">
 <li>DBMSの機能を使い、Master/Slave構成でデータベースを更新</li>
 <li>X/Openに対応した分散トランザクションマネージャを使い、２フェーズコミットで双方のデータベースを更新</li>
@@ -308,23 +322,23 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 <a class="reference internal image-reference" href="../_images/ca-database.png"><img alt="../_images/ca-database.png" src="../_images/ca-database.png" style="width: 958.0px; height: 357.0px;" /></a>
 </div>
 <p><br/></p>
-<p>上記では単純化のために2つのアベイラビリティゾーンに限定してますが、複数のゾーンにあるデータは、いずれも常に最新のデータを返し(Consistency)、複数同時に壊れるという稀なケースを除いて、片方のノードが障害発生しても可用性(Availability)も保証されます。
+<p>上記では単純化のために2つのアベイラビリティゾーンに限定してますが、複数のゾーンにあるデータは、いずれも常に最新のデータを返し(Consistencyが保証される)、複数同時に壊れるという稀なケースを除いて、片方のノードが障害発生しても可用性(Availability)も保証されます。
 ただし、この構成はネットワークが分断されると、一貫性・可用性共に崩れてしまいます。実際にはネットワークも２重化されていたり障害になることは稀ですが、ゾーン間の通信が使用不能になると、CA型データベースとして機能不全に陥ります。
 つまり、一貫性・可用性を保ちつつ、同時にネットワーク分断耐性を満たすことはできません。</p>
 <p><br/></p>
-<p>他方、可用性(Availability)の低下をトレードオフとして、一貫性(Consistency)とネットワーク分断耐性(Partition Tolerance)を高める手法もあります(CP型)。
-データを複数のアベイラビリティゾーン(の別ノード)に分けて保存する方式で、一般的にこの方法はシャーディングと呼ばれます。シャーディングは、どちらかといえば性能向上を目的とした負荷分散のためにRDBなどでもよく利用される手法ですが、
+<p>他方、可用性(Availability)を下げることをトレードオフとして、一貫性(Consistency)とネットワーク分断耐性(Partition Tolerance)を高める手法もあります(CP型)。
+データを複数のアベイラビリティゾーン(の別ノード)に分けて保存する方式で、一般的にこの方法はシャーディング(Sharding)と呼ばれます。シャーディングは、どちらかといえば性能向上を目的とした負荷分散のためにRDBなどでもよく利用される手法ですが、
 特定のデータノードが一時的に分断されても一貫性(Consistency)は保持されますが、ノードの数が増えることで故障確率が上昇し、読み込みと書き込みが制限され、可用性(Availability)が損なわれる確率が上がります。
 CP型の特徴であるシャーディングを機能として有するデータベースとしては、Apache HBaseやMongoDB、Redisなどが有名なプロダクトです。</p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/cp-database.png"><img alt="../_images/cp-database.png" src="../_images/cp-database.png" style="width: 945.0px; height: 333.0px;" /></a>
 </div>
 <p><br/></p>
-<p>最後に、一貫性(Consistency)の低下をトレードオフとして、高い可用性(Availability)とネットワーク分断耐性(Partition Tolerance)を持つデータベース(AP型)の代表例が、Amazon DynamoDB及びApache Cassandraです。
+<p>最後に、一貫性(Consistency)を下げることをトレードオフとして、高い可用性(Availability)とネットワーク分断耐性(Partition Tolerance)を持つデータベース(AP型)の代表例が、Amazon DynamoDB及びApache Cassandraです。
 AP型データベースでは、以下のイメージの様に、複数のアベイラビリティゾーンにデータベースを配置し、１つのノードやネットワークに障害が起きてもデータが損なうことがないよう、各ノードにデータを分散して配置します。
 大きな特徴として単一障害点がなく、どこのノードからでもデータ更新が可能であり、スケーラビリティにも優れた、まさにクラウドらしい分散型構成ですが
-ノードの故障時や通信のエラーにより、複数のノード間で整合性のとれない(一貫性を損なう)ケースが発生する様になります。多くは読み込み時に最新のデータで古いノードのデータを更新するReadRepair機能や、
-Quorumをベースとした結果整合性(雑に言えば不整合が出た場合に、なるべく多くの一致したデータを判定する多数決に似ている手法)により一貫性を担保しています。</p>
+ノードの故障時や通信のエラーにより、複数のノード間で整合性のとれない(一貫性を損なう)ケースが発生する様になります。これらの問題を解決する手段として、読み込み時に最新のデータで古いノードのデータを更新するReadRepair機能や、
+Quorumをベースとした結果整合性(雑に言えば、不整合が出た場合に、なるべく多くの一致したデータを判定する多数決に似た手法)により一貫性を担保しています。</p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/ap-database.png"><img alt="../_images/ap-database.png" src="../_images/ap-database.png" style="width: 907.0px; height: 588.0px;" /></a>
 </div>
@@ -376,10 +390,11 @@ Quorumをベースとした結果整合性(雑に言えば不整合が出た場�
 </tr>
 <tr class="row-odd"><td>&#160;</td>
 <td>大量の書き込み</td>
-<td>IoTセンサーデータなど、リードレプリカでは対応が難しい書き込みケース。</td>
+<td>IoTセンサーデータなど、リードレプリカでは対応が難しい書き込みが多いケース。</td>
 </tr>
 </tbody>
 </table>
+<p><br/></p>
 <p>次回は、よりクラウドならでは特性を備えたAP型データベースをもう少し深掘りし、DynamoDBやApache Cassandraの特徴や違いについて触れてみます。</p>
 <p><br/></p>
 </div>

@@ -19,8 +19,10 @@ Apache CassandraへアクセスするSpringアプリケーション
 
 |br|
 
-クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
-Amazon ElastiCacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。
+クラウドの普及に伴い、ビッグデータやキーバリュー型データの格納など、ますます活用の機会が広がりつつあるNoSQLデータベース。
+第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、Amazon ElastiCacheへアクセスするSpringアプリケーションを開発する方法について、わかりやすく解説します。
+
+本連載では、以下の様なステップで進めています。
 
 |br|
 
@@ -31,19 +33,19 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 
 #. Amazon DynamoDBへアクセスするSpringアプリケーション
 
-   * Amazon DynamoDBの概要及び構築と認証情報の設定
+   * Amazon DynamoDBの概要及び構築と認証情報の作成
    * Spring Data DynamoDBを用いたアプリケーション(1)
    * Spring Data DynamoDBを用いたアプリケーション(2)
 
 #. Apache CassandraへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるApache Cassandraの構築                          …◯
+   * **Apache Cassandraの概要及びローカル環境構築**
    * Spring Data Cassandraを用いたアプリケーション(1)
    * Spring Data Cassandraを用いたアプリケーション(2)
 
 #. Amazon ElastiCacheへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるRedisの構築
+   * AmazonElasiCacheの概要及びローカル環境でのRedisServer構築
    * Spring SessionとSpring Data Redisを用いたアプリケーション(1)
    * Spring SessionとSpring Data Redisを用いたアプリケーション(2)
    * Amazon ElastiCacheの設定
@@ -52,10 +54,11 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 
 |br|
 
-前回は、AP型データベースである、Amazon DynamoDBへデータベースアクセスするSpringアプリケーションを構築しました。
-今回はApache Cassandraの概要を説明し、実際に構築して見ます。
+前回 :ref:`section-cloud-native-nosql-spring-applicaiton-2-1-label` では、AP型データベースである、Amazon DynamoDBへデータベースアクセスするSpringアプリケーションを構築しました。今回以降、Apache Cassandraの概要を説明し、実際にローカル環境へ構築してみます。
 
 |br|
+
+.. _section-cloud-native-apache-cassandra-overview-label:
 
 Apache Cassandraの概要
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -65,7 +68,7 @@ Apache Cassandraの概要
 Apache CassandraはAmazon Dynamoの分散デザインと、Google Bigtableのデータモデルを併せ持つ非中央集権型で伸縮自在なスケール、高可用性、耐障害性、設定可能な一貫性を備えたカラム指向型データベースです。
 基本的にAP型データベースのアーキテクチャを踏襲しており、結果整合性をもつデータベースとよく呼ばれますが、正しくは、設定可能な一貫性を持つデータベースであり、Cassndaraに対しては正確ではありません。
 一貫性はACIDの定義に従えば、読み込むクライアントがお互いに矛盾したことなる値を参照することなく、データの状態がある状態へと正しく遷移することですが、
-一貫性にはレベルがあり、Cassandraでは、テーブルごとにクライアントが全ての更新において参照するレプリカ数をレプリケーションファクタによって制御できるよう設定できます。
+一貫性にはレベルがあり、Cassandraでは、クライアントが全ての更新時に参照するレプリカ数をレプリケーションファクタによって制御でき、各スキーマ・テーブルごとに設定できます。
 
 Cassandraのデータ構造はバージョンによって異なります。 Cassandraはキーバリュー型のデータ(カラム)を一連にまとめたRowのまとまりであるカラムファミリ及び、
 それらをノード単位でまとめるキースペースををもつ多次元ハッシュテーブルのデータ構造を持っています。v0.7より前では、DynamoDBと同じく、どのRowも１つかそれ以上のカラムを持ちながら、
@@ -76,20 +79,22 @@ Cassandraのデータ構造はバージョンによって異なります。 Cass
 「 :ref:`section-cloud-native-nosql-feature-label` 」でも記載した通り、NoSQL型の特性を理解して
 SQLとの差異を踏まえて実装する必要があるのですが、ユーザはこの言語を用いて、SQLライクにデータアクセスのための処理を記述することができます。
 
-では、Cassandra環境を構築してみましょう。
+では、Cassandra環境を構築していきましょう。
 
 |br|
 
 Apache Cassandraの構築
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+|br|
+
 相応のメモリが必要になるのですが、ローカル環境でシングルノードのCassandraを構築すると開発時は便利なので、ここでは、
-Dockerを用いてゲストOSとして、CentOS7上にCassandraをインストールします。ホストOSとなる端末はMacOS、Windowsどちらでもかまいませんが、
-Dockerを事前にインストールしてください。以降はDockerがインストールされた端末を前提に進めていきます。
+Dockerを用いて、ゲストOSとしたCentOS7上にCassandraをインストールします。ホストOSとなる端末はMacOS、Windowsどちらでもかまいませんが、
+Dockerを事前にインストールしてください。以降はDockerがインストール済みであることを前提に進めていきます。
 
 |br|
 
-適当な任意のフォルダにDockerfileと言う名前で以下のファイルを作成してください。
+適当な任意のフォルダにDockerfileというファイル名で、以下を記述してください。
 
 .. sourcecode:: bash
 
@@ -101,10 +106,7 @@ Dockerを事前にインストールしてください。以降はDockerがイ�
    MAINTAINER      debugroom
 
    # (C)
-   RUN yum install -y \
-      java-1.8.0-openjdk \
-      java-1.8.0-openjdk-devel \
-      wget tar iproute
+   RUN yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel wget tar iproute
 
    # (D)
    ENV JAVA_HOME /etc/alternatives/java_sdk
@@ -133,7 +135,7 @@ Dockerを事前にインストールしてください。以降はDockerがイ�
 
 |br|
 
-.. list-table:: ローカル環境にあるCentOS7Dockerコンテナ上で、シングルノードCassandraを構築するDockerfileの実行コマンド
+.. list-table:: ローカル端末上で、ゲストOSとしてCentOS7Dockerコンテナ上にシングルノードCassandraを構築するDockerfile実行コマンド
    :widths: 1, 19
 
    * - 項番
@@ -188,31 +190,31 @@ Dockerを事前にインストールしてください。以降はDockerがイ�
      - RUN sed -i s/\#-Xms4G/-Xms1G/g /etc/cassandra/conf/jvm.options
 
    * -
-     - Cassandraが使用する最小Javaメモリサイズのプロパティをsedコマンドで置換しています。ここでは1GBに設定しています。ローカル端末の環境に合わせて適宜設定してください。
+     - /etc/cassandra/conf/jvm.options設定ファイルに、Cassandraが使用する最小Javaメモリサイズのプロパティをsedコマンドで置換して書き換えています。ここでは1GBに設定しています。ローカル端末のスペックに合わせて適宜設定してください。
 
    * - (I)
      - RUN sed -i s/\#-Xmx4G/-Xmx2G/g /etc/cassandra/conf/jvm.options
 
    * -
-     - Cassandraが使用する最大Javaメモリサイズのプロパティをsedコマンドで置換しています。ここでは2GBに設定しています。ローカル端末の環境に合わせて適宜設定してください。
+     - /etc/cassandra/conf/jvm.options設定ファイルに、Cassandraが使用する最大Javaメモリサイズのプロパティをsedコマンドで置換して書き換えています。ここでは2GBに設定しています。ローカル端末のスペックに合わせて適宜設定してください。
 
    * - (J)
      - RUN sed -i s/seeds\:\ \"127\.0\.0\.1\"/seeds\:\ \"172\.17\.0\.2\"/g /etc/cassandra/conf/cassandra.yaml
 
    * -
-     - CassandraのGossipネットワークのハブとして機能するSeedサーバのIPアドレスを指定します。CentOSのDockerイメージのデフォルトIPアドレスである172.17.0.2に設定してください。
+     - /etc/cassandra/conf/cassandra.yaml設定ファイルに、CassandraのGossipネットワークのハブとして機能するSeedサーバのIPアドレスを指定します。sedコマンドで置換して上書きしていますが、CentOSのDockerイメージのデフォルトIPアドレスである172.17.0.2に設定してください。
 
    * - (K)
      - RUN sed -i s/listen\_address\:\ localhost/listen\_address\:\ 172\.17\.0\.2/g /etc/cassandra/conf/cassandra.yaml
 
    * -
-     - CassandraのリスナーとなるサーバのIPアドレスを指定します。CentOSのDockerイメージのデフォルトIPアドレスである172.17.0.2に設定してください。
+     - /etc/cassandra/conf/cassandra.yaml設定ファイルに、CassandraのリスナーとなるサーバのIPアドレスを指定します。sedコマンドで置換して上書きしていますが、CentOSのDockerイメージのデフォルトIPアドレスである172.17.0.2に設定してください。
 
    * - (L)
      - RUN sed -i s/rpc\_address\:\ localhost/\rpc\_address\:\ 172\.17\.0\.2/g /etc/cassandra/conf/cassandra.yaml
 
    * -
-     - CassandraのRPCとなるサーバのIPアドレスを指定します。CentOSのDockerイメージのデフォルトIPアドレスである172.17.0.2に設定してください。
+     - /etc/cassandra/conf/cassandra.yaml設定ファイルに、CassandraのRPCとなるサーバのIPアドレスを指定します。sedコマンドで置換して上書きしていますが、CentOSのDockerイメージのデフォルトIPアドレスである172.17.0.2に設定してください。
 
    * - (M)
      - RUN systemctl enable cassandra

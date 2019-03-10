@@ -19,8 +19,10 @@ Apache CassandraへアクセスするSpringアプリケーション
 
 |br|
 
-クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
-Amazon ElastiCacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。
+クラウドの普及に伴い、ビッグデータやキーバリュー型データの格納など、ますます活用の機会が広がりつつあるNoSQLデータベース。
+第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、Amazon ElastiCacheへアクセスするSpringアプリケーションを開発する方法について、わかりやすく解説します。
+
+本連載では、以下の様なステップで進めています。
 
 |br|
 
@@ -31,19 +33,19 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 
 #. Amazon DynamoDBへアクセスするSpringアプリケーション
 
-   * Amazon DynamoDBの概要及び構築と認証情報の設定
+   * Amazon DynamoDBの概要及び構築と認証情報の作成
    * Spring Data DynamoDBを用いたアプリケーション(1)
    * Spring Data DynamoDBを用いたアプリケーション(2)
 
 #. Apache CassandraへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるApache Cassandraの構築
+   * Apache Cassandraの概要及びローカル環境構築
    * Spring Data Cassandraを用いたアプリケーション(1)
-   * Spring Data Cassandraを用いたアプリケーション(2)                          …◯
+   * **Spring Data Cassandraを用いたアプリケーション(2)**
 
 #. Amazon ElastiCacheへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるRedisの構築
+   * AmazonElasiCacheの概要及びローカル環境でのRedisServer構築
    * Spring SessionとSpring Data Redisを用いたアプリケーション(1)
    * Spring SessionとSpring Data Redisを用いたアプリケーション(2)
    * Amazon ElastiCacheの設定
@@ -52,21 +54,22 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 
 |br|
 
-前回、:ref:`section-cloud-native-spring-data-cassandra-implementation-1-label` に引き続き、 今回はSpring Data Cassandraを使ってデータベースアクセスするアプリケーションを実装していていきます。
+前回、:ref:`section-cloud-native-spring-data-cassandra-implementation-1-label` に引き続き、 今回はSpring Data Cassandraを使ってデータベースアクセスする処理等を実装していきます。
 
 |br|
 
+.. _section-cloud-native-spring-data-cassandra-implementation-2-label:
 
 Spring Data Cassandraを使ったアプリケーション実装(2)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 |br|
 
-アプリケーションコンポーネントの実装に移ります。画面から受け取るリクエストパラメータコンポーネントを以下の様に作成しています。
+アプリケーションコンポーネントの実装に移ります。データ追加・更新処理で画面から受け取るリクエストパラメータクラスを以下の様に作成しています。
 
 |br|
 
-リクエストパラメータオブジェクト
+リクエストパラメータクラス
 
 .. sourcecode:: java
 
@@ -195,19 +198,20 @@ Controllerでは、以下5種類のリクエストを受け取り、ロジック
 
 |br|
 
-Serviceの実装は、以下の通り、CRUD処理をRepositoryを通して実行します。
+Serviceクラスでは、以下の通り、CRUD処理をRepositoryを通して実行する処理を実装します。
 
-* findAll：作成したDynamoDBのテーブルの全件データをList型で受け取る処理
-* findOne：指定したパーティションキー・ソートキーでデータを取得する処理
-* add：パーティションキーにランダムなUUID文字列を、ソートキーには"1"を設定し、リクエストから受け取ったテキスト文字列を設定して保存するロジックです。
-* update：指定したパーティションキー・ソートキーのテキストデータを更新する処理
-* delete：指定したパーティションキー・ソートキーのデータを削除する処理
+* 【findAll】SampleRepository.findAll：作成したCassandraのテーブルの全件データをList型で受け取る処理
+* 【findOne】SampleRepository.findById()：指定したパーティションキー・ソートキーでデータを取得する処理
+* 【add】SampleRepository.save()：パーティションキーにランダムなUUID文字列を、ソートキーには"1"を設定し、リクエストから受け取ったテキスト文字列を設定して保存するロジックを実装。
+* 【update】SampleRepository.save()：指定したパーティションキー・ソートキーのテキストデータを更新する処理
+* 【delete】SampleRepository.deleteById()：指定したパーティションキー・ソートキーのデータを削除する処理
+
 
 |br|
 
 .. sourcecode:: java
 
-   package org.debugroom.mynavi.sample.spring.data.dynamodb.domain.service;
+   package org.debugroom.mynavi.sample.spring.data.cassandra.domain.service;
 
    import org.springframework.beans.factory.annotation.Autowired;
    import org.springframework.stereotype.Service;
@@ -225,15 +229,17 @@ Serviceの実装は、以下の通り、CRUD処理をRepositoryを通して実�
 
        @Override
        public List<MynaviSampleTable> getMynaviSampleTables() {
-           List<MynaviSampleTable> sampleTables = new ArrayList<>();
-           sampleRepository.findAll().iterator().forEachRemaining(sampleTables::add);
-           return sampleTables;
+           List<MynaviSampleTable> mynaviSampleTables = new ArrayList<>();
+           sampleRepository.findAll().iterator().forEachRemaining(mynaviSampleTables::add);
+           return mynaviSampleTables;
        }
 
        @Override
        public MynaviSampleTable addMynaviSampleTable(MynaviSampleTable mynaviSampleTable) {
-           mynaviSampleTable.setSamplePartitionKey(UUID.randomUUID().toString());
-           mynaviSampleTable.setSampleSortKey("1");
+           mynaviSampleTable.setMynaviSampleTableKey(MynaviSampleTableKey.builder()
+                .partitionColumn(UUID.randomUUID().toString())
+                .clusterColumn("1")
+                .build());
            return sampleRepository.save(mynaviSampleTable);
        }
 
@@ -248,11 +254,12 @@ Serviceの実装は、以下の通り、CRUD処理をRepositoryを通して実�
            sampleRepository.deleteById(mynaviSampleTableKey);
            return mynaviSampleTable;
        }
+
    }
 
 |br|
 
-ここで、DynamoDBへアクセスするコンポーネントであるSampleRepositoryインターフェースは、以下の様な要領で実装しておく必要があります。
+ここで、CassandraへアクセスするコンポーネントであるSampleRepositoryインターフェースは、以下の様な要領で実装しておく必要があります。
 
 * org.springframework.data.repository.CrudRepositoryを継承する
 * テーブルをモデル化したクラスとキーをCrudRepositoryの型パラメータに設定する。
@@ -294,7 +301,6 @@ Serviceの実装は、以下の通り、CRUD処理をRepositoryを通して実�
 .. sourcecode:: java
 
    package org.debugroom.mynavi.sample.spring.data.cassandra.domain.model.entity;
-
 
    import lombok.AllArgsConstructor;
    import lombok.Builder;
@@ -354,16 +360,14 @@ Serviceの実装は、以下の通り、CRUD処理をRepositoryを通して実�
 
 これでアプリケーションが作成しました。SpringBoot起動クラスを実行し、アプリケーションを実行しましょう。「http://localhost:8080/index.html」へブラウザからアクセスすると以下の様な画面が表示され、以下の５つのサービスが実行できます。
 
-* 任意のテキストデータを入力し、「add Data」ボタンを押下すると、データが追加されます。パーティションキーはUUID、ソートキーは"1"固定です。
-* 「find All Data」ボタンを押下すると、全てのデータが取得されます。
-* パーティションキーとソートキーを指定して「find One Data」ボタンを押下すると、該当のデータが取得されます。
-* パーティションキーとソートキーを指定して、テキストデータを入力し、「Update Data」ボタンを押下すると、該当のデータが更新されます。
-* パーティションキーとソートキーを指定して「Delete Data」ボタンを押下すると、該当のデータが削除されます。
-
 |br|
 
 .. figure:: img/aws-nosql/cassandra-app.png
    :scale: 100%
+
+|br|
+
+* 任意のテキストデータを入力し、「add Data」ボタンを押下すると、データが追加されます。パーティションキーはUUID、ソートキーは"1"固定です。
 
 |br|
 
@@ -372,8 +376,16 @@ Serviceの実装は、以下の通り、CRUD処理をRepositoryを通して実�
 
 |br|
 
+* 「find All Data」ボタンを押下すると、全てのデータが取得されます。
+
+|br|
+
 .. figure:: img/aws-nosql/cassandra-app-findAll.png
    :scale: 100%
+
+|br|
+
+* パーティションキーとソートキーを指定して「find One Data」ボタンを押下すると、該当のデータが取得されます。
 
 |br|
 
@@ -382,8 +394,17 @@ Serviceの実装は、以下の通り、CRUD処理をRepositoryを通して実�
 
 |br|
 
+* パーティションキーとソートキーを指定して、テキストデータを入力し、「Update Data」ボタンを押下すると、該当のデータが更新されます。
+
+|br|
+
+
 .. figure:: img/aws-nosql/cassandra-app-update.png
    :scale: 100%
+
+|br|
+
+* パーティションキーとソートキーを指定して「Delete Data」ボタンを押下すると、該当のデータが削除されます。
 
 |br|
 
@@ -393,7 +414,14 @@ Serviceの実装は、以下の通り、CRUD処理をRepositoryを通して実�
 |br|
 
 このように、CassandraへCRUD処理するアプリケーションをSpring Data Cassandraを用いて簡単に実装することができます。
-実際のアプリケーションでは様々ユースケースに応じて、データモデルを検討しておく必要がありますが、応用編等で追々その辺りを触れたいと思います。
+:ref:`section-cloud-native-spring-data-dynamodb-implementation-2-label` と比較しても分かる通り、
+Amazon DynamoDBやApache CassandraにSpring Dataを使ってアクセスするアプリケーションは、
+簡単なCRUD処理であれば、かなり似通ったモデルで実装することが可能です。
+実際のアプリケーションでは様々ユースケースに応じて、データモデルを検討しておく必要がありますが、その辺りの実装方法は応用編などで触れればと思います。
+また、今回はローカル環境への構築しか行っていませんが、Dockerコンテナイメージを使って、AWS EC2やECS上へCassandraクラスタ環境を
+構築することができます。CloudFormationなど基盤環境構築を自動化するサービスと組み合わせた方法も合わせ、ゆくゆくご紹介できればと思いますが、
+次回以降は、CP型データベースの代表的プロダクトであるRedis及び、AWSのマネージドサービスとして提供されているAmazon ElastiCacheへ
+アクセスするアプリケーションをSpring Session及びSpring Data Redisを用いて実装する例をご紹介します。
 
 |br|
 

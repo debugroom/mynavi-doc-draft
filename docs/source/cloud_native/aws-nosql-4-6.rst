@@ -19,8 +19,10 @@ Amazon ElastiCacheへアクセスするSpringアプリケーション
 
 |br|
 
-クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
-Amazon ElastiCacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。
+クラウドの普及に伴い、ビッグデータやキーバリュー型データの格納など、ますます活用の機会が広がりつつあるNoSQLデータベース。
+第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、Amazon ElastiCacheへアクセスするSpringアプリケーションを開発する方法について、わかりやすく解説します。
+
+本連載では、以下の様なステップで進めていきます。
 
 |br|
 
@@ -37,18 +39,18 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 
 #. Apache CassandraへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるApache Cassandraの構築
+   * Apache Cassandraの概要及びローカル環境構築
    * Spring Data Cassandraを用いたアプリケーション(1)
    * Spring Data Cassandraを用いたアプリケーション(2)
 
 #. Amazon ElastiCacheへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるRedisの構築
+   * AmazonElasiCacheの概要及びローカル環境でのRedisServer構築
    * Spring SessionとSpring Data Redisを用いたアプリケーション(1)
    * Spring SessionとSpring Data Redisを用いたアプリケーション(2)
    * Amazon ElastiCacheの設定
    * セッション共有するECSアプリケーションの構築(1)
-   * セッション共有するECSアプリケーションの構築(2)              …◯
+   * **セッション共有するECSアプリケーションの構築(2)**
 
 |br|
 
@@ -76,9 +78,9 @@ ECSクラスタ及びセキュリティグループの設定
 
 |br|
 
-ECSコンテナを実行するためのECSクラスタ及びセキュリティグループを設定します。設定内容は :ref:`section-cloud-native-ecs-create-cluster-label` ほぼ同一となりますので、詳細な入力の要領はリンク先を参考にしてください。
+ECSコンテナを実行するためのECSクラスタ及びセキュリティグループを設定します。設定要領は、第２回 :ref:`section-cloud-native-ecs-create-cluster-label` ほぼ同一となりますので、入力項目の詳細はリンク先を参考にしてください。
 
-なお、ECSクラスタに設定するセキュリティグループは、Redisクライアントを実行するためのSSH接続と、ALBからのリクエスト転送を動的ポートで接続するので、以下の通り、22番と、32768-61000のアクセス許可するものを作成しておきます。
+なお、ECSクラスタに設定するセキュリティグループは、Redisクライアントを実行するためにSSH接続してクラスタにログインするのと、ALBからのリクエスト転送を動的ポートで接続するので、以下の通り、任意の場所からの22番と、ロードバランサーのセキュリティグループからの32768-61000番のアクセスを許可するものを作成しておきます。
 
 |br|
 
@@ -106,7 +108,9 @@ ECSコンテナを実行するためのECSクラスタ及びセキュリティ�
 ECSタスクの定義
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-前回、DockerHubレポジトリへプッシュしたコンテナイメージを利用して、ECSタスク定義を行います。設定作業の要領は、:ref:`section-cloud-native-ecs-define-task-label` とほぼ同様になりますので、入力項目の詳細はこちらも参照してください。
+|br|
+
+前回  :ref:`section-cloud-native-create-docker-image-app-and-redis-client-label` で実行した、DockerHubレポジトリへプッシュしたアプリケーションのコンテナイメージのURLを設定し、ECSタスク定義を行います。こちらも、設定作業の要領は、第２回 :ref:`section-cloud-native-ecs-define-task-label` とほぼ同様になりますので、入力項目の詳細はこちらも参照してください。
 
 |br|
 
@@ -125,7 +129,7 @@ ECSタスクの定義
 
 |br|
 
-上記のリンクの設定要領との差分の中で特筆すべき点として、アプリケーションではElastiCacheのエンドポイントを環境変数REDIS_CLUSTER_ENDPOINTで取得する実装になっているため、ElastiCacheのエンドポイントを下記の通りに設定してください。
+上記のリンクの設定要領との差分の中で特筆すべき点として、アプリケーションではElastiCacheのエンドポイントを環境変数REDIS_CLUSTER_ENDPOINTで取得する実装になっているため( :ref:`section-cloud-native-spring-session-data-redis-implementation-1-label` を参照)、ElastiCacheのエンドポイントを下記の通り環境変数に設定してください。
 
 |br|
 
@@ -185,18 +189,18 @@ ECSサービスの実行・アプリケーション起動の確認
 
 |br|
 
-ECSクラスタに、前回プッシュしたDockerイメージをpullして、Redis-Clientを構築し、実際にElastiCacheに格納されているデータを確認します。
+ECSクラスタにSSHでログインし、前回 :ref:`section-cloud-native-create-docker-image-app-and-redis-client-label` でプッシュしたRedis-ClientのDockerイメージをpullして、Redis-Clientを構築し、実際にElastiCacheに格納されているデータを確認します。
 
 |br|
 
 .. sourcecode:: bash
 
-   [ec2-user@ip-172-0-0-226 ~]$  docker pull debugroom/mynavi-sample-redis-client:latest
+   [ec2-user@ip-172-0-0-xxx ~]$  docker pull debugroom/mynavi-sample-redis-client:latest
     latest: Pulling from debugroom/mynavi-sample-redis-client
     // omit
-    [ec2-user@ip-172-0-0-226 ~]$ docker run -it --name redis-client debugroom/mynavi-sample-redis-client /bin/bash
-    [root@2952f1af394a /]# redis-cli -h mynavi-elasticache.z95fpp.ng.0001.apne1.cache.amazonaws.com
-    mynavi-elasticache.z95fpp.ng.0001.apne1.cache.amazonaws.com:6379>
+    [ec2-user@ip-172-0-0-xxx ~]$ docker run -it --name redis-client debugroom/mynavi-sample-redis-client /bin/bash
+    [root@2952f1af394a /]# redis-cli -h mynavi-elasticache.xxxxxx.ng.0001.apne1.cache.amazonaws.com
+    mynavi-elasticache.xxxxxx.ng.0001.apne1.cache.amazonaws.com:6379>
 
 |br|
 
@@ -206,7 +210,7 @@ ECSクラスタに、前回プッシュしたDockerイメージをpullして、R
 
 .. sourcecode:: bash
 
-    mynavi-elasticache.z95fpp.ng.0001.apne1.cache.amazonaws.com:6379> keys *
+    mynavi-elasticache.xxxxx.ng.0001.apne1.cache.amazonaws.com:6379> keys *
     1) "spring:session:expirations:1552130880000"
     2) "spring:session:sessions:expires:e1237df7-5646-4382-aa12-41435ed09dc7"
     3) "spring:session:sessions:e1237df7-5646-4382-aa12-41435ed09dc7"
@@ -228,7 +232,7 @@ ECSクラスタに、前回プッシュしたDockerイメージをpullして、R
 
 .. sourcecode:: bash
 
-    mynavi-elasticache.z95fpp.ng.0001.apne1.cache.amazonaws.com:6379> hgetall "spring:session:sessions:e1237df7-5646-4382-aa12-41435ed09dc7"
+    mynavi-elasticache.xxxxxx.ng.0001.apne1.cache.amazonaws.com:6379> hgetall "spring:session:sessions:e1237df7-5646-4382-aa12-41435ed09dc7"
     1) "creationTime"
     2) "1552128921707"
     3) "sessionAttr:scopedTarget.sampleSession"
@@ -238,6 +242,12 @@ ECSクラスタに、前回プッシュしたDockerイメージをpullして、R
     7) "maxInactiveInterval"
     8) "1800"
 
+|br|
+
+このように、Spring SessionとSpring Data Redisを使うと、マルチサーバで簡単にセッション共有するアプリケーションを簡単に実装することができます。
+また、Amazon ElastiCacheを併用して用いることで可用性高く、スケーラビリティを備えたアプリケーション環境を構築することができます。
+
+|br|
 
 著者紹介
 ------------------------------------------------------------------

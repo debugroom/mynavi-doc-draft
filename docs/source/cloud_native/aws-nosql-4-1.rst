@@ -19,8 +19,10 @@ Amazon ElastiCacheへアクセスするSpringアプリケーション
 
 |br|
 
-クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
-Amazon ElastiCacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。
+クラウドの普及に伴い、ビッグデータやキーバリュー型データの格納など、ますます活用の機会が広がりつつあるNoSQLデータベース。
+第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、Amazon ElastiCacheへアクセスするSpringアプリケーションを開発する方法について、わかりやすく解説します。
+
+本連載では、以下の様なステップで進めています。
 
 |br|
 
@@ -31,19 +33,19 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 
 #. Amazon DynamoDBへアクセスするSpringアプリケーション
 
-   * Amazon DynamoDBの概要及び構築と認証情報の設定
+   * Amazon DynamoDBの概要及び構築と認証情報の作成
    * Spring Data DynamoDBを用いたアプリケーション(1)
    * Spring Data DynamoDBを用いたアプリケーション(2)
 
 #. Apache CassandraへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるApache Cassandraの構築
+   * Apache Cassandraの概要及びローカル環境構築
    * Spring Data Cassandraを用いたアプリケーション(1)
    * Spring Data Cassandraを用いたアプリケーション(2)
 
 #. Amazon ElastiCacheへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるRedisの構築                        　　　　　　　　  …◯
+   * **AmazonElasiCacheの概要及びローカル環境でのRedisServer構築**
    * Spring SessionとSpring Data Redisを用いたアプリケーション(1)
    * Spring SessionとSpring Data Redisを用いたアプリケーション(2)
    * Amazon ElastiCacheの設定
@@ -52,8 +54,8 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 
 |br|
 
-前回は、AP型データベースである、Apache CassandraデータベースへアクセスするSpringアプリケーションを構築しました。
-今回はAmazon ElastiCache(Redis)の概要を説明し、実際に構築して見ます。
+前回 :ref:`section-cloud-native-nosql-spring-applicaiton-3-2-label` では、AP型データベースである、Apache CassandraデータベースへアクセスするSpringアプリケーションを構築しました。
+今回からはCP型データベースであるRedis及びAWSのマネージドサービスであるAmazon ElastiCache(Redis)の概要を説明し、実際にアプリケーションを構築していきます。
 
 |br|
 
@@ -111,10 +113,12 @@ ECSコンテナ上の複数のアプリケーション間でセッション情�
 ローカル環境におけるRedisの構築
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+|br|
+
 ElastiCacheはエンドポイントを持ち、任意の場所からアクセスできますが、通常セキュリティグループによりアクセス制御されます。
 そのため、相応のメモリが必要になるのですが、ローカル環境でシングルノードのRedisを構築すると開発時は便利なので、ここでは、
-Dockerを用いてゲストOSとして、CentOS7上にRedisを実行して見ます。ホストOSとなる端末はMacOS、Windowsどちらでもかまいませんが、
-Dockerを事前にインストールしてください。以降はDockerがインストールされた端末を前提に進めていきます。
+Dockerを用いてゲストOSとして、CentOS7上にRedisを実行してみます。ホストOSとなる端末はMacOS、Windowsどちらでもかまいませんが、
+Dockerを事前にインストールしてください。以降はDockerがインストールされた環境を前提に進めていきます。
 
 |br|
 
@@ -181,13 +185,13 @@ Dockerを事前にインストールしてください。以降はDockerがイ�
      - RUN sed -i s/bind\ 127\.0\.0\.1/\#bind\ 127\.0\.0\.1/g /etc/redis.conf
 
    * -
-     - コンテナ外からのアクセスを許可するために、ループバックアドレス以外も許可するようRedisの設定ファイルを変更します。
+     - コンテナ外からのアクセスを許可するために、ループバックアドレス以外も許可するよう/etc/redis.conf設定ファイルを変更します。
 
    * - (F)
      - RUN sed -i s/protected\-mode\ yes/protected\-mode\ no/g /etc/redis.conf
 
    * -
-     - コンテナ外からのアクセスを許可するために、プロテクトモードをオフにするようRedisの設定ファイルを変更します。
+     - コンテナ外からのアクセスを許可するために、プロテクトモードをオフにするよう/etc/redis.conf設定ファイルを変更します。
 
    * - (G)
      - RUN systemctl enable redis.service
@@ -213,8 +217,8 @@ Dockerを事前にインストールしてください。以降はDockerがイ�
 
 |br|
 
-Dockerイメージが作成されたら、コマンドラインからDockerプロセスを実行してください。なお、実行するコンテナ内でsystemctlサービスを実行するために、--privilegedオプションを付与する必要があります。
-実行コンテナ名称(redis-serverとします。)と、コンテナイメージ名、コンテナの起動時は/sbin/initを実行し、systemdを起動する形でコンテナを実行します。
+Dockerイメージが作成されたら、コマンドラインからDockerコンテナをdocker runコマンドで実行してください。なお、実行するコンテナ内でsystemctlサービスを実行するために、--privilegedオプションを付与する必要があります。
+実行コンテナ名称(redis-serverとします)と、コンテナイメージ名、コンテナの起動時は/sbin/initを実行し、systemdを起動する形でコンテナを実行します。
 
 .. sourcecode:: bash
 
@@ -222,7 +226,7 @@ Dockerイメージが作成されたら、コマンドラインからDockerプ�
 
 |br|
 
-これで、Redisの環境が構築できました。次回はこの構築したローカル環境のRedisにアクセスするSpringアプリケーションを実装してみます。
+これで、Redisの環境が構築できました。次回はこのローカル環境のRedisにアクセスするSpringアプリケーションを実装してみます。
 
 |br|
 

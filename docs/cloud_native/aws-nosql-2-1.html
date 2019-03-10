@@ -99,12 +99,13 @@
 <li><a class="reference internal" href="#awsnosql-2-1">第3回 AWS上に構築するNoSQLアプリケーション(2)-1</a><ul>
 <li><a class="reference internal" href="#amazon-dynamodbspring">Amazon DynamoDBへアクセスするSpringアプリケーション</a><ul>
 <li><a class="reference internal" href="#amazon-dynamodb">Amazon DynamoDBの概要</a></li>
-<li><a class="reference internal" href="#id1">Amazon DynamoDBの構築と認証情報設定</a></li>
+<li><a class="reference internal" href="#section-cloud-native-create-dynamodb-label">Amazon DynamoDBの構築</a></li>
+<li><a class="reference internal" href="#section-cloud-native-create-user-and-credential-label">ユーザ・認証情報の作成</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id2">著者紹介</a></li>
+<li><a class="reference internal" href="#id3">著者紹介</a></li>
 </ul>
 </li>
 </ul>
@@ -162,8 +163,9 @@
 <div class="section" id="amazon-dynamodbspring">
 <span id="section-cloud-native-nosql-spring-applicaiton-2-1-label"></span><h3>Amazon DynamoDBへアクセスするSpringアプリケーション<a class="headerlink" href="#amazon-dynamodbspring" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
-<p>クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
-Amazon ElastiCacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。</p>
+<p>クラウドの普及に伴い、ビッグデータやキーバリュー型データの格納など、ますます活用の機会が広がりつつあるNoSQLデータベース。
+第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、Amazon ElastiCacheへアクセスするSpringアプリケーションを開発する方法について、わかりやすく解説します。</p>
+<p>本連載では、以下の様なステップで進めています。</p>
 <p><br/></p>
 <ol class="arabic simple">
 <li>NoSQLデータベースの特徴とデータ特性<ul>
@@ -172,19 +174,19 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 </ul>
 </li>
 <li>Amazon DynamoDBへアクセスするSpringアプリケーション<ul>
-<li>Amazon DynamoDBの概要及び構築と認証情報の設定                          …◯</li>
+<li><strong>Amazon DynamoDBの概要及び構築と認証情報の作成</strong></li>
 <li>Spring Data DynamoDBを用いたアプリケーション(1)</li>
 <li>Spring Data DynamoDBを用いたアプリケーション(2)</li>
 </ul>
 </li>
 <li>Apache CassandraへアクセスするSpringアプリケーション<ul>
-<li>ローカル環境におけるApache Cassandraの構築</li>
+<li>Apache Cassandraの概要及びローカル環境構築</li>
 <li>Spring Data Cassandraを用いたアプリケーション(1)</li>
 <li>Spring Data Cassandraを用いたアプリケーション(2)</li>
 </ul>
 </li>
 <li>Amazon ElastiCacheへアクセスするSpringアプリケーション<ul>
-<li>ローカル環境におけるRedisの構築</li>
+<li>AmazonElasiCacheの概要及びローカル環境でのRedisServer構築</li>
 <li>Spring SessionとSpring Data Redisを用いたアプリケーション(1)</li>
 <li>Spring SessionとSpring Data Redisを用いたアプリケーション(2)</li>
 <li>Amazon ElastiCacheの設定</li>
@@ -204,8 +206,8 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 リージョンごとにデータベースが構築されるサービスであり、異なるアベイラビリティゾーンにデータが３箇所レプリケーションされます。
 データは以下の通りのオプションで、読み込みは結果整合性か強い読み込み整合性かを選択できます。</p>
 <p><br/></p>
-<table border="1" class="colwidths-given docutils" id="id3">
-<caption><span class="caption-text">Amazon DynamoDBの結果整合性のオプション</span><a class="headerlink" href="#id3" title="このテーブルへのパーマリンク">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id4">
+<caption><span class="caption-text">Amazon DynamoDBの結果整合性のオプション</span><a class="headerlink" href="#id4" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col width="20%" />
 <col width="20%" />
@@ -239,14 +241,15 @@ AWS Lambdaと統合して、項目レベルの変更が発生した場合に、�
 <p>加えて、DynamoDBはクロスリージョンでグローバルテーブルの構築が可能です。複数のリージョンで同一のデータを参照・更新できますが、
 複数のリージョンを跨いで１つのテーブルとなる様にデータノードを配置するのではなく、リージョンごとにレプリケーションを作成する形になります。
 そのため、異なるリージョンでほぼ同時に更新が発生した場合、レプリカテーブルへの反映は数秒程度で反映されますが、最新の書き込みの方が反映されるため注意が必要です。</p>
+<p><br/></p>
 <div class="admonition note">
 <p class="first admonition-title">注釈</p>
 <p class="last">ローカルセカンダリインデックスはテーブルとインデックスの合計サイズが各パーティションキーごとに20GBまでで制限されます。</p>
 </div>
 <p><br/></p>
 </div>
-<div class="section" id="id1">
-<h4>Amazon DynamoDBの構築と認証情報設定<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<div class="section" id="section-cloud-native-create-dynamodb-label">
+<span id="id1"></span><h4>Amazon DynamoDBの構築<a class="headerlink" href="#section-cloud-native-create-dynamodb-label" title="このヘッドラインへのパーマリンク">¶</a></h4>
 <p><br/></p>
 <p>それでは、DynamoDBを構築してみましょう。AWSコンソールの「DynamoDB」サービスから、「テーブルの作成」ボタンを押下し、以下の要領に則って入力します。</p>
 <ul class="simple">
@@ -254,6 +257,7 @@ AWS Lambdaと統合して、項目レベルの変更が発生した場合に、�
 <li>プライマリーキー：パーティションキー及びオプションでソートキー名を入力。</li>
 <li>デフォルトの設定：チェックする</li>
 </ul>
+<p><br/></p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/management-console-dynamodb-create-db-1.png"><img alt="../_images/management-console-dynamodb-create-db-1.png" src="../_images/management-console-dynamodb-create-db-1.png" style="width: 641.0px; height: 563.0px;" /></a>
 </div>
@@ -261,7 +265,7 @@ AWS Lambdaと統合して、項目レベルの変更が発生した場合に、�
 <p>データベースの作成は以上で完了です。合わせてコンソール上からテーブルにデータを追加してみましょう。作成したテーブルを選択し、「項目」タブから「項目の作成」ボタンを押下してください。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-dynamodb-add-data-1.png"><img alt="../_images/management-console-dynamodb-add-data-1.png" src="../_images/management-console-dynamodb-add-data-1.png" style="width: 922.0px; height: 371.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/management-console-dynamodb-add-data-1.png"><img alt="../_images/management-console-dynamodb-add-data-1.png" src="../_images/management-console-dynamodb-add-data-1.png" style="width: 929.0px; height: 390.0px;" /></a>
 </div>
 <p><br/></p>
 <p>パーティションキーやソートキーに加えて、テキストデータを「sampleText」という属性名を追加してデータ追加し、「保存」ボタンを押下します。</p>
@@ -270,7 +274,11 @@ AWS Lambdaと統合して、項目レベルの変更が発生した場合に、�
 <a class="reference internal image-reference" href="../_images/management-console-dynamodb-add-data-2.png"><img alt="../_images/management-console-dynamodb-add-data-2.png" src="../_images/management-console-dynamodb-add-data-2.png" style="width: 737.0px; height: 330.0px;" /></a>
 </div>
 <p><br/></p>
-<p>また、次回以降作成するアプリケーションでローカル環境からDynamoDBへアクセスするために必要なユーザ及び認証情報を作成しておきましょう。
+</div>
+<div class="section" id="section-cloud-native-create-user-and-credential-label">
+<span id="id2"></span><h4>ユーザ・認証情報の作成<a class="headerlink" href="#section-cloud-native-create-user-and-credential-label" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p><br/></p>
+<p>次回以降作成するアプリケーションでローカル環境からDynamoDBへアクセスするために必要なユーザ及び認証情報を作成しておきましょう。
 「IAM」サービスから「ユーザ」メニューを作成し、「ユーザの作成」ボタンを押下し、以下の要領に則って入力してください。</p>
 <ul class="simple">
 <li>ユーザ名：任意の名前を入力</li>
@@ -309,8 +317,8 @@ AWS Lambdaと統合して、項目レベルの変更が発生した場合に、�
 </div>
 </div>
 </div>
-<div class="section" id="id2">
-<h2>著者紹介<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id3">
+<h2>著者紹介<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei)</p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>

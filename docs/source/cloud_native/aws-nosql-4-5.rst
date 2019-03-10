@@ -19,8 +19,10 @@ Amazon ElastiCacheへアクセスするSpringアプリケーション
 
 |br|
 
-クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
-Amazon ElastiCacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。
+クラウドの普及に伴い、ビッグデータやキーバリュー型データの格納など、ますます活用の機会が広がりつつあるNoSQLデータベース。
+第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、Amazon ElastiCacheへアクセスするSpringアプリケーションを開発する方法について、わかりやすく解説します。
+
+本連載では、以下の様なステップで進めていきます。
 
 |br|
 
@@ -37,17 +39,17 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 
 #. Apache CassandraへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるApache Cassandraの構築
+   * Apache Cassandraの概要及びローカル環境構築
    * Spring Data Cassandraを用いたアプリケーション(1)
    * Spring Data Cassandraを用いたアプリケーション(2)
 
 #. Amazon ElastiCacheへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるRedisの構築
+   * AmazonElasiCacheの概要及びローカル環境でのRedisServer構築
    * Spring SessionとSpring Data Redisを用いたアプリケーション(1)
    * Spring SessionとSpring Data Redisを用いたアプリケーション(2)
    * Amazon ElastiCacheの設定
-   * セッション共有するECSアプリケーションの構築(1)              …◯
+   * **セッション共有するECSアプリケーションの構築(1)**
    * セッション共有するECSアプリケーションの構築(2)
 
 |br|
@@ -82,17 +84,14 @@ ECSクラスタ上で実行するRedisクライアントをインストールし
 
 |br|
 
-まず、アプリケーションのプロジェクトに以下のようなDockerfileを作成します。記述する内容は以前作成した :ref:`section-cloud-native-ecs-create-docker-image-label` とほぼ同一ですので、解説はこちらを参照してください。
+まず、アプリケーションのプロジェクトに以下のようなDockerfileを作成します。記述する内容は第２回で解説した :ref:`section-cloud-native-ecs-create-docker-image-label` とほぼ同一ですので、解説はこちらを参照してください。
 
 .. sourcecode:: bash
 
    FROM centos:centos7
    MAINTAINER debugroom
 
-   RUN yum install -y \
-        java-1.8.0-openjdk \
-        java-1.8.0-openjdk-devel \
-        wget tar iproute git
+   RUN yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel wget tar iproute git
 
    RUN wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
    RUN sed -i s/\$releasever/6/g /etc/yum.repos.d/epel-apache-maven.repo
@@ -110,7 +109,7 @@ ECSクラスタ上で実行するRedisクライアントをインストールし
 
 |br|
 
-また、RedisクライアントとなるDockerfileを、以下の要領に沿って作成します。こちらも、記述内容は :ref:`section-cloud-native-create-local-redis-label` とほぼ重複していますので、解説はこちらを参照してください。
+また、RedisクライアントとなるDockerfileを、以下の要領に沿って作成します。こちらも、記述内容は :ref:`section-cloud-native-create-local-redis-label` とほぼ重複していますので、解説を改めて参考にしたい場合はこちらを参照してください。
 
 |br|
 
@@ -126,10 +125,7 @@ ECSクラスタ上で実行するRedisクライアントをインストールし
 
 |br|
 
-上記のファイルを作成後、コマンドラインからDockerイメージを作成するコマンドを実行します。git cloneするアプリケーションは事前にGitHubなどへプッシュしておく必要があります。
-その後、docker buildコマンドでイメージ名やタグを指定して、元になるDockerfileがあるディレクトリを指定してください。
-アプリケーションのコンテナイメージ作成では、DockerHub上でのxxxxxxレポジトリにmynavi-sample-aws-elastiache-appというイメージをlatestタグをつけて実行しています。
-イメージがビルドされた後は、コンテナイメージをレジストリにプッシュしておきましょう。
+上記のファイルを作成後、コマンドラインからDockerイメージを作成するコマンドを実行します。ただし、コマンド実行前にgit cloneするアプリケーションは事前にGitHubなどへプッシュしておく必要がありますので注意してください。docker buildコマンドを実行する際は、イメージ名やタグ元になるDockerfileがあるディレクトリを指定してください。下記の例ではDockerHub上でのxxxxxxレポジトリにmynavi-sample-aws-elastiache-appというイメージをlatestタグをつけてコンテナイメージを作成しています。イメージがビルドされた後は、コンテナイメージをレジストリ(ここではDockerHub)にプッシュしておきましょう。
 
 |br|
 
@@ -141,8 +137,7 @@ ECSクラスタ上で実行するRedisクライアントをインストールし
 
 |br|
 
-Redisクライアントのコンテナイメージ作成では、DockerHub上でのxxxxxxレポジトリにmynavi-sample-というイメージをlatestタグをつけて実行します。
-同様にコンテナイメージの作成後はイメージをプッシュします。
+Redisクライアントのコンテナイメージ作成では、DockerHub上でのxxxxxxレポジトリにmynavi-sample-redis-clientというイメージをlatestタグをつけて実行します。同様にコンテナイメージの作成後に、プッシュします。
 
 |br|
 
@@ -154,7 +149,7 @@ Redisクライアントのコンテナイメージ作成では、DockerHub上で
 
 |br|
 
-続いて、アプリケーション環境の構築に移ります。
+続いて、アプリケーションロードバランサーの構築に移ります。
 
 |br|
 
@@ -163,9 +158,11 @@ Redisクライアントのコンテナイメージ作成では、DockerHub上で
 アプリケーションロードバランサー(ALB)の作成
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-アプリケーションは複数のECSコンテナで実行しますが、各アプリケーションが共通のセッションを利用していることを確認するため、
+|br|
+
+アプリケーションは複数のECSコンテナで実行しますが、各コンテナのアプリケーションが共通のセッションを利用していることを確認するため、
 リクエストURLのパスパターンによって異なるコンテナへ処理が振り分けられるようにアプリケーションロードバランサー(ALB)を構成しましょう。
-構築作業の要領は、:ref:`section-cloud-native-ecs-create-alb-label` とほぼ同様になりますので、入力項目の詳細はこちらも参照してください。
+構築作業の要領は、第２回 :ref:`section-cloud-native-ecs-create-alb-label` とほぼ同様になりますので、入力項目の詳細はこちらも参照してください。
 
 「EC2」サービスから、「ロードバランサー」メニューを選択し、「ロードバランサーの作成」ボタンを押下して、
 以下の通り、ロードバランサーの構成を設定します。VPC及びサブネットは前回 :ref:`section-cloud-native-create-elasticache-redis-label` で作成したものを指定してください。
@@ -178,6 +175,8 @@ Redisクライアントのコンテナイメージ作成では、DockerHub上で
 |br|
 
 セキュリティ設定の構成は今回はHTTPを利用するので必要ありませんが、セキュリティグループの設定は、任意のソースからの80番ポートのリクエストを受け付けるものを指定します。
+
+|br|
 
 .. figure:: img/aws-nosql/management-console-ec2-create-alb-for-elasticache-2.png
    :scale: 100%

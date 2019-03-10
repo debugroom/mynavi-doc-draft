@@ -161,8 +161,9 @@
 <div class="section" id="amazon-dynamodbspring">
 <span id="section-cloud-native-nosql-spring-applicaiton-2-3-label"></span><h3>Amazon DynamoDBへアクセスするSpringアプリケーション<a class="headerlink" href="#amazon-dynamodbspring" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
-<p>クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
-Amazon ElastiCacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。</p>
+<p>クラウドの普及に伴い、ビッグデータやキーバリュー型データの格納など、ますます活用の機会が広がりつつあるNoSQLデータベース。
+第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、Amazon ElastiCacheへアクセスするSpringアプリケーションを開発する方法について、わかりやすく解説します。</p>
+<p>本連載では、以下の様なステップで進めています。</p>
 <p><br/></p>
 <ol class="arabic simple">
 <li>NoSQLデータベースの特徴とデータ特性<ul>
@@ -171,19 +172,19 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 </ul>
 </li>
 <li>Amazon DynamoDBへアクセスするSpringアプリケーション<ul>
-<li>Amazon DynamoDBの概要及び構築と認証情報の設定</li>
+<li>Amazon DynamoDBの概要及び構築と認証情報の作成</li>
 <li>Spring Data DynamoDBを用いたアプリケーション(1)</li>
-<li>Spring Data DynamoDBを用いたアプリケーション(2)                          …◯</li>
+<li><strong>Spring Data DynamoDBを用いたアプリケーション(2)</strong></li>
 </ul>
 </li>
 <li>Apache CassandraへアクセスするSpringアプリケーション<ul>
-<li>ローカル環境におけるApache Cassandraの構築</li>
+<li>Apache Cassandraの概要及びローカル環境構築</li>
 <li>Spring Data Cassandraを用いたアプリケーション(1)</li>
 <li>Spring Data Cassandraを用いたアプリケーション(2)</li>
 </ul>
 </li>
 <li>Amazon ElastiCacheへアクセスするSpringアプリケーション<ul>
-<li>ローカル環境におけるRedisの構築</li>
+<li>AmazonElasiCacheの概要及びローカル環境でのRedisServer構築</li>
 <li>Spring SessionとSpring Data Redisを用いたアプリケーション(1)</li>
 <li>Spring SessionとSpring Data Redisを用いたアプリケーション(2)</li>
 <li>Amazon ElastiCacheの設定</li>
@@ -193,14 +194,14 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 </li>
 </ol>
 <p><br/></p>
-<p>前回、<a class="reference internal" href="aws-nosql-2-2.html#section-cloud-native-spring-data-dynamodb-implementation-1-label"><span class="std std-ref">Spring Data DynamoDBを使ったアプリケーション実装(1)</span></a> に引き続き、 今回はSpring Data DynamoDBを使ってデータベースアクセスするアプリケーションを実装していていきます。</p>
+<p>前回、<a class="reference internal" href="aws-nosql-2-2.html#section-cloud-native-spring-data-dynamodb-implementation-1-label"><span class="std std-ref">Spring Data DynamoDBを使ったアプリケーション実装(1)</span></a> に引き続き、 Spring Data DynamoDBを使ってデータベースアクセスするアプリケーションを実装していきます。</p>
 <p><br/></p>
 <div class="section" id="spring-data-dynamodb-2">
-<h4>Spring Data DynamoDBを使ったアプリケーション実装(2)<a class="headerlink" href="#spring-data-dynamodb-2" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<span id="section-cloud-native-spring-data-dynamodb-implementation-2-label"></span><h4>Spring Data DynamoDBを使ったアプリケーション実装(2)<a class="headerlink" href="#spring-data-dynamodb-2" title="このヘッドラインへのパーマリンク">¶</a></h4>
 <p><br/></p>
-<p>アプリケーションコンポーネントの実装に移ります。画面から受け取るリクエストパラメータコンポーネントを以下の様に作成しています。</p>
+<p>アプリケーションコンポーネントの実装に移ります。データ追加・更新処理で、画面から受け取るリクエストパラメータのクラスを以下の様に作成しています。</p>
 <p><br/></p>
-<p>リクエストパラメータオブジェクト</p>
+<p>リクエストパラメータクラス</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span> <span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.spring.data.dynamodb.app.model</span><span class="o">;</span>
 
  <span class="nd">@AllArgsConstructor</span>
@@ -279,7 +280,7 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 </pre></div>
 </div>
 <p><br/></p>
-<p>また、Serviceを呼び出す際にリクエストパラメータオブジェクトをServiceのインプットオブジェクトとなっているDynamoDBのテーブルクラスやプライマリキークラスへ変換するマッパーをインターフェースで実装します。</p>
+<p>また、Serviceを呼び出す際にリクエストパラメータオブジェクトを、ServiceのインプットオブジェクトであるDynamoDBのテーブルクラスやプライマリキークラスへ変換するマッパークラスをインターフェースで実装します。</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.spring.data.dynamodb.app.model</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.spring.data.dynamodb.domain.model.MynaviSampleTable</span><span class="o">;</span>
@@ -310,13 +311,13 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 <p class="last">Java8からstaticメソッドであれば、インターフェースでも実装できる様になっています。</p>
 </div>
 <p><br/></p>
-<p>Serviceの実装は、以下の通り、CRUD処理をRepositoryを通して実行します。</p>
+<p>Serviceクラスでは、以下の通り、CRUD処理をRepositoryを通して実行する処理を実装します。</p>
 <ul class="simple">
-<li>findAll：作成したDynamoDBのテーブルの全件データをList型で受け取る処理</li>
-<li>findOne：指定したパーティションキー・ソートキーでデータを取得する処理</li>
-<li>add：パーティションキーにランダムなUUID文字列を、ソートキーには&quot;1&quot;を設定し、リクエストから受け取ったテキスト文字列を設定して保存するロジックです。</li>
-<li>update：指定したパーティションキー・ソートキーのテキストデータを更新する処理</li>
-<li>delete：指定したパーティションキー・ソートキーのデータを削除する処理</li>
+<li>【findOne】SampleRepository.findById()：指定したパーティションキー・ソートキーでデータを取得する処理</li>
+<li>【findAll】SampleRepository.findAll：作成したDynamoDBのテーブルの全件データをList型で受け取る処理</li>
+<li>【add】SampleRepository.save()：パーティションキーにランダムなUUID文字列を、ソートキーには&quot;1&quot;を設定し、リクエストから受け取ったテキスト文字列を設定して保存するロジックを実装。</li>
+<li>【update】SampleRepository.save()：指定したパーティションキー・ソートキーのテキストデータを更新する処理</li>
+<li>【delete】SampleRepository.deleteById()：指定したパーティションキー・ソートキーのデータを削除する処理</li>
 </ul>
 <p><br/></p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.spring.data.dynamodb.domain.service</span><span class="o">;</span>
@@ -388,8 +389,8 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 <div class="admonition note">
 <p class="first admonition-title">注釈</p>
 <p class="last">特に実装クラスも作成せずインターフェースだけで、findAllやsaveメソッドが実行できる理由は、Spring Data DynamoDBが、GenericDAOパターンに基づく実装クラスを提供しているためです。
-GenericDAOパターンとはJavaの型パラメータを利用した実装で、CRUD処理をJavaのジェネリクス機構を使って実装しておき、テーブルの種類に応じて、
-型パラメータを設定することで、汎用的なCRUD共通処理を実装したDAO(DatabaseAccessObject)を作成しておくパターンです。
+GenericDAOパターンとはJavaの型パラメータを利用した実装で、CRUD処理をJavaのジェネリクス機構を使って実装しておき、テーブルの種類に応じた、
+型パラメータクラスを設定することで、汎用的なCRUD共通処理を実装したDAO(DatabaseAccessObject)を作成しておくパターンです。
 Spring Data Dynamoに限らず、Spring Data JPAなど類似一連のプロダクトでは、同様にインターフェースを作成するだけで、
 基本的なCRUDはほぼ実装せずにデータベースアクセス処理を行うことが可能です。</p>
 </div>
@@ -402,7 +403,7 @@ Spring Data Dynamoに限らず、Spring Data JPAなど類似一連のプロダ�
 <li>その他、追加したい属性には&#64;DynamoDBAttributeアノテーションを付与します。</li>
 </ul>
 <p>また、プライマリキーがパーティションキーとソートキーで構成される場合、プライマリキークラスを作成し、テーブルクラスに定義する必要があります。
-プライマリキークラスには、org.springframework.data.annotation.Idアノテーションを付与し、Getter・Setterメソッドを付与してはいけません。
+プライマリキークラスには、org.springframework.data.annotation.Idアノテーションを付与し、<strong>Getter・Setterメソッドを付与してはいけません</strong>。
 パーティションキーのみで構成される場合は、テーブルクラスに&#64;DynamoDBHashKeyのみを設定し、Repositoryの型パラメータにはキーのプリミティブな型を設定してください。</p>
 <p><br/></p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.spring.data.dynamodb.domain.model</span><span class="o">;</span>
@@ -468,33 +469,46 @@ Spring Data Dynamoに限らず、Spring Data JPAなど類似一連のプロダ�
 </div>
 <p><br/></p>
 <p>これでアプリケーションが作成しました。SpringBoot起動クラスを実行し、アプリケーションを実行しましょう。「<a class="reference external" href="http://localhost:8080/index.html">http://localhost:8080/index.html</a>」へブラウザからアクセスすると以下の様な画面が表示され、以下の５つのサービスが実行できます。</p>
-<ul class="simple">
-<li>「find All Data」ボタンを押下すると、全てのデータが取得されます。</li>
-<li>パーティションキーとソートキーを指定して「find One Data」ボタンを押下すると、該当のデータが取得されます。</li>
-<li>任意のテキストデータを入力し、「add Data」ボタンを押下すると、データが追加されます。パーティションキーはUUID、ソートキーは&quot;1&quot;固定です。</li>
-<li>パーティションキーとソートキーを指定して、テキストデータを入力し、「Update Data」ボタンを押下すると、該当のデータが更新されます。</li>
-<li>パーティションキーとソートキーを指定して「Delete Data」ボタンを押下すると、該当のデータが削除されます。</li>
-</ul>
 <p><br/></p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/dynamodb-app.png"><img alt="../_images/dynamodb-app.png" src="../_images/dynamodb-app.png" style="width: 881.0px; height: 857.0px;" /></a>
 </div>
 <p><br/></p>
+<ul class="simple">
+<li>任意のテキストデータを入力し、「add Data」ボタンを押下すると、データが追加されます。パーティションキーはUUID、ソートキーは&quot;1&quot;固定です。</li>
+</ul>
+<p><br/></p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/dynamodb-app-add.png"><img alt="../_images/dynamodb-app-add.png" src="../_images/dynamodb-app-add.png" style="width: 920.0px; height: 202.0px;" /></a>
 </div>
+<p><br/></p>
+<ul class="simple">
+<li>「find All Data」ボタンを押下すると、全てのデータが取得されます。</li>
+</ul>
 <p><br/></p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/dynamodb-app-findAll.png"><img alt="../_images/dynamodb-app-findAll.png" src="../_images/dynamodb-app-findAll.png" style="width: 856.0px; height: 201.0px;" /></a>
 </div>
 <p><br/></p>
+<ul class="simple">
+<li>パーティションキーとソートキーを指定して「find One Data」ボタンを押下すると、該当のデータが取得されます。</li>
+</ul>
+<p><br/></p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/dynamodb-app-findOne.png"><img alt="../_images/dynamodb-app-findOne.png" src="../_images/dynamodb-app-findOne.png" style="width: 901.0px; height: 195.0px;" /></a>
 </div>
 <p><br/></p>
+<ul class="simple">
+<li>パーティションキーとソートキーを指定して、テキストデータを入力し、「Update Data」ボタンを押下すると、該当のデータが更新されます。</li>
+</ul>
+<p><br/></p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/dynamodb-app-update.png"><img alt="../_images/dynamodb-app-update.png" src="../_images/dynamodb-app-update.png" style="width: 913.0px; height: 195.0px;" /></a>
 </div>
+<p><br/></p>
+<ul class="simple">
+<li>パーティションキーとソートキーを指定して「Delete Data」ボタンを押下すると、該当のデータが削除されます。</li>
+</ul>
 <p><br/></p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/dynamodb-app-delete.png"><img alt="../_images/dynamodb-app-delete.png" src="../_images/dynamodb-app-delete.png" style="width: 909.0px; height: 187.0px;" /></a>
@@ -503,6 +517,7 @@ Spring Data Dynamoに限らず、Spring Data JPAなど類似一連のプロダ�
 <p>このように、DynamoDBへCRUD処理するアプリケーションをSpring Data Cassandraを用いて簡単に実装することができます。
 実際のアプリケーションでは様々ユースケースに応じて、データモデルを検討しておく必要がありますが、応用編等で追々その辺りを触れたいと思います。
 次回以降はApache Cassandraを構築して、同様にSpring Data Cassandraを使ってCRUD処理するアプリケーションを実装していきます。</p>
+<p><br/></p>
 </div>
 </div>
 </div>

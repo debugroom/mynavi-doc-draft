@@ -19,8 +19,10 @@ Amazon DynamoDBへアクセスするSpringアプリケーション
 
 |br|
 
-クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
-Amazon ElastiCacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。
+クラウドの普及に伴い、ビッグデータやキーバリュー型データの格納など、ますます活用の機会が広がりつつあるNoSQLデータベース。
+第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、Amazon ElastiCacheへアクセスするSpringアプリケーションを開発する方法について、わかりやすく解説します。
+
+本連載では、以下の様なステップで進めています。
 
 |br|
 
@@ -31,19 +33,19 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 
 #. Amazon DynamoDBへアクセスするSpringアプリケーション
 
-   * Amazon DynamoDBの概要及び構築と認証情報の設定
-   * Spring Data DynamoDBを用いたアプリケーション(1)                          …◯
+   * Amazon DynamoDBの概要及び構築と認証情報の作成
+   * **Spring Data DynamoDBを用いたアプリケーション(1)**
    * Spring Data DynamoDBを用いたアプリケーション(2)
 
 #. Apache CassandraへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるApache Cassandraの構築
+   * Apache Cassandraの概要及びローカル環境構築
    * Spring Data Cassandraを用いたアプリケーション(1)
    * Spring Data Cassandraを用いたアプリケーション(2)
 
 #. Amazon ElastiCacheへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるRedisの構築
+   * AmazonElasiCacheの概要及びローカル環境でのRedisServer構築
    * Spring SessionとSpring Data Redisを用いたアプリケーション(1)
    * Spring SessionとSpring Data Redisを用いたアプリケーション(2)
    * Amazon ElastiCacheの設定
@@ -64,7 +66,7 @@ Spring Data DynamoDBの概要
 
 |br|
 
-Spring Data DynamoDBは Spring DataのコミュニティプロジェクトでSpring Data JPAなどと同様、
+`Spring Data DynamoDB <https://github.com/derjust/spring-data-dynamodb>`_ は Spring DataのコミュニティプロジェクトでSpring Data JPAなどと同様、
 データベースアクセス処理を抽象化・簡易化し、CRUD操作などの処理実装を提供するフレームワークです。
 主な特徴は以下の通りです。
 
@@ -173,8 +175,8 @@ Controllerを通じて、結果に遷移する画面HTMLを各々実装してい
 
 |br|
 
-以降、各々のクラスについて解説を進めていきますが、事前に `こちらのリンク <https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/cli-configure-files.html>`_ を参考に
-ユーザホームフォルダに.awsディレクトリを作成し、credentialという名前で、以下の形式で前回取得したアプリケーションのユーザ認証情報を保存してください。
+以降、各々のクラスについて解説を進めていきますが、事前に `AWS公式ページ「設定ファイルと認証情報ファイル」 <https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/cli-configure-files.html>`_ を参考に
+ユーザホームフォルダに.awsディレクトリを作成し、credentialというファイル名で、前回取得したCSV形式の認証キーに記載しているユーザ認証情報を、以下の形式で保存してください。
 
 |br|
 
@@ -187,8 +189,8 @@ Controllerを通じて、結果に遷移する画面HTMLを各々実装してい
 |br|
 
 それでは、実装していくクラスを説明します。まず、最初にSpringBoot起動クラス及び、各種設定クラスです。
-@SpringBootApplicaitonアノテーションが付与された起動クラスは、@Configurationアノテーションが付与された同一パッケージの設定クラス及び、
-設定クラス内で@ComponentScanされたパッケージにあるクラスを読み取ります。今回は目的に応じて以下の3つに分類して定義します。
+@SpringBootApplicaitonアノテーションが付与された起動クラスは、同一パッケージにある@Configurationアノテーションが付与された設定クラス及び、
+設定クラス内で@ComponentScanされたパッケージにあるクラスを読み取ります。今回は目的に応じて以下の3つに分類して設定クラスを作成します。
 
 * SpringMVCの設定クラスであるWebMvcConfigurerを実装した設定クラス：MvcConfigクラス
 * Serviceをコンポーネントスキャンで読み取る設定クラス：DomainConfigクラス
@@ -218,7 +220,7 @@ Controllerを通じて、結果に遷移する画面HTMLを各々実装してい
 |br|
 
 同一パッケージに配置するMvcConfigクラスでは、HTMLやCSSなどの静的リソースのURLと実際のリソースの物理配置の対応づけの定義をResourceHandlerRegistryに追加しておきます。
-また、Controllerクラスを読み取るためのComponentScanアノテーションにパッケージを指定しておきます。
+また、Controllerクラスを読み取るために、ComponentScanアノテーションに該当のパッケージを指定しておきます。
 
 |br|
 
@@ -245,7 +247,7 @@ Controllerを通じて、結果に遷移する画面HTMLを各々実装してい
 
 |br|
 
-DomainConfigクラスではServiceなどビジネスロジックレイヤに属するコンポーネントをスキャンする定義を追加しておきます。
+DomainConfigクラスではServiceなどビジネスロジックレイヤに属するコンポーネントがあるパッケージをスキャンする定義を追加しておきます。
 
 |br|
 
@@ -267,16 +269,16 @@ DomainConfigクラスではServiceなどビジネスロジックレイヤに属�
 DynamoDBの接続に必要なクラスがアプリケーション起動時に自動で構築されていく様になります。@EnableDynamoDBRepositoriesには
 同時にDynamoDBテーブルへアクセスするRepositoryクラスがあるベースパッケージを同時に指定しなければなりません。
 
-必要なクラスはデフォルトで自動構築してくれますが、最低限、接続先のDynamoDBのリージョンやエンドポイント、認証情報の３つを個別に設定する必要があります。
-Spring Data DynamoDBでも内部では、DynamoDBとの接続にAWS SDKが提供しているcom.amazonaws.services.dynamodbv2.AmazonDynamoDBを利用しており、
+DynamoDB接続に必要なクラスはSpringBootが自動構築してくれますが、最低限、接続先のDynamoDBのリージョンやエンドポイント、認証情報の３つを設定する必要があります。
+Spring Data DynamoDBも内部的には、DynamoDBとの接続にAWS SDKが提供しているcom.amazonaws.services.dynamodbv2.AmazonDynamoDBを利用しており、
 com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilderを使って、リージョンや認証情報を含めてインスタンスを作成するのが一般的です。
-そのため、設定クラス上でAmazonDynamoDBを生成し、個別の設定を行ってBean定義します。
+そのため、設定クラス上でAmazonDynamoDBクラスの設定を行ってBean定義します。
 
 なお、AmazonDynamoDBClientBuilderは、デフォルトで、事前に設定しておいた.aws内にあるCredentialの中にある
-アクセスIDとシークレットキーを参照しにいく実装になっています。たまにサンプルでアプリケーション内で直接
-ClientBuilderにアクセスIDとシークレットキーを設定するコードがありますが、AWSとしてこのやり方は推奨していないので、
+アクセスIDとシークレットキーを参照しにいく実装になっています。たまに古いWeb記事のサンプルでアプリケーション内で直接
+ClientBuilderにアクセスIDとシークレットキーを設定するコードを見かけますが、AWSとしてこのやり方は推奨していないので、
 アプリケーションにキーを設定するコードを記載するのはやめておきましょう。以下のコードでは、
-AwsClientBuilderにEndpoistConfigrationに東京リージョンとDynamoDBのサービスエンドポイントを設定ファイルapplication.ymlから取得して、
+AwsClientBuilderのEndpointConfigrationに、東京リージョンとDynamoDBのサービスエンドポイントを設定ファイルapplication.ymlから取得して、
 AmazonDynamoDBClientBuilderへ設定しています。
 
 |br|
@@ -332,14 +334,14 @@ application.yml
 
    これまでの設定では、ローカル環境ではユーザのAWS認証情報ファイルで取得する状態になっていますが、この実装のまま本番環境へ持って行っても、最後のAWSインスタンスプロファイルから認証情報を取得できます。
    この辺の挙動の詳細を知りたい方は `DefaultAWSCredentialsProviderChainの実装 <https://github.com/aws/aws-sdk-java/blob/master/aws-java-sdk-core/src/main/java/com/amazonaws/auth/DefaultAWSCredentialsProviderChain.java>`_ を参照してみてください。
-   最後のインスタンスプロファイル情報はアプリケーションを実行するEC2インスタンスないしはECSコンテナがもつ認証情報で、
-   `インスタンスやコンテナを実行する際、権限を割り当てるオプション <https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html>`_ があります。
+   最後のインスタンスプロファイル情報はアプリケーションを実行するEC2インスタンスもしくはECSコンテナがもつ認証情報で、
+   `インスタンスやコンテナを実行する際、IAMロールから権限を割り当てるオプション <https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html>`_ があります。
    開発環境・本番環境が変わるからといって、環境依存をなくすためにアプリケーション内でアクセスキーIDやシークレットキーを割り当てる実装は必要ありませんので、本稿の様に、
    開発環境(AWS内ではないローカル環境の場合)は.aws配下の認証情報を取得し、本番環境では、インスタンスのプロファイル上から認証情報を取得する実装を心がけてください。
 
 |br|
 
-アプリケーションの設定に関する実装はここまでです。引き続きアプリケーションのコンポーネントに関わる実装を進めていきます。
+アプリケーションの設定に関する実装はここまでです。引き続き、次回、アプリケーションのDBアクセス処理等の実装を進めていきます。
 
 |br|
 

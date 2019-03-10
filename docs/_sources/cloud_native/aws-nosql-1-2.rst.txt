@@ -19,31 +19,33 @@ NoSQLデータベースの特徴とデータ特性
 
 |br|
 
-クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
-Amazon ElastiCacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。
+クラウドの普及に伴い、ビッグデータやキーバリュー型データの格納など、ますます活用の機会が広がりつつあるNoSQLデータベース。
+第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、Amazon ElastiCacheへアクセスするSpringアプリケーションを開発する方法について、わかりやすく解説します。
+
+本連載では、以下の様なステップで進めています。
 
 |br|
 
 #. NoSQLデータベースの特徴とデータ特性
 
    * CAP定理を元にしたデータベースの分類とデータ特性
-   * AP型データベースAmazon DynamoDBとApache Cassandraの特徴                          …◯
+   * **AP型データベースAmazon DynamoDBとApache Cassandraの特徴**
 
 #. Amazon DynamoDBへアクセスするSpringアプリケーション
 
-   * Amazon DynamoDBの概要及び構築と認証情報の設定
+   * Amazon DynamoDBの概要及び構築と認証情報の作成
    * Spring Data DynamoDBを用いたアプリケーション(1)
    * Spring Data DynamoDBを用いたアプリケーション(2)
 
 #. Apache CassandraへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるApache Cassandraの構築
+   * Apache Cassandraの概要及びローカル環境構築
    * Spring Data Cassandraを用いたアプリケーション(1)
    * Spring Data Cassandraを用いたアプリケーション(2)
 
 #. Amazon ElastiCacheへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるRedisの構築
+   * AmazonElasiCacheの概要及びローカル環境でのRedisServer構築
    * Spring SessionとSpring Data Redisを用いたアプリケーション(1)
    * Spring SessionとSpring Data Redisを用いたアプリケーション(2)
    * Amazon ElastiCacheの設定
@@ -52,9 +54,9 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 
 |br|
 
-前回 :ref:`section-cloud-native-nosql-category-by-cap-label` では、リレーショナルデータベースやNoSQLデータベースをCAP定理を元に分類し、その特性に応じて適したユースケースやデータ特性を整理しました。
+前回 :ref:`section-cloud-native-nosql-category-by-cap-label` では、リレーショナルデータベース(以降RDB)やNoSQLデータベースをCAP定理を元に分類し、その特性に応じて適したユースケースやデータ特性を整理しました。
 今回はその分類のうち、可用性(Availability)とネットワーク分断耐性(Partition Tolerance)を重視したAP型データベースの代表例であるAmazon DynamoDB及び、
-Apache Cassandraの特徴を比較しながら深掘りします。なお、Cassandraは、DynamoDBの分散モデルを参考にFacebook社が開発したオープンソースのNoSQLデータベースです。
+Apache Cassandraの特徴を比較しながら、その特徴を深掘りします。なお、Cassandraは、DynamoDBの分散モデルを参考にFacebook社が開発したオープンソースのNoSQLデータベースです。
 Amazon DynamoDBはその実装が厳密に公開されていないため、同様のアーキテクチャをもつApache Cassandraを合わせて比較することで理解を深める意図があります。
 
 
@@ -67,7 +69,7 @@ AP型データベースAmazon DynamoDBとApache Cassandraの特徴
 
 |br|
 
-前回も触れた通り、AP型のNoSQLデータベースは一貫性(Consistency)の低下をトレードオフとして、高い可用性(Availability)とネットワーク分断耐性(Partition Tolerance)に重点を置いています。
+前回の解説の再掲になりますが、AP型のNoSQLデータベースは一貫性(Consistency)が下がることをトレードオフとして、高い可用性(Availability)とネットワーク分断耐性(Partition Tolerance)に重点を置いています。
 以下のイメージの様に、複数のアベイラビリティゾーンにデータベースを配置し、１つのノードやネットワークに障害が起きてもデータが損なうことがないよう、各ノードにデータを分散して配置します。
 大きな特徴として単一障害点がなく、どこのノードからでもデータ更新が可能であり、ノードも任意に追加・設定できるスケーラビリティにも優れた分散型構成ですが
 ノードの故障時や通信のエラーにより、複数のノード間で整合性のとれない(一貫性を損なう)ケースが発生する様になります。多くは読み込み時に最新のデータで古いノードのデータを更新するReadRepair機能や、
@@ -81,8 +83,8 @@ Quorumをベースとした結果整合性(雑に言えば不整合が出た場�
 
 Apache Cassandraは、Amazon DynamoDBのデータベース分散モデルを参考にデザインされています。当然そのデータ分散配置に関する特徴を継承していますが、
 まず、両者で共通して押さえておかなれければならないものの１つとして、各ノードに配置されるデータとキーの考え方についてです。
-Amazon DynamoDB、Apache CassandraはConsistent Hashing方式により、各ノードと配置されるデータを決定していますが、大まかなイメージを掴むために、上記の図の「都市テーブル」に市区情報を加えて構成される形に変更してみましょう。
-都道府県と市・区は1：Nの関係になりますが、都道府県を区別するキーを親キー、市や区を区別するキーを子キーとします。DynamoDBとCassandraには以下の様な名称で対応づけられるキーがあります。
+Amazon DynamoDB、Apache CassandraはConsistent Hashingと呼ばれるアルゴリズムにより、各ノードと配置されるデータを決定していますが、大まかなイメージを掴むために、上記の図の「都市テーブル」に市区情報を加えて構成される形に変更してみましょう。
+都道府県と市・区は1：Nの関係になりますが、都道府県を区別するキーを親キー、市や区を区別するキーを子キーとします。DynamoDBとCassandraには、これらのキーに対して、以下の様な名称で対応づけられるキーがあります。
 
 |br|
 
@@ -107,10 +109,24 @@ Amazon DynamoDB、Apache CassandraはConsistent Hashing方式により、各ノ�
 
 |br|
 
-なお、Amazon DynamoDBとApache Cassandraでは分散データ方式として、以下の様な違いがあります。
+どちらのデータベースにおいても、以下の様なルールを押さえておく必要があります。
+
+* 親キーで配置されるノードが決定する。
+* ノード内のデータ順序を決定する子キーを任意に設定できる。
+* 親子関係を有しないデータは親キーでデータを一意に特定できるようにしておく必要がある。
+* 子キーにはインデックスを設定できる
+
+|br|
+
+.. figure:: img/aws-nosql/ap-database-key.png
+   :scale: 100%
+
+|br|
+
+また、Amazon DynamoDBとApache Cassandraでは分散データ方式として、以下の様な違いがあります。
 
 .. list-table:: Amazon DynamoDBとApache Cassandraの違い
-   :widths: 3, 3, 3
+   :widths: 3, 4, 3
 
    * - 特性
      - Amazon DynamoDB
@@ -120,28 +136,16 @@ Amazon DynamoDB、Apache CassandraはConsistent Hashing方式により、各ノ�
      - AWSマネージド構築
      - 上限なしで任意に設定
 
-   * - レプリケーションファクタ(ノードに配置するデータのレプリケーション数)
-     - 同一リージョンで３つのレプリケーション(DynamoDBはリージョンごとのサービス)
+   * - レプリケーションファクタ |br| (ノードに配置するデータのレプリケーション数)
+     - 同一リージョンで３つのレプリケーション |br| (DynamoDBはリージョンごとのサービス)
      - テーブルごとに任意設定が可能。
 
    * - 結果整合性のオプション
-     - 読込は結果整合性か強い整合性かを選択。|br| 【弱い読込み結果整合性】2/3以上の読込で結果一致した場合正常応答 |br| 【書込み】2/3以上の書込が成功した場合正常応答 |br| 【強い読込み整合性】全てのReadRepairが完了している状態で、結果を応答
+     - 【読込】結果整合性か強い読込整合性かを選択 |br| 　[結果整合性] 2/3以上の読込で結果一致した場合正常応答 |br| 　[強い読込整合性] 全てのReadRepairが完了し、結果を応答 |br| |br| 【書込】2/3以上の書込が成功した場合正常応答
      - ユーザ側で設定可能な読込・書込一貫性 |br| ※読み込むレプリカ数と書き込むレプリカ数を指定できる。指定に達しない場合エラー
 
-どちらのデータベースにおいても、以下の様なルールを押さえておく必要があります。
 
-* 親キーで配置されるノードが決定する。
-* ノード内のデータ順序を決定する子キーを任意に設定できる。
-* 親子関係を有しないデータは親キーでデータを一意に特定できるようにしておく必要がある。
-* 子キーにはインデックスを設定できる
-
-
-.. figure:: img/aws-nosql/ap-database-key.png
-   :scale: 100%
-
-|br|
-
-また、上記のような分散DBアーキテクチャを踏まえると、当然リレーショナルデータベースではできていた以下の様な当たり前のことができなくなります。
+こうした分散DBアーキテクチャを踏まえると、当然RDBでできていた以下の様な当たり前のことができなくなります。
 
 |br|
 
@@ -171,7 +175,7 @@ Amazon DynamoDB、Apache CassandraはConsistent Hashing方式により、各ノ�
 
 |br|
 
-上記の制約はプロダクトによって差がありますが、基本リレーショナルデータベースで実現できる機能を使いたい場合は、リレーショナルデータベースを導入すべきであり、
+上記の制約はプロダクトによって差がありますが、RDBで実現できる機能を使いたい場合は、RDBを導入すべきであり、
 NoSQLデータベースは、その特性を生かしたユースケースに対し導入を検討すべきです。ただし、AP型NoSQLデータベースを導入する場合でも、上記の様な色々な機能要件を求められるケースもあるため、
 アプリケーションの設計時に上記のような制約をしっかり意識しておき、データベースの機能に委ねるべきか、不足する機能に代替する処理をアプリケーションで実装すべきかを判断できる様にしておきましょう。
 

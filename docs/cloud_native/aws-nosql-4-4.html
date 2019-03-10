@@ -98,7 +98,7 @@
 <li><a class="reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
 <li><a class="reference internal" href="#awsnosql-4-4">第3回 AWS上に構築するNoSQLアプリケーション(4)-4</a><ul>
 <li><a class="reference internal" href="#amazon-elasticachespring">Amazon ElastiCacheへアクセスするSpringアプリケーション</a><ul>
-<li><a class="reference internal" href="#amazon-elasticache-redis">Amazon ElastiCache(Redis)の構築</a></li>
+<li><a class="reference internal" href="#amazon-elasticache-redis">Amazon ElastiCache(Redis)の設定</a></li>
 </ul>
 </li>
 </ul>
@@ -161,8 +161,9 @@
 <div class="section" id="amazon-elasticachespring">
 <span id="section-cloud-native-nosql-spring-applicaiton-4-4-label"></span><h3>Amazon ElastiCacheへアクセスするSpringアプリケーション<a class="headerlink" href="#amazon-elasticachespring" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
-<p>クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
-Amazon ElastiCacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。</p>
+<p>クラウドの普及に伴い、ビッグデータやキーバリュー型データの格納など、ますます活用の機会が広がりつつあるNoSQLデータベース。
+第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、Amazon ElastiCacheへアクセスするSpringアプリケーションを開発する方法について、わかりやすく解説します。</p>
+<p>本連載では、以下の様なステップで進めています。</p>
 <p><br/></p>
 <ol class="arabic simple">
 <li>NoSQLデータベースの特徴とデータ特性<ul>
@@ -171,22 +172,22 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 </ul>
 </li>
 <li>Amazon DynamoDBへアクセスするSpringアプリケーション<ul>
-<li>Amazon DynamoDBの概要及び構築と認証情報の設定</li>
+<li>Amazon DynamoDBの概要及び構築と認証情報の作成</li>
 <li>Spring Data DynamoDBを用いたアプリケーション(1)</li>
 <li>Spring Data DynamoDBを用いたアプリケーション(2)</li>
 </ul>
 </li>
 <li>Apache CassandraへアクセスするSpringアプリケーション<ul>
-<li>ローカル環境におけるApache Cassandraの構築</li>
+<li>Apache Cassandraの概要及びローカル環境構築</li>
 <li>Spring Data Cassandraを用いたアプリケーション(1)</li>
 <li>Spring Data Cassandraを用いたアプリケーション(2)</li>
 </ul>
 </li>
 <li>Amazon ElastiCacheへアクセスするSpringアプリケーション<ul>
-<li>ローカル環境におけるRedisの構築</li>
+<li>AmazonElasiCacheの概要及びローカル環境でのRedisServer構築</li>
 <li>Spring SessionとSpring Data Redisを用いたアプリケーション(1)</li>
 <li>Spring SessionとSpring Data Redisを用いたアプリケーション(2)</li>
-<li>Amazon ElastiCacheの設定                                   …◯</li>
+<li><strong>Amazon ElastiCacheの設定</strong></li>
 <li>セッション共有するECSアプリケーションの構築(1)</li>
 <li>セッション共有するECSアプリケーションの構築(2)</li>
 </ul>
@@ -197,16 +198,16 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 ローカル環境に構築したRedisへのアクセスまで確認しました。今回はAmazon ElastiCache(Redis)を実際に構築してみましょう。</p>
 <p><br/></p>
 <div class="section" id="amazon-elasticache-redis">
-<span id="section-cloud-native-create-elasticache-redis-label"></span><h4>Amazon ElastiCache(Redis)の構築<a class="headerlink" href="#amazon-elasticache-redis" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<span id="section-cloud-native-create-elasticache-redis-label"></span><h4>Amazon ElastiCache(Redis)の設定<a class="headerlink" href="#amazon-elasticache-redis" title="このヘッドラインへのパーマリンク">¶</a></h4>
 <p><br/></p>
-<p>ElastiCacheを作成するにあたり、下記のイメージ図のように、事前にElastiCacheノードを配置するためのVPCを構築しておく必要があります。</p>
+<p>AWSで、ElastiCacheを構築するにあたり、下記のイメージ図のように、事前にElastiCacheノードを配置するためのVPCを構築しておく必要があります。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/architecture-elasticache.png"><img alt="../_images/architecture-elasticache.png" src="../_images/architecture-elasticache.png" style="width: 582.0px; height: 624.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/architecture-elasticache.png"><img alt="../_images/architecture-elasticache.png" src="../_images/architecture-elasticache.png" style="width: 471.0px; height: 644.0px;" /></a>
 </div>
 <p><br/></p>
 <p>VPCの作成方法は、第２回 <a class="reference internal" href="aws-ecs-1.html#section-cloud-native-ecs-overview-label"><span class="std std-ref">AWS ECSの概要とアプリケーション環境構成</span></a> に詳細な構築手順・要領をまとめていますので、必要に応じてリンク先を確認し、VPCを作成しておいてください。
-ただし、上記のイメージに従えば、NATゲートウェイやインターネットゲートウェイ、プライベートサブネットは今回必ずしも必要ではありません。
+ただし、NATゲートウェイやインターネットゲートウェイ、プライベートサブネットは今回必ずしも必要ではありません。
 パブリックサブネットだけの構築でも入力内容は変わりませんので、適宜リンク先の要領を参考にしてVPCを作成してください。</p>
 <p>また、ElastiCacheはセキュリティグループによりアクセス制御されます。セキュリティ上、VPCネットワーク内からのアクセスのみ受け付ける設定が望ましいため、VPC作成後に、以下の手順通り、ElastiCacheに割り当てるセキュリティグループを作成してください。</p>
 <p>AWSコンソールの「EC2」サービスから、セキュリティグループメニューを選択肢、「セキュリティグループの作成」ボタンを押下し、以下の要領に則って入力します。</p>
@@ -224,7 +225,7 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 </ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ec2-create-security-group-for-elasticache-1.png"><img alt="../_images/management-console-ec2-create-security-group-for-elasticache-1.png" src="../_images/management-console-ec2-create-security-group-for-elasticache-1.png" style="width: 764.0px; height: 410.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/management-console-ec2-create-security-group-for-elasticache-1.png"><img alt="../_images/management-console-ec2-create-security-group-for-elasticache-1.png" src="../_images/management-console-ec2-create-security-group-for-elasticache-1.png" style="width: 824.0px; height: 440.0px;" /></a>
 </div>
 <p><br/></p>
 <p>セキュリティグループを作成した後、AWSコンソールの「ElastiCache」サービスから、「テーブルの作成」ボタンを押下し、以下の要領に則って入力します。</p>
@@ -283,14 +284,14 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 </div>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-elasticache-create-2.png"><img alt="../_images/management-console-elasticache-create-2.png" src="../_images/management-console-elasticache-create-2.png" style="width: 704.0px; height: 574.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/management-console-elasticache-create-2.png"><img alt="../_images/management-console-elasticache-create-2.png" src="../_images/management-console-elasticache-create-2.png" style="width: 674.0px; height: 555.0px;" /></a>
 </div>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-elasticache-create-3.png"><img alt="../_images/management-console-elasticache-create-3.png" src="../_images/management-console-elasticache-create-3.png" style="width: 704.0px; height: 693.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/management-console-elasticache-create-3.png"><img alt="../_images/management-console-elasticache-create-3.png" src="../_images/management-console-elasticache-create-3.png" style="width: 644.0px; height: 654.0px;" /></a>
 </div>
 <p><br/></p>
-<p>以上で、ElastiCacheの作成は完了です。次回はロードバランサー及びアプリケーションをECSコンテナ化してデプロイし、セッション情報をRedisに共有するよう設定します。</p>
+<p>以上で、ElastiCacheの作成は完了です。次回はアプリケーションロードバランサーを構築した後、アプリケーションをECSコンテナ化してデプロイし、セッション情報をRedisに共有するよう設定します。</p>
 </div>
 </div>
 </div>

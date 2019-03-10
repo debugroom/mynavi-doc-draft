@@ -19,8 +19,10 @@ Amazon ElastiCacheへアクセスするSpringアプリケーション
 
 |br|
 
-クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
-Amazon ElastiCacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。
+クラウドの普及に伴い、ビッグデータやキーバリュー型データの格納など、ますます活用の機会が広がりつつあるNoSQLデータベース。
+第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、Amazon ElastiCacheへアクセスするSpringアプリケーションを開発する方法について、わかりやすく解説します。
+
+本連載では、以下の様なステップで進めています。
 
 |br|
 
@@ -31,21 +33,21 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 
 #. Amazon DynamoDBへアクセスするSpringアプリケーション
 
-   * Amazon DynamoDBの概要及び構築と認証情報の設定
+   * Amazon DynamoDBの概要及び構築と認証情報の作成
    * Spring Data DynamoDBを用いたアプリケーション(1)
    * Spring Data DynamoDBを用いたアプリケーション(2)
 
 #. Apache CassandraへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるApache Cassandraの構築
+   * Apache Cassandraの概要及びローカル環境構築
    * Spring Data Cassandraを用いたアプリケーション(1)
    * Spring Data Cassandraを用いたアプリケーション(2)
 
 #. Amazon ElastiCacheへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるRedisの構築
+   * AmazonElasiCacheの概要及びローカル環境でのRedisServer構築
    * Spring SessionとSpring Data Redisを用いたアプリケーション(1)
-   * Spring SessionとSpring Data Redisを用いたアプリケーション(2)              …◯
+   * **Spring SessionとSpring Data Redisを用いたアプリケーション(2)**
    * Amazon ElastiCacheの設定
    * セッション共有するECSアプリケーションの構築(1)
    * セッション共有するECSアプリケーションの構築(2)
@@ -64,7 +66,7 @@ Spring SessionとSpring Data Redisを使ったアプリケーション実装(2)
 |br|
 
 アプリケーションコンポーネントの実装に移ります。@SessionScopeアノテーションを付与し、セッションに格納するJavaオブジェクトを以下の通り実装します。
-また、コンポーネントスキャンの対象となるよう、@Componentを付与し、前回設定クラスで実装した@ComponentScenで指定したパッケージ配下に作成してください。
+また、コンポーネントスキャンの対象となるよう、@Componentを付与し、前回設定クラスで実装した@ComponentScanで指定したパッケージ配下に作成してください。
 今回セッションが共有することが分かるよう、変数としてホスト名と最終更新日時をもつJavaオブジェクトとします。
 
 |br|
@@ -209,7 +211,7 @@ redis-cliなどを用いて、Redisのキー一覧を参照すると以下のよ
 
 |br|
 
-ローカル環境に構築したRedisにアクセスし、セッション情報を保存することができました。次回はAWSでElastiCacheを構築してみます。
+ローカル環境に構築したRedisにアクセスし、セッション情報を保存するアプリケーションを実装することができました。次回は、AWSでElastiCacheを構築してみます。
 
 |br|
 

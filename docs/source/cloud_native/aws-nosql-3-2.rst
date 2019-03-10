@@ -19,8 +19,10 @@ Apache CassandraへアクセスするSpringアプリケーション
 
 |br|
 
-クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
-Amazon ElastiCacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。
+クラウドの普及に伴い、ビッグデータやキーバリュー型データの格納など、ますます活用の機会が広がりつつあるNoSQLデータベース。
+第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、Amazon ElastiCacheへアクセスするSpringアプリケーションを開発する方法について、わかりやすく解説します。
+
+本連載では、以下の様なステップで進めています。
 
 |br|
 
@@ -31,19 +33,19 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 
 #. Amazon DynamoDBへアクセスするSpringアプリケーション
 
-   * Amazon DynamoDBの概要及び構築と認証情報の設定
+   * Amazon DynamoDBの概要及び構築と認証情報の作成
    * Spring Data DynamoDBを用いたアプリケーション(1)
    * Spring Data DynamoDBを用いたアプリケーション(2)
 
 #. Apache CassandraへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるApache Cassandraの構築
-   * Spring Data Cassandraを用いたアプリケーション(1)                          …◯
+   * Apache Cassandraの概要及びローカル環境構築
+   * **Spring Data Cassandraを用いたアプリケーション(1)**
    * Spring Data Cassandraを用いたアプリケーション(2)
 
 #. Amazon ElastiCacheへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるRedisの構築
+   * AmazonElasiCacheの概要及びローカル環境でのRedisServer構築
    * Spring SessionとSpring Data Redisを用いたアプリケーション(1)
    * Spring SessionとSpring Data Redisを用いたアプリケーション(2)
    * Amazon ElastiCacheの設定
@@ -90,7 +92,7 @@ Spring Data Cassandraを使ったアプリケーション実装(1)
 
 |br|
 
-まず、Spring Data Cassandraで簡単なCRUDアプリケーションを作成して見ましょう。
+Spring Data Cassandraで簡単なCRUDアプリケーションを作成して見ましょう。
 Spring Data DynamoDBを使用するには、まず、Mavenプロジェクトのpom.xmlで、spring-data-cassandraのライブラリを定義します。
 加えて、Datastax社から提供されているCassandraのDriverを定義してください。
 なお、Apache Cassandraへのアクセスを画面から実行するアプリケーションを作成するために、Webアプリケーションを作るための
@@ -183,7 +185,7 @@ Controllerを通じて、結果に遷移する画面HTMLを各々実装してい
 
 それでは、実装していくクラスを説明しますが、Cassandraのエンティティクラスや接続に関わるコンポーネント以外はほとんど :ref:`section-cloud-native-spring-data-dynamodb-implementation-1-label` のときと変わりません。
 まず、最初にSpringBoot起動クラス及び、各種設定クラスです。@SpringBootApplicaitonアノテーションが付与された起動クラスは、
-@Configurationアノテーションが付与された同一パッケージの設定クラス及び、
+同一パッケージにある@Configurationアノテーションが付与された設定クラス及び、
 設定クラス内で@ComponentScanされたパッケージにあるクラスを読み取ります。今回は目的に応じて以下の3つに分類して定義します。
 
 * SpringMVCの設定クラスであるWebMvcConfigurerを実装した設定クラス：MvcConfigクラス
@@ -214,7 +216,7 @@ Controllerを通じて、結果に遷移する画面HTMLを各々実装してい
 |br|
 
 同一パッケージに配置するMvcConfigクラスでは、HTMLやCSSなどの静的リソースのURLと実際のリソースの物理配置の対応づけの定義をResourceHandlerRegistryに追加しておきます。
-また、Controllerクラスを読み取るためのComponentScanアノテーションにパッケージを指定しておきます。
+また、Controllerクラスを読み取るために、ComponentScanアノテーションにパッケージを指定しておきます。
 
 |br|
 
@@ -258,17 +260,17 @@ DomainConfigクラスではServiceなどビジネスロジックレイヤに属�
 
 |br|
 
-続いて、Cassandraへの接続で必須になる設定クラスがCassandraConfigクラスです。AbstractCassandraFonfigrationを継承し、
-必要なクラスはデフォルトで自動構築してくれますが、加えて以下4つのメソッドをオーバーライドします。
+続いて、Cassandraへの接続で必須になる設定クラスがCassandraConfigクラスです。AbstractCassandraFonfigrationを継承すれば、
+必要なクラスはSpringBootがデフォルトで自動構築してくれますが、加えて、以下4つのメソッドをオーバーライドします。
 
 * getSchemaAction()メソッド：アプリケーション構築時のテーブルに対するアクションを決定する。
 * getEntityBasePackages()メソッド：Cassandraテーブルのエンティティクラスとなるベースパッケージを指定する。
-* getMetricsEnabled()メソッド：MetrixとしてJMXを使用するか決定する。Spring Data Cassandra2.0以降では、falseに設定しておく。
+* getMetricsEnabled()メソッド：MetrixとしてJMXを使用するか決定する。Spring Data Cassandra2.0以降で、起動エラーとなるため、falseに設定しておく。
 * getKeyspaceName()メソッド：CassandraテーブルでアクセスするKeyspace名を指定する。
 
 加えて、@EnableCassandraRepositoriesアノテーションを付与し、CassandraテーブルへアクセスするRepositoryクラスがあるベースパッケージを同時に指定しなければなりません。
-また、下記はシングルノードでCassandraを構築する場合の設定です。次回以降説明しますが、複数ノードでクラスタを構築する場合、さらに
-cluster()メソッドを構築し、CotactPointとなるIPアドレスやポートを指定しなければなりません。ここでは、ローカル環境で必要な設定のみを
+また、下記はシングルノードでCassandraを構築する場合の設定です。複数ノードでクラスタを構築する場合、さらに
+cluster()メソッドを構築し、ContactPointとなるIPアドレスやポートを指定しなければなりません。ここでは、ローカル環境で必要な設定のみを
 有効化するために、@Profileアノテーションを指定して、Profileで"dev"が指定した時にこの設定クラスが有効化するようにしておきましょう。
 実装としては、クラスタの起動時に専用のプロファイルを指定するものとして、デフォルトでは"dev"が有効になるようにapplication.ymlにデフォルトプロファイルを指定指定しておきます。
 

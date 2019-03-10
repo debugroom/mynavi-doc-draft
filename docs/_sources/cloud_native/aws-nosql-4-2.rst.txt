@@ -19,8 +19,10 @@ Amazon ElastiCacheへアクセスするSpringアプリケーション
 
 |br|
 
-クラウド時代が到来し、ビッグデータやキーバリュー型データなどで、ますます活用の機会が広がりつつあるNoSQLデータベース。第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、
-Amazon ElastiCacheへアクセスするSpringアプリケーションを構築する方法を説明します。本連載では、以下の様なステップで進めていきます。
+クラウドの普及に伴い、ビッグデータやキーバリュー型データの格納など、ますます活用の機会が広がりつつあるNoSQLデータベース。
+第3回は代表的なNoSQLプロダクトであるAmazon DynamoDBやApache Cassandra、Amazon ElastiCacheへアクセスするSpringアプリケーションを開発する方法について、わかりやすく解説します。
+
+本連載では、以下の様なステップで進めています。
 
 |br|
 
@@ -37,14 +39,14 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 
 #. Apache CassandraへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるApache Cassandraの構築
+   * Apache Cassandraの概要及びローカル環境構築
    * Spring Data Cassandraを用いたアプリケーション(1)
    * Spring Data Cassandraを用いたアプリケーション(2)
 
 #. Amazon ElastiCacheへアクセスするSpringアプリケーション
 
-   * ローカル環境におけるRedisの構築
-   * Spring SessionとSpring Cloud Data Redisを用いたアプリケーション(1)           …◯
+   * AmazonElasiCacheの概要及びローカル環境でのRedisServer構築
+   * **Spring SessionとSpring Cloud Data Redisを用いたアプリケーション(1)**
    * Spring SessionとSpring Cloud Data Redisを用いたアプリケーション(2)
    * Amazon ElastiCacheの設定
    * セッション共有するECSアプリケーションの構築(1)
@@ -53,7 +55,7 @@ Amazon ElastiCacheへアクセスするSpringアプリケーションを構築�
 |br|
 
 前回 :ref:`section-cloud-native-nosql-spring-applicaiton-4-1-label` では、CP型データベースである、Amazon ElastiCacheの概要を説明し、
-シングルノードでローカル環境へテーブル構築しました。今回はSpring SessionおよびSpring Data Redisを使ってアクセスするアプリケーションを実装してみます。
+シングルノードでローカル環境へテーブル構築しました。今回は、Spring SessionおよびSpring Data Redisを使ってアクセスするアプリケーションを実装してみます。
 
 |br|
 
@@ -167,8 +169,7 @@ spring-boot-starter-web、thymeleafテンプレートエンジンを使用する
 
 |br|
 
-それでは、実装していくクラスを説明します。まず、最初にSpringBoot起動クラス及び、各種設定クラスです。@SpringBootApplicaitonアノテーションが付与された起動クラスは、
-@Configurationアノテーションが付与された同一パッケージの設定クラス及び、
+それでは、実装していくクラスを説明します。まず、最初にSpringBoot起動クラス及び、各種設定クラスです。@SpringBootApplicaitonアノテーションが付与された起動クラスは、同一パッケージにある@Configurationアノテーションが付与された設定クラス及び、
 設定クラス内で@ComponentScanされたパッケージにあるクラスを読み取ります。今回は目的に応じて以下の4つに分類して定義します。
 
 * アプリケーションを起動するためのWebAppクラス
@@ -200,7 +201,7 @@ spring-boot-starter-web、thymeleafテンプレートエンジンを使用する
 |br|
 
 同一パッケージに配置するMvcConfigクラスでは、HTMLやCSSなどの静的リソースのURLと実際のリソースの物理配置の対応づけの定義をResourceHandlerRegistryに追加しておきます。
-また、Controllerクラスを読み取るためのComponentScanアノテーションにパッケージを指定しておきます。
+また、Controllerクラスを読み取るために、ComponentScanアノテーションにパッケージを指定しておきます。
 
 |br|
 
@@ -228,7 +229,7 @@ spring-boot-starter-web、thymeleafテンプレートエンジンを使用する
 |br|
 
 続いて、Redisのアクセス設定をRedisConfigクラス及びapplication.ymlで行います。基本的には、Spring SessionでRedisを使用する場合、Mavenのpom.xmlでライブラリを追加した後、
-@EnableRedisHttpSessionアノテーションを付与したConfigクラスを作成する必要がありますが、application.ymlでspring.session.store-typeプロパティをredisに設定にすることで、
+設定クラスに@EnableRedisHttpSessionアノテーションを付与するか、application.ymlでspring.session.store-typeプロパティをredisに設定にすることで、
 同等の効果を得ることができます。
 
 .. sourcecode:: bash
@@ -316,12 +317,12 @@ applicaiton-production.yml
 
 |br|
 
-.. note::application-production.ymlはアプリケーション起動時にプロファイル「production」を指定することで有効化(applicaiton.ymlは上書き)される設定ファイルです。
+.. note:: application-production.ymlはアプリケーション起動時にプロファイル「production」を指定することで有効化(applicaiton.ymlは上書き)される設定ファイルです。
    プロファイル名に合わせた設定ファイルを作成しておくことで設定を柔軟に切り替えることができます。
 
 |br|
 
-アプリケーションの設定に関する実装はここまでです。次回以降、引き続きアプリケーションのコンポーネントに関わる実装を進めていきます。
+アプリケーションの設定に関する実装はここまでです。次回以降、引き続きセッション共有処理に関わる実装を進めていきます。
 
 |br|
 
