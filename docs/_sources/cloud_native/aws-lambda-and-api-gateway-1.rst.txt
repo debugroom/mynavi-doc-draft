@@ -223,9 +223,12 @@ DB接続設定の追加など必要に応じてカスタマイズできますが
 
 |br|
 
-最後に、実際にLambda関数として実行するためのビジネスロジッククラスです。java.util.function.Functionを実装して、org.springframework.messaging.Message及び、その型パラメータとして、
-受け取りたいJSONリクエストをモデル化したインプットクラスを指定してください。このクラスでは受け取ったJSONリクエストをPOJOクラスへ変換し(ここではInputというModelクラスを作成しています)、
-そのクラス中に定義されているString型のtestという変数の値をログ出力しています。処理実行後は単なるString型の文字列"Complete!"をJSONレスポンスとして返すような形で実装するサンプルとしています。
+最後に、実際にLambda関数として実行するためのビジネスロジッククラスです。java.util.function.Functionを実装して、
+org.springframework.messaging.Message及び、その型パラメータとして、受け取りたいJSONリクエストをモデル化したインプットクラスを指定してください。
+この形式で実装しておくと、Spring Cloud FunctionがAPI Gatewayから受け取ったJSONリクエストをPOJOクラスへ変換し、
+オーバーライドしたapply()メソッドを実行します。ここでは「Input」というModelクラスを作成しており、
+メソッドの引数としてそのオブジェクトを受け取り、そのオブジェクトのパラメータであるString型の「test」という変数の値を
+ログ出力しています。処理実行後は単なるString型の文字列「”Complete!”」をJSONレスポンスとして返すような形で実装するサンプルです。
 
 |br|
 
