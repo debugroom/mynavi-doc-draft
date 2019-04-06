@@ -71,6 +71,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 </ul>
 </ul>
 </li>
@@ -86,10 +97,10 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
 <li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li><a class="reference internal" href="#id5">マイクロサービスアーキテクチャでのアプリケーション構成と構築</a></li>
+<li><a class="reference internal" href="#id6">マイクロサービスのアプリケーション構成と構築</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id6">著者紹介</a></li>
+<li><a class="reference internal" href="#id7">著者紹介</a></li>
 </ul>
 </li>
 </ul>
@@ -144,13 +155,22 @@
 <div class="section" id="id2">
 <h2>マイクロサービスアーキテクチャの基盤・デプロイ自動化<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
-<p>拙著 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4285">【連載】ソフトウェア開発自動化入門 基盤・デプロイ自動化</a> で近年の動向である
-マイクロサービスアーキテクチャアプリケーションの基盤構築自動化・継続的インテグレーション・デプロイ(CI/CD)自動化の実現例を紹介しました。
-本連載では、この例に従って、アプリケーションの実装・CI/CD自動化・基盤自動化を実際に構築してきます。本連載では、以下の様なステップで進めていきます。</p>
+<p><a class="reference external" href="https://news.mynavi.jp/itsearch/series/devsoft/customobject_4.html">【連載】「ソフトウェア開発自動化入門」</a> のなかで、
+筆者が執筆を担当した <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4285">第４回「基盤・デプロイ自動化」</a> では、近年のトレンドである
+マイクロサービスアーキテクチャアプリケーションの基盤構築自動化・継続的インテグレーション・デプロイ(CI/CD)自動化の実現例を紹介しました。</p>
+<p>本連載では、そこで紹介した例にならって、アプリケーションの実装とCI/CD自動化、基盤自動化を実際に構築してきます。</p>
+<p>具体的には、以下の流れで進めていく予定です。</p>
 <p><br/></p>
 <ol class="arabic simple">
 <li>マイクロサービスアーキテクチャでのアプリケーション構成の概要と構築</li>
-<li>AWS CodeBuildを用いた継続的インテグレーション自動化</li>
+<li>AWS CodeBuildを用いた継続的インテグレーション自動化<ul>
+<li>SonaQubeを利用した静的解析環境の構築</li>
+<li>SonaLintを利用した開発端末の設定</li>
+<li>SpringBootにおける単体試験コードの実装</li>
+<li>SpringBootにおける結合試験コードの実装</li>
+<li>AWS CodeBuildとGitHubのWebHook設定</li>
+</ul>
+</li>
 <li>AWS CodePipeLineを用いた継続的デリバリ自動化</li>
 <li>AWS CloudFormationを用いた基盤構築自動化<ul>
 <li>VPC環境の構築の自動化</li>
@@ -209,20 +229,29 @@
 <td>2.1.2.RELEASE</td>
 </tr>
 <tr class="row-even"><td>Docker</td>
-<td>1.8</td>
+<td>18.09.2, build 6247962</td>
 </tr>
 <tr class="row-odd"><td>CentOS</td>
-<td>7.1</td>
+<td>7.6.1810</td>
+</tr>
+<tr class="row-even"><td>SonarQube</td>
+<td>7.7</td>
+</tr>
+<tr class="row-odd"><td>SonarLint</td>
+<td>4.0.2.3009 for IntelliJ</td>
+</tr>
+<tr class="row-even"><td>SonarScanner</td>
+<td>3.3.0.1492</td>
 </tr>
 </tbody>
 </table>
 <p><br/></p>
-<div class="section" id="id5">
-<h3>マイクロサービスアーキテクチャでのアプリケーション構成と構築<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id6">
+<h3>マイクロサービスのアプリケーション構成と構築<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
-<p>マイクロサービスアーキテクチャでは従来のモノリシックなアプリケーション(全ての機能が一つのアプリケーションパッケージにまとまっている形)に比べ、
-アプリケーション構成はもとより、チーム間での開発体制からリリースの単位までこれまでとは異なる形で行うことを要求されます。</p>
-<p>一般にマイクロサービスアーキテクチャにすることで、以下の様なメリットがあります。</p>
+<p>マイクロサービスアーキテクチャでは、従来のモノリシックなアプリケーション(全ての機能が一つのアプリケーションパッケージにまとまっている形)に比べ、
+アプリケーション構成はもとより、チーム間での開発体制からリリースの単位までこれまでとは異なるかたちで行うことを要求されます。</p>
+<p>一般にマイクロサービスアーキテクチャにすることで、以下の様なメリットがあるとされています。</p>
 <ul class="simple">
 <li>各サービスの疎結合性・独立性が向上し、開発のアジリティが向上する</li>
 <li>使用頻度の高い特定の機能を、サービス単位でスケールできるため、アプリケーションパフォーマンスが向上する。</li>
@@ -231,19 +260,20 @@
 </ul>
 <p>ただし、モノリシックなアプリケーションを、機能単位などで単純にサービス分割しただけでは、上記の様な恩恵は得られません。
 鶏卵論争ではありませんが、歴史的に見るとむしろ、次々と登場してくるクラウドなどの新しいテクノロジーを活用し、上記の様なメリットを目指して考えられた結果が、マイクロサービスアーキテクチャだったと言えます。
-従って、上記のメリットを実現するために、サービスの分割・アプリケーションの作成・実行単位、プロジェクト構成、開発のスコープやスパン・体制、リリースの最適な単位を、個々のアプリケーションごとに検討する必要があります。
-当然、唯一解はないのですが、以下の様なアプリケーションアーキテクチャが１つの構成例となるでしょう。</p>
+したがって、上記のメリットを実現するには、サービスの分割・アプリケーションの作成・実行単位、プロジェクト構成、開発のスコープやスパン・体制、リリースの最適な単位を、個々のアプリケーションごとに検討する必要があります。
+当然、唯一解はないのですが、１つの構成例としては、以下の様なアプリケーションアーキテクチャが挙げられるでしょう。</p>
+<p><br/></p>
+<p>[アプリケーションの構成]</p>
+<ul class="simple">
+<li>アプリケーションはAmazon Web Service上に構築するWebアプリケーションとする。</li>
+<li>アプリケーションはフロントエンド(Backend For Frontend: BFF)とバックエンドのサービスに分割し、各サービスはAWS ECSコンテナ上にデプロイされるものとする。</li>
+<li>ECSコンテナ内の各サービスは組み込みTomcatを内蔵するSpringBootアプリケーションで実装する。</li>
+<li>各サービス間はRESTベースのHTTPリクエストでメッセージ通信を行い、ApplicationLoadBalancerを介して負荷分散する。</li>
+</ul>
 <p><br/></p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/MicroServiceArchitecture.png"><img alt="../_images/MicroServiceArchitecture.png" src="../_images/MicroServiceArchitecture.png" style="width: 786.0px; height: 801.0px;" /></a>
 </div>
-<p>[アプリケーションの構成]</p>
-<ul class="simple">
-<li>アプリケーションはAmazon Web Service上に構築するWebアプリケーションとする。</li>
-<li>アプリケーションはフロントエンド(Backend For Frontend: BFFとも呼ばれる)とバックエンドのサービスに分割し、各サービスはAWS ECSコンテナ上にデプロイされるものとする。</li>
-<li>ECSコンテナ内の各サービスは組み込みTomcatを内蔵するSpringBootアプリケーションで実装する。</li>
-<li>各サービス間はRESTベースのHTTPリクエストでメッセージ通信を行い、ApplicationLoadBalancerを介して負荷分散する。</li>
-</ul>
 <p><br/></p>
 <p>この例では、各マイクロサービスはDockerをベースとするECSコンテナ単位で作成していますが、サービスの単位は主に以下の基本原則・考え方により、適切な粒度や分割単位を決定します。</p>
 <ul class="simple">
@@ -254,15 +284,15 @@
 <li>SLA(Service Level Agreement)</li>
 </ul>
 <p><br/></p>
-<p>また、セキュリティの観点やサービスのスケーラビリティ、ポータビリティ・再利用性を考慮し、サービスを論理的にフロントエンド(BFF)とバックエンドに分割していますが、それぞれの役割は以下の通りです。</p>
-<table border="1" class="colwidths-given docutils" id="id7">
-<caption><span class="caption-text">フロントエンド(BFF)とバックエンドの役割</span><a class="headerlink" href="#id7" title="このテーブルへのパーマリンク">¶</a></caption>
+<p>また、セキュリティの観点やサービスのスケーラビリティ、ポータビリティ・再利用性を考慮し、サービスを論理的にBFFとバックエンドに分割していますが、それぞれの役割は以下の通りです。</p>
+<table border="1" class="colwidths-given docutils" id="id8">
+<caption><span class="caption-text">BFFとバックエンドの役割</span><a class="headerlink" href="#id8" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col width="50%" />
 <col width="50%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td>フロントエンド(BFF)の役割</td>
+<tr class="row-odd"><td>BFFの役割</td>
 <td>バックエンドの役割</td>
 </tr>
 <tr class="row-even"><td><ul class="first last simple">
@@ -304,15 +334,32 @@
 <li>パスベースルーティング</li>
 </ul>
 <p><br/></p>
-<p>上記の構成で実際にアプリケーションを構築する場合は、拙著 「 <a class="reference internal" href="../cloud_native/aws-ecs-1.html#section-cloud-native-ecs-1st-label"><span class="std std-ref">第2回 AWS ECS上に構築するSpringアプリケーション(1)</span></a> 」を参考に進めてみてください。
-セッションキャッシュやバックエンドのデータベース構築については盛り込んでいませんが、本連載の趣旨からは問題ありませんし、各々構築方法は、連載「AWSで作るクラウドネイティブアプリケーションの基本」の今後で触れたいと思います。</p>
+<p>上記の構成で実際にアプリケーションを構築する場合は、「 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4354">第４回 ECSコンテナアプリケーションの構築</a> 」を参考に進めてみてください。
+セッションキャッシュやバックエンドのデータベース構築については盛り込んでいませんが、本連載の趣旨からは問題ありませんし、
+各々構築方法は、連載「AWSで作るクラウドネイティブアプリケーションの基本」の今後、解説する予定です。</p>
 <p><br/></p>
-<p>次回は、このアプリケーション環境を前提とした継続的インテグレーション(CI)をAWS CodeBuildを使って実現してみます。</p>
+<p>さて、次回以降は、上述のアプリケーション環境を前提とした継続的インテグレーション(CI)環境を以下のイメージのようなかたちで、
+AWSのビルドツールであるCodeBuildおよび、SonarSourceにより提供されているオープンソースの静的解析プラットフォームである <a class="reference external" href="https://www.sonarqube.org/">SonarQube</a> を使って構築してみます。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/sample-continuous-integration.png"><img alt="../_images/sample-continuous-integration.png" src="../_images/sample-continuous-integration.png" style="width: 951.0px; height: 618.0px;" /></a>
+</div>
+<p><br/></p>
+<p>上記のCI環境では、以下のようなことが実現できます。</p>
+<ul class="simple">
+<li>AWS ECSおよびRDS(PostgreSQL)を使って、可用性を考慮したSonarQube環境(今回はフリーのComunity Editionを使用)を構築できます。</li>
+<li>開発者の端末には、SonarQubeServerから取得したProfie(チェックルール)を使ってコーディング時に静的コードチェックを行えるようにします(1)。</li>
+<li>ソースコードのコミット時に、静的チェックに引っかかっているものがないかSonarQubeのQuality Gate機能を使ってチェックします(2)。</li>
+<li>ソースコードをGitHubへプッシュ・プルリクエスト作成後(3)、WebHook(4)によりAWS CodeBuildが検知、テストおよびビルドを実行し(5)、SonarScannerによる静的チェック結果をSonarQubeサーバへ連携(6)します。</li>
+<li>SonarQube Developer Editionであれば、プルリクエスト時のソースコードレビューコメントに静的解析結果を差し込めます。</li>
+</ul>
+<p><br/></p>
+<p>次回はVPC環境内にECSおよびRDSを使って、SonarQubeServer環境を構築する方法を詳述していきます。</p>
 <p><br/></p>
 </div>
 </div>
-<div class="section" id="id6">
-<h2>著者紹介<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id7">
+<h2>著者紹介<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/pic_image01.jpg"><img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" style="width: 100.0px; height: 110.0px;" /></a>
