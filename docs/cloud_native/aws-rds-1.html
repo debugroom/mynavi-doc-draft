@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AWSで作るクラウドネイティブアプリケーションの基本 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-nosql-1-1.html" />
+    <link rel="prev" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-ecs-7.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
+<li><a class="reference internal" href="#amazon-rdsspring-1">Amazon RDSにアクセスするSpringアプリケーション(1)</a><ul>
+<li><a class="reference internal" href="#amazon-rds">Amazon RDSの概要</a></li>
+<li><a class="reference internal" href="#section-cloud-native-rds-setup-label">Amazon RDSの構築</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="aws-ecs-7.html" title="Previous Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; AWSで作るクラウドネイテ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="aws-nosql-1-1.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/cloud_native/aws-rds-1.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="aws">
+<span id="section-cloud-native-nosql-label-1-1"></span><h1>AWSで作るクラウドネイティブアプリケーションの基本<a class="headerlink" href="#aws" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="amazon-rdsspring-1">
+<span id="section-cloud-native-rds-1st-label"></span><h2>Amazon RDSにアクセスするSpringアプリケーション(1)<a class="headerlink" href="#amazon-rdsspring-1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>クラウド上のリレーショナルデータベースとして、AWSで利用可能なAmazon RDS。今回はPostgreSQLをベースとするAmazon RDSへアクセスする
+Springアプリケーションの実装方法についてわかりやすく解説します。なお、データベースアクセスの実装にはSpring Data JPAおよび、
+Spring Cloud AWSを用いて実装します。</p>
+<p>本連載では、以下のステップで解説を進めていきます。</p>
+<p><br/></p>
+<ol class="arabic simple">
+<li>Amazon RDSの概要とデータベース構築</li>
+<li>Spring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装</li>
+</ol>
+<p><br/></p>
+<p>なお、本連載は以下の前提知識がある開発者を想定しています。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>対象読者</td>
+<td>前提知識</td>
+</tr>
+<tr class="row-even"><td>エンタープライズ開発者</td>
+<td>Java言語及びSpringFrameworkを使った開発に従事したことがある経験者。経験がなければ、<br/>
+<a class="reference external" href="http://terasolunaorg.github.io/guideline/5.4.1.RELEASE/ja/Tutorial/index.html">こちらのチュートリアル</a> を実施することを推奨します。TERASOLUNAはSpringのベストプラクティスをまとめた開発方法論で、このチュートリアルでは、JavaやSpring Frameworkを使った開発に必要な最低限の知識を得ることができます。</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>GitHubなどのバージョン管理ツールやApache Mavenなどのライブラリ管理ツールを使った開発に従事したことがある経験者。</td>
+</tr>
+<tr class="row-even"><td>AWS開発経験者</td>
+<td>AWSアカウントをもち、コンソール上で各サービスを実行したことがある経験者</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>また、動作環境は以下のバージョンで実施しています。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>動作対象</td>
+<td>バージョン</td>
+</tr>
+<tr class="row-even"><td>Java</td>
+<td>1.8</td>
+</tr>
+<tr class="row-odd"><td>Spring Boot</td>
+<td>2.1.2.RELEASE</td>
+</tr>
+<tr class="row-even"><td>Spring Data JPA</td>
+<td>5.0.1</td>
+</tr>
+<tr class="row-odd"><td>Spring Cloud AWS</td>
+<td>2.1.2.RELEASE</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>将来的には、AWSコンソール上の画面イメージや操作、バージョンアップによりJavaのソースコード内で使用するクラスが異なる可能性があります。</p>
+<p><br/></p>
+<div class="section" id="amazon-rds">
+<span id="section-cloud-native-rds-overview-label"></span><h3>Amazon RDSの概要<a class="headerlink" href="#amazon-rds" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>Amazon RDS(Relational Database Service)は冗長化構成によるフェイルオーバや自動バックアップ機能など、
+高い可用性を保ちつつも、簡易なセットアップで運用が容易な、時間単位の従量課金制フルマネージドリレーショナルデータベースです。
+RDSでは以下のデータベースエンジンを選択可能です。</p>
+<ul class="simple">
+<li>Amazon Aurora</li>
+<li>PostgreSQL</li>
+<li>MySQL</li>
+<li>MariaDB</li>
+<li>Oracle</li>
+<li>Microsoft SQL Server</li>
+</ul>
+<p>RDS構築時に、複数のアベイラビリティゾーンをまたぎ、リードレプリカを構築できるオプションがあり、
+マスターに障害が発生した場合は、スレーブであるリードレプリカがマスターに昇格します。リードレプリカ作成時には、
+マスター・スレーブ各々IPが割り振られますが、RDSは単一のエンドポイントを有しているため、
+データベース参照側は特にフェイルオーバを意識せずアクセスすることが可能です。データの書き込み時はリードレプリカの
+書き込みも含まれるので、読み取りの一貫性は保証されます。また、リードレプリカはクロスリージョンサポートがあるため、
+ディザスターリカバリ(災害によるリカバリ)としても活用できます。</p>
+<p>RDSの自動バックアップ機能ではDBスナップショットとトランザクションログを保存しますが、スナップショットは
+1日1回、指定した世代数を指定した時間帯に取得します。リストアを行う際は任意の世代のDBスナップショットを指定して
+復元を行いますが、トランザクションログは随時取得されているので、任意に指定した状態へのリカバリが可能です。
+時刻は直近5分から、最新のスナップショットの時点の間で指定することができます。</p>
+<p>セキュリティ面のポイントとして、RDSはセキュリティグループによってアクセス制御されます。また、データの暗号化機能も
+サポートされており、暗号化キー管理サービス「Key Management Service(KMS)」に格納されたキーを使って暗号化できます。</p>
+<p><br/></p>
+</div>
+<div class="section" id="section-cloud-native-rds-setup-label">
+<span id="id2"></span><h3>Amazon RDSの構築<a class="headerlink" href="#section-cloud-native-rds-setup-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>それでは、実際にRDSを構築してみましょう。AWSコンソールのサービスから「RDS」を選択し、「データベースの作成」ボタンを押下します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-rds-create-database-1.png"><img alt="../_images/management-console-rds-create-database-1.png" src="../_images/management-console-rds-create-database-1.png" style="width: 865.0px; height: 314.0px;" /></a>
+</div>
+<p><br/></p>
+<p>今回はデータベースエンジンをPostgreSQLを選択します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-rds-create-database-2.png"><img alt="../_images/management-console-rds-create-database-2.png" src="../_images/management-console-rds-create-database-2.png" style="width: 921.0px; height: 864.0px;" /></a>
+</div>
+<p><br/></p>
+<p>ユースケースでは、「開発／テスト」を選択します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-rds-create-database-3.png"><img alt="../_images/management-console-rds-create-database-3.png" src="../_images/management-console-rds-create-database-3.png" style="width: 917.0px; height: 457.0px;" /></a>
+</div>
+<p><br/></p>
+<p>以下の表を参考に、データベースの詳細を指定して、「次へボタン」を押下します。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id5">
+<caption><span class="caption-text">RDS DB詳細の指定</span><a class="headerlink" href="#id5" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>入力項目</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td>ライセンスモデル</td>
+<td>データベースのライセンスを指定します。PostgreSQLではposgresql-licenseの選択になります。</td>
+</tr>
+<tr class="row-odd"><td>DBエンジンのバージョン</td>
+<td>データベースのバージョンを指定します。</td>
+</tr>
+<tr class="row-even"><td>DBインスタンスのクラス</td>
+<td>データベースを実行するインスタンスのCPUやメモリなどを指定します。</td>
+</tr>
+<tr class="row-odd"><td>マルチAZ配置</td>
+<td>データベースを複数のアベイラビリティゾーンで配置する場合チェックします。</td>
+</tr>
+<tr class="row-even"><td>ストレージタイプ</td>
+<td>データベースストレージを選択します。オプションは <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/UserGuide/CHAP_Storage.html#Concepts.Storage.GeneralSSD">DBインスタンスストレージ</a> を参考にしてください。</td>
+</tr>
+<tr class="row-odd"><td>ストレージ割り当て</td>
+<td>データベースストレージに割り当てるデータ容量を指定します。</td>
+</tr>
+<tr class="row-even"><td>DBインスタンス識別子</td>
+<td>データベースを作成するリージョン内でユニークな名称を指定します。</td>
+</tr>
+<tr class="row-odd"><td>マスターユーザの名前</td>
+<td>データベースにアクセスする場合の管理者ユーザ名を指定します。</td>
+</tr>
+<tr class="row-even"><td>マスターパスワード</td>
+<td>データベースにアクセスする場合の管理者ユーザのパスワードを指定します。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-rds-create-database-4.png"><img alt="../_images/management-console-rds-create-database-4.png" src="../_images/management-console-rds-create-database-4.png" style="width: 778.0px; height: 891.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-rds-create-database-5.png"><img alt="../_images/management-console-rds-create-database-5.png" src="../_images/management-console-rds-create-database-5.png" style="width: 781.0px; height: 778.0px;" /></a>
+</div>
+<p><br/></p>
+<p>以下の表を参考に、データベースの詳細設定を設定して「データベースの作成」を押下します。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id6">
+<caption><span class="caption-text">RDS DB詳細の指定</span><a class="headerlink" href="#id6" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>入力項目</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td>Virtual Private Cloud(VPC)</td>
+<td>RDSを配置するVPCを指定します。</td>
+</tr>
+<tr class="row-odd"><td>サブネットグループ</td>
+<td>DBを配置するサブネットを複数まとめたものをサブネットグループとして定義します。Amazon RDSは、VPCにDBインスタンスを作成すると、DBサブネットグループから選択したIPアドレスを使用して、DBインスタンスにネットワークインターフェイスを割り当てます</td>
+</tr>
+<tr class="row-even"><td>パブリックアクセシビリティ</td>
+<td>指定したVPCの外からアクセスする際にチェックします。「はい」を設定するとDBインスタンスにパブリックIPアドレスが割り当てられます。</td>
+</tr>
+<tr class="row-odd"><td>アベイラビリティゾーン</td>
+<td>DBインスタンスを作成するアベイラビリティゾーンを指定します。</td>
+</tr>
+<tr class="row-even"><td>VPCセキュリティグループ</td>
+<td>DBインスタンスへのアクセス制御に関するセキュリティグループを指定します。新規を選択する場合、パブリックアクセシビリティをを有効にしているとコンソールにアクセスしている端末のIPアドレスが許可されたセキュリティグループが作成されます。</td>
+</tr>
+<tr class="row-odd"><td>データベースの名前</td>
+<td>データベース名を指定します。</td>
+</tr>
+<tr class="row-even"><td>ポート</td>
+<td>データベースで使用するポートを指定します。</td>
+</tr>
+<tr class="row-odd"><td>DBパラメータグループ</td>
+<td>データベースに適用するパラメータをまとめて規定したパラメータグループを指定します。</td>
+</tr>
+<tr class="row-even"><td>オプショングループ</td>
+<td>OracleまたはSQL Server、MySQLで、オプションの機能を有効にするDBオプショングループを選択します。</td>
+</tr>
+<tr class="row-odd"><td>IAM DB認証</td>
+<td>IAMユーザやロールでデータベースのユーザ認証を実行する場合に有効化します。</td>
+</tr>
+<tr class="row-even"><td>暗号化</td>
+<td>データベースインスタンスのストレージを暗号化する場合有効化します。</td>
+</tr>
+<tr class="row-odd"><td>バックアップの保存期間</td>
+<td>DBインスタンスの自動バックアップの保存日数を指定します。最大35日まで指定可能です。</td>
+</tr>
+<tr class="row-even"><td>バックアップウィンドウ</td>
+<td>DBインスタンスの自動バックアップの実行時間帯を任意に設定します。</td>
+</tr>
+<tr class="row-odd"><td>拡張モニタリング</td>
+<td>プロセスの仮想メモリサイズやCPU使用率などモニタリングオプションを有効化します。具体的には <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/UserGuide/USER_Monitoring.OS.html">拡張モニタリング</a> を参照してください。</td>
+</tr>
+<tr class="row-even"><td>モニタリングルール</td>
+<td>拡張モニタリングを実行するIAMロールを指定します。新規作成の場合rds-monitoring-roleが作成されます。</td>
+</tr>
+<tr class="row-odd"><td>パフォーマンスインサイト</td>
+<td>RDSインスタンスの負荷をモニタリングし、データベースパフォーマンスの分析とトラブルシューティングを行うことができるパフォーマンスインスタンスを有効化します。
+パフォーマンスインサイトに関する詳細は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/UserGuide/USER_PerfInsights.html">Amazon RDS Performance Insightsの使用</a> を参考にしてください。</td>
+</tr>
+<tr class="row-even"><td>保持期間</td>
+<td>パフォーマンスインサイトのデータ保持期間を指定します。</td>
+</tr>
+<tr class="row-odd"><td>マスターキー</td>
+<td>パフォーマンスインサイトデータを保持するボリュームの暗号化キーを指定します。</td>
+</tr>
+<tr class="row-even"><td>ログのエクスポート</td>
+<td>Amazon CloudWatch Logsへ送信するログを選択します。</td>
+</tr>
+<tr class="row-odd"><td>マイナーバージョン自動アップグレード</td>
+<td>マイナーバージョンの自動アップグレードを有効化します。なお、アップグレード時には数分ほどのダウンタイムが発生します。</td>
+</tr>
+<tr class="row-even"><td>削除保護の有効化</td>
+<td>データベースの削除オペレーションを無効化するか指定します。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-rds-create-database-6.png"><img alt="../_images/management-console-rds-create-database-6.png" src="../_images/management-console-rds-create-database-6.png" style="width: 781.0px; height: 699.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-rds-create-database-7.png"><img alt="../_images/management-console-rds-create-database-7.png" src="../_images/management-console-rds-create-database-7.png" style="width: 776.0px; height: 835.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-rds-create-database-8.png"><img alt="../_images/management-console-rds-create-database-8.png" src="../_images/management-console-rds-create-database-8.png" style="width: 776.0px; height: 644.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-rds-create-database-9.png"><img alt="../_images/management-console-rds-create-database-9.png" src="../_images/management-console-rds-create-database-9.png" style="width: 774.0px; height: 732.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-rds-create-database-10.png"><img alt="../_images/management-console-rds-create-database-10.png" src="../_images/management-console-rds-create-database-10.png" style="width: 773.0px; height: 531.0px;" /></a>
+</div>
+<p><br/></p>
+<p>これでRDS DBインスタンスが作成できました。次回はこのデータベースにアクセスするSpringアプリケーションを実装してみます。</p>
+<p><br/></p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>著者紹介<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei)</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+</div>
+<p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

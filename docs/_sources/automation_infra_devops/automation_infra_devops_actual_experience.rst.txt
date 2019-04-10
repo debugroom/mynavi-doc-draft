@@ -205,7 +205,7 @@ AWSのビルドツールであるCodeBuildおよび、SonarSourceにより提供
 上記のCI環境では、以下のようなことが実現できます。
 
 * AWS ECSおよびRDS(PostgreSQL)を使って、可用性を考慮したSonarQube環境(今回はフリーのComunity Editionを使用)を構築できます。
-* 開発者の端末には、SonarQubeServerから取得したProfie(チェックルール)を使ってコーディング時に静的コードチェックを行えるようにします(1)。
+* 開発者の端末には、SonarQubeServerから取得したQuality Profie(チェックルール)を使ってコーディング時に静的コードチェックを行えるようにします(1)。
 * ソースコードのコミット時に、静的チェックに引っかかっているものがないかSonarQubeのQuality Gate機能を使ってチェックします(2)。
 * ソースコードをGitHubへプッシュ・プルリクエスト作成後(3)、WebHook(4)によりAWS CodeBuildが検知、テストおよびビルドを実行し(5)、SonarScannerによる静的チェック結果をSonarQubeサーバへ連携(6)します。
 * SonarQube Developer Editionであれば、プルリクエスト時のソースコードレビューコメントに静的解析結果を差し込めます。
