@@ -24,6 +24,8 @@
    cloud_native/aws-ecs-6.rst
    cloud_native/aws-ecs-7.rst
    cloud_native/aws-rds-1.rst
+   cloud_native/aws-rds-2.rst
+   cloud_native/aws-rds-3.rst
    cloud_native/aws-nosql-1-1.rst
    cloud_native/aws-nosql-1-2.rst
    cloud_native/aws-nosql-2-1.rst

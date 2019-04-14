@@ -18,7 +18,7 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-nosql-1-1.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-rds-2.html" />
     <link rel="prev" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-ecs-7.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -69,6 +69,8 @@
 <li class="toctree-l1"><a class="reference internal" href="aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -118,7 +120,7 @@
     </a>
   </li>
   <li>
-    <a href="aws-nosql-1-1.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    <a href="aws-rds-2.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
     </a>
   </li>
               
@@ -153,7 +155,7 @@
     <div class="col-md-12 content">
       
   <div class="section" id="aws">
-<span id="section-cloud-native-nosql-label-1-1"></span><h1>AWSで作るクラウドネイティブアプリケーションの基本<a class="headerlink" href="#aws" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<span id="section-cloud-native-rds-label1-1"></span><h1>AWSで作るクラウドネイティブアプリケーションの基本<a class="headerlink" href="#aws" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <div class="section" id="amazon-rdsspring-1">
 <span id="section-cloud-native-rds-1st-label"></span><h2>Amazon RDSにアクセスするSpringアプリケーション(1)<a class="headerlink" href="#amazon-rdsspring-1" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
@@ -163,8 +165,9 @@ Spring Cloud AWSを用いて実装します。</p>
 <p>本連載では、以下のステップで解説を進めていきます。</p>
 <p><br/></p>
 <ol class="arabic simple">
-<li>Amazon RDSの概要とデータベース構築</li>
-<li>Spring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装</li>
+<li><strong>Amazon RDSの概要とデータベース構築</strong></li>
+<li>RDSへのテーブル構築とSpring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(1)</li>
+<li>RDSへのテーブル構築とSpring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(2)</li>
 </ol>
 <p><br/></p>
 <p>なお、本連載は以下の前提知識がある開発者を想定しています。</p>
@@ -206,13 +209,13 @@ Spring Cloud AWSを用いて実装します。</p>
 <td>1.8</td>
 </tr>
 <tr class="row-odd"><td>Spring Boot</td>
-<td>2.1.2.RELEASE</td>
+<td>2.1.4.RELEASE</td>
 </tr>
 <tr class="row-even"><td>Spring Data JPA</td>
-<td>5.0.1</td>
+<td>2.1.4.RELEASE</td>
 </tr>
 <tr class="row-odd"><td>Spring Cloud AWS</td>
-<td>2.1.2.RELEASE</td>
+<td>2.1.1.RELEASE</td>
 </tr>
 </tbody>
 </table>
@@ -224,7 +227,7 @@ Spring Cloud AWSを用いて実装します。</p>
 <p><br/></p>
 <p>Amazon RDS(Relational Database Service)は冗長化構成によるフェイルオーバや自動バックアップ機能など、
 高い可用性を保ちつつも、簡易なセットアップで運用が容易な、時間単位の従量課金制フルマネージドリレーショナルデータベースです。
-RDSでは以下のデータベースエンジンを選択可能です。</p>
+RDSでは2019年3月現在、以下のデータベースエンジンを選択可能です。</p>
 <ul class="simple">
 <li>Amazon Aurora</li>
 <li>PostgreSQL</li>
@@ -233,7 +236,7 @@ RDSでは以下のデータベースエンジンを選択可能です。</p>
 <li>Oracle</li>
 <li>Microsoft SQL Server</li>
 </ul>
-<p>RDS構築時に、複数のアベイラビリティゾーンをまたぎ、リードレプリカを構築できるオプションがあり、
+<p>RDS構築時は、複数のアベイラビリティゾーンをまたぎ、リードレプリカを構築できるオプションがあり、
 マスターに障害が発生した場合は、スレーブであるリードレプリカがマスターに昇格します。リードレプリカ作成時には、
 マスター・スレーブ各々IPが割り振られますが、RDSは単一のエンドポイントを有しているため、
 データベース参照側は特にフェイルオーバを意識せずアクセスすることが可能です。データの書き込み時はリードレプリカの
@@ -249,6 +252,7 @@ RDSでは以下のデータベースエンジンを選択可能です。</p>
 </div>
 <div class="section" id="section-cloud-native-rds-setup-label">
 <span id="id2"></span><h3>Amazon RDSの構築<a class="headerlink" href="#section-cloud-native-rds-setup-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
 <p>それでは、実際にRDSを構築してみましょう。AWSコンソールのサービスから「RDS」を選択し、「データベースの作成」ボタンを押下します。</p>
 <p><br/></p>
 <div class="figure">
@@ -314,7 +318,7 @@ RDSでは以下のデータベースエンジンを選択可能です。</p>
 </div>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-rds-create-database-5.png"><img alt="../_images/management-console-rds-create-database-5.png" src="../_images/management-console-rds-create-database-5.png" style="width: 781.0px; height: 778.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/management-console-rds-create-database-5.png"><img alt="../_images/management-console-rds-create-database-5.png" src="../_images/management-console-rds-create-database-5.png" style="width: 768.0px; height: 766.0px;" /></a>
 </div>
 <p><br/></p>
 <p>以下の表を参考に、データベースの詳細設定を設定して「データベースの作成」を押下します。</p>
@@ -397,7 +401,7 @@ RDSでは以下のデータベースエンジンを選択可能です。</p>
 </table>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-rds-create-database-6.png"><img alt="../_images/management-console-rds-create-database-6.png" src="../_images/management-console-rds-create-database-6.png" style="width: 781.0px; height: 699.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/management-console-rds-create-database-6.png"><img alt="../_images/management-console-rds-create-database-6.png" src="../_images/management-console-rds-create-database-6.png" style="width: 834.0px; height: 749.0px;" /></a>
 </div>
 <p><br/></p>
 <div class="figure">
@@ -409,14 +413,14 @@ RDSでは以下のデータベースエンジンを選択可能です。</p>
 </div>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-rds-create-database-9.png"><img alt="../_images/management-console-rds-create-database-9.png" src="../_images/management-console-rds-create-database-9.png" style="width: 774.0px; height: 732.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/management-console-rds-create-database-9.png"><img alt="../_images/management-console-rds-create-database-9.png" src="../_images/management-console-rds-create-database-9.png" style="width: 801.0px; height: 758.0px;" /></a>
 </div>
 <p><br/></p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/management-console-rds-create-database-10.png"><img alt="../_images/management-console-rds-create-database-10.png" src="../_images/management-console-rds-create-database-10.png" style="width: 773.0px; height: 531.0px;" /></a>
 </div>
 <p><br/></p>
-<p>これでRDS DBインスタンスが作成できました。次回はこのデータベースにアクセスするSpringアプリケーションを実装してみます。</p>
+<p>これでRDS DBインスタンスが作成できました。次回はこのデータベースにテーブルを作成し、アクセスするSpringアプリケーションを実装していきます。</p>
 <p><br/></p>
 </div>
 </div>

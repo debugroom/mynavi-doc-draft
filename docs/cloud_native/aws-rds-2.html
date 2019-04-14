@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AWSで作るクラウドネイティブアプリケーションの基本 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-rds-3.html" />
+    <link rel="prev" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-rds-1.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
+<li><a class="reference internal" href="#amazon-rdsspring-2">Amazon RDSにアクセスするSpringアプリケーション(2)</a><ul>
+<li><a class="reference internal" href="#spring-data-jpaspring-cloud-aws">Spring Data JPAおよびSpring Cloud AWSの概要</a></li>
+<li><a class="reference internal" href="#spring-data-jpaspring-cloud-awsrds-1">Spring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(1)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="aws-rds-1.html" title="Previous Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; AWSで作るクラウドネイテ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="aws-rds-3.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/cloud_native/aws-rds-2.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="aws">
+<span id="section-cloud-native-rds-label-1-2"></span><h1>AWSで作るクラウドネイティブアプリケーションの基本<a class="headerlink" href="#aws" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="amazon-rdsspring-2">
+<span id="section-cloud-native-rds-2nd-label"></span><h2>Amazon RDSにアクセスするSpringアプリケーション(2)<a class="headerlink" href="#amazon-rdsspring-2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>クラウド上のリレーショナルデータベースとして、AWSで利用可能なAmazon RDS。今回はPostgreSQLをベースとするAmazon RDSへアクセスする
+Springアプリケーションの実装方法についてわかりやすく解説します。なお、データベースアクセスの実装にはSpring Data JPAおよび、
+Spring Cloud AWSを用いて実装します。</p>
+<p><br/></p>
+<ol class="arabic simple">
+<li>Amazon RDSの概要とデータベース構築</li>
+<li><strong>RDSへのテーブル構築とSpring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(1)</strong></li>
+<li>RDSへのテーブル構築とSpring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(2)</li>
+</ol>
+<p><br/></p>
+<p>前回に引き続き、Spring Data JPAおよびSpring Cloud AWSの概要を説明し、RDSへのテーブル構築、アプリケーション実装を進めていきます。</p>
+<p><br/></p>
+<div class="section" id="spring-data-jpaspring-cloud-aws">
+<span id="section-cloud-native-spring-data-jpa-and-spring-cloud-aws-overview-label"></span><h3>Spring Data JPAおよびSpring Cloud AWSの概要<a class="headerlink" href="#spring-data-jpaspring-cloud-aws" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p><a class="reference external" href="https://spring.io/projects/spring-data-jpa">Spring Data JPA</a> は JavaEE(Enterprize Edition)の標準データベースアクセス仕様であるJPA(Java Persistence API)を利用して、
+Repositoryを中核のコンポーネントとするデータベースアクセスで処理を抽象化し、CRUD操作などの実装を提供するフレームワークです。基本的なリレーショナルデータベースへのCRUDアクセスであれば、
+エンティティクラスとインターフェースを作成するだけでSQLを記述することなく、データベースアクセス処理を実装できます。Spring Data JPAは以下のような機能・実装を提供します。</p>
+<ul class="simple">
+<li>Javaのジェネリクスを利用した、GenericDAOパターンによるCRUD処理の実装</li>
+<li>命名規約に基づくメソッド名からの自動SQLクエリの組み立て・実行</li>
+<li>楽観ロックのサポート</li>
+</ul>
+<p>JPAやSpring Data JPAの詳細な解説は本連載では割愛しますが、詳しくは <a class="reference external" href="http://terasolunaorg.github.io/guideline/5.4.1.RELEASE/ja/ArchitectureInDetail/DataAccessDetail/DataAccessJpa.html">TERASOLUNA データベースアクセス(JPA)のガイドライン</a> を適宜参照してください。</p>
+<p><a class="reference external" href="https://spring.io/projects/spring-cloud-aws">Spring Cloud AWS</a> はSpring Cloud プロジェクトのひとつで、AWSのS3やSQS、SNSといったサービスのSDKやAPIを統合するフレームワークです。
+以下のようなサポートを提供し、AWSサービスとの統合を実現します。</p>
+<ul class="simple">
+<li>Amazon SQSにおけるSpring Messaging APIの実装</li>
+<li>AWS ElastiCacheにおけるSpring Cache APIの実装</li>
+<li>Amazon SNSにおけるアノテーションをベースとしたエンドポイントの設定・マッピング</li>
+<li>CloudFormationで定義した論理名リソースへのアクセス</li>
+<li>AWS RDSインスタンスの論理名からのデータソースの自動構築</li>
+<li>Amazon S3におけるResourceLoaderを使ったBucketアクセス</li>
+</ul>
+<p>今回のメイントピックスであるRDSにおいては、以降、詳述しますが、Spring Cloud AWSではアプリケーションからアクセスするデータソースの自動構築をサポートします。</p>
+<p>また、実際に作成したアプリケーションは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-aws-rds">GitHub</a> 上にコミットしています。
+以降記載されているソースコードで、インポート文など本質的でない記述を省略している部分がありますので、実行コードを作成する場合は、必要に応じて適宜GitHubソースコードも参照してください。</p>
+<p><br/></p>
+</div>
+<div class="section" id="spring-data-jpaspring-cloud-awsrds-1">
+<span id="section-cloud-native-spring-data-jpa-and-spring-cloud-aws-implementation-1st-label"></span><h3>Spring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(1)<a class="headerlink" href="#spring-data-jpaspring-cloud-awsrds-1" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>Spring Data JPAとSpring Cloud AWSを使用するには、まず、Mavenプロジェクトのpom.xmlで、spring-boot-starter-data-jpaおよび、spring-cloud-starter-awsのライブラリを定義します。
+また、RDSへアクセスするためにはspring-cloud-starter-aws-jdbcも合わせて追加する必要があります。なお、PostgreSQLのドライバや、エンティティクラスの実装を簡易化するためにLombokライブラリを追加しておきましょう。</p>
+<p><br/></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependencies&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-data-jpa<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-aws<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-aws-jdbc<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.postgresql<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>postgresql<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;scope&gt;</span>runtime<span class="nt">&lt;/scope&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.projectlombok<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>lombok<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;optional&gt;</span>true<span class="nt">&lt;/optional&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>アプリケーションを実装していく前に、Spring Cloud AWSとSpring Data JPAを使って、アプリケーションがRDSアクセスする仕組みを押さえておく必要があります。</p>
+<p>通常、RDSとJavaアプリケーションを接続する場合は、javax.sql.DataSourceの実装インスタンスにRDSエンドポイントとデータベースのユーザ名、パスワードを設定し、それからConnectionを取得すればアクセスできます。
+前回RDSの概要でも説明した通り、RDSはセキュリティグループによりアクセス制御されるので、インバウンド接続許可設定されたIPアドレス帯であれば、アプリケーション内でDataSourceからConnectionを取得する実装で接続できます。</p>
+<p>しかし、Spring Cloud AWSを使ったRDSへの接続では、AWSユーザ認証情報およびRDSインスタンスの論理名とデータベース接続ユーザのパスワードから、RDSエンドポイント等の必要な情報を取得し、DataSourceオブジェクトを構築します。
+Spring Data JPAと組み合わせる場合は、JavaConfig上でSpring Cloud AWSにより自動作成されたDataSourceをインジェクションするよう設定すればOKです。
+なお、下記の点線が示すようにSpring Cloud AWSを使用せず、直接DataSourceを構築する方法でも問題はありません。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/rds_setting_overview.png"><img alt="../_images/rds_setting_overview.png" src="../_images/rds_setting_overview.png" style="width: 1024.0px; height: 442.0px;" /></a>
+</div>
+<p><br/></p>
+<p>また、前回構築したRDSにテーブルを構築します。今回は以下のようなテーブル構成とします。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id4">
+<caption><span class="caption-text">アプリケーション</span><a class="headerlink" href="#id4" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="60%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>テーブル名</td>
+<td>物理名</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td>グループ</td>
+<td>GRP</td>
+<td>グループを表すエンティティ。所属という実体関連を通してユーザとN:Nの関連を持つ。なおGROUPはPostgreSQLで予約語のため簡略化表記。</td>
+</tr>
+<tr class="row-odd"><td>所属</td>
+<td>MEMBERSHIP</td>
+<td>所属を表すエンティティ。グループとユーザにあるN対Nの関連を、N:1、1:Nの形で繋ぐ実体関連テーブル。</td>
+</tr>
+<tr class="row-even"><td>ユーザ</td>
+<td>USR</td>
+<td>ユーザを表すエンティティ。なおUSERはPostgreSQLで予約語のため簡略化表記。</td>
+</tr>
+<tr class="row-odd"><td>住所</td>
+<td>ADDRESS</td>
+<td>住所を表すエンティティ。ユーザとは1：1の関連を持つ。</td>
+</tr>
+<tr class="row-even"><td>メール</td>
+<td>Email</td>
+<td>メールを表すエンティティ。ユーザとは1：Nの関連を持つ。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/sample_database.png"><img alt="../_images/sample_database.png" src="../_images/sample_database.png" style="width: 815.0px; height: 817.0px;" /></a>
+</div>
+<p><br/></p>
+<p>各テーブルを構築するDDLは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-aws-rds/blob/master/ermaster/sql/sample_database_schema.sql">こちら</a> を参照してください。
+セキュリティグループでRDSのインバウンド接続が許可されたIPアドレスをもつEC2インスタンスなどで、PSQLクライアントなどをインストールし、
+前回作成したRDSのエンドポイント、データベース、ユーザ名を指定してRDSに接続後、DDLを記載したファイルをインポートを行うiコマンドで実行すればテーブル構築できます。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>centos@ip-XXXX-XXX-XXX-XXX ~<span class="o">]</span>$ psql -U username -d sample_database -h mynavi-sample-db.xxxxxxx.ap-northeast-1.rds.amazonaws.com
+Password <span class="k">for</span> user username:
+psql <span class="o">(</span><span class="m">9</span>.4.0, server <span class="m">10</span>.6<span class="o">)</span>
+<span class="nv">sample_database</span><span class="o">=</span>&gt; <span class="se">\i</span> sample_database.sql
+</pre></div>
+</div>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p>CentOSのPSQLインストール方法</p>
+<p>EC2でCentOS7を実行した場合、以下のコマンドでPSQLをインストールできます。</p>
+<div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>centos@ip-XXXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo yum update -y
+// omit
+<span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo yum install -y postgresql
+</pre></div>
+</div>
+</div>
+<p><br/></p>
+<p>それでは、アプリケーションの実装に進みます。今回作成するアプリケーションは以下の構成です。</p>
+<table border="1" class="colwidths-given docutils" id="id5">
+<caption><span class="caption-text">アプリケーション</span><a class="headerlink" href="#id5" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="30%" />
+<col width="60%" />
+<col width="10%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>コンポーネント</td>
+<td>説明</td>
+<td>必須</td>
+</tr>
+<tr class="row-even"><td>App</td>
+<td>SpringBootアプリケーションを実行する起動クラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-odd"><td>DomainConfig</td>
+<td>サービスレイヤの設定を行うクラス</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>JpaConfig</td>
+<td>JPAに関する設定クラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-odd"><td>RDSConfig</td>
+<td>RDSへの接続に関する設定クラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-even"><td>SampleService</td>
+<td>各Repositoryを使ってデータ設定するサービスを実装。トランザクション境界を設定。</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Xxxxx(Entity)</td>
+<td>データベースに定義したテーブルに対応するエンティティクラスです。</td>
+<td>◯</td>
+</tr>
+<tr class="row-even"><td>XxxxxRepository</td>
+<td>各エンティティに対応するレポジトリです。</td>
+<td>◯</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>以降、各々のクラスについて解説を進めていきますが、事前に <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/cli-configure-files.html">AWS公式ページ「設定ファイルと認証情報ファイル」</a> を参考に
+ユーザホームフォルダに.awsディレクトリを作成し、credentialというファイル名で、前回取得したCSV形式の認証キーに記載しているユーザ認証情報を、以下の形式で保存してください。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>default<span class="o">]</span>
+<span class="nv">aws_access_key_id</span><span class="o">=</span>XXXXXXXXXXXXXXXX
+<span class="nv">aws_secret_access_key</span><span class="o">=</span>YYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+</pre></div>
+</div>
+<p><br/></p>
+<p>また、上記のクレデンシャルをもつユーザはRDSへの接続権限を持つ必要があります。以下のように、AWSコンソールで「IAM」サービスメニューから、ユーザにRDBのアクセス権限を付与しておいてください。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-iam-group-policy.png"><img alt="../_images/management-console-iam-group-policy.png" src="../_images/management-console-iam-group-policy.png" style="width: 853.0px; height: 353.0px;" /></a>
+</div>
+<p><br/></p>
+<p>それでは、実装していくクラスを説明します。まず、最初にSpringBoot起動クラス及び、各種設定クラスです。
+&#64;SpringBootApplicaitonアノテーションが付与された起動クラスは、同一パッケージにある&#64;Configurationアノテーションが付与された設定クラス及び、
+設定クラス内で&#64;ComponentScanされたパッケージにあるクラスを読み取ります。今回は目的に応じて以下の3つに分類して設定クラスを作成します。</p>
+<ul class="simple">
+<li>Serviceをコンポーネントスキャンで読み取る設定クラス：DomainConfigクラス</li>
+<li>RDSの接続を行う設定クラス：RdsConfigクラス</li>
+<li>Spring Data JPAの接続を行う設定クラス：JpaConfigクラス</li>
+</ul>
+<p>設定クラスは必ずしも複数である必要はなく一つにまとめても動作上問題ありませんが、クラス名と役割を対応づけて作成していた方が、
+後々設定内容を混乱することなく、クラス名から識別できてベターです。</p>
+<p>起動クラスはアプリケーションを構築後、SampleServiceクラスを取得し、RDSの各テーブルにデータを設定するメソッドを呼び出します。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.rds.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.ApplicationContext</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.aws.rds.domain.service.SampleService</span><span class="o">;</span>
+
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="n">ApplicationContext</span> <span class="n">applicationContext</span> <span class="o">=</span> <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">App</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+        <span class="n">SampleService</span> <span class="n">sampleService</span> <span class="o">=</span> <span class="n">applicationContext</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="n">SampleService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+        <span class="n">sampleService</span><span class="o">.</span><span class="na">setData</span><span class="o">();</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>続いて、DomainConfigクラスではServiceなどビジネスロジックレイヤに属するコンポーネントがあるパッケージをスキャンする定義を追加しておきます。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.rds.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.ComponentScan</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="nd">@ComponentScan</span><span class="o">(</span><span class="s">&quot;org.debugroom.mynavi.sample.aws.rds.domain.service&quot;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DomainConfig</span> <span class="o">{</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>次に、RDSへの接続情報を設定するRdsConfigですが、&#64;EnableRdsInstanceアノテーションで、RDSの論理名および、DBユーザのパスワードを設定します。
+セキュリティ上ハードコーディングは望ましくないので、プロパティファイル上でプレースホルダとして設定し、applicaiton.ymlを通じて環境変数から取得できるように定義しておきます。
+この設定を行うことにより、Spring Cloud AWSがRDSから論理名の紐づくエンドポイントやPostgreSQLのユーザ情報を取得して、DataSourceオブジェクトが構築するようになります。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.rds.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.aws.jdbc.config.annotation.EnableRdsInstance</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="nd">@EnableRdsInstance</span><span class="o">(</span>
+    <span class="n">dbInstanceIdentifier</span> <span class="o">=</span> <span class="s">&quot;${rds.identifier}&quot;</span><span class="o">,</span>
+    <span class="n">password</span> <span class="o">=</span><span class="s">&quot;${rds.password}&quot;</span><span class="o">,</span>
+    <span class="n">readReplicaSupport</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RdsConfig</span> <span class="o">{</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>applicaiton.yml</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rds:
+  identifier: <span class="si">${</span><span class="nv">RDS_IDENTIFIER</span><span class="si">}</span>
+  password: <span class="si">${</span><span class="nv">RDS_PASSWORD</span><span class="si">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>JpaConfigでは、&#64;EnableTransactionManagementを付与したConfigクラスを作成し、生成されたDataSourceをorg.springframework.orm.jpa.LocalContainerEntityManagerFactoryBeanに設定します。
+また、エンティティクラスのパッケージや、トランザクションマネージャのBean定義、&#64;EnableJpaRepositoriesでレポジトリクラスのパッケージを指定しておいてください。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.rds.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.jpa.repository.config.EnableJpaRepositories</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.orm.jpa.JpaTransactionManager</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.orm.jpa.JpaVendorAdapter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.transaction.PlatformTransactionManager</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.transaction.annotation.EnableTransactionManagement</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.sql.DataSource</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Properties</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="nd">@EnableTransactionManagement</span>
+<span class="nd">@EnableJpaRepositories</span><span class="o">(</span><span class="n">basePackages</span><span class="o">=</span><span class="s">&quot;org.debugroom.mynavi.sample.aws.rds.domain.repository&quot;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">JpaConfig</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">DataSource</span> <span class="n">dataSource</span><span class="o">;</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">PlatformTransactionManager</span> <span class="nf">transactionManager</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">JpaTransactionManager</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">LocalContainerEntityManagerFactoryBean</span> <span class="nf">entityManagerFactory</span><span class="o">(){</span>
+
+        <span class="n">JpaVendorAdapter</span> <span class="n">adapter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HibernateJpaVendorAdapter</span><span class="o">();</span>
+
+        <span class="n">Properties</span> <span class="n">properties</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
+        <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">&quot;hibernate.show_sql&quot;</span><span class="o">,</span> <span class="s">&quot;true&quot;</span><span class="o">);</span>
+        <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">&quot;hibernate.format_sql&quot;</span><span class="o">,</span> <span class="s">&quot;true&quot;</span><span class="o">);</span>
+
+        <span class="n">LocalContainerEntityManagerFactoryBean</span> <span class="n">emfb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LocalContainerEntityManagerFactoryBean</span><span class="o">();</span>
+        <span class="n">emfb</span><span class="o">.</span><span class="na">setPackagesToScan</span><span class="o">(</span><span class="s">&quot;org.debugroom.mynavi.sample.aws.rds.domain.model.entity&quot;</span><span class="o">);</span>
+        <span class="n">emfb</span><span class="o">.</span><span class="na">setJpaProperties</span><span class="o">(</span><span class="n">properties</span><span class="o">);</span>
+        <span class="n">emfb</span><span class="o">.</span><span class="na">setJpaVendorAdapter</span><span class="o">(</span><span class="n">adapter</span><span class="o">);</span>
+        <span class="n">emfb</span><span class="o">.</span><span class="na">setDataSource</span><span class="o">(</span><span class="n">dataSource</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">emfb</span><span class="o">;</span>
+     <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>また、Spring Cloud AWSでは、通常、AWSのEC2インスタンスで実行されることを想定して、インスタンスプロファイル情報を取得する設定になっています。
+インスタンスプロファイル情報はアプリケーションを実行するEC2インスタンスもしくはECSコンテナがもつ認証情報で、
+<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html">インスタンスやコンテナを実行する際、IAMロールから権限を割り当てるオプション</a> により設定されます。
+開発端末では当然、認証情報の取得エラーになるので、以下の通り、開発端末下だけで有効されるapplication-dev.ymlで、cloud.aws.credentials.profileに空白を、instaceProfileをfalseにしておきましょう。
+また、リージョンの自動検出をOFFにするよう、cloud.aws.region.autoにfalseを、RDSが構築されているリージョンをcloud.aws.region.staticに手動設定しておきます。</p>
+<p><br/></p>
+<p>applicaiton-dev.yml</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cloud:
+  aws:
+    credentials:
+      profileName:
+      instanceProfile: <span class="nb">false</span>
+    region:
+      auto: <span class="nb">false</span>
+      static: ap-northeast-1
+</pre></div>
+</div>
+<p><br/></p>
+<p>この設定により、Spring Cloud AWSは、com.amazonaws.auth.DefaultAWSCredentialsProviderChainを利用して、AWSの認証情報を取得していくようになります。DefaultAWSCredentialsProviderChainでは、以下の順序で情報を取得していく実装になっています。</p>
+<ol class="arabic simple">
+<li>環境変数AWS_ACCESS_KEY_IDとAWS_SECRET_ACCESS_KEY</li>
+<li>システムプロパティaws.accessKeyIdとaws.secretKey</li>
+<li>ユーザのAWS認証情報ファイル</li>
+<li>AWSインスタンスプロファイルの認証情報</li>
+</ol>
+<p>これまでの設定では、ローカル環境ではユーザのAWS認証情報ファイルで取得する状態になっていますが、実はこの実装のまま本番環境へ持って行っても、最後のAWSインスタンスプロファイルから認証情報を取得できます。
+この辺の挙動の詳細を知りたい方は <a class="reference external" href="https://github.com/aws/aws-sdk-java/blob/master/aws-java-sdk-core/src/main/java/com/amazonaws/auth/DefaultAWSCredentialsProviderChain.java">DefaultAWSCredentialsProviderChainの実装</a> を参照してみてください。
+開発環境・本番環境が変わるからといって、環境依存をなくすためにアプリケーション内でアクセスキーIDやシークレットキーを割り当てる実装は必要ありませんので、
+開発環境(AWS内ではないローカル環境の場合)は.aws配下の認証情報を取得し、本番環境では、インスタンスのプロファイル上から認証情報を取得する実装を心がけてください。</p>
+<p><br/></p>
+<p>なお、アプリケーション起動時に、Spring Cloud AWSのAuto-configurationであるContextStackAutoConfigurationによって、 アプリケーションのスタック名自動検出が有効になり、
+AWS CloudFormationのスタックが見つからない場合、 AmazonServiceExceptionが発生しアプリケーションが起動しなくなります。そのため、application.ymlで、cloud.aws.stack.auto = falseを設定し、スタックの自動検出を無効化することでエラーを回避します。</p>
+<p><br/></p>
+<p>application.yml</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cloud:
+  aws:
+    stack:
+      auto: <span class="nb">false</span>
+</pre></div>
+</div>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">アプリケーション実行時にjava.lang.reflect.InvocationTargetException Caused by: java.sql.SQLFeatureNotSupportedException: org.postgresql.jdbc.PgConnection.createClob()が発生する場合があります。
+PostgreSQLにCLOB型が存在しないため、チェックメソッドでスローしている例外で実行に支障はありませんが、出力を抑制したい場合は、クラスパス直下にhibernate.propertiesを作成し、hibernate.jdbc.lob.non_contextual_creationをtrueに設定すれば出力を抑制できます。</p>
+</div>
+<p><br/></p>
+<p>ここまで設定クラスの実装まで完了しました。次回はアプリケーションのSpring Data JPAを使用した処理実装を進めていきます。</p>
+<p><br/></p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>著者紹介<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei)</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+</div>
+<p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
