@@ -68,9 +68,23 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 </ul>
 </ul>
 </li>
@@ -154,19 +168,22 @@
 <li>ECSタスクの定義</li>
 <li>ECSサービスの実行</li>
 </ol>
-<p>前回の記事「 <a class="reference internal" href="aws-ecs-4.html#section-cloud-native-ecs-4th-label"><span class="std std-ref">第2回 AWS ECS上に構築するSpringアプリケーション(4)</span></a> 」までに、以下イメージの構成に沿って、VPC環境・ALBを構築した後、ECSコンテナ上で動くパブリック・プライベートサブネット用２種類のアプリケーションを作成し、
-Dockerコンテナイメージを作成して、DockerHubレジストリにプッシュしました。今回は「5. ECSクラスタの作成」になります。</p>
+<p>前回の記事「 <a class="reference internal" href="aws-ecs-4.html#section-cloud-native-ecs-4th-label"><span class="std std-ref">第2回 AWS ECS上に構築するSpringアプリケーション(4)</span></a> 」までに、VPC環境・ALBを構築し、ECSコンテナ上で動くパブリック・プライベートサブネット用２種類のアプリケーションを作成した上で、
+Dockerコンテナイメージを作成して、DockerHubレジストリにプッシュするところまで解説しました。構成イメージは以下の通りです。</p>
 <p><br/></p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/ecs-architecture.png"><img alt="../_images/ecs-architecture.png" src="../_images/ecs-architecture.png" style="width: 786.0px; height: 723.0px;" /></a>
 </div>
 <p><br/></p>
+<p>続く今回はECSクラスタを作成します。</p>
+<p><br/></p>
 <div class="section" id="ecs">
 <span id="section-cloud-native-ecs-create-cluster-label"></span><h3>(5)ECSクラスタの作成<a class="headerlink" href="#ecs" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
-<p>パブリックサブネット・プライベートサブネット双方にECSクラスタを作成します。EC2起動型のECSクラスタ自体はECSコンテナ(Dockerコンテナ)を実行するEC2インスタンスそのもので、
-EC2と同様、実行するマシンのスペックなどを選択して、各アベイラビリティゾーン毎にプロビジョニングします。今回はサンプルのため、パブリック・プライベートサブネットともに
-クラスタは１つのアベイラビリティゾーンにだけしか配置しませんが、ALBからはターゲットグループでコンテナを指定する形になるので、ロードバランス上問題はありません。</p>
+<p>ECSクラスタはパブリックサブネット・プライベートサブネット双方に作成します。EC2起動型のECSクラスタ自体はECSコンテナ(Dockerコンテナ)を実行するEC2インスタンスそのもので、
+EC2と同様、実行するマシンのスペックなどを選択して、各アベイラビリティゾーン毎にプロビジョニングします。</p>
+<p>今回はサンプルのため、パブリック・プライベートサブネットともに
+クラスタは１つのアベイラビリティゾーンにだけしか配置しませんが、ALBからはターゲットグループでコンテナを指定するかたちになるので、ロードバランス上問題はありません。</p>
 <p>「Amazon ECS」サービスから、「クラスター」メニューを選択し、「クラスタの作成」ボタンを押下します。クラスターテンプレートの選択で、「EC2 Linux + ネットワーキング」を選択し、
 「次のステップへ」ボタンを押下します。</p>
 <p><br/></p>
@@ -227,7 +244,7 @@ EC2と同様、実行するマシンのスペックなどを選択して、各�
 <p><br/></p>
 <div class="admonition warning">
 <p class="first admonition-title">警告</p>
-<p>ecsInstanceRoleはAmazonEC2ContainerServiceforEC2Roleポリシーが付与されたIAM ロールです。</p>
+<p>ecsInstanceRoleとは、AmazonEC2ContainerServiceforEC2Roleポリシーが付与されたIAM ロールです。</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
   <span class="s">&quot;Version&quot;</span><span class="o">:</span> <span class="s">&quot;2012-10-17&quot;</span><span class="o">,</span>
   <span class="s">&quot;Statement&quot;</span><span class="o">:</span> <span class="o">[</span>
@@ -263,7 +280,7 @@ EC2と同様、実行するマシンのスペックなどを選択して、各�
 <p class="last">プロビジョニングモデルで、オンデマンドインスタンスを選択しても、EC2リザーブドインスタンスは有効になります。リザーブドインスタンスを適用するのであれば、対応するEC2インスタンスタイプを指定しましょう。</p>
 </div>
 <p><br/></p>
-<p>作成したECSクラスタのセキュリティグループ設定でロードバランサからの接続および、トラブルシューティング時のSSH接続アクセス許可を追加します。
+<p>次に、作成したECSクラスタのセキュリティグループ設定で、ロードバランサからの接続および、トラブルシューティング時のSSH接続アクセス許可を追加します。
 特に、ロードバランサからの接続は動的ポーティングでコンテナを運用する場合、ALBからの通信でポート32768-61000を許可する必要があります。</p>
 <p>「EC2」サービスから、「セキュリティグループ」を選択し、上記で作成したECSクラスタのセキュリティグループを選択して、インバウンドルールを変更して下さい。なお、ALBからの通信のソースはALBに設定しているセキュリティグループを指定します。</p>
 <p><br/></p>

@@ -35,15 +35,15 @@ Spring Data JPAおよびSpring Cloud AWSの概要
 
 |br|
 
-`Spring Data JPA <https://spring.io/projects/spring-data-jpa>`_ は JavaEE(Enterprize Edition)の標準データベースアクセス仕様であるJPA(Java Persistence API)を利用して、
+`Spring Data JPA <https://spring.io/projects/spring-data-jpa>`_ は JavaEE(Enterprize Edition)の標準データベースアクセス仕様であるJPA(Java Persistence API)を使用して、
 Repositoryを中核のコンポーネントとするデータベースアクセスで処理を抽象化し、CRUD操作などの実装を提供するフレームワークです。基本的なリレーショナルデータベースへのCRUDアクセスであれば、
-エンティティクラスとインターフェースを作成するだけでSQLを記述することなく、データベースアクセス処理を実装できます。Spring Data JPAは以下のような機能・実装を提供します。
+エンティティクラスとレポジトリインターフェースを作成するだけでSQLを記述することなく、データベースアクセス処理を実装できます。Spring Data JPAは以下のような機能・実装を提供します。
 
 * Javaのジェネリクスを利用した、GenericDAOパターンによるCRUD処理の実装
 * 命名規約に基づくメソッド名からの自動SQLクエリの組み立て・実行
 * 楽観ロックのサポート
 
-JPAやSpring Data JPAの詳細な解説は本連載では割愛しますが、詳しくは `TERASOLUNA データベースアクセス(JPA)のガイドライン <http://terasolunaorg.github.io/guideline/5.4.1.RELEASE/ja/ArchitectureInDetail/DataAccessDetail/DataAccessJpa.html>`_ を適宜参照してください。
+JPAやSpring Data JPAの詳しい解説は本連載では割愛しますが、詳細を知りたい場合は `TERASOLUNA データベースアクセス(JPA)のガイドライン <http://terasolunaorg.github.io/guideline/5.4.1.RELEASE/ja/ArchitectureInDetail/DataAccessDetail/DataAccessJpa.html>`_ を適宜参照してください。
 
 `Spring Cloud AWS <https://spring.io/projects/spring-cloud-aws>`_ はSpring Cloud プロジェクトのひとつで、AWSのS3やSQS、SNSといったサービスのSDKやAPIを統合するフレームワークです。
 以下のようなサポートを提供し、AWSサービスとの統合を実現します。
@@ -119,7 +119,7 @@ Spring Data JPAと組み合わせる場合は、JavaConfig上でSpring Cloud AWS
 
 |br|
 
-また、前回構築したRDSにテーブルを構築します。今回は以下のようなテーブル構成とします。
+また、前回構築したRDSデータベースにテーブルを作成します。今回は以下のようなテーブル構成とします。
 
 |br|
 
@@ -159,7 +159,7 @@ Spring Data JPAと組み合わせる場合は、JavaConfig上でSpring Cloud AWS
 
 各テーブルを構築するDDLは `こちら <https://github.com/debugroom/mynavi-sample-aws-rds/blob/master/ermaster/sql/sample_database_schema.sql>`_ を参照してください。
 セキュリティグループでRDSのインバウンド接続が許可されたIPアドレスをもつEC2インスタンスなどで、PSQLクライアントなどをインストールし、
-前回作成したRDSのエンドポイント、データベース、ユーザ名を指定してRDSに接続後、DDLを記載したファイルをインポートを行うiコマンドで実行すればテーブル構築できます。
+前回作成したRDSのエンドポイント、データベース、ユーザ名を指定してRDSに接続後、DDLを記載したSQLファイルをインポートするiコマンドで実行すれば、テーブル構築できます。
 
 |br|
 
@@ -172,9 +172,7 @@ Spring Data JPAと組み合わせる場合は、JavaConfig上でSpring Cloud AWS
 
 |br|
 
-.. note:: CentOSのPSQLインストール方法
-
-   EC2でCentOS7を実行した場合、以下のコマンドでPSQLをインストールできます。
+.. note:: CentOSのPSQLインストール方法ですが、EC2でCentOS7を実行した場合は、以下のコマンドでPSQLをインストールできます。
 
    .. sourcecode:: bash
 
@@ -334,6 +332,16 @@ applicaiton.yml
    rds:
      identifier: ${RDS_IDENTIFIER}
      password: ${RDS_PASSWORD}
+
+|br|
+
+なお、今回は開発する端末で直接環境変数を設定しても良いですが、前回RDS構築時に指定した論理名とパスワードを、applicaiton-dev.ymlで、プレースホルダにデフォルト値を設定するかたちで実装しておきます。
+
+.. sourcecode:: bash
+
+   rds:
+     identifier:  ${RDS_IDENTIFIER:mynavi-sample-db}
+     password: ${RDS_PASSWORD:xxxxxxxxxx}
 
 |br|
 

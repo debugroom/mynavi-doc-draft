@@ -114,7 +114,7 @@ Spring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケ�
 
 |br|
 
-上記の表を参考に、各テーブルごとに対応したエンティティクラスを作成します。一例としてユーザエンティティクラスの実装例を載せますが、各テーブルごとのエンティティクラスの実装の詳細は 、
+上記の表を参考に、各テーブルごとに対応したエンティティクラスを作成します。一例としてユーザエンティティクラスの実装例を一部抜粋して載せますが、各テーブルごとのエンティティクラスの実装の詳細は 、
 `エンティティクラスのパッケージ <https://github.com/debugroom/mynavi-sample-aws-rds/tree/master/src/main/java/org/debugroom/mynavi/sample/aws/rds/domain/model/entity>`_ を参照してください。
 
 |br|
@@ -244,7 +244,8 @@ Spring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケ�
 |br|
 
 最後にトランザクション境界が設定されるServiceクラスです。@Transactionalアノテーションと@Serviceアノテーションを付与したService実装クラスを作成します。
-この処理では各テーブルにデータを保存する処理を記述しています。
+こちらも一部の抜粋になりますが、この処理では各テーブルにデータを保存する処理を記述しています。
+詳細は `サービスクラス <https://github.com/debugroom/mynavi-sample-aws-rds/blob/master/src/main/java/org/debugroom/mynavi/sample/aws/rds/domain/service/SampleServiceImpl.java>`_ を参照してください。
 
 
 .. sourcecode:: java

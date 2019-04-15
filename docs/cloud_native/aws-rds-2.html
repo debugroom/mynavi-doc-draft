@@ -174,15 +174,15 @@ Spring Cloud AWSを用いて実装します。</p>
 <div class="section" id="spring-data-jpaspring-cloud-aws">
 <span id="section-cloud-native-spring-data-jpa-and-spring-cloud-aws-overview-label"></span><h3>Spring Data JPAおよびSpring Cloud AWSの概要<a class="headerlink" href="#spring-data-jpaspring-cloud-aws" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
-<p><a class="reference external" href="https://spring.io/projects/spring-data-jpa">Spring Data JPA</a> は JavaEE(Enterprize Edition)の標準データベースアクセス仕様であるJPA(Java Persistence API)を利用して、
+<p><a class="reference external" href="https://spring.io/projects/spring-data-jpa">Spring Data JPA</a> は JavaEE(Enterprize Edition)の標準データベースアクセス仕様であるJPA(Java Persistence API)を使用して、
 Repositoryを中核のコンポーネントとするデータベースアクセスで処理を抽象化し、CRUD操作などの実装を提供するフレームワークです。基本的なリレーショナルデータベースへのCRUDアクセスであれば、
-エンティティクラスとインターフェースを作成するだけでSQLを記述することなく、データベースアクセス処理を実装できます。Spring Data JPAは以下のような機能・実装を提供します。</p>
+エンティティクラスとレポジトリインターフェースを作成するだけでSQLを記述することなく、データベースアクセス処理を実装できます。Spring Data JPAは以下のような機能・実装を提供します。</p>
 <ul class="simple">
 <li>Javaのジェネリクスを利用した、GenericDAOパターンによるCRUD処理の実装</li>
 <li>命名規約に基づくメソッド名からの自動SQLクエリの組み立て・実行</li>
 <li>楽観ロックのサポート</li>
 </ul>
-<p>JPAやSpring Data JPAの詳細な解説は本連載では割愛しますが、詳しくは <a class="reference external" href="http://terasolunaorg.github.io/guideline/5.4.1.RELEASE/ja/ArchitectureInDetail/DataAccessDetail/DataAccessJpa.html">TERASOLUNA データベースアクセス(JPA)のガイドライン</a> を適宜参照してください。</p>
+<p>JPAやSpring Data JPAの詳しい解説は本連載では割愛しますが、詳細を知りたい場合は <a class="reference external" href="http://terasolunaorg.github.io/guideline/5.4.1.RELEASE/ja/ArchitectureInDetail/DataAccessDetail/DataAccessJpa.html">TERASOLUNA データベースアクセス(JPA)のガイドライン</a> を適宜参照してください。</p>
 <p><a class="reference external" href="https://spring.io/projects/spring-cloud-aws">Spring Cloud AWS</a> はSpring Cloud プロジェクトのひとつで、AWSのS3やSQS、SNSといったサービスのSDKやAPIを統合するフレームワークです。
 以下のようなサポートを提供し、AWSサービスとの統合を実現します。</p>
 <ul class="simple">
@@ -242,7 +242,7 @@ Spring Data JPAと組み合わせる場合は、JavaConfig上でSpring Cloud AWS
 <a class="reference internal image-reference" href="../_images/rds_setting_overview.png"><img alt="../_images/rds_setting_overview.png" src="../_images/rds_setting_overview.png" style="width: 1024.0px; height: 442.0px;" /></a>
 </div>
 <p><br/></p>
-<p>また、前回構築したRDSにテーブルを構築します。今回は以下のようなテーブル構成とします。</p>
+<p>また、前回構築したRDSデータベースにテーブルを作成します。今回は以下のようなテーブル構成とします。</p>
 <p><br/></p>
 <table border="1" class="colwidths-given docutils" id="id4">
 <caption><span class="caption-text">アプリケーション</span><a class="headerlink" href="#id4" title="このテーブルへのパーマリンク">¶</a></caption>
@@ -285,7 +285,7 @@ Spring Data JPAと組み合わせる場合は、JavaConfig上でSpring Cloud AWS
 <p><br/></p>
 <p>各テーブルを構築するDDLは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-aws-rds/blob/master/ermaster/sql/sample_database_schema.sql">こちら</a> を参照してください。
 セキュリティグループでRDSのインバウンド接続が許可されたIPアドレスをもつEC2インスタンスなどで、PSQLクライアントなどをインストールし、
-前回作成したRDSのエンドポイント、データベース、ユーザ名を指定してRDSに接続後、DDLを記載したファイルをインポートを行うiコマンドで実行すればテーブル構築できます。</p>
+前回作成したRDSのエンドポイント、データベース、ユーザ名を指定してRDSに接続後、DDLを記載したSQLファイルをインポートするiコマンドで実行すれば、テーブル構築できます。</p>
 <p><br/></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>centos@ip-XXXX-XXX-XXX-XXX ~<span class="o">]</span>$ psql -U username -d sample_database -h mynavi-sample-db.xxxxxxx.ap-northeast-1.rds.amazonaws.com
 Password <span class="k">for</span> user username:
@@ -296,8 +296,7 @@ psql <span class="o">(</span><span class="m">9</span>.4.0, server <span class="m
 <p><br/></p>
 <div class="admonition note">
 <p class="first admonition-title">注釈</p>
-<p>CentOSのPSQLインストール方法</p>
-<p>EC2でCentOS7を実行した場合、以下のコマンドでPSQLをインストールできます。</p>
+<p>CentOSのPSQLインストール方法ですが、EC2でCentOS7を実行した場合は、以下のコマンドでPSQLをインストールできます。</p>
 <div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>centos@ip-XXXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo yum update -y
 // omit
 <span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo yum install -y postgresql
@@ -435,6 +434,13 @@ psql <span class="o">(</span><span class="m">9</span>.4.0, server <span class="m
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rds:
   identifier: <span class="si">${</span><span class="nv">RDS_IDENTIFIER</span><span class="si">}</span>
   password: <span class="si">${</span><span class="nv">RDS_PASSWORD</span><span class="si">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>なお、今回は開発する端末で直接環境変数を設定しても良いですが、前回RDS構築時に指定した論理名とパスワードを、applicaiton-dev.ymlで、プレースホルダにデフォルト値を設定するかたちで実装しておきます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rds:
+  identifier:  <span class="si">${</span><span class="nv">RDS_IDENTIFIER</span><span class="p">:</span><span class="nv">mynavi</span><span class="p">-sample-db</span><span class="si">}</span>
+  password: <span class="si">${</span><span class="nv">RDS_PASSWORD</span><span class="p">:</span><span class="nv">xxxxxxxxxx</span><span class="si">}</span>
 </pre></div>
 </div>
 <p><br/></p>

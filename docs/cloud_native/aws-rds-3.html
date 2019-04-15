@@ -103,7 +103,7 @@
 <li><a class="reference internal" href="#spring-data-jpaspring-cloud-awsrds-2">Spring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(2)</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id3">著者紹介</a></li>
+<li><a class="reference internal" href="#id4">著者紹介</a></li>
 </ul>
 </li>
 </ul>
@@ -179,8 +179,8 @@ Spring Cloud AWSを用いて実装します。</p>
 <p><br/></p>
 <p>テーブルに対応したJavaクラスを作成し、JPA標準のjavax.persistenceパッケージのアノテーションを付与します。代表的なアノテーションの概要は以下の通りです。</p>
 <p><br/></p>
-<table border="1" class="colwidths-given docutils" id="id4">
-<caption><span class="caption-text">javax.persistenceアノテーションの概要</span><a class="headerlink" href="#id4" title="このテーブルへのパーマリンク">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id5">
+<caption><span class="caption-text">javax.persistenceアノテーションの概要</span><a class="headerlink" href="#id5" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col width="30%" />
 <col width="20%" />
@@ -276,7 +276,7 @@ Spring Cloud AWSを用いて実装します。</p>
 </tbody>
 </table>
 <p><br/></p>
-<p>上記の表を参考に、各テーブルごとに対応したエンティティクラスを作成します。一例としてユーザエンティティクラスの実装例を載せますが、各テーブルごとのエンティティクラスの実装の詳細は 、
+<p>上記の表を参考に、各テーブルごとに対応したエンティティクラスを作成します。一例としてユーザエンティティクラスの実装例を一部抜粋して載せますが、各テーブルごとのエンティティクラスの実装の詳細は 、
 <a class="reference external" href="https://github.com/debugroom/mynavi-sample-aws-rds/tree/master/src/main/java/org/debugroom/mynavi/sample/aws/rds/domain/model/entity">エンティティクラスのパッケージ</a> を参照してください。</p>
 <p><br/></p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.rds.domain.model.entity</span><span class="o">;</span>
@@ -398,7 +398,8 @@ Spring Data JPAに限らず、Spring Data XXXなど類似一連のプロダク�
 </div>
 <p><br/></p>
 <p>最後にトランザクション境界が設定されるServiceクラスです。&#64;Transactionalアノテーションと&#64;Serviceアノテーションを付与したService実装クラスを作成します。
-この処理では各テーブルにデータを保存する処理を記述しています。</p>
+こちらも一部の抜粋になりますが、この処理では各テーブルにデータを保存する処理を記述しています。
+詳細は <a class="reference external" href="https://github.com/debugroom/mynavi-sample-aws-rds/blob/master/src/main/java/org/debugroom/mynavi/sample/aws/rds/domain/service/SampleServiceImpl.java">サービスクラス</a> を参照してください。</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.rds.domain.service</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
@@ -484,8 +485,8 @@ RDSへSpringアプリケーションで接続する場合、各フレームワ�
 <p><br/></p>
 </div>
 </div>
-<div class="section" id="id3">
-<h2>著者紹介<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id4">
+<h2>著者紹介<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei)</p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
