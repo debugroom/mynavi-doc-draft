@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>基盤・デプロイ自動化実践 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="基盤・デプロイ自動化実践" href="automation_infra_devops_sonarlint.html" />
+    <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_actual_experience.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarlint.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
+<li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li><a class="reference internal" href="#sonarqube">SonarQubeの概要</a></li>
+<li><a class="reference internal" href="#amazon-rdssonarqubeserver">Amazon RDSを使ったSonarQubeServer用データベースの構築</a></li>
+<li><a class="reference internal" href="#section-create-alb-for-sonarqube-label">SonarQubeServer向けのアプリケーションロードバランサーの構築</a></li>
+<li><a class="reference internal" href="#sonarqubedockerfile">SonarQubeを構築するDockerfile</a></li>
+<li><a class="reference internal" href="#ecs">ECSクラスタ・タスク定義、サービスの実行</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="automation_infra_devops_actual_experience.html" title="Previous Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 基盤・デプロイ自動化実践</span>
+    </a>
+  </li>
+  <li>
+    <a href="automation_infra_devops_sonarlint.html" title="Next Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">基盤・デプロイ自動化実践 &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/automation_infra_devops/automation_infra_devops_sonarqube.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="section-automation-infra-devops-sonarqube-label">
+<span id="id1"></span><h1>基盤・デプロイ自動化実践<a class="headerlink" href="#section-automation-infra-devops-sonarqube-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id2">
+<h2>マイクロサービスアーキテクチャの基盤・デプロイ自動化<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>本連載では、以下のイメージにならって、CodeBuild、SonarQubeを使った継続的インテグレーション(Continuous integration:CI)環境を実際に構築していきます。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/sample-continuous-integration.png"><img alt="../_images/sample-continuous-integration.png" src="../_images/sample-continuous-integration.png" style="width: 951.0px; height: 618.0px;" /></a>
+</div>
+<p><br/></p>
+<p>今回は、Amazon RDS、アプリケーションロードバランサ(ALB)を設定して、ECSクラスタ上にオープンソースの静的解析ツールであるSonarQubeServerをECSコンテナとして構築します。</p>
+<p><br/></p>
+<div class="section" id="sonarqube">
+<span id="section-sonarqube-overview-label"></span><h3>SonarQubeの概要<a class="headerlink" href="#sonarqube" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>SonarQubeは <a class="reference external" href="https://www.sonarsource.com">SonarSource</a> によって提供されているオープンソースの静的解析プラットフォームで、形式的なソースコードのバグや不適切な記法のチェック、カバレッジの計測などを行い、品質を可視化することが可能です。</p>
+<p>解析できるプログラミング言語は、Java (Android含む), C#, PHP, JavaScript, TypeScript, C/C++, Ruby, Kotlin, Go, COBOL, PL/SQL, PL/I, ABAP, VB.NET, VB6, Python, RPG, Flex, Objective-C, Swift, CSS, HTML, and XMLなど
+25を超える言語をサポートし、コードのバグ、Code Smell(深い問題を発生する可能性があるコード)、セキュリティ脆弱性を検出することができます。</p>
+<p>また、SonarQubeはプラグインにより拡張が可能になっており、IntelliJ IDEAやEclipseなどの統合開発環境と連携するSonarlintプラグイン、MavenやGradleなどのライブラリ管理ツール向けのScannerプラグインに加え、
+GitHubやGitLab、JIRAやJenkinsなどの各開発ツールとの統合プラグイン、チェックルールを追加する場合のFindBugsプラグインなど様々なものが提供されています。SonarQubeを構成する代表的なコンポーネントや機能、その特徴は以下の通りです。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="15%" />
+<col width="20%" />
+<col width="65%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>コンポーネント</td>
+<td>機能</td>
+<td>特徴</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://www.sonarqube.org">SonarQubeServer</a></td>
+<td>ダッシュボード</td>
+<td>SonarQubeの中核となるWebアプリケーション。解析対象ごとにプロジェクトを作成し、解析結果のサマリやIssue、解析のアクティビティが可視化できる。</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>QualityProfile</td>
+<td>解析する言語のチェックルールの定義、適用するプロジェクトへの設定を行う。ソースコードを実装する開発端末で、QualityProfileが設定されたSonarQubeServerプロジェクトを指定することで、複数の端末に同一のルールを適用できる。</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>QualityGate</td>
+<td>開発端末でソースコードをコミット・プッシュする場合やSonarScannnerでビルドする際に、プロジェクトに設定した静的チェックルール・メトリクスをパスしたか検証し、またその検証ルールを定義する機能。</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>MarketPlace</td>
+<td>FindBugsなどの追加の解析ルールや他のサードパーティ製ツールとの統合プラグインなどのマーケットプレイスで検索・インストールを行う機能。プラグインの一覧は <a class="reference external" href="https://docs.sonarqube.org/display/PLUG">こちら</a> 。</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://www.sonarlint.org">Sonarlint</a></td>
+<td>ソースコード検証・サジェスト</td>
+<td>IntelliJ IDEAやEclipseなどの統合開発環境にプラグインをインストールし、コーディングする際に検証やサジェスト、チェックルールの詳細表示などを行う機能</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://docs.sonarqube.org/display/SCAN">SonarScanner</a></td>
+<td>ソースコード解析・結果送信</td>
+<td>MavenやGladle、Jenkinsなどを使ってアプリケーションをビルドする際に、プラグインを組み込み、ソースコードの解析・検証、カバレッジ測定などを実行して、SonarQubeServerへ結果を連携する機能。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>SonarQubeには上記の機能を無料で使用可能なCommunity Editionや、ソースコードのブランチやプルリクエスト解析などの機能を追加したDeveloper Edtion、ポートフェリオ管理機能や高度なテクニカルサポートがあるEnterprize Edtion、
+複数のSonarQubeServerをクラスターとして構築し、高可用性な運用ができるDataCenter Edtionがあります。今回はCommunity Editionを使って、以降環境構築を進めていきます。</p>
+<p><br/></p>
+</div>
+<div class="section" id="amazon-rdssonarqubeserver">
+<span id="section-create-rds-for-sonarqube-label"></span><h3>Amazon RDSを使ったSonarQubeServer用データベースの構築<a class="headerlink" href="#amazon-rdssonarqubeserver" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>SonarQubeServerは、サーバーの設定やプロジェクトの解析結果、組み込んだプラグイン、セキュリティ情報などを保存しておくリレーショナルデータベースが必要になります。データベースはOracle、PostgreSQL、MySQL、MS SQLServerなど
+主要なデータベースエンジンをサポートしていますが、ここでは自動バックアップなど高可用性で運用が可能なAmazon RDS(PostgreSQL)を使ってデータベースを構築します。</p>
+<p>RDS構築の要領は、筆者が執筆している別連載「AWSで作るクラウドネイティブアプリケーションの基本」の 「 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4422">Amazon RDSにアクセスするSpringアプリケーション(1)</a>  」を参照してください。
+設定内容はリンク先の手順とほぼ同一でかまいませんが、「データベースの名前」だけ、「sonar」を設定するようにしてください。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-rds-create-database-pickup.png"><img alt="../_images/management-console-rds-create-database-pickup.png" src="../_images/management-console-rds-create-database-pickup.png" style="width: 661.0px; height: 321.0px;" /></a>
+</div>
+<p><br/></p>
+<p>構築後は、sonarデータベースにアクセスするユーザを作成しましょう。</p>
+<p>セキュリティグループでRDSのインバウンド接続が許可されたIPアドレスをもつEC2インスタンスなどで、PSQLクライアントなどをインストールし、
+作成したRDSのエンドポイント、データベース、ユーザ名を指定してRDSに接続後、ユーザ名「sonar」、パスワード「sonar」とするユーザを作成します。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>centos@ip-XXXX-XXX-XXX-XXX ~<span class="o">]</span>$ psql -U username -d sonar -h mynavi-sample-db.xxxxxxx.ap-northeast-1.rds.amazonaws.com
+Password <span class="k">for</span> user username:
+psql <span class="o">(</span><span class="m">9</span>.4.0, server <span class="m">10</span>.6<span class="o">)</span>
+<span class="nv">sonar</span><span class="o">=</span>&gt; create role sonar with LOGIN password <span class="s1">&#39;sonar&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p>CentOSのPSQLインストール方法ですが、EC2でCentOS7を実行した場合は、以下のコマンドでPSQLをインストールできます。</p>
+<div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>centos@ip-XXXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo yum update -y
+// omit
+<span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ sudo yum install -y postgresql
+</pre></div>
+</div>
+</div>
+<p><br/></p>
+</div>
+<div class="section" id="section-create-alb-for-sonarqube-label">
+<span id="id4"></span><h3>SonarQubeServer向けのアプリケーションロードバランサーの構築<a class="headerlink" href="#section-create-alb-for-sonarqube-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>続いて、SonarQubeServerへ接続するためにアプリケーションロードバランサー(ALB)を経由して接続するように構築します。
+ALBと接続するターゲットグループにECSコンテナを登録することにより、ヘルスチェック機能が有効になり、サーバが何らかの理由で落ちた場合も再起動が実行され、SonarQubeServerの可用性を向上させることができます。</p>
+<p>ALBの構築は、筆者が執筆している別連載「AWSで作るクラウドネイティブアプリケーションの基本」の 「 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4359">AWS ECS上に構築するSpringアプリケーション(2)</a> 」を適宜参考にしてください、今回、設定内容でポイントとなる項目は以下の通りです。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="30%" />
+<col width="30%" />
+<col width="40%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>設定箇所</td>
+<td>設定内容</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td>基本設定：スキーム</td>
+<td>インターネット向け(internet-facing)</td>
+<td>開発端末からSonarQubeServerへインターネット経由でアクセスするため、パブリックサブネット向けのALBを作成します。</td>
+</tr>
+<tr class="row-odd"><td>セキュリティグループの設定：セキュリティグループの割り当て</td>
+<td>新しいセキュリティグループを作成する</td>
+<td>ポート80番の任意のIPからのアクセスを許可するセキュリティグループを新しく作成します。</td>
+</tr>
+<tr class="row-even"><td>ルーティングの設定：ターゲットグループ</td>
+<td>新しいターゲットグループ</td>
+<td>ターゲットグループを新規作成します。</td>
+</tr>
+<tr class="row-odd"><td>ルーティングの設定：ターゲットグループ</td>
+<td>[ターゲットの種類]インスタンス　[プロトコル]HTTP [ポート]80</td>
+<td>HTTPプロトコルでターゲットグループにアクセスします</td>
+</tr>
+<tr class="row-even"><td>ルーティングの設定：ヘルスチェック</td>
+<td>[プロトコル]HTTP　[パス]/ [間隔]300秒</td>
+<td>SonarQubeServerの初回起動はデータベースの構築など時間を要するため、300[s]ほどにチェック間隔を設定してください。</td>
+</tr>
+<tr class="row-odd"><td>ターゲットの登録</td>
+<td>[登録済みターゲット]特に設定しない</td>
+<td>後述のECSサービス作成時にターゲットの登録を行うので、ここでは何も設定せずに登録します。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+</div>
+<div class="section" id="sonarqubedockerfile">
+<span id="section-create-dockerfile-for-sonarqube-label"></span><h3>SonarQubeを構築するDockerfile<a class="headerlink" href="#sonarqubedockerfile" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>次にSonarQubeServerをECSで構築するためのDockerfileを作成します。SonarQubeServerでデフォルトで提供されている起動スクリプトであるsonar.shは、
+SonarQubeアプリケーションをスクリプト中で別プロセスでデーモンとして起動する形式になっているため、Dockerfileイメージでそのまま実行するとDockerプロセスとしてアプリケーションを起動することができません。
+そこで、<a class="reference external" href="https://github.com/SonarSource/docker-sonarqube/blob/52981f8b2efdbfe18ffacaae687af7a4f05c15a5/7.7-community/Dockerfile">SonarSourceから提供されているDockerfile</a> を参考に、
+CentOSでSonarQubeServerを構築するDockerfileを作成します。</p>
+<p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Backendアプリケーションのプロジェクトに作成するDockerfile</span><a class="headerlink" href="#id7" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dockerfile for sonarqube server</span>
+<span class="c1"># (A)</span>
+FROM            docker.io/centos:latest
+<span class="c1"># (B)</span>
+MAINTAINER      debugroom
+
+<span class="c1"># (C)</span>
+RUN yum install -y java-1.8.0-openjdk zip unzip wget
+
+<span class="c1"># (D)</span>
+ENV <span class="nv">SONAR_VERSION</span><span class="o">=</span><span class="m">7</span>.7 <span class="se">\</span>
+    <span class="nv">SONARQUBE_HOME</span><span class="o">=</span>/usr/local/sonarqube <span class="se">\</span>
+    <span class="nv">SONARQUBE_JDBC_USERNAME</span><span class="o">=</span>sonar <span class="se">\</span>
+    <span class="nv">SONARQUBE_JDBC_PASSWORD</span><span class="o">=</span>sonar <span class="se">\</span>
+    <span class="nv">SONARQUBE_JDBC_URL</span><span class="o">=</span>jdbc:postgresql://mynavi-sample-sonarqube-db.xxxxxxxx.ap-northeast-1.rds.amazonaws.com/sonar
+
+<span class="c1"># (E)</span>
+EXPOSE <span class="m">9000</span>
+
+<span class="c1"># (F)</span>
+RUN groupadd -r sonarqube <span class="o">&amp;&amp;</span> useradd -r -g sonarqube sonarqube
+
+<span class="c1"># (G)</span>
+RUN <span class="nb">set</span> -x <span class="se">\</span>
+ <span class="o">&amp;&amp;</span> <span class="o">(</span>gpg --batch --keyserver ha.pool.sks-keyservers.net --recv-keys F1182E81C792928921DBCAB4CFCA4A29D26468DE <span class="se">\</span>
+         <span class="o">||</span> gpg --batch --keyserver ipv4.pool.sks-keyservers.net --recv-keys F1182E81C792928921DBCAB4CFCA4A29D26468DE<span class="o">)</span> <span class="se">\</span>
+ <span class="o">&amp;&amp;</span> curl -o sonarqube.zip -fSL https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-<span class="nv">$SONAR_VERSION</span>.zip <span class="se">\</span>
+ <span class="o">&amp;&amp;</span> curl -o sonarqube.zip.asc -fSL https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-<span class="nv">$SONAR_VERSION</span>.zip.asc <span class="se">\</span>
+ <span class="o">&amp;&amp;</span> gpg --batch --verify sonarqube.zip.asc sonarqube.zip <span class="se">\</span>
+ <span class="o">&amp;&amp;</span> unzip sonarqube.zip <span class="se">\</span>
+ <span class="o">&amp;&amp;</span> mv sonarqube-<span class="nv">$SONAR_VERSION</span> <span class="nv">$SONARQUBE_HOME</span> <span class="se">\</span>
+ <span class="o">&amp;&amp;</span> rm sonarqube.zip* <span class="se">\</span>
+ <span class="o">&amp;&amp;</span> rm -rf <span class="nv">$SONARQUBE_HOME</span>/bin/*
+
+<span class="c1"># (H)</span>
+WORKDIR <span class="nv">$SONARQUBE_HOME</span>
+<span class="c1"># (I)</span>
+COPY run.sh <span class="nv">$SONARQUBE_HOME</span>/bin/
+<span class="c1"># (J)</span>
+RUN chmod <span class="m">744</span> <span class="nv">$SONARQUBE_HOME</span>/bin/run.sh
+<span class="c1"># (K)</span>
+RUN chown -R sonarqube:sonarqube <span class="nv">$SONARQUBE_HOME</span>
+<span class="c1"># (L)</span>
+USER sonarqube
+<span class="c1"># (M)</span>
+CMD <span class="o">[</span><span class="s2">&quot;./bin/run.sh&quot;</span><span class="o">]</span>
+
+<span class="p">|</span>br<span class="p">|</span>
+</pre></div>
+</div>
+</div>
+<table border="1" class="colwidths-given docutils" id="id8">
+<caption><span class="caption-text">Dockerfileの実行コマンド</span><a class="headerlink" href="#id8" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>項番</td>
+<td>コマンド</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple">
+<li></li>
+</ol>
+</td>
+<td>FROM centos:centos7</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>コンテナイメージのベースとなるOSイメージを指定します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="2">
+<li></li>
+</ol>
+</td>
+<td>MAINTAINER debugroom</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>メンテナンスしている組織や個人の名称を指定します。省略可能です。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="3">
+<li></li>
+</ol>
+</td>
+<td>RUN yum install -y java-1.8.0-openjdk zip unzip wget</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>OSにJDK、zipコマンド、unzipコマンド、wgetコマンドをインストールしてます。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="4">
+<li></li>
+</ol>
+</td>
+<td>ENV SONAR_VERSION=7.7 omit...</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>コンテナの環境変数にSonarQubeのバージョンやインストールするホームディレクトリ、ユーザ名、パスワード、RDSのエンドポイントを設定します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="5">
+<li></li>
+</ol>
+</td>
+<td>EXPOSE 9000</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>コンテナのポート9000をオープンします。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="6">
+<li></li>
+</ol>
+</td>
+<td>RUN groupadd -r sonarqube &amp;&amp; useradd -r -g sonarqube sonarqube</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>sonarqubeグループとsonarqubeユーザを作成します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="7">
+<li></li>
+</ol>
+</td>
+<td>RUN set -x omit...</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>SonarQubeServerをダウンロードして、$SONARQUBE_HOME配下へ展開します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="8">
+<li></li>
+</ol>
+</td>
+<td>WORKDIR $SONARQUBE_HOME</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>コマンド実行する起点となるディレクトリを$SONARQUBE_HOMEへ移します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperroman simple">
+<li></li>
+</ol>
+</td>
+<td>COPY run.sh $SONARQUBE_HOME/bin/</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>SonarQubeServerアプリケーションを実行するスクリプトrun.shを$SONARQUBE_HOME/binへコピーします。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="10">
+<li></li>
+</ol>
+</td>
+<td>RUN chmod 744 $SONARQUBE_HOME/bin/run.sh</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>run.shに実行権限を付与します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="11">
+<li></li>
+</ol>
+</td>
+<td>RUN chown -R sonarqube:sonarqube $SONARQUBE_HOME</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>$SONARQUBE_HOME配下にある全てのディレクトリ・ファイルの所有者権限をグループsonarqube、ユーザsonarqubeへ変更します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="12">
+<li></li>
+</ol>
+</td>
+<td>USER sonarqube</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>sonarqubeユーザへスイッチします。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="12">
+<li></li>
+</ol>
+</td>
+<td>CMD [&quot;./bin/run.sh&quot;]</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>SonarQubeServer実行スクリプトを起動します。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>また、SonarQubeServerを実行するrun.shスクリプトは以下の通りです。起動スクリプトはSonarSourceから提供されているものをほぼそのまま利用しますが、
+javaコマンドでアプリケーションを起動するプロセスをフォアグラウンドで実行しているのがポイントです。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+
+<span class="nb">set</span> -e
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">1</span><span class="p">:</span><span class="nv">0</span><span class="p">:</span><span class="nv">1</span><span class="si">}</span><span class="s2">&quot;</span> !<span class="o">=</span> <span class="s1">&#39;-&#39;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+  <span class="nb">exec</span> <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+<span class="k">fi</span>
+
+<span class="nb">declare</span> -a sq_opts
+
+<span class="k">while</span> <span class="nv">IFS</span><span class="o">=</span><span class="s1">&#39;=&#39;</span> <span class="nb">read</span> -r envvar_key envvar_value
+  <span class="k">do</span>
+    <span class="k">if</span> <span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$envvar_key</span><span class="s2">&quot;</span> <span class="o">=</span>~ sonar.* <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+       <span class="nv">sq_opts</span><span class="o">+=(</span><span class="s2">&quot;-D</span><span class="si">${</span><span class="nv">envvar_key</span><span class="si">}</span><span class="s2">=</span><span class="si">${</span><span class="nv">envvar_value</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">)</span>
+    <span class="k">fi</span>
+  <span class="k">done</span> &lt; &lt;<span class="o">(</span>env<span class="o">)</span>
+
+<span class="nb">exec</span> java -jar lib/sonar-application-<span class="nv">$SONAR_VERSION</span>.jar <span class="se">\</span>
+  -Dsonar.log.console<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  -Dsonar.jdbc.username<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$SONARQUBE_JDBC_USERNAME</span><span class="s2">&quot;</span> <span class="se">\</span>
+  -Dsonar.jdbc.password<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$SONARQUBE_JDBC_PASSWORD</span><span class="s2">&quot;</span> <span class="se">\</span>
+  -Dsonar.jdbc.url<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$SONARQUBE_JDBC_URL</span><span class="s2">&quot;</span> <span class="se">\</span>
+  -Dsonar.web.javaAdditionalOpts<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$SONARQUBE_WEB_JVM_OPTS</span><span class="s2"> -Djava.security.egd=file:/dev/./urandom&quot;</span> <span class="se">\</span>
+ <span class="s2">&quot;</span><span class="si">${</span><span class="nv">sq_opts</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="se">\</span>
+ <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>こちらも <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4390">AWS ECS上に構築するSpringアプリケーション(4)</a> と同様の手順で、Dockerfile作成後にDockerがインストールされた適当な端末で、イメージを作成します。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX<span class="o">]</span>$ docker build . -t debugroom/sonarqube-server:latest
+   // omit
+<span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ docker images
+REPOSITORY                                TAG                 IMAGE ID            CREATED             SIZE
+debugroom/sonarqube-server                latest              97e608f45e20        <span class="m">2</span> minites ago       973MB
+</pre></div>
+</div>
+<p><br/></p>
+<p>Dockerイメージが作成されたら、Docker Hubへプッシュします。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ docker login
+// omit  - enter USERID and password
+<span class="o">[</span>centos@ip-XXX-XXX-XXX-XXX ~<span class="o">]</span>$ docker push debugroom/sonarqube-server:latest
+</pre></div>
+</div>
+<p><br/></p>
+</div>
+<div class="section" id="ecs">
+<span id="section-create-ecs-for-sonarqube-label"></span><h3>ECSクラスタ・タスク定義、サービスの実行<a class="headerlink" href="#ecs" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>SonarQubeServerのDockerfileイメージをDockerHubへプッシュした後は、EC2起動型のECSクラスタおよびECSタスク定義を行い、コンテナをサービスとして実行します。
+ECSクラスタの構築手順は <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4405">AWS ECS上に構築するSpringアプリケーション(5)</a> を、ECSタスク定義は <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4408">AWS ECS上に構築するSpringアプリケーション(6)</a> 、
+ECSサービスの実行は <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4416">AWS ECS上に構築するSpringアプリケーション(7)</a> に記載してある要領を参考に進めてください。ただし、今回ポイントになる設定項目は以下の通りです。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="30%" />
+<col width="30%" />
+<col width="40%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>設定箇所</td>
+<td>設定内容</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td>ECSクラスタの作成：インスタンスの設定</td>
+<td>1</td>
+<td>今回はターゲットグループに１つのECSコンテナだけ起動するように設定します。複数のECSクラスタを実行場合はDataCenterEditionが必要になるので複数には設定しないようにしましょう。</td>
+</tr>
+<tr class="row-odd"><td>ECSクラスタの作成：ネットワーキング：セキュリティグループ</td>
+<td>新規作成：[プロトコル]HTTP、SSH [ポート]80、22 [ソース]ALBのセキュリティグループ、0.0.0.0/0</td>
+<td>ECSクラスタにはALBからの通信をポート80番で静的マッピングするため、ソースを上記で作成したALBのセキュリティグループに設定します。またトラブルシューティング用にSSHのポートも開けておきます。</td>
+</tr>
+<tr class="row-even"><td>ECSタスクの定義：タスクのサイズ：タスクメモリ</td>
+<td>2048MiB</td>
+<td>SonarQubeには <a class="reference external" href="https://docs.sonarqube.org/latest/requirements/requirements/">ハードウェア要求スペック</a> として2GB程度のメモリを推奨しているため、相応のメモリを確保しましょう。</td>
+</tr>
+<tr class="row-odd"><td>ECSタスクの定義：タスクのサイズ：タスクCPU</td>
+<td>1 vcpu</td>
+<td>0.5 vcpu以下にすると、サービス起動時に時間がかかりすぎてヘルスチェックに引っかかる場合があるので、1vcpu程度取っておいた方がベターです。</td>
+</tr>
+<tr class="row-even"><td>ECSタスクの定義：コンテナの追加：ポートマッピング</td>
+<td>[ホストポート]80 [コンテナポート]9000</td>
+<td>SonarQubeは9000番ポートでアプリケーションを起動するので、ALBからくるリクエストを9000番へ転送するように設定します。</td>
+</tr>
+<tr class="row-odd"><td>ECSサービスの実行：サービスの設定：サービスタイプ</td>
+<td>REPLICA</td>
+<td>今回はターゲットグループに１つのECSコンテナだけ起動するようにサービスタイプをREPLICAでタスク数を1に設定しますが、DAEMONでも可です。</td>
+</tr>
+<tr class="row-even"><td>ECSサービスの実行：サービスの設定：タスクの数</td>
+<td>1</td>
+<td>今回はターゲットグループに１つのECSコンテナだけ起動するように設定します。複数のサービスを実行する場合はDataCenterEditionが必要になるので複数には設定しないようにしましょう。</td>
+</tr>
+<tr class="row-odd"><td>ECSサービスの実行：ネットワーク構成：ヘルスチェックの猶予期間</td>
+<td>300</td>
+<td>上記のタスクサイズの設定で、アプリケーションの起動に60秒ほど要するため、余裕を持った値を設定しておきます。</td>
+</tr>
+<tr class="row-even"><td>ECSサービスの実行：サービスの検出：サービスの検出の統合の有効化</td>
+<td>チェックしない</td>
+<td>今回はDNSでALBのエンドポイントを利用するので、設定をオフにしておきます。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>ECSサービスを実行した後、ALBのDNS名を使ってブラウザからアクセスできれば起動は成功です。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/sonarqube-top.png"><img alt="../_images/sonarqube-top.png" src="../_images/sonarqube-top.png" style="width: 1315.0px; height: 870.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">正しくコンテナが実行されない場合、ECSクラスタにSSHログインし、docker ps -aすることでコンテナの実行を確認できます。またコンテナ実行時のログは/var/log/ecs/ecs-agent.log_XXXXで、
+SonarQubeServerの起動のログはコンテナの/usr/local/sonarqube/logsに各種アプリケーション起動ログが出力されるよう設定されています。トラブルシューティングはこうしたログを参照してください。</p>
+</div>
+<p><br/></p>
+<p>次回はSonarQubeServerでプロジェクトを作成し、QualityProfileを設定、開発端末のIDEで環境構築してみます。</p>
+<p><br/></p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>著者紹介<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pic_image01.jpg"><img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+</div>
+<p>金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

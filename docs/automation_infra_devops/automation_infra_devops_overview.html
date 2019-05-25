@@ -58,6 +58,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">ソフトウェア開発自動化</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarqube.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -68,9 +69,23 @@
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 </ul>
 </ul>
 </li>
@@ -86,10 +101,10 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">ソフトウェア開発自動化</a><ul>
 <li><a class="reference internal" href="#id2">第4回 基盤・デプロイ自動化</a></li>
-<li><a class="reference internal" href="#id3">基盤構築自動化の発展経緯</a></li>
-<li><a class="reference internal" href="#id5">継続的インテグレーション、継続的デリバリの発展</a></li>
+<li><a class="reference internal" href="#section-automation-infra-history-label">基盤構築自動化の発展経緯</a></li>
+<li><a class="reference internal" href="#section-continuous-integration-delivery-history-label">継続的インテグレーション、継続的デリバリの発展</a></li>
 <li><a class="reference internal" href="#id7">マイクロサービスにおける基盤自動化</a></li>
-<li><a class="reference internal" href="#id8">マイクロサービスにおける継続的インテグレーション・デリバリ</a></li>
+<li><a class="reference internal" href="#section-continuous-integration-delivery-for-microservice-label">マイクロサービスにおける継続的インテグレーション・デリバリ</a></li>
 <li><a class="reference internal" href="#id9">まとめ</a></li>
 <li><a class="reference internal" href="#id10">著者紹介</a></li>
 </ul>
@@ -186,8 +201,8 @@
 </table>
 <p><br/></p>
 </div>
-<div class="section" id="id3">
-<h2>基盤構築自動化の発展経緯<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="section-automation-infra-history-label">
+<span id="id3"></span><h2>基盤構築自動化の発展経緯<a class="headerlink" href="#section-automation-infra-history-label" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/>
 Amazon Web ServiceなどのIaaSおよびOpenstackなどのクラウドコンピューティングオープンソースソフトウェアの登場により、
 ロードバランサやAPサーバ、監視といったアプリケーション実行環境を自動構築することが身近になってきました。</p>
@@ -206,8 +221,8 @@ Dockerなどのコンテナ技術が発達し、近年広く普及しつつあ�
 これらのミドルウェアを含め、クラウド上でのアプリケーション実行環境全体の包括的なInfrastructure As Codeのツールとして、「Amazon Cloud Formation」や「Terraform」を使った基盤構築のコード化が近年のトレンドとなっています。</p>
 <p><br/></p>
 </div>
-<div class="section" id="id5">
-<h2>継続的インテグレーション、継続的デリバリの発展<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="section-continuous-integration-delivery-history-label">
+<span id="id5"></span><h2>継続的インテグレーション、継続的デリバリの発展<a class="headerlink" href="#section-continuous-integration-delivery-history-label" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
 <p>継続的インテグレーション(Continuous Integration:CI)・継続的デリバリ(Continuous Delivery:CD)では、オープンソースソフトウェアのJenkinsを中心として、
 以下の一連のソフトウェア開発・リリースサイクルを自動化する手法が主流として発展してきました。</p>
@@ -225,6 +240,7 @@ Dockerなどのコンテナ技術が発達し、近年広く普及しつつあ�
 <p>増々多様化するCI/CD実行環境において、ステージング環境・プロダクション環境への一連のリリースサイクルをパイプライン化して可視化する、
 AWS CodePipelineなどのツールも活用の機会が増えつつあります。</p>
 <p><br/></p>
+<p id="section-automation-infra-for-microservice-label"><br/></p>
 </div>
 <div class="section" id="id7">
 <h2>マイクロサービスにおける基盤自動化<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -303,8 +319,8 @@ AWS CodePipelineなどのツールも活用の機会が増えつつあります�
 マルチクラウドプラットフォームをサポートする「Terraform」などを活用します。</p>
 <p><br/></p>
 </div>
-<div class="section" id="id8">
-<h2>マイクロサービスにおける継続的インテグレーション・デリバリ<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="section-continuous-integration-delivery-for-microservice-label">
+<span id="id8"></span><h2>マイクロサービスにおける継続的インテグレーション・デリバリ<a class="headerlink" href="#section-continuous-integration-delivery-for-microservice-label" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>下記のように、各サービスを構成するマルチコンテナ環境下でのステージング・プロダクション環境へのデプロイまでの一連のサイクルを可視化するパイプラインを構成できます。</p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/ContinuousDeployment.png"><img alt="../_images/ContinuousDeployment.png" src="../_images/ContinuousDeployment.png" style="width: 1011.0px; height: 461.0px;" /></a>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>基盤・デプロイ自動化実践 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="../cloud_native/aws-lambda-and-api-gateway-1.html" />
+    <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_sonarqube.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarqube.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
+<li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li><a class="reference internal" href="#sonarqube">SonarQubeプロジェクトの作成</a></li>
+<li><a class="reference internal" href="#qualityprofile">サードパーティ製プラグインのインストールとカスタムQualityProfileの作成・適用</a></li>
+<li><a class="reference internal" href="#intellij-ideasonarlint">IntelliJ IDEAへのSonarLintのインストールとプロジェクトの設定</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="automation_infra_devops_sonarqube.html" title="Previous Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 基盤・デプロイ自動化実践</span>
+    </a>
+  </li>
+  <li>
+    <a href="../cloud_native/aws-lambda-and-api-gateway-1.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/automation_infra_devops/automation_infra_devops_sonarlint.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="section-automation-infra-devops-sonarlint-label">
+<span id="id1"></span><h1>基盤・デプロイ自動化実践<a class="headerlink" href="#section-automation-infra-devops-sonarlint-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id2">
+<h2>マイクロサービスアーキテクチャの基盤・デプロイ自動化<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>本連載では、以下のイメージにならって、CodeBuild、SonarQubeを使った継続的インテグレーション(Continuous integration:CI)環境を実際に構築していきます。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/sample-continuous-integration.png"><img alt="../_images/sample-continuous-integration.png" src="../_images/sample-continuous-integration.png" style="width: 951.0px; height: 618.0px;" /></a>
+</div>
+<p><br/></p>
+<p>前回はECSクラスタ上にSonarQubeServerを構築しました。今回はプロジェクトを作成し、QualityProfileで静的チェックルールを定義して、開発端末のIDEに設定してみます。</p>
+<p><br/></p>
+<div class="section" id="sonarqube">
+<span id="section-sonarqube-create-project-label"></span><h3>SonarQubeプロジェクトの作成<a class="headerlink" href="#sonarqube" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>管理者ユーザ(初期設定ではadmin:admin)でログインし、右上の＋ボタンから「create new project」を選択します。
+プロジェクトを一意に指定するProject Keyと表示名となるDisplay Nameを入力し、「setup」ボタンを押下します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/sonarqube-create-project-1.png"><img alt="../_images/sonarqube-create-project-1.png" src="../_images/sonarqube-create-project-1.png" style="width: 943.0px; height: 366.0px;" /></a>
+</div>
+<p><br/></p>
+<p>「Generate」ボタンを押下し、プロジェクトへアクセスするためのキーとなるアクセストークンを生成します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/sonarqube-create-project-2.png"><img alt="../_images/sonarqube-create-project-2.png" src="../_images/sonarqube-create-project-2.png" style="width: 1072.0px; height: 480.0px;" /></a>
+</div>
+<p><br/></p>
+<p>生成されたトークンは開発端末のセットアップやビルド実行時のキーとして利用するので、無くさないように保存してください。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/sonarqube-create-project-3.png"><img alt="../_images/sonarqube-create-project-3.png" src="../_images/sonarqube-create-project-3.png" style="width: 928.0px; height: 710.0px;" /></a>
+</div>
+<p><br/></p>
+</div>
+<div class="section" id="qualityprofile">
+<span id="section-sonarqube-3rd-party-plugin-install-and-create-quality-profile-label"></span><h3>サードパーティ製プラグインのインストールとカスタムQualityProfileの作成・適用<a class="headerlink" href="#qualityprofile" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>SonarQubeは様々な言語のチェックルールがデフォルトで設定されていますが、サードバーティ製のプラグインをインストールすることで
+ルール追加などのカスタマイズを行うことができます。ここでは、「Findbugs」プラグインを追加して、デフォルトのチェックルールを
+追加した新たなプロファイルを作成してみましょう。</p>
+<p>「Findbugs」プラグインを追加するには「Administration」メニューを選択して、「MarketPlace」タブを選択してから、
+検索フォームで「Findbugs」と入力します。対象がピックアップされたら「install」ボタンを押下して、プラグインをインストールします。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/sonarqube-install-findbugs-1.png"><img alt="../_images/sonarqube-install-findbugs-1.png" src="../_images/sonarqube-install-findbugs-1.png" style="width: 1173.0px; height: 623.0px;" /></a>
+</div>
+<p><br/></p>
+<p>インストール後は再起動を求められます。アプリケーションの再起動を行ったのち、再び管理者権限でログインしなおしてください。
+「Quality Profiles」メニューを選ぶと、Java言語のプロファイルの中に、インストールした「Findbugs」のチェックルールが追加されていることが確認できます。
+続いて、元々のデフォルトルールである「Sonar way」に「Findbugs」プラグインのルールを追加したプロファイルを作成してみましょう。
+Javaの「Sonar way」プロファイルのカスタム用のためのボタンを押下し、「copy」を選択します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/sonarqube-customize-quality-profile-1.png"><img alt="../_images/sonarqube-customize-quality-profile-1.png" src="../_images/sonarqube-customize-quality-profile-1.png" style="width: 1228.0px; height: 790.0px;" /></a>
+</div>
+<p><br/></p>
+<p>新しく作成するプロファイルの名称を入力します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/sonarqube-customize-quality-profile-2.png"><img alt="../_images/sonarqube-customize-quality-profile-2.png" src="../_images/sonarqube-customize-quality-profile-2.png" style="width: 450.0px; height: 214.0px;" /></a>
+</div>
+<p><br/></p>
+<p>コピー前のデフォルトルールでは379のチェックルールが定義されていますが、ここに新たにルールを追加してみましょう。
+「Activate More」ボタンを押下します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/sonarqube-customize-quality-profile-3.png"><img alt="../_images/sonarqube-customize-quality-profile-3.png" src="../_images/sonarqube-customize-quality-profile-3.png" style="width: 1169.0px; height: 726.0px;" /></a>
+</div>
+<p><br/></p>
+<p>「common java」にある5つのルールを追加してみます。「Bulk Change」ボタンを押下することで、まとめて5つのルールを有効化できます。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/sonarqube-customize-quality-profile-4.png"><img alt="../_images/sonarqube-customize-quality-profile-4.png" src="../_images/sonarqube-customize-quality-profile-4.png" style="width: 1114.0px; height: 772.0px;" /></a>
+</div>
+<p><br/></p>
+<p>アクティベートするプロファイルを選択すると、ルールが追加されます。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/sonarqube-customize-quality-profile-6.png"><img alt="../_images/sonarqube-customize-quality-profile-6.png" src="../_images/sonarqube-customize-quality-profile-6.png" style="width: 975.0px; height: 783.0px;" /></a>
+</div>
+<p><br/></p>
+<p>作成したプロファイルを先ほど作成したプロジェクトに適用します。プロジェクトの「Administration」タブで「Quality Profiles」を選択します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/sonarqube-setting-quality-profile-1.png"><img alt="../_images/sonarqube-setting-quality-profile-1.png" src="../_images/sonarqube-setting-quality-profile-1.png" style="width: 1065.0px; height: 381.0px;" /></a>
+</div>
+<p><br/></p>
+<p>Javaの設定を先ほど作成したプロファイルに設定します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/sonarqube-setting-quality-profile-2.png"><img alt="../_images/sonarqube-setting-quality-profile-2.png" src="../_images/sonarqube-setting-quality-profile-2.png" style="width: 919.0px; height: 737.0px;" /></a>
+</div>
+<p><br/></p>
+<p>これで静的チェックルールの定義・設定が完了しました。続いて開発端末のIDEに上記のチェックルールが追加されたSonarLintの設定を行います。</p>
+<p><br/></p>
+</div>
+<div class="section" id="intellij-ideasonarlint">
+<span id="section-sonarqube-setting-sonarlint-for-intellij-label"></span><h3>IntelliJ IDEAへのSonarLintのインストールとプロジェクトの設定<a class="headerlink" href="#intellij-ideasonarlint" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>今回は開発端末のIDEとして、IntelliJ IDEAへのSonarLintプラグインのインストール方法とプロジェクトの設定方法を例として記載します。
+IntelliJ IDEAでは、「Preference」から、「Plugins」を選択し、「Browse Repositories」ボタンを押下します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/intellij-install-sonarlint-1.png"><img alt="../_images/intellij-install-sonarlint-1.png" src="../_images/intellij-install-sonarlint-1.png" style="width: 922.0px; height: 622.0px;" /></a>
+</div>
+<p><br/></p>
+<p>検索フォームから「SonarLint」を入力し、「install」ボタンを押下します。インストール後に再起動を求められるので、再起動してください。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/intellij-install-sonarlint-2.png"><img alt="../_images/intellij-install-sonarlint-2.png" src="../_images/intellij-install-sonarlint-2.png" style="width: 824.0px; height: 673.0px;" /></a>
+</div>
+<p><br/></p>
+<p>再起動後に再び「Preference」から、「Other Settings」メニューを選択し、「SonarLint General Settings」を選択します。
+「SonarQube Servers」で「＋」ボタンを押下し、適当な「Configuration Name」を入力して、
+前回「 <a class="reference internal" href="automation_infra_devops_sonarqube.html#section-create-alb-for-sonarqube-label"><span class="std std-ref">SonarQubeServer向けのアプリケーションロードバランサーの構築</span></a> 」で作成している「SonarQube」サーバのALBのDNSを入力し、「Next」ボタンを押下します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/intellij-sonarlint-general-settings-1.png"><img alt="../_images/intellij-sonarlint-general-settings-1.png" src="../_images/intellij-sonarlint-general-settings-1.png" style="width: 924.0px; height: 498.0px;" /></a>
+</div>
+<p><br/></p>
+<p>前節で取得したトークンを入力します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/intellij-sonarlint-general-settings-2.png"><img alt="../_images/intellij-sonarlint-general-settings-2.png" src="../_images/intellij-sonarlint-general-settings-2.png" style="width: 923.0px; height: 501.0px;" /></a>
+</div>
+<p><br/></p>
+<p>SonarQube serverが追加されるので、引き続き、「SonarLint Project Settings」を選択します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/intellij-sonarlint-general-settings-3.png"><img alt="../_images/intellij-sonarlint-general-settings-3.png" src="../_images/intellij-sonarlint-general-settings-3.png" style="width: 777.0px; height: 759.0px;" /></a>
+</div>
+<p><br/></p>
+<p>「search in list」ボタンを押下し、SonarQubeServerのプロジェクトを選択して、「Apply」ボタンを押してください。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/intellij-sonarlint-project-settings-1.png"><img alt="../_images/intellij-sonarlint-project-settings-1.png" src="../_images/intellij-sonarlint-project-settings-1.png" style="width: 923.0px; height: 855.0px;" /></a>
+</div>
+<p><br/></p>
+<p>この設定で、コーディング時にチェック結果やサジェストが表示されるようになります。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/intellij-sonarlint-check-1.png"><img alt="../_images/intellij-sonarlint-check-1.png" src="../_images/intellij-sonarlint-check-1.png" style="width: 1426.0px; height: 1036.0px;" /></a>
+</div>
+<p><br/></p>
+<p>これで静的チェックを実行しながらコーディングする環境が整いました。次回以降は、マイクロサービスにおけるテストコードの実装について詳述していきます。</p>
+<p><br/></p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>著者紹介<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pic_image01.jpg"><img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+</div>
+<p>金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
