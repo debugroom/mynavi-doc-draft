@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>基盤・デプロイ自動化実践 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="../cloud_native/aws-lambda-and-api-gateway-1.html" />
+    <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_sonarlint.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarqube.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarlint.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
+<li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li><a class="reference internal" href="#section-application-test-for-microservice-label">マイクロサービスにおけるテスト自動化とテスト戦略の重要性</a></li>
+<li><a class="reference internal" href="#section-application-component-for-microservice-label">アプリケーションのパッケージ・コンポーネント構成</a></li>
+<li><a class="reference internal" href="#section-test-strategy-for-microservice-label">アプリケーションのテスト観点</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id8">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="automation_infra_devops_sonarlint.html" title="Previous Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 基盤・デプロイ自動化実践</span>
+    </a>
+  </li>
+  <li>
+    <a href="../cloud_native/aws-lambda-and-api-gateway-1.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/automation_infra_devops/automation_infra_devops_micro_service_architecture.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="section-automation-infra-devops-microservice-architecture-label">
+<span id="id1"></span><h1>基盤・デプロイ自動化実践<a class="headerlink" href="#section-automation-infra-devops-microservice-architecture-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id2">
+<h2>マイクロサービスアーキテクチャの基盤・デプロイ自動化<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<div class="section" id="section-application-test-for-microservice-label">
+<span id="id3"></span><h3>マイクロサービスにおけるテスト自動化とテスト戦略の重要性<a class="headerlink" href="#section-application-test-for-microservice-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>連載第１回「 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4379">マイクロサービスのアプリケーション構成と構築</a> 」で、
+マイクロサービスの一般的な特徴やメリットを述べましたが、実プロジェクトでマイクロサービスアーキテクチャを採用する場合、
+アプリケーションを迅速にリリースし、顧客やエンドユーザの要求に応じて、機能追加や仕様変更を行っていくプロジェクト特性であるケースが多いと思います。</p>
+<p>機能追加等でアプリケーションを改修する場合、追加した部分のテストはもちろん、変更が入っていない既存部分の無影響確認テストなどを
+繰り返し実施する必要があります。そのため、試験はテストコードを実装して、ソースコードコミットやビルド時にテストを実行するなどして
+問題の早期検出の仕組みを整え、継続的インテグレーションで極力自動化し、修正にかかる工数を省力化しておくことが重要になります。</p>
+<p>とはいえ、テストコードの実装には相応の工数が必要になります(筆者の感覚的ですが、アプリケーションコードの実装に加えてテストコードの実装は3倍近い工数がかかる場合もあります)。
+初めから完璧にテストコードを整備しておく必要もありませんし、必要以上のテストコードの実装でかえって開発のアジリティを損なうようでは本末転倒です。
+ただ、テストが疎かになるとせっかくの継続的インテグレーションも機能しません。
+開発のスピードと品質を両立するために、テスト計画やスコープ、検証の観点を明示的に策定しておくことが重要です。
+次節以降はどのようなテスト戦略で、どのようなテストを実施すべきか、SpringBootを使ったアプリケーションテスト実装を通して実践していきます。</p>
+<p><br/></p>
+</div>
+<div class="section" id="section-application-component-for-microservice-label">
+<span id="id5"></span><h3>アプリケーションのパッケージ・コンポーネント構成<a class="headerlink" href="#section-application-component-for-microservice-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>テスト戦略について述べる前に、本連載で構築するマイクロサービスアーキテクチャでのアプリケーションのパッケージ・コンポーネント構成について説明します。
+以下の通り、アプリケーションはBackendとBackendForFrontend(Webアプリ)に分けてコンテナを構築しています。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/MicroServiceArchitecture.png"><img alt="../_images/MicroServiceArchitecture.png" src="../_images/MicroServiceArchitecture.png" style="width: 786.0px; height: 801.0px;" /></a>
+</div>
+<p><br/></p>
+<p>本連載では、Backendでデプロイしているアプリケーションがマイクロサービスに相当し、各マイクロサービスを呼び出し、
+呼び出した結果をフロントエンド(クライアント)向けに画面(HTML)などにアグリゲーション(集約)して返却するのが
+BFFの役割としています。また、アプリケーションのコンポーネントをアプリケーションレイヤ、ドメインレイヤ、インフラストラクチャレイヤで分割して各々構成するものとします。
+以降登場する各レイヤやコンポーネントの用語の意味や役割は <a class="reference external" href="http://terasolunaorg.github.io/guideline/5.4.1.RELEASE/ja/Overview/ApplicationLayering.html">TERASOLUNAのガイドライン「アプリケーションのレイヤ化」</a>
+での記述にほぼ準拠しますので、必要に応じて、リンクを参照してください。</p>
+<p>なお、実際に作成したアプリケーションは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration">GitHub</a> 上にコミットしています。以降、解説で使用しているソースコードでは、記述を一部省略しているので、実行コードを作成する場合は、必要に応じて適宜GitHub上のソースコードも参照してください。</p>
+<p><br/></p>
+<p>まず、マイクロサービスとなるBackendアプリケーションのパッケージ・コンポーネント構成は以下の通りです。
+なお、アプリケーション内のデータベースアクセスはSpring Data JPAを用いており、ここでは詳細な解説は行いませんが、詳細は
+<a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4426">連載 AWSで作るクラウドネイティブアプリケーションの基本「RDSへアクセスするSpringアプリケーション」</a> や <a class="reference external" href="http://terasolunaorg.github.io/guideline/5.4.1.RELEASE/ja/ArchitectureInDetail/DataAccessDetail/DataAccessJpa.html">TERASOLUNAのガイドライン「データベースアクセス（JPA編）」</a>
+を適宜参照してください。また、テストではインメモリDBであるHSQLを利用します。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>backend<span class="o">]</span>
+  └src
+    └main
+      ├java
+      │ └org
+      │   └debugroom
+      │     └mynavi
+      │       └sample
+      │         └continuous
+      │           └integration
+      │             └backend
+      │               └app                                  ... アプリケーション層のパッケージ
+      │               │ └model                              ... リクエストパラメータのモデルクラスパッケージ
+      │               │ │ ├Xxxxx.java                       ... 入力チェックルール等が定義されるモデルクラス
+      │               │ │ └XxxxxMapper.java                 ... ドメイン層のモデルクラスと相互変換するマッパークラス
+      │               │ └web                                ... MvcConfigでコンポーネントスキャンの対象とするパッケージ
+      │               │   └BackendRestController.java       ... リクエストハンドリング・ドメインサービス呼び出して、Resourceを返却するコントローラクラス
+      │               └domain                               ... ドメイン層のパッケージ
+      │               │ └model
+      │               │ │ └entity                           ... JPAConfigでスキャン対象とするエンティティクラスパッケージ
+      │               │ │   └Xxxxx.java                     ... JPAエンティティクラス
+      │               │ ├repository                         ... JPAConfigでスキャン対象とするレポジトリクラスパッケージ
+      │               │ │ ├specification                    ... JPAでテーブル結合等の条件を指定するクラスパッケージ
+      │               │ │ │ └Xxxxx.java                     ... JPAでテーブル結合等の条件を指定するクラス
+      │               │ │ └XxxxxRepository.java             ... レポジトリインターフェースクラス
+      │               │ └service                            ... DomainConfigでコンポーネントスキャンの対象とするサービスクラスパッケージ
+      │               │   ├SampleService.java               ... DBへ基本的なCRUDアクセスを行うサービスインターフェースクラス
+      │               │   ├SampleServiceImpl.java           ... SampleServiceの実装クラス
+      │               │   ├SampleOneToOneService.java       ... <span class="m">1</span>対1の関連をもつテーブルアクセスを行うサービスインターフェースクラス
+      │               │   ├SampleOneToOneServiceImpl.java   ... SampleOneToOneServiceの実装クラス
+      │               │   ├SampleOneToManyService.java      ... <span class="m">1</span>対多の関連をもつテーブルアクセスを行うサービスインターフェースクラス
+      │               │   ├SampleOneToManyServiceImpl.java  ... SampleOneToOneServiceの実装クラス
+      │               │   ├SampleManyToManyService.java     ... 多対多の関連をもつテーブルアクセスを行うサービスインターフェースクラス
+      │               │   └SampleManyToManyServiceImpl.java ... サービス実装クラス
+      │               └config                               ... 設定クラス用のパッケージ
+      │                   ├App.java                         ... アプリケーション起動クラス
+      │                   ├DevConfig.java                   ... 開発環境固有の設定クラス
+      │                   ├DomainConfig.java                ... ドメイン層に関する設定クラス
+      │                   ├JPAConfig.java                   ... JPA設定クラス
+      │                   └MvcConfig.java                   ... アプリケーション層に関する設定クラス
+      └resources
+        ├application.yml                                    ... アプリケーション設定ファイル
+        └application-dev.yml                                ... プロファイル<span class="s2">&quot;dev&quot;</span>で有効になるアプリケーション設定ファイル
+</pre></div>
+</div>
+<p><br/></p>
+<p>また、マイクロサービスを呼び出すBackendForFrontend(Web)アプリケーションのパッケージ・コンポーネント構成は以下の通りとします。
+WebアプリケーションのHTMLテンプレートエンジンとしてThymeleafを使用しています。こちらも特に詳述はしませんが、必要に応じて、<a class="reference external" href="https://www.thymeleaf.org/documentation.html">Thymeleaf公式ドキュメント</a> や
+<a class="reference external" href="https://macchinetta.github.io/server-guideline-thymeleaf/current/ja/ArchitectureInDetail/WebApplicationDetail/Thymeleaf.html">Macchinetta Frameworkのテンプレートエンジン</a> を参照してください。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>backend <span class="k">for</span> frontend<span class="o">]</span>
+  └src
+    └main
+      ├java
+      │ └org
+      │   └debugroom
+      │     └mynavi
+      │       └sample
+      │         └continuous
+      │           └integration
+      │             └bff
+      │               └app                                      ... アプリケーション層のパッケージ
+      │               │ └model                                  ... リクエストパラメータのモデルクラスパッケージ
+      │               │ │ ├XxxxxForm.java                       ... HTMLフォームを表現するモデルクラス
+      │               │ │ ├Xxxxx.java                           ... 入力チェックルール等定義するモデルクラス
+      │               │ │ └XxxxxMapper.java                     ... commonプロジェクトにあるResourceクラスと相互変換するマッパークラス
+      │               │ └web                                    ... MvcConfigでコンポーネントスキャンの対象とするパッケージ
+      │               │   └BackendForFrontendController.java    ... リクエストハンドリング・ドメインサービス呼び出し後、テンプレートViewへ遷移するコントローラクラス
+      │               └domain                                   ... ドメイン層のパッケージ
+      │               │ ├repository                             ... レポジトリクラスパッケージ
+      │               │ │ ├XxxxxResourceRepository.java         ... Resourceレポジトリインターフェースクラス
+      │               │ │ └XxxxxResourceRepositoryImpl.java     ... マイクロサービスへアクセスするRestClientを使用したレポジトリ実装クラス
+      │               │ └service ...<span class="o">(</span><span class="m">4</span><span class="o">)</span>                         ... DomainConfigでコンポーネントスキャンの対象とするサービスクラスパッケージ
+      │               │   ├SampleService.java                   ... シンプルに１つのマイクロサービスにアクセスするサービスクラス
+      │               │   ├SampleServiceImpl.java               ... SampleServiceの実装クラス
+      │               │   ├MultiServicesCallingService.java     ... マイクロサービスに複数回アクセスするサービスクラス
+      │               │   └MultiServicesCallingServiceImpl.java ... MultiServicesCallingServiceインターフェースの実装クラス
+      │               └config                                   ... 設定クラス用のパッケージ
+      │                   ├WebApp.java                          ... Webアプリケーション起動クラス
+      │                   ├DomainConfig.java                    ... ドメイン層に関する設定クラス
+      │                   └MvcConfig.java                       ... アプリケーション層に関する設定クラス
+      └resources
+        ├static                                                 ... 静的リソースフォルダ
+        │ ├css                                                  ... CSSフォルダ
+        │ │ ├Xxxxx.css                                          ... 各ページごとのCSSファイル<span class="o">(</span>幅1280px以上<span class="o">)</span>
+        │ │ ├Xxxxx_mobile.css                                   ... 各ページごとのCSSファイル<span class="o">(</span>幅320px以上<span class="o">)</span>
+        │ │ └Xxxxx_tablet.css                                   ... 各ページごとのCSSファイル<span class="o">(</span>幅768px以上<span class="o">)</span>
+        │ └js                                                   ... JavaScriptフォルダ
+        │   └Xxxxx.js                                           ... 各ページごとのJSファイル
+        ├template                                               ... Thymeleaf用テンプレートフォルダ
+        │ └Xxxxx.html                                           ... ThymeleafテンプレートHTML
+        ├application.yml                                        ... アプリケーション設定ファイル
+        ├application-dev.yml                                    ... プロファイル<span class="s2">&quot;dev&quot;</span>で有効になるアプリケーション設定ファイル
+        ├messages.properties                                    ... デフォルトメッセージ定義ファイル
+        ├messages_ja.properties                                 ... ロケールがjaの際に有効になるメッセージ定義ファイル
+        └ValidationMessages.properties                          ... 入力チェックエラーメッセージ定義ファイル
+</pre></div>
+</div>
+<p><br/></p>
+<p>また、２つのアプリケーションで共通に使用する部品のパッケージ・コンポーネント構成は以下の通りです。
+主な構成要素としては、マイクロサービスから返却されるResourceクラスと、共通的に利用するアプリケーション基盤部品ですが、
+ほとんどがマイクロサービスと連携する場合やテストコードの検証に必要になったために実装した共通部品です。なお、
+例外の種類や考え方、SpringFrameworkを用いた例外ハンドリングの基本は <a class="reference external" href="http://terasolunaorg.github.io/guideline/5.4.1.RELEASE/ja/ArchitectureInDetail/WebApplicationDetail/ExceptionHandling.html#exception-handling-exception-type-label">TERASOLUNAのガイドライン 例外処理</a> も参考にしてください。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>common<span class="o">]</span>
+  └src
+    └main
+      ├java
+      │ └org
+      │   └debugroom
+      │     └mynavi
+      │       └sample
+      │         └continuous
+      │           └integration
+      │             └common
+      │               └web
+      │               │ └model
+      │               │   └XxxxxResoure.java                   ... 各エンティティに対応するResourceクラス
+      │               └apinfra                                 ... アプリケーション基盤部品パッケージ
+      │                 ├exception                             ... BackendとBFF双方のアプリケーション間で連携する例外クラスパッケージ
+      │                 │ ├BusinessException.java              ... ビジネス例外クラス
+      │                 │ ├BusinessExceptionResponse.java      ... マイクロサービスからレスポンスするビジネス例外をラップする実装クラス
+      │                 │ ├CommonExceptionHandler.java         ... 双方のアプリケーションのコントローラで例外ハンドリングする共通クラス
+      │                 │ ├ErrorResponse.java                  ... マイクロサービスからレスポンスする共通例外インターフェースクラス
+      │                 │ ├SystemException.java                ... システム例外クラス
+      │                 │ ├SystemExceptionResponse.java        ... マイクロサービスからレスポンスするシステム例外をラップする実装クラス
+      │                 │ ├ValidationError.java                ... マイクロサービスで発生した入力チェックエラーを連携するクラス
+      │                 │ ├ValidationErrorMapper.java          ... BindingResultとValidationErrorに変換するクラス
+      │                 │ └ValidationErrorResponse.java        ... マイクロサービスからレスポンスする入力チェック例外をラップする実装クラス
+      │                 ├test
+      │                 │ └junit                               ... JUnitテストで利用する部品パッケージ
+      │                 │   ├BusinessExceptionMatcher.java     ... ビジネス例外の検証に使用するカスタムMatcherクラス
+      │                 │   ├SystemExceptionMatcher.java       ... システム例外の検証に使用するカスタムMatcherクラス
+      │                 │   ├UnitTest.java                     ... 単体テストの識別子として利用するインターフェースクラス
+      │                 │   ├IntegrationTest.java              ... 結合テストの識別子として利用するインターフェースクラス
+      │                 │   └E2ETest.java                      ... EndToEndテストの識別子として利用するインターフェースクラス
+      │                 └util
+      │                   └DateUtil.java                       ... 日付に関するユーティリティクラス
+      └resources
+        ├messages.properties                                   ... ビジネス・システムエラー等のメッセージ定義ファイル
+        └messages_ja_JP.properties                             ... ロケールjp_JPで有効になるメッセージ定義ファイル
+</pre></div>
+</div>
+<p><br/></p>
+<p>次節以降のテストコード実装の解説時に、上記の幾つかのコンポーネントについては必要に応じて説明する場合もありますが、
+ここで示しておきたいことは、Backend、BFFともにController、Service、Repositoryがアプリケーションの中核的なコンポーネントだということです。
+SpringBootをベースとするアプリケーションでは、提供されているアノテーションの関係上、同じようなコンポーネント構成をとるケースがほとんどですので、
+以降は、Controller、Service、Repositoryに関するテストを前提として話を進めていきます。</p>
+<p><br/></p>
+</div>
+<div class="section" id="section-test-strategy-for-microservice-label">
+<span id="id7"></span><h3>アプリケーションのテスト観点<a class="headerlink" href="#section-test-strategy-for-microservice-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>上記のように構成した、マイクロサービス(Backend)、Webアプリケーション(BFF)のコンポーネント構成では、以下のような観点で各テストごとに品質を担保していくのがベターです。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/microservice-test-scope.png"><img alt="../_images/microservice-test-scope.png" src="../_images/microservice-test-scope.png" style="width: 1131.0px; height: 864.0px;" /></a>
+</div>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+<col width="55%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>アプリケーション</td>
+<td>試験</td>
+<td>コンポーネント</td>
+<td>検証観点</td>
+</tr>
+<tr class="row-even"><td>マイクロサービス <br/> (Backend)</td>
+<td>単体試験</td>
+<td>Respository</td>
+<td>・エンティティクラスがテーブル定義と一致しているか <br/> ・O/Rマッピング設定が妥当か <br/> ・記載したSQLクエリが正しく実行されるか <br/> ・カスタムクエリメソッドが想定通り実行されるか <br/> ・指定した結合条件でデータが正しく取得できるか</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>Service</td>
+<td>・Service実行の結果、正しくアウトプットが返されるか <br/> ・Service実行の結果、正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されているか</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>Controller</td>
+<td>・指定したHTTPメソッドやURLで正しくリクエストハンドリングされるか <br/> ・リクエストパラメータやパス変数が正しくマッピングされるか <br/> ・入力チェックが正しく行われているか <br/> ・入力チェックやビジネスエラー発生時に正しいHTTPステータスを返却するか <br/> ・入力チェックやビジネスエラー発生時に正しいメッセージやパラメータを返却するか</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>結合試験</td>
+<td>Service⇔Repository</td>
+<td>・データベースから正しく値が取得できるか <br/> ・データベースへ正しくデータが反映できるか <br/> ・設定ファイルが正しく動作するか</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>Controller⇔Service⇔Repository</td>
+<td>・期待したレスポンスが返却されるか <br/> ・モデル間のデータマッピングが正しく実行されているか <br/> ・設定ファイルが正しく動作するか</td>
+</tr>
+<tr class="row-odd"><td>Webアプリケーション <br/> (BFF)</td>
+<td>単体試験</td>
+<td>Respository(RestClient)</td>
+<td>・正しくビジネス例外が返されるか <br/> ・異常なレスポンスを受け取った場合正しくシステム例外が返されるか <br/> ・例外に正しくメッセージが設定されるか <br/>・マイクロサービス側のサーバエラー発生時に正しくシステム例外が返されるか</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>Service</td>
+<td>・Service実行の結果、正しくアウトプットが返されるか <br/> ・Service実行の結果、正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されているか</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>(View⇔)Controller</td>
+<td>・指定したHTTPメソッドやURLで正しくリクエストハンドリングされるか <br/> ・リクエストパラメータやパス変数が正しくマッピングされるか <br/> ・入力チェックが正しく行われているか <br/> ・入力チェックやビジネスエラー発生時に正しいメッセージやパラメータを返却するか <br/> ・サービス実行結果が正しく画面に表示されるか <br/>  ・非同期通信の実行結果が正しく画面に表示されるか</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>EndToEndテスト</td>
+<td>[BFF] ⇔ [Backend]</td>
+<td>・ユースケースシナリオ通り操作した時に、正しく画面に結果が表示されるか <br/>  ・ユースケースシナリオ通り操作した時に、エラーメッセージが正しく表示されるか <br/>・データベースへ正しくデータが反映できるか <br/>  ・画面表示のレイアウトが崩れていないか <br/> ・ブラウザごとに表示が異なっていないか</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>次回以降は、上記の観点に従い、SpringBootを使って、ControllerやService、Repositoryのテストの実装方法を解説していきます。</p>
+<p><br/></p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>著者紹介<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pic_image01.jpg"><img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+</div>
+<p>金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
