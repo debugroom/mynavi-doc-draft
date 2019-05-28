@@ -151,6 +151,10 @@ Javaの設定を先ほど作成したプロファイルに設定します。
 
 |br|
 
+.. note:: 静的チェックルールの定義については、`SpringFramework開発元のSonarQubeの設定 <https://sonar.spring.io/profiles>`_ が公開されているので、適宜参考にしてください。
+
+|br|
+
 .. _section-sonarqube-setting-sonarlint-for-intellij-label:
 
 IntelliJ IDEAへのSonarLintのインストールとプロジェクトの設定

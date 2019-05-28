@@ -10,7 +10,7 @@
 
 |br|
 
-.. _section-application-test-for-microservice-label:
+.. _section-application-test-overview-for-microservice-label:
 
 マイクロサービスにおけるテスト自動化とテスト戦略の重要性
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

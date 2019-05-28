@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>基盤・デプロイ自動化実践 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="../cloud_native/aws-lambda-and-api-gateway-1.html" />
+    <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_micro_service_architecture.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarqube.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarlint.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_architecture.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
+<li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li><a class="reference internal" href="#section-application-test-for-microservice-label">マイクロサービスにおける単体テスト</a></li>
+<li><a class="reference internal" href="#repository">Repositoryの単体テストの実装</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="automation_infra_devops_micro_service_architecture.html" title="Previous Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 基盤・デプロイ自動化実践</span>
+    </a>
+  </li>
+  <li>
+    <a href="../cloud_native/aws-lambda-and-api-gateway-1.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/automation_infra_devops/automation_infra_devops_micro_service_unittest.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="section-automation-infra-devops-microservice-unittest-label">
+<span id="id1"></span><h1>基盤・デプロイ自動化実践<a class="headerlink" href="#section-automation-infra-devops-microservice-unittest-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id2">
+<h2>マイクロサービスアーキテクチャの基盤・デプロイ自動化<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<div class="section" id="section-application-test-for-microservice-label">
+<span id="id3"></span><h3>マイクロサービスにおける単体テスト<a class="headerlink" href="#section-application-test-for-microservice-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>前回は、マイクロサービス(Backend)やそれを呼び出すWebアプリケーション(BackendForFrontend:BFF)の
+パッケージ・コンポーネント構成を示し、テスト観点を例示しました。今回からはテストを実装する際のポイントを説明していきます。</p>
+<p>まずバックエンドで実行されるマイクロサービスの単体テストです。アプリケーションおよびテストのパッケージ・コンポーネント構成は以下としています。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>backend<span class="o">]</span>
+  └src
+    ├main
+    │ ├java
+    │ │ └org
+    │ │   └debugroom
+    │ │     └mynavi
+    │ │       └sample
+    │ │         └continuous
+    │ │           └integration
+    │ │             └backend
+    │ │               └app                                  ... アプリケーション層のパッケージ
+    │ │               │ └model                              ... リクエストパラメータのモデルクラスパッケージ
+    │ │               │ │ ├Xxxxx.java                       ... 入力チェックルール等が定義されるモデルクラス
+    │ │               │ │ └XxxxxMapper.java                 ... ドメイン層のモデルクラスと相互変換するマッパークラス
+    │ │               │ └web                                ... MvcConfigでコンポーネントスキャンの対象とするパッケージ
+    │ │               │   └BackendRestController.java       ... リクエストハンドリング・ドメインサービス呼び出して、Resourceを返却するコントローラクラス
+    │ │               └domain                               ... ドメイン層のパッケージ
+    │ │               │ └model
+    │ │               │ │ └entity                           ... JPAConfigでスキャン対象とするエンティティクラスパッケージ
+    │ │               │ │   └Xxxxx.java                     ... JPAエンティティクラス
+    │ │               │ ├repository                         ... JPAConfigでスキャン対象とするレポジトリクラスパッケージ
+    │ │               │ │ ├specification                    ... JPAでテーブル結合等の条件を指定するクラスパッケージ
+    │ │               │ │ │ └Xxxxx.java                     ... JPAでテーブル結合等の条件を指定するクラス
+    │ │               │ │ └XxxxxRepository.java             ... レポジトリインターフェースクラス
+    │ │               │ └service                            ... DomainConfigでコンポーネントスキャンの対象とするサービスクラスパッケージ
+    │ │               │   ├SampleService.java               ... DBへ基本的なCRUDアクセスを行うサービスインターフェースクラス
+    │ │               │   ├SampleServiceImpl.java           ... SampleServiceの実装クラス
+    │ │               │   ├SampleOneToOneService.java       ... <span class="m">1</span>対1の関連をもつテーブルアクセスを行うサービスインターフェースクラス
+    │ │               │   ├SampleOneToOneServiceImpl.java   ... SampleOneToOneServiceの実装クラス
+    │ │               │   ├SampleOneToManyService.java      ... <span class="m">1</span>対多の関連をもつテーブルアクセスを行うサービスインターフェースクラス
+    │ │               │   ├SampleOneToManyServiceImpl.java  ... SampleOneToOneServiceの実装クラス
+    │ │               │   ├SampleManyToManyService.java     ... 多対多の関連をもつテーブルアクセスを行うサービスインターフェースクラス
+    │ │               │   └SampleManyToManyServiceImpl.java ... サービス実装クラス
+    │ │               └config                               ... 設定クラス用のパッケージ
+    │ │                   ├App.java                         ... アプリケーション起動クラス
+    │ │                   ├DevConfig.java                   ... 開発環境固有の設定クラス
+    │ │                   ├DomainConfig.java                ... ドメイン層に関する設定クラス
+    │ │                   ├JPAConfig.java                   ... JPA設定クラス
+    │ │                   └MvcConfig.java                   ... アプリケーション層に関する設定クラス
+    │ └resources
+    │   ├application.yml                                    ... アプリケーション設定ファイル
+    │   └application-dev.yml                                ... プロファイル<span class="s2">&quot;dev&quot;</span>で有効になるアプリケーション設定ファイル
+    <span class="nb">test</span>                                                    ... テストパッケージフォルダ
+      ├java
+      │ └org
+      │   └debugroom
+      │     └mynavi
+      │       └sample
+      │         └continuous
+      │           └integration
+      │             └backend
+      │               ├app
+      │               │ └web
+      │               │   └BackendRestControllerTest.java   ... Controllerのテストクラス
+      │               └domain
+      │                 ├DataJpaTestConfig.java             ... Repositoryのテスト設定クラス
+      │                 ├repository                         ... Repositoryテストパッケージ
+      │                 │ └XxxxRepositoryTest.java          ... Repositoryのテストクラス
+      │                 └service                            ... Serviceテストパッケージ
+      │                   └XxxxServiceTest.java             ... Serviceのテストクラス
+      └resources
+        ├META-INF
+        │ └dbunit                                           ... DBUnitのテーブルデータ用パッケージ
+        │   └domain
+        │     └service
+        │       └XxxxServiceTest                            ... テストクラスごとのフォルダ
+        │         └Xxxx                                     ... テストケースごとのフォルダ
+        │           ├Xxxxx.csv                              ... 各テーブルのテストデータ
+        │           └table-ordering.txt                     ... 読み込み対象のテーブル名を記載したテキストファイル
+        └application.yml                                    ... テスト用のアプリケーション設定ファイル
+</pre></div>
+</div>
+<p><br/></p>
+<p>一般にソフトウェアの単体テストでは、</p>
+<ul class="simple">
+<li>開発組織やプロジェクト</li>
+<li>プログラミング言語</li>
+<li>テストのスコープとする処理・機能、プログラム単位</li>
+<li>Webアプリケーションやモバイルなどアプリケーション特性</li>
+</ul>
+<p>などの違いにより、その定義・検証観点は異なります。Java、Springにおける単体テストでは、
+依存するコンポーネントをモックやスタブで置き換えて、テストを行えるように様々な機能が提供されています。
+SpringBootを使ってアプリケーションを実装する場合は、主にController、Service、Repositoryという単位で単体コンポーネントと考え、
+以下のイメージの通り、モックやスタブの設定を行い、表に示すような観点で実施するのがベターです。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/microservice-unittest-scope.png"><img alt="../_images/microservice-unittest-scope.png" src="../_images/microservice-unittest-scope.png" style="width: 947.0px; height: 279.0px;" /></a>
+</div>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+<col width="55%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>アプリケーション</td>
+<td>試験</td>
+<td>コンポーネント</td>
+<td>検証観点</td>
+</tr>
+<tr class="row-even"><td>マイクロサービス <br/> (Backend)</td>
+<td>単体試験</td>
+<td>Respository</td>
+<td>・エンティティクラスがテーブル定義と一致しているか <br/> ・O/Rマッピング設定が妥当か <br/> ・記載したSQLクエリが正しく実行されるか <br/> ・カスタムクエリメソッドが想定通り実行されるか <br/> ・指定した結合条件でデータが正しく取得できるか</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>Service</td>
+<td>・Service実行の結果、正しくアウトプットが返されるか <br/> ・Service実行の結果、正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されているか</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>Controller</td>
+<td>・指定したHTTPメソッドやURLで正しくリクエストハンドリングされるか <br/> ・リクエストパラメータやパス変数が正しくマッピングされるか <br/> ・入力チェックが正しく行われているか <br/> ・入力チェックやビジネスエラー発生時に正しいHTTPステータスを返却するか <br/> ・入力チェックやビジネスエラー発生時に正しいメッセージやパラメータを返却するか</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+</div>
+<div class="section" id="repository">
+<span id="section-repository-test-for-microservice-label"></span><h3>Repositoryの単体テストの実装<a class="headerlink" href="#repository" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>RepositoryはEricEvansのドメイン駆動設計で有名となった、データを永続化するコンポーネントの表現です。
+J2EEパターンで言うところの「DataAccessObject(DAO)」に相当します。主な違いとしてはRepositoryはよりビジネスドメインのルール・制約を含んでおり、
+より低いレベルのAPIをもつデータベースアクセスコンポーネントにない、よりビジネス的な意味合いを含むコンポーネントです。
+save()メソッドがRepositoryの持つAPIであり、Insert()メソッドがDAOが持つAPIと考えるとわかりやすいでしょう。
+AddressやEmailをもつUserを永続化する場合、AddressやEmailを設定したUserに対し、repository#save(User)を一度呼べば済むのか、
+emailDao#insert(email)、addressDao#insert(address)、userDao#insert(User)の３セットコールするのか、実装ではより顕著な差が現れます。
+また、永続化する先のデータストアがファイルなのか、RDBなのか、NoSQLデータベースなのか、他システムのデータストアかもRepositoryは問いません。
+(ファイルを永続化する場合にinsertは表現として少々不適当)。つまり、Repositoryはデータ永続化のためのより抽象的なコンポーネントとして表現されます。</p>
+<p>このマイクロサービスでは永続化先をRDBに設定しているため、上記の表に記載したテスト観点を設定していますが、Repositoryクラスの永続化先や実装ライブラリに応じて、
+適切な観点でテストを実施するようにしてください。以降、RDBとSpringDataJPAを用いたSpringBoot実装のテストについて述べます。</p>
+<p><br/></p>
+<p>Springではテスト実行環境を自動構築するいくつかのアノテーションを提供しています。SpringBootを使用したアプリケーションのテスト向けに提供されている
+&#64;SpringBootTestアノテーションを利用しても、Repositoryのテストを実行することは可能ですが、テストで使用しない
+コンポーネントを含めてテスト環境を構築し、起動時間のオーバーヘッドがあるため、実行速度の観点からJPAのRepositoryの単体テストでは、&#64;DataJpaTestを使用するのがベターです。</p>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">&#64;DataJpaTest以外にも&#64;JdbcTestや&#64;DataRedisTest、&#64;DataMongoDBTestなど、データストアやORマッパーライブラリのに応じて同様の機能をもつアノテーションがサードパーティ含め提供されています。</p>
+</div>
+<p><br/></p>
+<p>使用方法としては、JUnitテストランナーとしてorg.springframework.test.context.junit4.SpringRunnerを指定したテストクラスに、
+org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTestアノテーションを付与します。これで、テスト環境実行環境として、
+pom.xmlで依存性を定義したH2やHSQLなどのライブラリに応じて、テスト用のインメモリDBが構築され、テストデータを設定するためにテスト用のEntityMangerである
+TestEntityManagerがテスト用のDIコンテナに追加されるようになります。&#64;AutowiredでTestEntityManagerを取得して、
+&#64;Beforeを付与したテストのセットアップメソッドを用意して、前もって準備しておきたいテストデータをインメモリDBへ事前保存し、&#64;Testメソッドでテスト検証コードを記載する形で利用します。</p>
+<p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">pom.xmlの依存性定義</span><a class="headerlink" href="#id5" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
+ <span class="nt">&lt;groupId&gt;</span>org.hsqldb<span class="nt">&lt;/groupId&gt;</span>
+ <span class="nt">&lt;artifactId&gt;</span>hsqldb<span class="nt">&lt;/artifactId&gt;</span>
+ <span class="nt">&lt;scope&gt;</span>runtime<span class="nt">&lt;/scope&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></div>
+</div>
+</div>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.continuous.integration.backend.domain.repository</span><span class="o">;</span>
+
+<span class="kn">import static</span> <span class="nn">org.hamcrest.CoreMatchers.*</span><span class="o">;</span>
+<span class="kn">import static</span> <span class="nn">org.junit.Assert.*</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.junit.Before</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.runner.RunWith</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.test.context.junit4.SpringRunner</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="nd">@RunWith</span><span class="o">(</span><span class="n">SpringRunner</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@DataJpaTest</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserRepositoryTest</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">TestEntityManager</span> <span class="n">testEntityManager</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">UserRepository</span> <span class="n">userRepository</span><span class="o">;</span>
+
+    <span class="nd">@Before</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">before</span><span class="o">(){</span>
+        <span class="c1">// omit</span>
+        <span class="n">testEntityManager</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span>
+                <span class="n">User</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                        <span class="o">.</span><span class="na">userId</span><span class="o">(</span><span class="n">userIdA</span><span class="o">)</span>
+                        <span class="o">.</span><span class="na">firstName</span><span class="o">(</span><span class="s">&quot;taro&quot;</span><span class="o">)</span>
+                        <span class="o">.</span><span class="na">familyName</span><span class="o">(</span><span class="s">&quot;mynavi&quot;</span><span class="o">)</span>
+                        <span class="o">.</span><span class="na">loginId</span><span class="o">(</span><span class="s">&quot;taro.mynavi&quot;</span><span class="o">)</span>
+                        <span class="o">.</span><span class="na">addressByUserId</span><span class="o">(</span><span class="n">address1</span><span class="o">)</span>
+                        <span class="o">.</span><span class="na">membershipsByUserId</span><span class="o">(</span>
+                                <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="k">new</span> <span class="n">Membership</span><span class="o">[]{</span>
+                                        <span class="n">membership1</span><span class="o">,</span> <span class="n">membership3</span><span class="o">}))</span>
+                        <span class="o">.</span><span class="na">ver</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+                        <span class="o">.</span><span class="na">lastUpdatedAt</span><span class="o">(</span><span class="n">DateUtil</span><span class="o">.</span><span class="na">now</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">());</span>
+   <span class="o">}</span>
+
+   <span class="c1">// omit</span>
+
+   <span class="nd">@Test</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testFindByLoginIdNormalCase</span><span class="o">(){</span>
+       <span class="n">Optional</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">optionalUser</span> <span class="o">=</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">findByLoginId</span><span class="o">(</span><span class="s">&quot;taro.mynavi&quot;</span><span class="o">);</span>
+       <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="n">optionalUser</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+       <span class="n">assertThat</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">getUserId</span><span class="o">(),</span> <span class="n">is</span><span class="o">(</span><span class="mi">0</span><span class="n">L</span><span class="o">));</span>
+       <span class="n">assertThat</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">getFirstName</span><span class="o">(),</span> <span class="n">is</span><span class="o">(</span><span class="s">&quot;taro&quot;</span><span class="o">));</span>
+   <span class="o">}</span>
+
+   <span class="c1">// omit</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">&#64;DataJpaTestアノテーションに限らずですが、SpringBootで提供されている、いくつかのテスト用のアノテーションはテストクラスと同一もしくはその上位にあるパッケージに&#64;SpringBootApplicaitonが付与された起動クラスが必要になります。
+SpringBoot起動クラスがsrc/main上のテストクラスと同一もしくはその上位にあるパッケージにあれば問題ありませんが、本アプリケーションのように
+テストクラスのパッケージの上位ルート上にもないconfigパッケージにある場合は、テスト用のパッケージに&#64;SpringBootApplicaitonが付与されたクラスを作成しておきましょう。</p>
+</div>
+<p>Repositoryで定義したfindやsaveなどのインターフェースのメソッドに対するテストを実装し、期待結果を検証することで、
+テーブル定義とエンティティクラスの整合性や、エンティティクラスへのデータマッピング、SQLクエリの実行可否など、
+Repositoryやエンティティクラスの定義、SQL定義の実装が妥当か検証が可能です。テーブルの結合によるデータ取得やRDBの集計関数を使ったデータアクセスなども
+合わせて検証が可能なので、データ取得に関するエラーはこの単体テストで検出できるようにしておきましょう。
+ただし、データベースの更新については、データベースの反映結果を取得して個別にアサーションを記載するとアサーションコード量が膨大になり大変なので、
+次回以降で解説する結合試験でDBUnitを用いて、テーブルデータをまとめて検証した方が簡易ですので、ここでは検証対象には含めないでおきます。</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>著者紹介<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pic_image01.jpg"><img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+</div>
+<p>金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

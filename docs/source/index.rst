@@ -16,6 +16,7 @@
    automation_infra_devops/automation_infra_devops_sonarqube.rst
    automation_infra_devops/automation_infra_devops_sonarlint.rst
    automation_infra_devops/automation_infra_devops_micro_service_architecture.rst
+   automation_infra_devops/automation_infra_devops_micro_service_unittest.rst
    cloud_native/aws-lambda-and-api-gateway-1.rst
    cloud_native/aws-lambda-and-api-gateway-2.rst
    cloud_native/aws-lambda-and-api-gateway-3.rst
