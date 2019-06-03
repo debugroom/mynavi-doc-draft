@@ -18,12 +18,12 @@
 |br|
 
 連載第１回「 `マイクロサービスのアプリケーション構成と構築 <https://news.mynavi.jp/itsearch/article/devsoft/4379>`_ 」で、
-マイクロサービスの一般的な特徴やメリットを述べましたが、実プロジェクトでマイクロサービスアーキテクチャを採用する場合、
-アプリケーションを迅速にリリースし、顧客やエンドユーザの要求に応じて、機能追加や仕様変更を行っていくプロジェクト特性であるケースが多いと思います。
+マイクロサービスの一般的な特徴やメリットを述べましたが、実際のプロジェクトでマイクロサービスアーキテクチャを採用する場合、
+アプリケーションを迅速にリリースし、顧客やエンドユーザの要求・フィードバックに応じて、機能追加や仕様変更を行っていくプロジェクト特性であるケースが多いと思います。
 
-機能追加等でアプリケーションを改修する場合、追加した部分のテストはもちろん、変更が入っていない既存部分の無影響確認テストなどを
+機能追加等でアプリケーションを改修する場合、追加した部分のテストはもちろんリファクタリング、変更が入っていない既存部分でも無影響確認テストなどを
 繰り返し実施する必要があります。そのため、試験はテストコードを実装して、ソースコードコミットやビルド時にテストを実行するなどして
-問題の早期検出の仕組みを整え、継続的インテグレーションで極力自動化し、修正にかかる工数を省力化しておくことが重要になります。
+改修時の問題の早期検出の仕組みを整え、継続的インテグレーションで極力自動化し、修正にかかる工数を省力化しておくことが重要になります。
 
 とはいえ、テストコードの実装には相応の工数が必要になります(筆者の感覚的ですが、アプリケーションコードの実装に加えてテストコードの実装は3倍近い工数がかかる場合もあります)。
 初めから完璧にテストコードを整備しておく必要もありませんし、必要以上のテストコードの実装でかえって開発のアジリティを損なうようでは本末転倒です。
@@ -41,7 +41,7 @@
 |br|
 
 テスト戦略について述べる前に、本連載で構築するマイクロサービスアーキテクチャでのアプリケーションのパッケージ・コンポーネント構成について説明します。
-以下の通り、アプリケーションはBackendとBackendForFrontend(Webアプリ)に分けてコンテナを構築しています。
+以下の通り、アプリケーションはBackendとBackendForFrontend(BFF)に分けてコンテナを構築しています。
 
 |br|
 
@@ -52,8 +52,8 @@
 
 本連載では、Backendでデプロイしているアプリケーションがマイクロサービスに相当し、各マイクロサービスを呼び出し、
 呼び出した結果をフロントエンド(クライアント)向けに画面(HTML)などにアグリゲーション(集約)して返却するのが
-BFFの役割としています。また、アプリケーションのコンポーネントをアプリケーションレイヤ、ドメインレイヤ、インフラストラクチャレイヤで分割して各々構成するものとします。
-以降登場する各レイヤやコンポーネントの用語の意味や役割は `TERASOLUNAのガイドライン「アプリケーションのレイヤ化」 <http://terasolunaorg.github.io/guideline/5.4.1.RELEASE/ja/Overview/ApplicationLayering.html>`_
+BFFの役割としています。また、Backend、BFFともにアプリケーションのコンポーネントをアプリケーションレイヤ、ドメインレイヤ、インフラストラクチャレイヤで分割して各々構成するものとします。
+以降登場する各レイヤやコンポーネントの用語の意味や役割は `TERASOLUNAのガイドライン「アプリケーションのレイヤ化」 <http://terasolunaorg.github.io/guideline/5.5.1.RELEASE/ja/Overview/ApplicationLayering.html>`_
 での記述にほぼ準拠しますので、必要に応じて、リンクを参照してください。
 
 なお、実際に作成したアプリケーションは `GitHub <https://github.com/debugroom/mynavi-sample-continuous-integration>`_ 上にコミットしています。以降、解説で使用しているソースコードでは、記述を一部省略しているので、実行コードを作成する場合は、必要に応じて適宜GitHub上のソースコードも参照してください。
@@ -62,7 +62,7 @@ BFFの役割としています。また、アプリケーションのコンポ�
 
 まず、マイクロサービスとなるBackendアプリケーションのパッケージ・コンポーネント構成は以下の通りです。
 なお、アプリケーション内のデータベースアクセスはSpring Data JPAを用いており、ここでは詳細な解説は行いませんが、詳細は
-`連載 AWSで作るクラウドネイティブアプリケーションの基本「RDSへアクセスするSpringアプリケーション」 <https://news.mynavi.jp/itsearch/article/devsoft/4426>`_ や `TERASOLUNAのガイドライン「データベースアクセス（JPA編）」 <http://terasolunaorg.github.io/guideline/5.4.1.RELEASE/ja/ArchitectureInDetail/DataAccessDetail/DataAccessJpa.html>`_
+`連載 AWSで作るクラウドネイティブアプリケーションの基本「RDSへアクセスするSpringアプリケーション」 <https://news.mynavi.jp/itsearch/article/devsoft/4426>`_ や `TERASOLUNAのガイドライン「データベースアクセス（JPA編）」 <http://terasolunaorg.github.io/guideline/5.5.1.RELEASE/ja/ArchitectureInDetail/DataAccessDetail/DataAccessJpa.html>`_
 を適宜参照してください。また、テストではインメモリDBであるHSQLを利用します。
 
 |br|
@@ -85,7 +85,7 @@ BFFの役割としています。また、アプリケーションのコンポ�
          │               │ │ ├Xxxxx.java                       ... 入力チェックルール等が定義されるモデルクラス
          │               │ │ └XxxxxMapper.java                 ... ドメイン層のモデルクラスと相互変換するマッパークラス
          │               │ └web                                ... MvcConfigでコンポーネントスキャンの対象とするパッケージ
-         │               │   └BackendRestController.java       ... リクエストハンドリング・ドメインサービス呼び出して、Resourceを返却するコントローラクラス
+         │               │   └BackendController.java           ... リクエストハンドリング・ドメインサービス呼び出して、Resourceを返却するコントローラクラス
          │               └domain                               ... ドメイン層のパッケージ
          │               │ └model
          │               │ │ └entity                           ... JPAConfigでスキャン対象とするエンティティクラスパッケージ
@@ -115,9 +115,9 @@ BFFの役割としています。また、アプリケーションのコンポ�
 
 |br|
 
-また、マイクロサービスを呼び出すBackendForFrontend(Web)アプリケーションのパッケージ・コンポーネント構成は以下の通りとします。
-WebアプリケーションのHTMLテンプレートエンジンとしてThymeleafを使用しています。こちらも特に詳述はしませんが、必要に応じて、`Thymeleaf公式ドキュメント <https://www.thymeleaf.org/documentation.html>`_ や
-`Macchinetta Frameworkのテンプレートエンジン <https://macchinetta.github.io/server-guideline-thymeleaf/current/ja/ArchitectureInDetail/WebApplicationDetail/Thymeleaf.html>`_ を参照してください。
+また、マイクロサービスを呼び出すBFFアプリケーション(Webアプリケーションとなります)のパッケージ・コンポーネント構成は以下の通りとします。
+WebアプリケーションのHTMLテンプレートエンジンとしてThymeleafを使用しています。こちらも詳細な説明は割愛しますが、必要に応じて、`Thymeleaf公式ドキュメント <https://www.thymeleaf.org/documentation.html>`_ や
+`Macchinetta Framework テンプレートエンジン <https://macchinetta.github.io/server-guideline-thymeleaf/current/ja/ArchitectureInDetail/WebApplicationDetail/Thymeleaf.html>`_ を参照してください。
 
 |br|
 
@@ -145,7 +145,7 @@ WebアプリケーションのHTMLテンプレートエンジンとしてThymele
          │               │ ├repository                             ... レポジトリクラスパッケージ
          │               │ │ ├XxxxxResourceRepository.java         ... Resourceレポジトリインターフェースクラス
          │               │ │ └XxxxxResourceRepositoryImpl.java     ... マイクロサービスへアクセスするRestClientを使用したレポジトリ実装クラス
-         │               │ └service ...(4)                         ... DomainConfigでコンポーネントスキャンの対象とするサービスクラスパッケージ
+         │               │ └service                                ... DomainConfigでコンポーネントスキャンの対象とするサービスクラスパッケージ
          │               │   ├SampleService.java                   ... シンプルに１つのマイクロサービスにアクセスするサービスクラス
          │               │   ├SampleServiceImpl.java               ... SampleServiceの実装クラス
          │               │   ├MultiServicesCallingService.java     ... マイクロサービスに複数回アクセスするサービスクラス
@@ -175,7 +175,8 @@ WebアプリケーションのHTMLテンプレートエンジンとしてThymele
 また、２つのアプリケーションで共通に使用する部品のパッケージ・コンポーネント構成は以下の通りです。
 主な構成要素としては、マイクロサービスから返却されるResourceクラスと、共通的に利用するアプリケーション基盤部品ですが、
 ほとんどがマイクロサービスと連携する場合やテストコードの検証に必要になったために実装した共通部品です。なお、
-例外の種類や考え方、SpringFrameworkを用いた例外ハンドリングの基本は `TERASOLUNAのガイドライン 例外処理 <http://terasolunaorg.github.io/guideline/5.4.1.RELEASE/ja/ArchitectureInDetail/WebApplicationDetail/ExceptionHandling.html#exception-handling-exception-type-label>`_ も参考にしてください。
+例外の種類や考え方、SpringFrameworkを用いた例外ハンドリングの基本はTERASOLUNAガイドライン `例外ハンドリング <http://terasolunaorg.github.io/guideline/5.5.1.RELEASE/ja/ArchitectureInDetail/WebApplicationDetail/ExceptionHandling.html>`_ や、
+`RESTful Web Serviceの例外ハンドリング <http://terasolunaorg.github.io/guideline/5.5.1.RELEASE/ja/ArchitectureInDetail/WebServiceDetail/REST.html#resthowtouseexceptionhandling>`_ も参考にしてください。
 
 |br|
 
@@ -245,6 +246,8 @@ SpringBootをベースとするアプリケーションでは、提供されて�
 
 |br|
 
+.. _命名規約によるSQLクエリの自動組立: http://terasolunaorg.github.io/guideline/5.5.1.RELEASE/ja/ArchitectureInDetail/DataAccessDetail/DataAccessJpa.html#how-to-specify-query-mathodname-label
+
 .. list-table::
    :widths: 3, 3, 3, 11
 
@@ -256,7 +259,7 @@ SpringBootをベースとするアプリケーションでは、提供されて�
    * - マイクロサービス |br| (Backend)
      - 単体試験
      - Respository
-     - ・エンティティクラスがテーブル定義と一致しているか |br| ・O/Rマッピング設定が妥当か |br| ・記載したSQLクエリが正しく実行されるか |br| ・カスタムクエリメソッドが想定通り実行されるか |br| ・指定した結合条件でデータが正しく取得できるか
+     - ・エンティティクラスがテーブル定義と一致しているか |br| ・O/Rマッピング設定が妥当か |br| ・記載したSQLクエリや集合関数が正しく実行されるか |br| ・該当しないデータが発生した場合に期待された戻り値が返されるか |br| ・ `命名規約によるSQLクエリの自動組立`_ が正しく実行されるか |br| ・指定した結合条件でデータが正しく取得できるか
 
    * -
      -
@@ -266,7 +269,7 @@ SpringBootをベースとするアプリケーションでは、提供されて�
    * -
      -
      - Controller
-     - ・指定したHTTPメソッドやURLで正しくリクエストハンドリングされるか |br| ・リクエストパラメータやパス変数が正しくマッピングされるか |br| ・入力チェックが正しく行われているか |br| ・入力チェックやビジネスエラー発生時に正しいHTTPステータスを返却するか |br| ・入力チェックやビジネスエラー発生時に正しいメッセージやパラメータを返却するか
+     - ・指定したHTTPメソッドやURLで正しくリクエストハンドリングされるか |br| ・リクエストパラメータやパス変数が正しくマッピングされるか |br| ・入力チェックが正しく行われているか |br| ・入力チェックエラーやビジネスエラー発生時に正しいHTTPステータスを返却するか |br| ・入力チェックエラーやビジネスエラー発生時に正しいメッセージやパラメータを返却するか |br| ・レイヤ間のモデルオブジェクト変換は正しくマッピングされるか
 
    * -
      - 結合試験

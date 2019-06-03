@@ -105,10 +105,13 @@
 <li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
 <li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
 <li><a class="reference internal" href="#section-application-test-for-microservice-label">マイクロサービスにおける単体テスト</a></li>
-<li><a class="reference internal" href="#repository">Repositoryの単体テストの実装</a></li>
+<li><a class="reference internal" href="#repository">Repositoryの単体テスト実装</a></li>
+<li><a class="reference internal" href="#service">Serviceの単体テスト実装</a></li>
+<li><a class="reference internal" href="#controller">Controllerの単体テスト実装</a></li>
+<li><a class="reference internal" href="#section-unit-test-strategy-for-microservice-label">マイクロサービスにおける単体テスト戦略と品質評価</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id4">著者紹介</a></li>
+<li><a class="reference internal" href="#id5">著者紹介</a></li>
 </ul>
 </li>
 </ul>
@@ -166,8 +169,7 @@
 <div class="section" id="section-application-test-for-microservice-label">
 <span id="id3"></span><h3>マイクロサービスにおける単体テスト<a class="headerlink" href="#section-application-test-for-microservice-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
-<p>前回は、マイクロサービス(Backend)やそれを呼び出すWebアプリケーション(BackendForFrontend:BFF)の
-パッケージ・コンポーネント構成を示し、テスト観点を例示しました。今回からはテストを実装する際のポイントを説明していきます。</p>
+<p>前回は、マイクロサービス(Backend)やそれを呼び出すWebアプリケーション(BackendForFrontend:BFF)のパッケージ・コンポーネント構成を示し、テスト観点を例示しました。今回からはテストを実装する際のポイントやテスト戦略を説明していきます。</p>
 <p>まずバックエンドで実行されるマイクロサービスの単体テストです。アプリケーションおよびテストのパッケージ・コンポーネント構成は以下としています。</p>
 <p><br/></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>backend<span class="o">]</span>
@@ -225,21 +227,15 @@
       │               ├app
       │               │ └web
       │               │   └BackendRestControllerTest.java   ... Controllerのテストクラス
-      │               └domain
-      │                 ├DataJpaTestConfig.java             ... Repositoryのテスト設定クラス
-      │                 ├repository                         ... Repositoryテストパッケージ
-      │                 │ └XxxxRepositoryTest.java          ... Repositoryのテストクラス
-      │                 └service                            ... Serviceテストパッケージ
-      │                   └XxxxServiceTest.java             ... Serviceのテストクラス
+      │               ├domain
+      │               │ ├DataJpaTestConfig.java             ... Repositoryのテスト設定クラス
+      │               │ ├repository                         ... Repositoryテストパッケージ
+      │               │ │ └XxxxRepositoryTest.java          ... Repositoryのテストクラス
+      │               │ └service                            ... Serviceテストパッケージ
+      │               │   └XxxxServiceTest.java             ... Serviceのテストクラス
+      │               └config
+      │                 └TestConfig.java                    ... Testの汎用設定クラス
       └resources
-        ├META-INF
-        │ └dbunit                                           ... DBUnitのテーブルデータ用パッケージ
-        │   └domain
-        │     └service
-        │       └XxxxServiceTest                            ... テストクラスごとのフォルダ
-        │         └Xxxx                                     ... テストケースごとのフォルダ
-        │           ├Xxxxx.csv                              ... 各テーブルのテストデータ
-        │           └table-ordering.txt                     ... 読み込み対象のテーブル名を記載したテキストファイル
         └application.yml                                    ... テスト用のアプリケーション設定ファイル
 </pre></div>
 </div>
@@ -251,10 +247,9 @@
 <li>テストのスコープとする処理・機能、プログラム単位</li>
 <li>Webアプリケーションやモバイルなどアプリケーション特性</li>
 </ul>
-<p>などの違いにより、その定義・検証観点は異なります。Java、Springにおける単体テストでは、
-依存するコンポーネントをモックやスタブで置き換えて、テストを行えるように様々な機能が提供されています。
+<p>などの違いにより、その定義・検証観点は異なります。Java、Springにおける単体テストでは、テスト対象のクラスが依存するコンポーネントをモックやスタブで置き換えてテストを行えるよう、様々な機能が提供されています。
 SpringBootを使ってアプリケーションを実装する場合は、主にController、Service、Repositoryという単位で単体コンポーネントと考え、
-以下のイメージの通り、モックやスタブの設定を行い、表に示すような観点で実施するのがベターです。</p>
+以下のイメージの通り、モックやスタブの設定を行い、表に示すような観点でテストすることを推奨します。</p>
 <p><br/></p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/microservice-unittest-scope.png"><img alt="../_images/microservice-unittest-scope.png" src="../_images/microservice-unittest-scope.png" style="width: 947.0px; height: 279.0px;" /></a>
@@ -276,7 +271,7 @@ SpringBootを使ってアプリケーションを実装する場合は、主にC
 <tr class="row-even"><td>マイクロサービス <br/> (Backend)</td>
 <td>単体試験</td>
 <td>Respository</td>
-<td>・エンティティクラスがテーブル定義と一致しているか <br/> ・O/Rマッピング設定が妥当か <br/> ・記載したSQLクエリが正しく実行されるか <br/> ・カスタムクエリメソッドが想定通り実行されるか <br/> ・指定した結合条件でデータが正しく取得できるか</td>
+<td>・エンティティクラスがテーブル定義と一致しているか <br/> ・O/Rマッピング設定が妥当か <br/> ・記載したSQLクエリや集合関数が正しく実行されるか <br/> ・該当しないデータが発生した場合に期待された戻り値が返されるか <br/> ・ <a class="reference external" href="http://terasolunaorg.github.io/guideline/5.5.1.RELEASE/ja/ArchitectureInDetail/DataAccessDetail/DataAccessJpa.html#how-to-specify-query-mathodname-label">命名規約によるSQLクエリの自動組立</a> が正しく実行されるか <br/> ・指定した結合条件でデータが正しく取得できるか</td>
 </tr>
 <tr class="row-odd"><td>&#160;</td>
 <td>&#160;</td>
@@ -286,17 +281,17 @@ SpringBootを使ってアプリケーションを実装する場合は、主にC
 <tr class="row-even"><td>&#160;</td>
 <td>&#160;</td>
 <td>Controller</td>
-<td>・指定したHTTPメソッドやURLで正しくリクエストハンドリングされるか <br/> ・リクエストパラメータやパス変数が正しくマッピングされるか <br/> ・入力チェックが正しく行われているか <br/> ・入力チェックやビジネスエラー発生時に正しいHTTPステータスを返却するか <br/> ・入力チェックやビジネスエラー発生時に正しいメッセージやパラメータを返却するか</td>
+<td>・指定したHTTPメソッドやURLで正しくリクエストハンドリングされるか <br/> ・リクエストパラメータやパス変数が正しくマッピングされるか <br/> ・入力チェックが正しく行われているか <br/> ・入力チェックエラーやビジネスエラー発生時に正しいHTTPステータスを返却するか <br/> ・入力チェックエラーやビジネスエラー発生時に正しいメッセージやパラメータを返却するか <br/> ・レイヤ間のモデルオブジェクト変換は正しくマッピングされるか</td>
 </tr>
 </tbody>
 </table>
 <p><br/></p>
 </div>
 <div class="section" id="repository">
-<span id="section-repository-test-for-microservice-label"></span><h3>Repositoryの単体テストの実装<a class="headerlink" href="#repository" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<span id="section-repository-test-for-microservice-label"></span><h3>Repositoryの単体テスト実装<a class="headerlink" href="#repository" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
 <p>RepositoryはEricEvansのドメイン駆動設計で有名となった、データを永続化するコンポーネントの表現です。
-J2EEパターンで言うところの「DataAccessObject(DAO)」に相当します。主な違いとしてはRepositoryはよりビジネスドメインのルール・制約を含んでおり、
+J2EEパターンで言うところの「DataAccessObject(DAO)」に相当しますが、主な違いとしてはRepositoryはよりビジネスドメインのルール・制約を含んでおり、
 より低いレベルのAPIをもつデータベースアクセスコンポーネントにない、よりビジネス的な意味合いを含むコンポーネントです。
 save()メソッドがRepositoryの持つAPIであり、Insert()メソッドがDAOが持つAPIと考えるとわかりやすいでしょう。
 AddressやEmailをもつUserを永続化する場合、AddressやEmailを設定したUserに対し、repository#save(User)を一度呼べば済むのか、
@@ -306,27 +301,27 @@ emailDao#insert(email)、addressDao#insert(address)、userDao#insert(User)の３
 <p>このマイクロサービスでは永続化先をRDBに設定しているため、上記の表に記載したテスト観点を設定していますが、Repositoryクラスの永続化先や実装ライブラリに応じて、
 適切な観点でテストを実施するようにしてください。以降、RDBとSpringDataJPAを用いたSpringBoot実装のテストについて述べます。</p>
 <p><br/></p>
-<p>Springではテスト実行環境を自動構築するいくつかのアノテーションを提供しています。SpringBootを使用したアプリケーションのテスト向けに提供されている
-&#64;SpringBootTestアノテーションを利用しても、Repositoryのテストを実行することは可能ですが、テストで使用しない
-コンポーネントを含めてテスト環境を構築し、起動時間のオーバーヘッドがあるため、実行速度の観点からJPAのRepositoryの単体テストでは、&#64;DataJpaTestを使用するのがベターです。</p>
+<p>Springではテスト実行環境を自動構築するいくつかのアノテーションを提供しています。SpringBootを使用したアプリケーションのテスト向けに提供されている&#64;SpringBootTestアノテーションを使って
+Repositoryのテストを実行することも可能ですが、テストで使用しないコンポーネントを含めてDIコンテナを構築するなど起動時間のオーバーヘッドがあるため、
+実行速度の観点からJPAのRepositoryの単体テストでは、&#64;DataJpaTestを使用することを推奨します。</p>
 <p><br/></p>
 <div class="admonition note">
 <p class="first admonition-title">注釈</p>
-<p class="last">&#64;DataJpaTest以外にも&#64;JdbcTestや&#64;DataRedisTest、&#64;DataMongoDBTestなど、データストアやORマッパーライブラリのに応じて同様の機能をもつアノテーションがサードパーティ含め提供されています。</p>
+<p class="last">&#64;DataJpaTest以外にも&#64;JdbcTestや&#64;DataRedisTest、&#64;DataMongoTest、&#64;MyBaitsTestなど、データストアやORマッパーライブラリのに応じて同様の機能をもつアノテーションがサードパーティ含め提供されています。</p>
 </div>
 <p><br/></p>
-<p>使用方法としては、JUnitテストランナーとしてorg.springframework.test.context.junit4.SpringRunnerを指定したテストクラスに、
-org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTestアノテーションを付与します。これで、テスト環境実行環境として、
-pom.xmlで依存性を定義したH2やHSQLなどのライブラリに応じて、テスト用のインメモリDBが構築され、テストデータを設定するためにテスト用のEntityMangerである
-TestEntityManagerがテスト用のDIコンテナに追加されるようになります。&#64;AutowiredでTestEntityManagerを取得して、
-&#64;Beforeを付与したテストのセットアップメソッドを用意して、前もって準備しておきたいテストデータをインメモリDBへ事前保存し、&#64;Testメソッドでテスト検証コードを記載する形で利用します。</p>
+<p>＠DataJpaTestの使用方法としては、JUnitテストランナーとしてorg.springframework.test.context.junit4.SpringRunnerを指定したテストクラスに、
+org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTestアノテーションを付与します。この設定により、テスト実行環境として、
+pom.xmlで依存性を定義したH2やHSQLなどインメモリDBが構築され、テスト環境向けのEntityMangerであるTestEntityManagerがテスト用DIコンテナに追加されるようになります。
+テストコード上では、&#64;AutowiredでTestEntityManagerを取得し、&#64;Beforeを付与したテストのセットアップメソッドを用意して、前もって準備しておきたいテストデータをtestEntityManager#persist()で
+インメモリDBへ事前保存し、&#64;Testメソッドでテスト検証コードを記載する形で利用します。</p>
 <p><br/></p>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">pom.xmlの依存性定義</span><a class="headerlink" href="#id5" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">pom.xmlの依存性定義</span><a class="headerlink" href="#id6" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
- <span class="nt">&lt;groupId&gt;</span>org.hsqldb<span class="nt">&lt;/groupId&gt;</span>
- <span class="nt">&lt;artifactId&gt;</span>hsqldb<span class="nt">&lt;/artifactId&gt;</span>
- <span class="nt">&lt;scope&gt;</span>runtime<span class="nt">&lt;/scope&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.hsqldb<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>hsqldb<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;scope&gt;</span>runtime<span class="nt">&lt;/scope&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
 </pre></div>
 </div>
@@ -389,22 +384,509 @@ TestEntityManagerがテスト用のDIコンテナに追加されるようにな�
 <span class="o">}</span>
 </pre></div>
 </div>
+<p><br/></p>
 <div class="admonition warning">
 <p class="first admonition-title">警告</p>
-<p class="last">&#64;DataJpaTestアノテーションに限らずですが、SpringBootで提供されている、いくつかのテスト用のアノテーションはテストクラスと同一もしくはその上位にあるパッケージに&#64;SpringBootApplicaitonが付与された起動クラスが必要になります。
-SpringBoot起動クラスがsrc/main上のテストクラスと同一もしくはその上位にあるパッケージにあれば問題ありませんが、本アプリケーションのように
-テストクラスのパッケージの上位ルート上にもないconfigパッケージにある場合は、テスト用のパッケージに&#64;SpringBootApplicaitonが付与されたクラスを作成しておきましょう。</p>
+<p class="last">&#64;DataJpaTestアノテーションに限らずですが、&#64;SpringBootTestをはじめ、SpringBootで提供されているテスト用のアノテーションはテストクラスと同じ、もしくはその上位にあるパッケージに&#64;SpringBootApplicaitonが付与された起動クラスが必要になります。
+SpringBoot起動クラスがsrc/main上で、テストクラスと同一もしくはその上位にあるパッケージにあれば問題ありませんが、本アプリケーションのように
+テストクラスのパッケージの上位ルート上でもないconfigパッケージにある場合は、テスト用のパッケージに&#64;SpringBootApplicaitonが付与されたクラスを作成しておきましょう。</p>
 </div>
-<p>Repositoryで定義したfindやsaveなどのインターフェースのメソッドに対するテストを実装し、期待結果を検証することで、
+<p><br/></p>
+<p>Repositoryで定義したインターフェースのメソッドに対するテストを実装し、期待結果を検証することで、
 テーブル定義とエンティティクラスの整合性や、エンティティクラスへのデータマッピング、SQLクエリの実行可否など、
-Repositoryやエンティティクラスの定義、SQL定義の実装が妥当か検証が可能です。テーブルの結合によるデータ取得やRDBの集計関数を使ったデータアクセスなども
+Repositoryやエンティティクラスの定義、SQL定義の実装の妥当性を検証可能です。テーブルの結合によるデータ取得やRDBの集計関数を使ったデータアクセスなども
 合わせて検証が可能なので、データ取得に関するエラーはこの単体テストで検出できるようにしておきましょう。
-ただし、データベースの更新については、データベースの反映結果を取得して個別にアサーションを記載するとアサーションコード量が膨大になり大変なので、
-次回以降で解説する結合試験でDBUnitを用いて、テーブルデータをまとめて検証した方が簡易ですので、ここでは検証対象には含めないでおきます。</p>
+ただし、データベースの更新については、データベースの反映結果を取得して個別にアサーションを記載するとアサーションコード量が膨大になり大変です。
+次回以降で解説する結合試験でDBUnitを用いて、テーブルデータをまとめて検証した方が簡易なため、ここでは検証対象には含めないでおきます。
+今回サンプルでは以下のようなユースケース・検証観点でテストコードを実装しています。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="35%" />
+<col width="30%" />
+<col width="35%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>ユースケース</td>
+<td>主な処理実装クラス・メソッド <br/> テストメソッド</td>
+<td>検証観点</td>
+</tr>
+<tr class="row-even"><td>[正常系]ログインIDを元にユーザを検索する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/UserRepository.java#L14">UserRepository#findByLoginId</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/model/entity/User.java">User(Entity)</a> <br/> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/UserRepositoryTest.java#L124">UserRepositoryTest#testFindByLoginIdNormalCase()</a></td>
+<td>・エンティティクラスがテーブル定義と一致しているか <br/> ・O/Rマッピング設定が妥当か <br/> ・ <a class="reference external" href="http://terasolunaorg.github.io/guideline/5.5.1.RELEASE/ja/ArchitectureInDetail/DataAccessDetail/DataAccessJpa.html#how-to-specify-query-mathodname-label">命名規約によるSQLクエリの自動組立</a> が正しく実行されるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]ログインIDを元にユーザを検索する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/UserRepository.java#L14">UserRepository#findByLoginId</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/UserRepositoryTest.java#L132">UserRepositoryTest#testFindByLoginIdAbnormalCase()</a></td>
+<td>・該当しないデータが発生した場合に期待された戻り値が返されるか</td>
+</tr>
+<tr class="row-even"><td>[正常系]ログインIDを元にユーザが存在するか確認する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/UserRepository.java#L15">UserRepository#existsByLoginId</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/UserRepositoryTest.java#L138">UserRepositoryTest#testExistsByLoginIdNormalCase()</a></td>
+<td>・ <a class="reference external" href="http://terasolunaorg.github.io/guideline/5.5.1.RELEASE/ja/ArchitectureInDetail/DataAccessDetail/DataAccessJpa.html#how-to-specify-query-mathodname-label">命名規約によるSQLクエリの自動組立</a> が正しく実行されるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]ログインIDを元にユーザが存在するか確認する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/UserRepository.java#L15">UserRepository#existsByLoginId</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/UserRepositoryTest.java#L143">UserRepositoryTest#testExistsByLoginIdAbnormalCase()</a></td>
+<td>・該当しないデータが発生した場合に期待された戻り値が返されるか</td>
+</tr>
+<tr class="row-even"><td>[正常系]指定された郵便番号の住所をもつユーザを検索する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/specification/FindUsersHavingAddressOfZipCode.java">FindUsersHavingAddressOfZipCode</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/UserRepositoryTest.java#L148">UserRepositoryTest#testFindUsersHavingAddressOfZipCodeNormalCase()</a></td>
+<td>・テーブルの結合条件が妥当か</td>
+</tr>
+<tr class="row-odd"><td>[正常系]指定された郵便番号の住所をもたないユーザを検索する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/specification/FindUsersNotHavingAddressOfZipCode.java">FindUsersNotHavingAddressOfZipCode</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/UserRepositoryTest.java#L156">UserRepositoryTest#testFindUsersNotHavingAddressOfZipCodeNormalCase()</a></td>
+<td>・テーブルの結合条件が妥当か</td>
+</tr>
+<tr class="row-even"><td>[正常系]指定されたグループ名のグループに所属するユーザを検索する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/specification/FindUsersByGroup.java">FindUsersByGroup</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/UserRepositoryTest.java#L164">UserRepositoryTest#testFindUsersByGroupNormalCase1()</a></td>
+<td>・テーブルの結合条件が妥当か</td>
+</tr>
+<tr class="row-odd"><td>[正常系]指定されたグループIDのグループに所属するユーザを検索する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/specification/FindUsersByGroup.java">FindUsersByGroup</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/UserRepositoryTest.java#L176">UserRepositoryTest#testFindUsersByGroupNormalCase2()</a></td>
+<td>・テーブルの結合条件が妥当か</td>
+</tr>
+<tr class="row-even"><td>[正常系]指定されたグループ名のグループに所属しないユーザを検索する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/specification/FindUsersByNotGroup.java">FindUsersByNotGroup</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/UserRepositoryTest.java#L189">UserRepositoryTest#testFindUsersByNotGroupNormalCase1()</a></td>
+<td>・テーブルの結合条件が妥当か</td>
+</tr>
+<tr class="row-odd"><td>[正常系]指定されたグループIDのグループに所属しないユーザを検索する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/specification/FindUsersByNotGroup.java">FindUsersByNotGroup</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/UserRepositoryTest.java#L202">UserRepositoryTest#testFindUsersByNotGroupNormalCase2()</a></td>
+<td>・テーブルの結合条件が妥当か</td>
+</tr>
+<tr class="row-even"><td>[正常系]userIdでMaxの値を持つIDを検索する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/UserRepository.java#L18">UserRepository#getMaxUserId</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/UserRepositoryTest.java#L215">UserRepositoryTest#testGetMaxUserIdNormalCase()</a></td>
+<td>・記載したSQLクエリや集合関数が正しく実行されるか</td>
+</tr>
+<tr class="row-odd"><td>[正常系]指定されたメールアドレスをもつメールを検索する。</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/EmailRepository.java#L10">EmailRepository#findByEmail</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/model/entity/Email.java">Email(Entity)</a> <br/> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/EmailRepositoryTest.java#L56">EmailRepositoryTest#testFindByEmailNormalCase()</a></td>
+<td>・エンティティクラスがテーブル定義と一致しているか <br/> ・O/Rマッピング設定が妥当か <br/> ・ <a class="reference external" href="http://terasolunaorg.github.io/guideline/5.5.1.RELEASE/ja/ArchitectureInDetail/DataAccessDetail/DataAccessJpa.html#how-to-specify-query-mathodname-label">命名規約によるSQLクエリの自動組立</a> が正しく実行されるか</td>
+</tr>
+<tr class="row-even"><td>[正常系]指定されたグループ名をもつグループを検索する。</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/GroupRepository.java#L11">GroupRepository#findByGroupName</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/model/entity/Group.java">Group(Entity)</a> <br/> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/GroupRepositoryTest.java#L92">GroupRepositoryTest#testFindByGroupNameNormalCase()</a></td>
+<td>・エンティティクラスがテーブル定義と一致しているか <br/> ・O/Rマッピング設定が妥当か <br/> ・ <a class="reference external" href="http://terasolunaorg.github.io/guideline/5.5.1.RELEASE/ja/ArchitectureInDetail/DataAccessDetail/DataAccessJpa.html#how-to-specify-query-mathodname-label">命名規約によるSQLクエリの自動組立</a> が正しく実行されるか <br/></td>
+</tr>
+<tr class="row-odd"><td>[正常系]指定されたユーザIDをもつユーザが所属するグループを検索する。</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/specification/FindGroupsByUserId.java">FindGroupsByUserId</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/repository/GroupRepositoryTest.java#L98">GroupRepositoryTest#testFindGroupsByUserIdNormalCase()</a></td>
+<td>・テーブルの結合条件が妥当か</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">結合条件を指定したSpecificationクラスに実装している <a class="reference external" href="https://docs.jboss.org/hibernate/orm/5.0/topical/html/metamodelgen/MetamodelGenerator.html">JPAのメタモデルクラスはIDEのジェネレータ機能を使用して自動生成</a> しています。
+本アプリケーションでは、<a class="reference external" href="https://intellij-support.jetbrains.com/hc/en-us/community/posts/206842215-Hibernate-JPA-2-Metamodel-generation">IntelliJの公式ページ</a> や
+<a class="reference external" href="https://docs.jboss.org/hibernate/orm/5.0/topical/html/metamodelgen/MetamodelGenerator.html#chapter-usage">Hibernateが提供するGenerator</a> の手順にならって設定していますが、
+IntelliJでは、メタモデルクラスのデフォルトの出力先がtargetフォルダになっているため、GitHubソースコード上には掲載されてないのでご注意ください(IntelliJでもEclipseでもメタモデルクラスの出力機能があるので、その設定を行えば出力されるようになります)。</p>
+</div>
+<p><br/></p>
+</div>
+<div class="section" id="service">
+<span id="section-serivce-test-for-microservice-label"></span><h3>Serviceの単体テスト実装<a class="headerlink" href="#service" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>Serviceは <a class="reference external" href="http://terasolunaorg.github.io/guideline/5.5.1.RELEASE/ja/ImplementationAtEachLayer/DomainLayer.html#service">TERASOLUNAのガイドライン Serviceの実装</a> でも述べている通り、
+ビジネス処理のトランザクション境界であり、ロジックの中核となるコンポーネントです。Service内でデータベースにアクセスする場合は、
+Serviceの実装クラスに&#64;AutowiredでインジェクションしたRepositoryを介して行いますが、単体テストを行う場合は、
+モックなどでデータアクセス部分をスタブ化してからテストコードを実装します。Serviceは可能な限りPOJOで実装されるのが望ましいですが、
+ビジネスロジック中に頻出するビジネス例外発生時のメッセージなどはSpringが提供するMessageSourceを使って取得するのが一般的であり、
+こうした部分までをスタブ化するとセットアップが大変なので、実際の処理と同様、SpringのDIコンテナから取得できるようにしておくほうが望ましいです。</p>
+<p>そのため、ServiceのテストではSpringBootアプリケーション起動時と同様に、DIコンテナとともに実行に必要なコンポーネントをオートコンフィグレーションする&#64;SpringBootTestアノテーションを用いて、
+MessageSourceなどのコンポーネントはSpringのDIコンテナから取得できるようにしておき、Repositoryなど手動実装がメインの部分はモック化します。
+また、&#64;SpringBootTestアノテーションのclasses属性に指定したテストクラスは、そのテストクラスと同一パッケージにある
+&#64;Configurationアノテーションが付与された設定クラスを読み込むので、src/test配下に、src/main/配下と同じconfigパッケージを作成し、
+そこに配置したテスト用のConfigクラスを設定することで、アプリケーション起動時と同様、src/main/配下のconfigパッケージ配下にある設定クラスを読み込むようになります。
+コードの例は以下のようになります。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import static</span> <span class="nn">org.hamcrest.core.Is.is</span><span class="o">;</span>
+<span class="kn">import static</span> <span class="nn">org.hamcrest.core.IsNull.nullValue</span><span class="o">;</span>
+<span class="kn">import static</span> <span class="nn">org.mockito.Mockito.when</span><span class="o">;</span>
+<span class="kn">import static</span> <span class="nn">org.junit.Assert.*</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.test.context.SpringBootTest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.test.mock.mockito.MockBean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.continuous.integration.backend.config.TestConfig</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="nd">@RunWith</span><span class="o">(</span><span class="n">Enclosed</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SampleServiceImplTest</span> <span class="o">{</span>
+
+    <span class="nd">@RunWith</span><span class="o">(</span><span class="n">SpringRunner</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="nd">@SpringBootTest</span><span class="o">(</span><span class="n">classes</span> <span class="o">=</span> <span class="o">{</span>
+         <span class="n">TestConfig</span><span class="o">.</span><span class="na">UnitTestConfig</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+         <span class="n">SampleServiceImplTest</span><span class="o">.</span><span class="na">UnitTest</span><span class="o">.</span><span class="na">Config</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+    <span class="o">},</span> <span class="n">webEnvironment</span> <span class="o">=</span> <span class="n">SpringBootTest</span><span class="o">.</span><span class="na">WebEnvironment</span><span class="o">.</span><span class="na">NONE</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">UnitTest</span><span class="o">{</span>
+
+      <span class="nd">@Configuration</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Config</span><span class="o">{</span>
+         <span class="nd">@Bean</span>
+         <span class="n">SampleService</span> <span class="nf">sampleService</span><span class="o">(){</span>
+             <span class="k">return</span> <span class="k">new</span> <span class="n">SampleServiceImpl</span><span class="o">();</span>
+         <span class="o">}</span>
+      <span class="o">}</span>
+
+      <span class="nd">@MockBean</span>
+      <span class="n">UserRepository</span> <span class="n">userRepositoryMock</span><span class="o">;</span>
+
+      <span class="c1">// omit</span>
+
+      <span class="nd">@Autowired</span>
+      <span class="n">SampleService</span> <span class="n">sampleService</span><span class="o">;</span>
+
+      <span class="nd">@Rule</span>
+      <span class="kd">public</span> <span class="n">ExpectedException</span> <span class="n">expectedException</span> <span class="o">=</span> <span class="n">ExpectedException</span><span class="o">.</span><span class="na">none</span><span class="o">();</span>
+
+      <span class="nd">@Before</span>
+      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">(){</span>
+         <span class="c1">//omit</span>
+         <span class="n">when</span><span class="o">(</span><span class="n">userRepositoryMock</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="k">new</span> <span class="n">Long</span><span class="o">(</span><span class="mi">1</span><span class="o">))).</span><span class="na">thenReturn</span><span class="o">(</span><span class="n">Optional</span><span class="o">.</span><span class="na">empty</span><span class="o">());</span>
+         <span class="c1">//omit</span>
+      <span class="o">}</span>
+
+      <span class="c1">// omit</span>
+
+      <span class="nd">@Test</span>
+      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">findOneAbnormalTest</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">BusinessException</span><span class="o">{</span>
+          <span class="n">expectedException</span><span class="o">.</span><span class="na">expect</span><span class="o">(</span><span class="n">BusinessException</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+          <span class="n">expectedException</span><span class="o">.</span><span class="na">expectMessage</span><span class="o">(</span><span class="s">&quot;指定されたユーザは存在しないか、IDが誤っています。 UserID : 1&quot;</span><span class="o">);</span>
+          <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="n">sampleService</span><span class="o">.</span><span class="na">findOne</span><span class="o">(</span>
+            <span class="n">User</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">userId</span><span class="o">(</span><span class="k">new</span> <span class="n">Long</span><span class="o">(</span><span class="mi">1</span><span class="o">)).</span><span class="na">build</span><span class="o">());</span>
+      <span class="o">}</span>
+
+      <span class="c1">// omit</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>こうしたテスト実装により、Sevice実行時のアウトプットオブジェクトの妥当性やビジネス例外発生の妥当性、ビジネス例外のメッセージなどを
+検証できます。単純にRepositoryを呼び出してデータを返すだけのメソッドは、試験内容が重複するので、結合試験で確認するものとし、
+サンプルで作成したテストケースは、Serviceの異常系処理を中心に、以下のようなユースケース・検証観点をもとに実装しています。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="35%" />
+<col width="30%" />
+<col width="35%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>ユースケース</td>
+<td>主な処理実装クラス・メソッド <br/> テストメソッド</td>
+<td>検証観点</td>
+</tr>
+<tr class="row-even"><td>[異常系]ユーザ情報を元にユーザを検索する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleServiceImpl.java#L35">SampleService#findOne(User user)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleServiceImplTest.java#L177">SampleServiceImplTest#findOneAbnormalTest()</a></td>
+<td>・Service実行の結果、正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-odd"><td>[正常系]ユーザを追加する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleServiceImpl.java#L52">SampleService#add(User user)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleServiceImplTest.java#L185">SampleServiceImplTest#addTestNormalCase()</a></td>
+<td>・Service実行の結果、正しくアウトプットが返されるか</td>
+</tr>
+<tr class="row-even"><td>[異常系]ユーザを追加する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleServiceImpl.java#L52">SampleService#add(User user)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleServiceImplTest.java#L215">SampleServiceImplTest#addTestAbnormalCase()</a></td>
+<td>・Service実行の結果、正しくビジネス例外が返されるか</td>
+</tr>
+<tr class="row-odd"><td>[正常系]ユーザを更新する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleServiceImpl.java#L98">SampleService#update(User user)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleServiceImplTest.java#L226">SampleServiceImplTest#updateTestNormalCase()</a></td>
+<td>・Service実行の結果、正しくアウトプットが返されるか</td>
+</tr>
+<tr class="row-even"><td>[異常系]ユーザを更新する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleServiceImpl.java#L98">SampleService#update(User user)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleServiceImplTest.java#L261">SampleServiceImplTest#updateTestAbnormalCase1()</a></td>
+<td>・Service実行の結果、正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]ユーザを更新する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleServiceImpl.java#L98">SampleService#update(User user)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleServiceImplTest.java#L272">SampleServiceImplTest#updateTestAbnormalCase2()</a></td>
+<td>・Service実行の結果、正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-even"><td>[異常系]ユーザを削除する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleServiceImpl.java#L145">SampleService#delete(User user)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleServiceImplTest.java#L288">SampleServiceImplTest#deleteTestAbnormalCase()</a></td>
+<td>・Service実行の結果、正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]指定されたログインIDをもつユーザを検索する。</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleServiceImpl.java#L159">SampleService#findUserHave(String loginId)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleServiceImplTest.java#L298">SampleServiceImplTest#findUserHaveLoginAbnormalTest()</a></td>
+<td>・Service実行の結果、正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-even"><td>[異常系]指定されたユーザが持つアドレスを取得する。</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleOneToOneServiceImpl.java#L33">SampleOneToOneService#findAddressOf(User user)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleOneToOneServiceImplTest.java#L109">SampleOneToOneServiceImplTest#findAddressOfAbnormalTest()</a></td>
+<td>・Service実行の結果、正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-odd"><td>[正常系]住所を更新する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleOneToOneServiceImpl.java#L57">SampleOneToOneService#update(Address address)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleOneToOneServiceImplTest.java#L117">SampleOneToOneServiceImplTest#updateNormalTest()</a></td>
+<td>・Service実行の結果、正しくアウトプットが返されるか</td>
+</tr>
+<tr class="row-even"><td>[異常系]住所を更新する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleOneToOneServiceImpl.java#L57">SampleOneToOneService#update(Address address)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleOneToOneServiceImplTest.java#L129">SampleOneToOneServiceImplTest#updateAbnormalTest()</a></td>
+<td>・Service実行の結果、正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]指定されたユーザが持つEmailを取得する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleOneToManyServiceImpl.java#L38">SampleOneToManyService#getEmailsOf(User user)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleOneToManyServiceImplTest.java#L118">SampleOneToManyServiceImplTest#getEmailsOfAbnormalTest()</a></td>
+<td>・Service実行の結果、正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-even"><td>[異常系]Emailを追加する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleOneToManyServiceImpl.java#L55">SampleOneToManyService#add(Email email)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleOneToManyServiceImplTest.java#L126">SampleOneToManyServiceImplTest#addAbnormalTest()</a></td>
+<td>・Service実行の結果、正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]Emailを更新する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleOneToManyServiceImpl.java#L74">SampleOneToManyService#update(Email email)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleOneToManyServiceImplTest.java#L134">SampleOneToManyServiceImplTest#updateAbnormalTest()</a></td>
+<td>・Service実行の結果、正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-even"><td>[異常系]Emailを削除する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleOneToManyServiceImpl.java#L92">SampleOneToManyService#delete(Email email)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleOneToManyServiceImplTest.java#L142">SampleOneToManyServiceImplTest#deleteAbnormalTest1()</a></td>
+<td>・Service実行の結果、正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]Emailを削除する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleOneToManyServiceImpl.java#L92">SampleOneToManyService#delete(Email email)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleOneToManyServiceImplTest.java#L150">SampleOneToManyServiceImplTest#deleteAbnormalTest2()</a></td>
+<td>・Service実行の結果、正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-even"><td>[異常系]Emailを削除する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleOneToManyServiceImpl.java#L92">SampleOneToManyService#delete(Email email)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleOneToManyServiceImplTest.java#L158">SampleOneToManyServiceImplTest#deleteAbnormalTest3()</a></td>
+<td>・Service実行の結果、正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]Emailを全て削除する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleOneToManyServiceImpl.java#L122">SampleOneToManyService#deleteAllEmail(User user)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleOneToManyServiceImplTest.java#L166">SampleOneToManyServiceImplTest#deleteAllEmailAbnormalTest()</a></td>
+<td>・Service実行の結果、正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-even"><td>[異常系]ユーザをグループに追加する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleManyToManyServiceImpl.java#L58">SampleManyToManyService#addUserTo(Group group, User addUser)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleManyToManyServiceImplTest.java#L105">SampleManyToManyServiceImplTest#addUserToGroupAbnormalTest1()</a></td>
+<td>・Service実行の結果、正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]ユーザをグループに追加する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleManyToManyServiceImpl.java#L58">SampleManyToManyService#addUserTo(Group group, User addUser)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleManyToManyServiceImplTest.java#L114">SampleManyToManyServiceImplTest#addUserToGroupAbnormalTest2()</a></td>
+<td>・Service実行の結果、正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-even"><td>[異常系]ユーザをグループから削除する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleManyToManyServiceImpl.java#L86">SampleManyToManyService#deleteUserFrom(Group group, User deleteUser)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleManyToManyServiceImplTest.java#L105">SampleManyToManyServiceImplTest#addUserToGroupAbnormalTest1()</a></td>
+<td>・Service実行の結果、正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]ユーザをグループから削除する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleManyToManyServiceImpl.java#L86">SampleManyToManyService#deleteUserFrom(Group group, User deleteUser)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleManyToManyServiceImplTest.java#L114">SampleManyToManyServiceImplTest#addUserToGroupAbnormalTest2()</a></td>
+<td>・Service実行の結果、正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-even"><td>[異常系]グループを削除する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleManyToManyServiceImplTest.java#L141">SampleManyToManyService#delete(Group group)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleManyToManyServiceImplTest.java#L141">SampleManyToManyServiceImplTest#deleteGroupAbnormalTest()</a></td>
+<td>・Service実行の結果、正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]ユーザを削除する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleManyToManyServiceImpl.java#L123">SampleManyToManyService#delete(User user)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/domain/service/SampleManyToManyServiceImplTest.java#L149">SampleManyToManyServiceImplTest#deleteUserAbnormalTest()</a></td>
+<td>・Service実行の結果、正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>ソースコードとテストケースを突き合わせると分かる通り、Serviceのテストではカバレッジ率が上昇するほどテストケースの網羅率が上がることがわかります。
+逆に、前節で示したRepositoryや、次節で紹介するControllerのテストにおけるカバレッジはテスト品質を表す指標としては意味がないので注意しましょう。</p>
+<p><br/></p>
+</div>
+<div class="section" id="controller">
+<span id="section-controller-test-for-microservice-label"></span><h3>Controllerの単体テスト実装<a class="headerlink" href="#controller" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>本アプリケーションでは、マイクロサービスをRESTfulなアプリケーションとして作成しています。RESTfulなアプリケーションをSpringで実装する場合の考え方や実装する方法については、
+<a class="reference external" href="https://terasolunaorg.github.io/guideline/5.5.1.RELEASE/ja/ArchitectureInDetail/WebServiceDetail/REST.html">TERASOLUNAのガイドライン RESTful Web Service</a> を適宜参照してください。
+SpringMVCにおけるControllerはRestControllerとして作成し、基本的に、正常応答時はHTTPステータス200でリソースのJSONレスポンスを、
+ビジネス例外(業務的に想定される例外)発生時はHTTPステータス400(BadRequest)で、原因やパラメータを設定したBusinessExceptionのJSONレスポンスを、
+システム例外発生時はHTTPステータスで500(InternalServerError)で原因やパラメータを設定したSystemExceptionのJSONレスポンスを返却するような仕様としています。
+例外のハンドリングは&#64;ControllerAdviceを付与した <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/common/src/main/java/org/debugroom/mynavi/sample/continuous/integration/common/apinfra/exception/CommonExceptionHandler.java">CommonExceptionHandler</a> クラスで実装していますが、本アプリケーションでは純粋にSpringのみの依存としたいため、
+例外ハンドラに加え、BusinessExceptionやSystemExceptionはTERASOLUNAが提供している共通ライブラリは使用せず、個別にAP基盤部品として作成しています。</p>
+<p>RestControllerの単体テストでは、Serviceの単体テストと同じく&#64;SpringBootTestを使ってテスト用のコンテナを起動し、処理の妥当性を検証することも可能ですが、
+DIコンテナ生成に伴うオーバヘッドを軽減するために、よりテスト環境構築をライトに構築できる&#64;WebMvcTestを使ってテストケースを実装します。上記に示したイメージ通り、MockMvcがドライバのような位置付けで
+テスト対象のControllerクラスを呼び出し、Sevice以下のコンポーネントはMockとしてスタブ化した上で、Controllerクラスの実装の妥当性を検証します。
+サンプルのテストコードは以下のようになります。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.continuous.integration.backend.app.web</span><span class="o">;</span>
+
+<span class="kn">import static</span> <span class="nn">org.hamcrest.core.Is.is</span><span class="o">;</span>
+<span class="kn">import static</span> <span class="nn">org.junit.Assert.*</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.fasterxml.jackson.databind.ObjectMapper</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.experimental.runners.Enclosed</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.runner.RunWith</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.test.context.junit4.SpringRunner</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.http.HttpStatus</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.test.web.servlet.MockMvc</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.test.web.servlet.MvcResult</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.test.web.servlet.request.MockMvcRequestBuilders</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.test.web.servlet.result.MockMvcResultMatchers</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.continuous.integration.common.apinfra.exception.BusinessExceptionResponse</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.continuous.integration.common.apinfra.exception.ErrorResponse</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="nd">@RunWith</span><span class="o">(</span><span class="n">Enclosed</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BackendControllerTest</span> <span class="o">{</span>
+
+    <span class="nd">@RunWith</span><span class="o">(</span><span class="n">SpringRunner</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="nd">@WebMvcTest</span><span class="o">(</span><span class="n">controllers</span> <span class="o">=</span> <span class="n">BackendContoller</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">UnitTest</span><span class="o">{</span>
+
+        <span class="nd">@Autowired</span>
+        <span class="n">ObjectMapper</span> <span class="n">objectMapper</span><span class="o">;</span>
+
+        <span class="nd">@Autowired</span>
+        <span class="n">MockMvc</span> <span class="n">mockMvc</span><span class="o">;</span>
+
+        <span class="nd">@MockBean</span>
+        <span class="n">SampleService</span> <span class="n">sampleService</span><span class="o">;</span>
+
+        <span class="c1">//omit</span>
+
+        <span class="nd">@Before</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+           <span class="c1">//omit</span>
+           <span class="n">User</span> <span class="n">mockUser2</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                 <span class="o">.</span><span class="na">userId</span><span class="o">(</span><span class="mi">1</span><span class="o">).</span><span class="na">firstName</span><span class="o">(</span><span class="s">&quot;hanako&quot;</span><span class="o">).</span><span class="na">familyName</span><span class="o">(</span><span class="s">&quot;mynavi&quot;</span><span class="o">).</span><span class="na">loginId</span><span class="o">(</span><span class="s">&quot;hanako.mynavi&quot;</span><span class="o">)</span>
+                 <span class="o">.</span><span class="na">isLogin</span><span class="o">(</span><span class="kc">false</span><span class="o">).</span><span class="na">addressByUserId</span><span class="o">(</span><span class="n">mockAddress2</span><span class="o">).</span><span class="na">emailsByUserId</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="k">new</span> <span class="n">Email</span><span class="o">[]{</span><span class="n">mockEmail3</span><span class="o">,</span> <span class="n">mockEmail4</span><span class="o">}))</span>
+              <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+           <span class="n">Mockito</span><span class="o">.</span><span class="na">when</span><span class="o">(</span><span class="n">sampleService</span><span class="o">.</span><span class="na">findOne</span><span class="o">(</span><span class="n">mockUser2</span><span class="o">)).</span><span class="na">thenReturn</span><span class="o">(</span><span class="n">mockUser2</span><span class="o">);</span>
+           <span class="n">Mockito</span><span class="o">.</span><span class="na">when</span><span class="o">(</span><span class="n">sampleService</span><span class="o">.</span><span class="na">findOne</span><span class="o">(</span><span class="n">User</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">userId</span><span class="o">(</span><span class="mi">3</span><span class="o">).</span><span class="na">build</span><span class="o">()))</span>
+                    <span class="o">.</span><span class="na">thenThrow</span><span class="o">(</span><span class="k">new</span> <span class="n">BusinessException</span><span class="o">(</span><span class="s">&quot;E0001&quot;</span><span class="o">,</span> <span class="s">&quot;&quot;</span><span class="o">,</span> <span class="k">new</span> <span class="n">Long</span><span class="o">[]{</span><span class="mi">3L</span><span class="o">}));</span>
+           <span class="c1">//omit</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Test</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">getUserNormalTest</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+            <span class="c1">// omit</span>
+            <span class="n">UserResource</span> <span class="n">userResource</span> <span class="o">=</span> <span class="n">UserResource</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                     <span class="o">.</span><span class="na">userId</span><span class="o">(</span><span class="mi">1</span><span class="o">).</span><span class="na">firstName</span><span class="o">(</span><span class="s">&quot;hanako&quot;</span><span class="o">).</span><span class="na">familyName</span><span class="o">(</span><span class="s">&quot;mynavi&quot;</span><span class="o">).</span><span class="na">loginId</span><span class="o">(</span><span class="s">&quot;hanako.mynavi&quot;</span><span class="o">)</span>
+                     <span class="o">.</span><span class="na">address</span><span class="o">(</span><span class="n">addressResource</span><span class="o">).</span><span class="na">emailList</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="k">new</span> <span class="n">EmailResource</span><span class="o">[]{</span><span class="n">emailResource1</span><span class="o">,</span> <span class="n">emailResource2</span><span class="o">}))</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+            <span class="n">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span><span class="n">MockMvcRequestBuilders</span>
+                <span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;/api/v1/users/{userId}&quot;</span><span class="o">,</span> <span class="mi">1</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">contentType</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">MockMvcResultMatchers</span><span class="o">.</span><span class="na">status</span><span class="o">().</span><span class="na">is</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">OK</span><span class="o">.</span><span class="na">value</span><span class="o">()))</span>
+                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">MockMvcResultMatchers</span><span class="o">.</span><span class="na">content</span><span class="o">().</span><span class="na">string</span><span class="o">(</span>
+                     <span class="n">objectMapper</span><span class="o">.</span><span class="na">writeValueAsString</span><span class="o">(</span><span class="n">userResource</span><span class="o">)));</span>
+       <span class="o">}</span>
+
+        <span class="nd">@Test</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">getUserAbnormalTest</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+            <span class="n">MvcResult</span> <span class="n">mvcResult</span> <span class="o">=</span> <span class="n">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span><span class="n">MockMvcRequestBuilders</span><span class="o">.</span><span class="na">get</span><span class="o">(</span>
+               <span class="s">&quot;/api/v1/users/{userId}&quot;</span><span class="o">,</span> <span class="s">&quot;3&quot;</span><span class="o">))</span>
+               <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">MockMvcResultMatchers</span><span class="o">.</span><span class="na">status</span><span class="o">().</span><span class="na">is</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">BAD_REQUEST</span><span class="o">.</span><span class="na">value</span><span class="o">()))</span>
+               <span class="o">.</span><span class="na">andReturn</span><span class="o">();</span>
+
+            <span class="n">BusinessExceptionResponse</span> <span class="n">businessExceptionResponse</span> <span class="o">=</span> <span class="o">(</span><span class="n">BusinessExceptionResponse</span><span class="o">)</span>
+               <span class="n">objectMapper</span><span class="o">.</span><span class="na">readValue</span><span class="o">(</span><span class="n">mvcResult</span><span class="o">.</span><span class="na">getResponse</span><span class="o">().</span><span class="na">getContentAsString</span><span class="o">(),</span>
+               <span class="n">ErrorResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+            <span class="n">assertThat</span><span class="o">(</span><span class="n">businessExceptionResponse</span><span class="o">.</span><span class="na">getBusinessException</span><span class="o">().</span><span class="na">getCode</span><span class="o">(),</span> <span class="n">is</span><span class="o">(</span><span class="s">&quot;E0001&quot;</span><span class="o">));</span>
+            <span class="n">assertThat</span><span class="o">(</span><span class="n">businessExceptionResponse</span><span class="o">.</span><span class="na">getBusinessException</span><span class="o">().</span><span class="na">getArgs</span><span class="o">(),</span> <span class="n">is</span><span class="o">(</span><span class="k">new</span> <span class="n">Integer</span><span class="o">[]{</span><span class="mi">3</span><span class="o">}));</span>
+        <span class="o">}</span>
+
+        <span class="c1">//omit</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>正常系、異常系ともに戻り値はJSON文字列になりますので、レスポンスとなるリソースやException(ここでは抽象的なエラーレスポンスインターフェースクラスとして <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/common/src/main/java/org/debugroom/mynavi/sample/continuous/integration/common/apinfra/exception/ErrorResponse.java">ErrorResponse</a> )を
+JacsonのObjectMapperでシリアライズして期待値と一致するかを検証しています。</p>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">ErrorResponseではcom.fasterxml.jackson.annotation.JsonSubTypesやcom.fasterxml.jackson.annotation.JsonTypeInfoを使用してデシリアライズ時に動的にクラスを切り替えれるようにしています。</p>
+</div>
+<p><br/></p>
+<p>ドメインオブジェクト⇔リソースマッピングなどレイヤ間を跨ぐ変換処理実装の妥当性も合わせて検証できるようにService呼び出しの入出力時にマッピング処理を実装しておくと、わざわざMapperを単体テストするより効率的に済みます。
+サンプルで作成したテストケースのユースケース・検証観点は以下の通りです。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="35%" />
+<col width="30%" />
+<col width="35%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>ユースケース</td>
+<td>主な処理実装クラス・メソッド <br/> テストメソッド</td>
+<td>検証観点</td>
+</tr>
+<tr class="row-even"><td>[正常系]ユーザリソースを取得する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/web/BackendContoller.java#L58">BackendController#getUser(Long userId)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/model/UserMapper.java">UserMapper</a> <br/> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/web/BackendControllerTest.java#L151">BackendControllerTest#getUserNormalTest()</a></td>
+<td>・指定したHTTPメソッドやURLで正しくリクエストハンドリングされるか <br/> ・リクエストパラメータやパス変数が正しくマッピングされるか <br/> ・レイヤ間のモデルオブジェクト変換は正しくマッピングされるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]ユーザリソースを取得する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/web/BackendContoller.java#L58">BackendController#getUser(Long userId)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/web/BackendControllerTest.java#L184">BackendControllerTest#getUserAbnormalTest()</a></td>
+<td>・入力チェックエラーやビジネスエラー発生時に正しいHTTPステータスを返却するか <br/> ・入力チェックエラーやビジネスエラー発生時に正しいメッセージやパラメータを返却するか</td>
+</tr>
+<tr class="row-even"><td>[正常系]ユーザリソースを追加する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/web/BackendContoller.java#L65">BackendController#addUser(User user)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/model/User.java">User</a> <br/> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/web/BackendControllerTest.java#L199">BackendControllerTest#addUserInputParamNormalTest()</a></td>
+<td>・指定したHTTPメソッドやURLで正しくリクエストハンドリングされるか <br/> ・リクエストパラメータやパス変数が正しくマッピングされるか <br/> ・入力チェックが正しく行われているか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]ユーザリソースを追加する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/web/BackendContoller.java#L65">BackendController#addUser(User user)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/model/User.java">User</a> <br/> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/web/BackendControllerTest.java#L263">BackendControllerTest#addUserInputParamAbnormalTest()</a></td>
+<td>・入力チェックエラーやビジネスエラー発生時に正しいHTTPステータスを返却するか <br/> ・入力チェックエラーやビジネスエラー発生時に正しいメッセージやパラメータを返却するか</td>
+</tr>
+<tr class="row-even"><td>[正常系]ユーザリソースを更新する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/web/BackendContoller.java#L74">BackendController#updateUser(User user)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/model/User.java">User</a> <br/> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/web/BackendControllerTest.java#L340">BackendControllerTest#updateUserInputParamNormalTest()</a></td>
+<td>・指定したHTTPメソッドやURLで正しくリクエストハンドリングされるか <br/> ・リクエストパラメータやパス変数が正しくマッピングされるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]指定されたログインIDをもつユーザリソースを取得する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/web/BackendContoller.java#L88">BackendController#findUserOfLoginId(User user)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/model/User.java">User</a> <br/> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/web/BackendControllerTest.java#L403">BackendControllerTest#findUserByloginIdInputParamAbnormalTest()</a></td>
+<td>・入力チェックエラーやビジネスエラー発生時に正しいHTTPステータスを返却するか <br/> ・入力チェックエラーやビジネスエラー発生時に正しいメッセージやパラメータを返却するか</td>
+</tr>
+<tr class="row-even"><td>[異常系]住所リソースを更新する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/web/BackendContoller.java#L118">BackendController#updateAddress(Address address)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/model/Address.java">Address</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/model/AddressMapper.java">AddressMapper</a> <br/> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/web/BackendControllerTest.java#L417">BackendControllerTest#updateAddressInputParamAbnormalTest()</a></td>
+<td>・入力チェックエラーやビジネスエラー発生時に正しいHTTPステータスを返却するか <br/> ・入力チェックエラーやビジネスエラー発生時に正しいメッセージやパラメータを返却するか <br/> ・レイヤ間のモデルオブジェクト変換は正しくマッピングされるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]指定されたEmailをもつユーザリソースを取得する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/web/BackendContoller.java#L132">BackendController#findUserHavingEmail(Email email)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/model/Email.java">Email</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/model/EmailMapper.java">EmailMapper</a> <br/> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/web/BackendControllerTest.java#L452">BackendControllerTest#findUserHavingEmailInputParamabnormalTest()</a></td>
+<td>・入力チェックエラーやビジネスエラー発生時に正しいHTTPステータスを返却するか <br/> ・入力チェックエラーやビジネスエラー発生時に正しいメッセージやパラメータを返却するか <br/> ・レイヤ間のモデルオブジェクト変換は正しくマッピングされるか</td>
+</tr>
+<tr class="row-even"><td>[異常系]メールリソースを追加する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/web/BackendContoller.java#L139">BackendController#addEmail(Email email)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/model/Email.java">Email</a> <br/> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/web/BackendControllerTest.java#L471">BackendControllerTest#addEmailInputParamAbnormalTest()</a></td>
+<td>・入力チェックエラーやビジネスエラー発生時に正しいHTTPステータスを返却するか <br/> ・入力チェックエラーやビジネスエラー発生時に正しいメッセージやパラメータを返却するか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]メールリソースを更新する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/web/BackendContoller.java#L146">BackendController#updateEmail(Email email)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/model/Email.java">Email</a> <br/> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/web/BackendControllerTest.java#L495">BackendControllerTest#updateEmailInputParamAbnormalTest()</a></td>
+<td>・入力チェックエラーやビジネスエラー発生時に正しいHTTPステータスを返却するか <br/> ・入力チェックエラーやビジネスエラー発生時に正しいメッセージやパラメータを返却するか</td>
+</tr>
+<tr class="row-even"><td>[異常系]メールリソースを削除する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/web/BackendContoller.java#L153">BackendController#deleteEmail(Email email)</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/model/Email.java">Email</a> <br/> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/backend/app/web/BackendControllerTest.java#L531">BackendControllerTest#deleteEmailInputParamAbnormalTest()</a></td>
+<td>・入力チェックエラーやビジネスエラー発生時に正しいHTTPステータスを返却するか <br/> ・入力チェックエラーやビジネスエラー発生時に正しいメッセージやパラメータを返却するか</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>特にControllerのテスト対象は、ソースコードとテストコードを見て分かる通り、リクエストのマッピングの妥当性だけではなく、リクエストパラメータのバリデーション定義が期待通り動作するかや、チェックが正しいタイミング(ユースケース)で実行されるかなど検証内容が複雑かつ多岐に渡ります。
+単純にデータを取得するだけの正常系のユースケースは後々の結合試験で確認できますので、Controllerの単体テストでは、境界値試験など含め、リクエストパラメータの異常系バリエーションを充実させて検証した方が良いでしょう。
+Controllerの設定誤りはセキュリティホールに直結しますので、各実装が少なくとも一度はテストパスすることを推奨します。</p>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">SpringMVCにおける入力チェックの基本は <a class="reference external" href="http://terasolunaorg.github.io/guideline/5.5.1.RELEASE/ja/ArchitectureInDetail/WebApplicationDetail/Validation.html">TERASOLUNAのガイドライン 入力チェック</a> や、 <a class="reference external" href="http://terasolunaorg.github.io/guideline/5.5.1.RELEASE/ja/ArchitectureInDetail/WebServiceDetail/REST.html#resthowtouseexceptionhandlingforvalidationerror">RESTful Web Serviceにおける入力エラー例外のハンドリング実装</a> を適宜参照してください。</p>
+</div>
+<p><br/></p>
+</div>
+<div class="section" id="section-unit-test-strategy-for-microservice-label">
+<span id="id4"></span><h3>マイクロサービスにおける単体テスト戦略と品質評価<a class="headerlink" href="#section-unit-test-strategy-for-microservice-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>これまで、Repository、Service、Controllerの単体テストコード実装を解説してきました。単体テストのコードだけでも実アプリケーションのコードよりもはるかにボリュームが多く、
+あらゆる異常系のテストを網羅しようとするとかなり大変なことがお分りいただけたのではないでしょうか。前回の説明の再掲にはなりますが、繰り返しのテストが発生しがちなマイクロサービスですが、
+初めから完璧にテストコードを整備しておく必要もありませんし、必要以上のテストコードの実装でかえって開発のアジリティを損なうようでは本末転倒です。
+ただ、テストが疎かになるとせっかくの継続的インテグレーションも機能しません。開発のスピードと品質を両立するために、テスト計画やスコープ、検証の観点を明示的に策定しておくことが重要です。</p>
+<p>効率的な単体テスト戦略策定のポイントとしては、</p>
+<ul class="simple">
+<li>ServiceやRepositoryにおける単純なデータ取得の正常系テストなど、結合試験でも重複して登場するテストケースは単体テストから除外する。</li>
+<li>データベース更新結果など結合試験で効率的に検証できるテストケースは単体テストから除外する。</li>
+<li>Controllerの設定誤りなどはセキュリティホールに直結するため、異常系のバリエーションを充実させたり、実装が少なくとも一度はテストパスさせる。</li>
+<li>探索的テストを導入し、実装状況に応じてテストケースの重複を極力減らしながらテストコードを作成する</li>
+<li>機能や処理の重要度に応じて、テスト実施内容に濃淡をつける(ビジネス的にそこまで重要でない処理の参照系はテストしない等)</li>
+</ul>
+<p>テスト品質は、これまでも見てきた通り、Serviceを覗き、単純なカバレッジのみでは評価できないので、ユースケース数に対するテストケースの割合、テストケースの定性的評価などを加えつつ評価するとよいでしょう。</p>
+<p><br/></p>
+<p>次回は引き続き、SpringBootを使った結合試験のテストコードを実装し、解説していきます。</p>
 </div>
 </div>
-<div class="section" id="id4">
-<h2>著者紹介<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id5">
+<h2>著者紹介<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/pic_image01.jpg"><img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" style="width: 100.0px; height: 110.0px;" /></a>
