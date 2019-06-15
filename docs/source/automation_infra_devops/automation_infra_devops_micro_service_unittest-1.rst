@@ -49,15 +49,15 @@
        │ │               │ ├repository                         ... JPAConfigでスキャン対象とするレポジトリクラスパッケージ
        │ │               │ │ ├specification                    ... JPAでテーブル結合等の条件を指定するクラスパッケージ
        │ │               │ │ │ └Xxxxx.java                     ... JPAでテーブル結合等の条件を指定するクラス
-       │ │               │ │ └XxxxxRepository.java             ... レポジトリインターフェースクラス
+       │ │               │ │ └XxxxxRepository.java             ... レポジトリインタフェースクラス
        │ │               │ └service                            ... DomainConfigでコンポーネントスキャンの対象とするサービスクラスパッケージ
-       │ │               │   ├SampleService.java               ... DBへ基本的なCRUDアクセスを行うサービスインターフェースクラス
+       │ │               │   ├SampleService.java               ... DBへ基本的なCRUDアクセスを行うサービスインタフェースクラス
        │ │               │   ├SampleServiceImpl.java           ... SampleServiceの実装クラス
-       │ │               │   ├SampleOneToOneService.java       ... 1対1の関連をもつテーブルアクセスを行うサービスインターフェースクラス
+       │ │               │   ├SampleOneToOneService.java       ... 1対1の関連をもつテーブルアクセスを行うサービスインタフェースクラス
        │ │               │   ├SampleOneToOneServiceImpl.java   ... SampleOneToOneServiceの実装クラス
-       │ │               │   ├SampleOneToManyService.java      ... 1対多の関連をもつテーブルアクセスを行うサービスインターフェースクラス
+       │ │               │   ├SampleOneToManyService.java      ... 1対多の関連をもつテーブルアクセスを行うサービスインタフェースクラス
        │ │               │   ├SampleOneToManyServiceImpl.java  ... SampleOneToOneServiceの実装クラス
-       │ │               │   ├SampleManyToManyService.java     ... 多対多の関連をもつテーブルアクセスを行うサービスインターフェースクラス
+       │ │               │   ├SampleManyToManyService.java     ... 多対多の関連をもつテーブルアクセスを行うサービスインタフェースクラス
        │ │               │   └SampleManyToManyServiceImpl.java ... サービス実装クラス
        │ │               └config                               ... 設定クラス用のパッケージ
        │ │                   ├App.java                         ... アプリケーション起動クラス
@@ -251,7 +251,7 @@ pom.xmlで依存性を定義したH2やHSQLなどインメモリDBが構築さ�
 
 |br|
 
-Repositoryで定義したインターフェースのメソッドに対するテストを実装し、期待結果を検証することで、
+Repositoryで定義したインタフェースのメソッドに対するテストを実装し、期待結果を検証することで、
 テーブル定義とエンティティクラスの整合性や、エンティティクラスへのデータマッピング、SQLクエリの実行可否など、
 Repositoryやエンティティクラスの定義、SQL定義の実装の妥当性を検証可能です。テーブルの結合によるデータ取得やRDBの集計関数を使ったデータアクセスなども
 合わせて検証が可能なので、データ取得に関するエラーはこの単体テストで検出できるようにしておきましょう。
@@ -374,3 +374,5 @@ Repositoryやエンティティクラスの定義、SQL定義の実装の妥当�
 金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 
 Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。
+
+`2019 APN AWS Top Engineers & Ambassadors <https://aws.amazon.com/jp/blogs/psa/japan-apn-ambassador-2019/>`_ 選出。
