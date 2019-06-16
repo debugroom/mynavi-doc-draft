@@ -18,7 +18,7 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="基盤・デプロイ自動化実践" href="automation_infra_devops_micro_service_unittest.html" />
+    <link rel="next" title="基盤・デプロイ自動化実践" href="automation_infra_devops_micro_service_unittest-1.html" />
     <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_sonarlint.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -61,7 +61,9 @@
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarqube.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarlint.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_integrationtest.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -125,7 +127,7 @@
     </a>
   </li>
   <li>
-    <a href="automation_infra_devops_micro_service_unittest.html" title="Next Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">基盤・デプロイ自動化実践 &raquo;</span>
+    <a href="automation_infra_devops_micro_service_unittest-1.html" title="Next Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">基盤・デプロイ自動化実践 &raquo;</span>
     </a>
   </li>
               
@@ -226,15 +228,15 @@ BFFの役割としています。また、Backend、BFFともにアプリケー�
       │               │ ├repository                         ... JPAConfigでスキャン対象とするレポジトリクラスパッケージ
       │               │ │ ├specification                    ... JPAでテーブル結合等の条件を指定するクラスパッケージ
       │               │ │ │ └Xxxxx.java                     ... JPAでテーブル結合等の条件を指定するクラス
-      │               │ │ └XxxxxRepository.java             ... レポジトリインターフェースクラス
+      │               │ │ └XxxxxRepository.java             ... レポジトリインタフェースクラス
       │               │ └service                            ... DomainConfigでコンポーネントスキャンの対象とするサービスクラスパッケージ
-      │               │   ├SampleService.java               ... DBへ基本的なCRUDアクセスを行うサービスインターフェースクラス
+      │               │   ├SampleService.java               ... DBへ基本的なCRUDアクセスを行うサービスインタフェースクラス
       │               │   ├SampleServiceImpl.java           ... SampleServiceの実装クラス
-      │               │   ├SampleOneToOneService.java       ... <span class="m">1</span>対1の関連をもつテーブルアクセスを行うサービスインターフェースクラス
+      │               │   ├SampleOneToOneService.java       ... <span class="m">1</span>対1の関連をもつテーブルアクセスを行うサービスインタフェースクラス
       │               │   ├SampleOneToOneServiceImpl.java   ... SampleOneToOneServiceの実装クラス
-      │               │   ├SampleOneToManyService.java      ... <span class="m">1</span>対多の関連をもつテーブルアクセスを行うサービスインターフェースクラス
+      │               │   ├SampleOneToManyService.java      ... <span class="m">1</span>対多の関連をもつテーブルアクセスを行うサービスインタフェースクラス
       │               │   ├SampleOneToManyServiceImpl.java  ... SampleOneToOneServiceの実装クラス
-      │               │   ├SampleManyToManyService.java     ... 多対多の関連をもつテーブルアクセスを行うサービスインターフェースクラス
+      │               │   ├SampleManyToManyService.java     ... 多対多の関連をもつテーブルアクセスを行うサービスインタフェースクラス
       │               │   └SampleManyToManyServiceImpl.java ... サービス実装クラス
       │               └config                               ... 設定クラス用のパッケージ
       │                   ├App.java                         ... アプリケーション起動クラス
@@ -272,13 +274,13 @@ WebアプリケーションのHTMLテンプレートエンジンとしてThymele
       │               │   └BackendForFrontendController.java    ... リクエストハンドリング・ドメインサービス呼び出し後、テンプレートViewへ遷移するコントローラクラス
       │               └domain                                   ... ドメイン層のパッケージ
       │               │ ├repository                             ... レポジトリクラスパッケージ
-      │               │ │ ├XxxxxResourceRepository.java         ... Resourceレポジトリインターフェースクラス
+      │               │ │ ├XxxxxResourceRepository.java         ... Resourceレポジトリインタフェースクラス
       │               │ │ └XxxxxResourceRepositoryImpl.java     ... マイクロサービスへアクセスするRestClientを使用したレポジトリ実装クラス
       │               │ └service                                ... DomainConfigでコンポーネントスキャンの対象とするサービスクラスパッケージ
       │               │   ├SampleService.java                   ... シンプルに１つのマイクロサービスにアクセスするサービスクラス
       │               │   ├SampleServiceImpl.java               ... SampleServiceの実装クラス
       │               │   ├MultiServicesCallingService.java     ... マイクロサービスに複数回アクセスするサービスクラス
-      │               │   └MultiServicesCallingServiceImpl.java ... MultiServicesCallingServiceインターフェースの実装クラス
+      │               │   └MultiServicesCallingServiceImpl.java ... MultiServicesCallingServiceインタフェースの実装クラス
       │               └config                                   ... 設定クラス用のパッケージ
       │                   ├WebApp.java                          ... Webアプリケーション起動クラス
       │                   ├DomainConfig.java                    ... ドメイン層に関する設定クラス
@@ -326,7 +328,7 @@ WebアプリケーションのHTMLテンプレートエンジンとしてThymele
       │                 │ ├BusinessException.java              ... ビジネス例外クラス
       │                 │ ├BusinessExceptionResponse.java      ... マイクロサービスからレスポンスするビジネス例外をラップする実装クラス
       │                 │ ├CommonExceptionHandler.java         ... 双方のアプリケーションのコントローラで例外ハンドリングする共通クラス
-      │                 │ ├ErrorResponse.java                  ... マイクロサービスからレスポンスする共通例外インターフェースクラス
+      │                 │ ├ErrorResponse.java                  ... マイクロサービスからレスポンスする共通例外インタフェースクラス
       │                 │ ├SystemException.java                ... システム例外クラス
       │                 │ ├SystemExceptionResponse.java        ... マイクロサービスからレスポンスするシステム例外をラップする実装クラス
       │                 │ ├ValidationError.java                ... マイクロサービスで発生した入力チェックエラーを連携するクラス
@@ -336,9 +338,9 @@ WebアプリケーションのHTMLテンプレートエンジンとしてThymele
       │                 │ └junit                               ... JUnitテストで利用する部品パッケージ
       │                 │   ├BusinessExceptionMatcher.java     ... ビジネス例外の検証に使用するカスタムMatcherクラス
       │                 │   ├SystemExceptionMatcher.java       ... システム例外の検証に使用するカスタムMatcherクラス
-      │                 │   ├UnitTest.java                     ... 単体テストの識別子として利用するインターフェースクラス
-      │                 │   ├IntegrationTest.java              ... 結合テストの識別子として利用するインターフェースクラス
-      │                 │   └E2ETest.java                      ... EndToEndテストの識別子として利用するインターフェースクラス
+      │                 │   ├UnitTest.java                     ... 単体テストの識別子として利用するインタフェースクラス
+      │                 │   ├IntegrationTest.java              ... 結合テストの識別子として利用するインタフェースクラス
+      │                 │   └E2ETest.java                      ... EndToEndテストの識別子として利用するインタフェースクラス
       │                 └util
       │                   └DateUtil.java                       ... 日付に関するユーティリティクラス
       └resources

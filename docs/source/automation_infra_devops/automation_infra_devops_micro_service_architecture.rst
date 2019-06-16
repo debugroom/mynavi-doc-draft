@@ -93,15 +93,15 @@ BFFの役割としています。また、Backend、BFFともにアプリケー�
          │               │ ├repository                         ... JPAConfigでスキャン対象とするレポジトリクラスパッケージ
          │               │ │ ├specification                    ... JPAでテーブル結合等の条件を指定するクラスパッケージ
          │               │ │ │ └Xxxxx.java                     ... JPAでテーブル結合等の条件を指定するクラス
-         │               │ │ └XxxxxRepository.java             ... レポジトリインターフェースクラス
+         │               │ │ └XxxxxRepository.java             ... レポジトリインタフェースクラス
          │               │ └service                            ... DomainConfigでコンポーネントスキャンの対象とするサービスクラスパッケージ
-         │               │   ├SampleService.java               ... DBへ基本的なCRUDアクセスを行うサービスインターフェースクラス
+         │               │   ├SampleService.java               ... DBへ基本的なCRUDアクセスを行うサービスインタフェースクラス
          │               │   ├SampleServiceImpl.java           ... SampleServiceの実装クラス
-         │               │   ├SampleOneToOneService.java       ... 1対1の関連をもつテーブルアクセスを行うサービスインターフェースクラス
+         │               │   ├SampleOneToOneService.java       ... 1対1の関連をもつテーブルアクセスを行うサービスインタフェースクラス
          │               │   ├SampleOneToOneServiceImpl.java   ... SampleOneToOneServiceの実装クラス
-         │               │   ├SampleOneToManyService.java      ... 1対多の関連をもつテーブルアクセスを行うサービスインターフェースクラス
+         │               │   ├SampleOneToManyService.java      ... 1対多の関連をもつテーブルアクセスを行うサービスインタフェースクラス
          │               │   ├SampleOneToManyServiceImpl.java  ... SampleOneToOneServiceの実装クラス
-         │               │   ├SampleManyToManyService.java     ... 多対多の関連をもつテーブルアクセスを行うサービスインターフェースクラス
+         │               │   ├SampleManyToManyService.java     ... 多対多の関連をもつテーブルアクセスを行うサービスインタフェースクラス
          │               │   └SampleManyToManyServiceImpl.java ... サービス実装クラス
          │               └config                               ... 設定クラス用のパッケージ
          │                   ├App.java                         ... アプリケーション起動クラス
@@ -143,13 +143,13 @@ WebアプリケーションのHTMLテンプレートエンジンとしてThymele
          │               │   └BackendForFrontendController.java    ... リクエストハンドリング・ドメインサービス呼び出し後、テンプレートViewへ遷移するコントローラクラス
          │               └domain                                   ... ドメイン層のパッケージ
          │               │ ├repository                             ... レポジトリクラスパッケージ
-         │               │ │ ├XxxxxResourceRepository.java         ... Resourceレポジトリインターフェースクラス
+         │               │ │ ├XxxxxResourceRepository.java         ... Resourceレポジトリインタフェースクラス
          │               │ │ └XxxxxResourceRepositoryImpl.java     ... マイクロサービスへアクセスするRestClientを使用したレポジトリ実装クラス
          │               │ └service                                ... DomainConfigでコンポーネントスキャンの対象とするサービスクラスパッケージ
          │               │   ├SampleService.java                   ... シンプルに１つのマイクロサービスにアクセスするサービスクラス
          │               │   ├SampleServiceImpl.java               ... SampleServiceの実装クラス
          │               │   ├MultiServicesCallingService.java     ... マイクロサービスに複数回アクセスするサービスクラス
-         │               │   └MultiServicesCallingServiceImpl.java ... MultiServicesCallingServiceインターフェースの実装クラス
+         │               │   └MultiServicesCallingServiceImpl.java ... MultiServicesCallingServiceインタフェースの実装クラス
          │               └config                                   ... 設定クラス用のパッケージ
          │                   ├WebApp.java                          ... Webアプリケーション起動クラス
          │                   ├DomainConfig.java                    ... ドメイン層に関する設定クラス
@@ -201,7 +201,7 @@ WebアプリケーションのHTMLテンプレートエンジンとしてThymele
          │                 │ ├BusinessException.java              ... ビジネス例外クラス
          │                 │ ├BusinessExceptionResponse.java      ... マイクロサービスからレスポンスするビジネス例外をラップする実装クラス
          │                 │ ├CommonExceptionHandler.java         ... 双方のアプリケーションのコントローラで例外ハンドリングする共通クラス
-         │                 │ ├ErrorResponse.java                  ... マイクロサービスからレスポンスする共通例外インターフェースクラス
+         │                 │ ├ErrorResponse.java                  ... マイクロサービスからレスポンスする共通例外インタフェースクラス
          │                 │ ├SystemException.java                ... システム例外クラス
          │                 │ ├SystemExceptionResponse.java        ... マイクロサービスからレスポンスするシステム例外をラップする実装クラス
          │                 │ ├ValidationError.java                ... マイクロサービスで発生した入力チェックエラーを連携するクラス
@@ -211,9 +211,9 @@ WebアプリケーションのHTMLテンプレートエンジンとしてThymele
          │                 │ └junit                               ... JUnitテストで利用する部品パッケージ
          │                 │   ├BusinessExceptionMatcher.java     ... ビジネス例外の検証に使用するカスタムMatcherクラス
          │                 │   ├SystemExceptionMatcher.java       ... システム例外の検証に使用するカスタムMatcherクラス
-         │                 │   ├UnitTest.java                     ... 単体テストの識別子として利用するインターフェースクラス
-         │                 │   ├IntegrationTest.java              ... 結合テストの識別子として利用するインターフェースクラス
-         │                 │   └E2ETest.java                      ... EndToEndテストの識別子として利用するインターフェースクラス
+         │                 │   ├UnitTest.java                     ... 単体テストの識別子として利用するインタフェースクラス
+         │                 │   ├IntegrationTest.java              ... 結合テストの識別子として利用するインタフェースクラス
+         │                 │   └E2ETest.java                      ... EndToEndテストの識別子として利用するインタフェースクラス
          │                 └util
          │                   └DateUtil.java                       ... 日付に関するユーティリティクラス
          └resources
