@@ -122,8 +122,10 @@ DynamoDBテーブルのエンティティクラスの実装を簡易化するた
 |br|
 
 今回、アプリケーションは以下のコンポーネントで構成しますが、Spring Data DynamoDBで最低限作成しなければならない必須のクラスは以下の通りです。
-なお、thymeleafテンプレートエンジンに関する説明は省略しますが、index.htmlからfindOne、findAll、add、update、deleteなどのCRUD処理を呼び出し、
-Controllerを通じて、結果に遷移する画面HTMLを各々実装しています。
+なお、thymeleafテンプレートエンジンに関する説明は省略しますが、必要に応じて、`Thymeleaf公式ドキュメント <https://www.thymeleaf.org/documentation.html>`_ や
+`Macchinetta Framework テンプレートエンジン <https://macchinetta.github.io/server-guideline-thymeleaf/current/ja/ArchitectureInDetail/WebApplicationDetail/Thymeleaf.html>`_ を参照してください。
+
+ここでは、index.htmlからfindOne、findAll、add、update、deleteなどのCRUD処理を呼び出し、Controllerを通じて、結果に遷移する画面HTMLを各々実装しています。
 
 |br|
 
@@ -356,5 +358,7 @@ application.yml
 某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 
 Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。
+
+`2019 APN AWS Top Engineers & Ambassadors <https://aws.amazon.com/jp/blogs/psa/japan-apn-ambassador-2019/>`_ 選出。
 
 本連載記事の内容に対するご意見・ご質問は `Facebook <https://www.facebook.com/kohei.kawabata.5>`_ まで。
