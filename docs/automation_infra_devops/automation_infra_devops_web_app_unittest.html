@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>基盤・デプロイ自動化実践 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="../cloud_native/aws-lambda-and-api-gateway-1.html" />
+    <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_micro_service_integrationtest.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarqube.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarlint.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_architecture.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_integrationtest.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
+<li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li><a class="reference internal" href="#webendtoend">マイクロサービスを呼び出すWebアプリケーションの単体テスト・EndToEndテスト(前編)</a></li>
+<li><a class="reference internal" href="#webaprepository">マイクロサービスを呼び出すWebAPのRepository単体テスト実装</a></li>
+<li><a class="reference internal" href="#webapservice">マイクロサービスを呼び出すWebAPのService単体テスト実装</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="automation_infra_devops_micro_service_integrationtest.html" title="Previous Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 基盤・デプロイ自動化実践</span>
+    </a>
+  </li>
+  <li>
+    <a href="../cloud_native/aws-lambda-and-api-gateway-1.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/automation_infra_devops/automation_infra_devops_web_app_unittest.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="section-automation-infra-devops-microservice-unittest-1-label">
+<span id="id1"></span><h1>基盤・デプロイ自動化実践<a class="headerlink" href="#section-automation-infra-devops-microservice-unittest-1-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id2">
+<h2>マイクロサービスアーキテクチャの基盤・デプロイ自動化<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<div class="section" id="webendtoend">
+<span id="section-application-test-for-web-application-label"></span><h3>マイクロサービスを呼び出すWebアプリケーションの単体テスト・EndToEndテスト(前編)<a class="headerlink" href="#webendtoend" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>前回までに、マイクロサービス(Backend)の単体・結合テストコードや効率的なテスト戦略のポイントなどを解説して来ました。今回からはマイクロサービスを呼び出す側のWebアプリケーション(BFFアプリケーション)における単体テストおよび、
+マイクロサービスを含めたEndToEndテストを実装する際のポイントやテスト戦略を説明していきます。</p>
+<p>アプリケーションおよびテストのパッケージ・コンポーネント構成は以下としています。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>backend <span class="k">for</span> frontend<span class="o">]</span>
+  └src
+    ├main
+    │ ├java
+    │ │ └org
+    │ │   └debugroom
+    │ │     └mynavi
+    │ │       └sample
+    │ │         └continuous
+    │ │           └integration
+    │ │             └bff
+    │ │               └app                                          ... アプリケーション層のパッケージ
+    │ │               │ └model                                      ... リクエストパラメータのモデルクラスパッケージ
+    │ │               │ │ ├XxxxxForm.java                           ... HTMLフォームを表現するモデルクラス
+    │ │               │ │ ├Xxxxx.java                               ... 入力チェックルール等定義するモデルクラス
+    │ │               │ │ └XxxxxMapper.java                         ... commonプロジェクトにあるResourceクラスと相互変換するマッパークラス
+    │ │               │ └web                                        ... MvcConfigでコンポーネントスキャンの対象とするパッケージ
+    │ │               │   └BackendForFrontendController.java        ... リクエストハンドリング・ドメインサービス呼び出し後、テンプレートViewへ遷移するコントローラクラス
+    │ │               └domain                                       ... ドメイン層のパッケージ
+    │ │               │ ├repository                                 ... レポジトリクラスパッケージ
+    │ │               │ │ ├XxxxxResourceRepository.java             ... Resourceレポジトリインタフェースクラス
+    │ │               │ │ └XxxxxResourceRepositoryImpl.java         ... マイクロサービスへアクセスするRestClientを使用したレポジトリ実装クラス
+    │ │               │ └service                                    ... DomainConfigでコンポーネントスキャンの対象とするサービスクラスパッケージ
+    │ │               │   ├SampleService.java                       ... シンプルに１つのマイクロサービスにアクセスするサービスクラス
+    │ │               │   ├SampleServiceImpl.java                   ... SampleServiceの実装クラス
+    │ │               │   ├OrchestrateService.java                  ... マイクロサービスに複数回アクセスするサービスクラス
+    │ │               │   └OrchestrateServiceImpl.java              ... OrchestrateServiceインタフェースの実装クラス
+    │ │               └config                                       ... 設定クラス用のパッケージ
+    │ │                   ├WebApp.java                              ... Webアプリケーション起動クラス
+    │ │                   ├DomainConfig.java                        ... ドメイン層に関する設定クラス
+    │ │                   └MvcConfig.java                           ... アプリケーション層に関する設定クラス
+    │ └resources
+    │   ├static                                                     ... 静的リソースフォルダ
+    │   │ ├css                                                      ... CSSフォルダ
+    │   │ │ ├Xxxxx.css                                              ... 各ページごとのCSSファイル<span class="o">(</span>幅1280px以上<span class="o">)</span>
+    │   │ │ ├Xxxxx_mobile.css                                       ... 各ページごとのCSSファイル<span class="o">(</span>幅320px以上<span class="o">)</span>
+    │   │ │ └Xxxxx_tablet.css                                       ... 各ページごとのCSSファイル<span class="o">(</span>幅768px以上<span class="o">)</span>
+    │   │ └js                                                       ... JavaScriptフォルダ
+    │   │   └Xxxxx.js                                               ... 各ページごとのJSファイル
+    │   ├template                                                   ... Thymeleaf用テンプレートフォルダ
+    │   │ └Xxxxx.html                                               ... ThymeleafテンプレートHTML
+    │   ├application.yml                                            ... アプリケーション設定ファイル
+    │   ├application-dev.yml                                        ... プロファイル<span class="s2">&quot;dev&quot;</span>で有効になるアプリケーション設定ファイル
+    │   ├messages.properties                                        ... デフォルトメッセージ定義ファイル
+    │   ├messages_ja.properties                                     ... ロケールがjaの際に有効になるメッセージ定義ファイル
+    │   └ValidationMessages.properties                              ... 入力チェックエラーメッセージ定義ファイル
+    └test                                                           ... テストパッケージフォルダ
+      ├java
+      │ └org
+      │   └debugroom
+      │     └mynavi
+      │       └sample
+      │         └continuous
+      │           └integration
+      │             └bff
+      │               ├app
+      │               │ └web
+      │               │   ├selenium                                 ... seleniumで使用するクラスパッケージ
+      │               │   │ ├PortalPage.java                        ... Pageオブジェクトクラス
+      │               │   │ └SeleniumProperties.java                ... Repositoryのテストクラス
+      │               │   └BackendForFrontendControllerTest.java    ... Controllerのテストクラス
+      │               ├domain
+      │               │ ├repository                                 ... Repositoryテストパッケージ
+      │               │ │ └XxxxResoutceRepositoryTest.java          ... XxxxxResourceRepositoryのテストクラス
+      │               │ └service                                    ... Serviceテストパッケージ
+      │               │   └OrchestrateServiceImplTest.java          ... OrchestrateServiceのテストクラス
+      │               └config
+      │                 └TestConfig.java                            ... Testの汎用設定クラス
+      └resources
+        └application.yml                                            ... テスト用のアプリケーション設定ファイル
+</pre></div>
+</div>
+<p><br/></p>
+<p>マイクロサービスのアプリケーション構成同様、BFFアプリケーションでも主にController、Service、Repositoryという単位でコンポーネントを構成しています。
+主なビジネス処理はバックエンド側のサービスにあるため、ControllerやServiceなどから直接RestTemplateなどのRestClientを使ってマイクロサービスを呼び出した方がシンプルで効率的に思えるかもしれませんが、
+マイクロサービスの呼び出しが、レスポンスを待つ同期型中心となる場合、呼び出し側アプリケーションもこのようなレイヤ構造にしておくことで以下のような２つのメリットがあります。</p>
+<ul class="simple">
+<li>RestClientを使ったバックエンドのマイクロサービスの呼び出しをRepositoryの実装クラスにしておくことで、マイクロサービスで発生したビジネスエラーやシステムエラー、サービス呼び出しの通信エラーなどの例外ハンドリングを１箇所に集中できる。</li>
+<li>エラー発生時のリトライや、複数のマイクロサービスを呼び出した際に発生したエラーに伴う、例えばSAGAパターンを使ったロールバック処理などをServiceクラスに実装し、トランザクション境界を明確化できる。</li>
+</ul>
+<p>それなりの規模のアプリケーションになってくると、単純にRestTemplateを使って呼び出すだけでは、バックエンドのマイクロサービスを呼び出す際のTryCatch文が乱立してコードの見通しも悪くなるため、
+バックエンドのマイクロサービスをResourceの永続先レポジトリと捉え、ControllerからService経由で呼び出した方がスッキリします。本アプリケーションではこうした構成を前提にテストクラスを以下のような観点で実装していきます。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/webapp-unittest-scope.png"><img alt="../_images/webapp-unittest-scope.png" src="../_images/webapp-unittest-scope.png" style="width: 947.0px; height: 264.0px;" /></a>
+</div>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+<col width="55%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>アプリケーション</td>
+<td>試験</td>
+<td>コンポーネント</td>
+<td>検証観点</td>
+</tr>
+<tr class="row-even"><td>Webアプリケーション <br/> (BFF)</td>
+<td>単体試験</td>
+<td>Respository(RestClient)</td>
+<td>・正しくビジネス例外が返されるか <br/> ・異常なレスポンスを受け取った場合正しくシステム例外が返されるか <br/> ・例外に正しくメッセージが設定されるか <br/>・マイクロサービス側のサーバエラー発生時に正しくシステム例外が返されるか</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>Service</td>
+<td>・Service実行の結果、正しくアウトプットが返されるか <br/> ・Service実行の結果、正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されているか</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>(View⇔)Controller</td>
+<td>・指定したHTTPメソッドやURLで正しくリクエストハンドリングされるか <br/> ・リクエストパラメータやパス変数が正しくマッピングされるか <br/> ・入力チェックが正しく行われているか <br/> ・入力チェックやビジネスエラー発生時に正しいメッセージやパラメータを返却するか <br/> ・サービス実行結果が正しく画面に表示されるか <br/>  ・非同期通信の実行結果が正しく画面に表示されるか</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>EndToEndテスト</td>
+<td>[BFF] ⇔ [Backend]</td>
+<td>・ユースケースシナリオ通り操作した時に、正しく画面に結果が表示されるか <br/>  ・ユースケースシナリオ通り操作した時に、エラーメッセージが正しく表示されるか <br/>・データベースへ正しくデータが反映できるか <br/>  ・画面表示のレイアウトが崩れていないか <br/> ・ブラウザごとに表示が異なっていないか</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+</div>
+<div class="section" id="webaprepository">
+<span id="section-repository-test-for-webapp-label"></span><h3>マイクロサービスを呼び出すWebAPのRepository単体テスト実装<a class="headerlink" href="#webaprepository" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>前節でも説明した通り、このWebアプリケーションでは、バックエンドのマイクロサービスの呼び出しをResourceクラスのRepositoryとして実装します。
+マイクロサービスから返却されるレスポンスはResourceオブジェクトに加え、マイクロサービスで発生した、HTTPステータスコードが400(BadRequest)でセットされたビジネスエラー、ステータスコードが500のサーバエラーや通信エラーなどで返される場合もあります。
+単体テストでは主にエラーが発生した場合の異常系のバリエーションケースを中心に、正しく例外ハンドリングが行われるかを検証します。とはいえ、実際にバックエンドのマイクロサービスを起動させてテストを実施するわけではなく、
+REST通信に関わるエラーレスポンスなどを擬似的に生成可能な、Springから提供されているorg.springframework.test.web.client.MockRestServiceServerを使って、マイクロサービスの呼び出しをスタブ化して実行します。
+また、RestTemplateを使ったテスト環境を簡易的に構築するorg.springframework.boot.test.autoconfigure.web.client.RestClientTestアノテーションを使用します。サンプルのテストコードは以下の通りです。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.test.autoconfigure.web.client.RestClientTest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.MessageSource</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.test.context.ContextConfiguration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.test.context.junit4.SpringRunner</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.test.web.client.MockRestServiceServer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.test.web.client.match.MockRestRequestMatchers</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.test.web.client.response.MockRestResponseCreators</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.client.RestTemplate</span><span class="o">;</span>
+
+<span class="nd">@RunWith</span><span class="o">(</span><span class="n">SpringRunner</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>                                  <span class="c1">// …(A)</span>
+<span class="nd">@RestClientTest</span>                                               <span class="c1">// …(B)</span>
+<span class="nd">@ContextConfiguration</span><span class="o">(</span><span class="n">classes</span> <span class="o">=</span> <span class="o">{</span><span class="n">UnitTest</span><span class="o">.</span><span class="na">Config</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+         <span class="n">TestConfig</span><span class="o">.</span><span class="na">UnitTestConfig</span><span class="o">.</span><span class="na">class</span><span class="o">})</span>                    <span class="c1">// …(C)</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">UnitTest</span><span class="o">{</span>
+
+    <span class="c1">//omit</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">RestTemplate</span> <span class="n">restTemplate</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">MessageSource</span> <span class="n">messageSource</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">ObjectMapper</span> <span class="n">objectMapper</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">UserResourceRepository</span> <span class="n">userResourceRepository</span><span class="o">;</span>
+
+    <span class="nd">@Rule</span>
+    <span class="kd">public</span> <span class="n">ExpectedException</span> <span class="n">expectedException</span> <span class="o">=</span> <span class="n">ExpectedException</span><span class="o">.</span><span class="na">none</span><span class="o">();</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">findOneAbnormalTest1</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+
+        <span class="n">MockRestServiceServer</span> <span class="n">mockRestServiceServer</span> <span class="o">=</span> <span class="n">MockRestServiceServer</span>
+              <span class="o">.</span><span class="na">bindTo</span><span class="o">(</span><span class="n">restTemplate</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>              <span class="c1">// …(D)</span>
+
+        <span class="n">Long</span> <span class="n">userId</span> <span class="o">=</span> <span class="mi">0</span><span class="n">L</span><span class="o">;</span>
+
+        <span class="n">String</span> <span class="n">errorCode</span> <span class="o">=</span> <span class="s">&quot;E0001&quot;</span><span class="o">;</span>
+        <span class="n">BusinessException</span> <span class="n">businessException</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BusinessException</span><span class="o">(</span><span class="n">errorCode</span><span class="o">,</span>
+              <span class="n">messageSource</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(</span><span class="n">errorCode</span><span class="o">,</span> <span class="k">new</span> <span class="n">Long</span><span class="o">[]{</span><span class="n">userId</span><span class="o">},</span>
+                      <span class="n">Locale</span><span class="o">.</span><span class="na">getDefault</span><span class="o">()),</span> <span class="n">Long</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">userId</span><span class="o">));</span>
+        <span class="n">String</span> <span class="n">jsonResponseBody1</span> <span class="o">=</span> <span class="n">objectMapper</span><span class="o">.</span><span class="na">writeValueAsString</span><span class="o">(</span>
+              <span class="n">BusinessExceptionResponse</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                      <span class="o">.</span><span class="na">businessException</span><span class="o">(</span><span class="n">businessException</span><span class="o">)</span>
+                      <span class="o">.</span><span class="na">build</span><span class="o">());</span>                         <span class="c1">// …(E)</span>
+
+        <span class="n">mockRestServiceServer</span>
+              <span class="o">.</span><span class="na">expect</span><span class="o">(</span><span class="n">MockRestRequestMatchers</span><span class="o">.</span><span class="na">requestTo</span><span class="o">(</span><span class="s">&quot;/backend/api/v1/users/0&quot;</span><span class="o">))</span>
+              <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">MockRestRequestMatchers</span><span class="o">.</span><span class="na">method</span><span class="o">(</span><span class="n">HttpMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">))</span>
+              <span class="o">.</span><span class="na">andRespond</span><span class="o">(</span><span class="n">MockRestResponseCreators</span><span class="o">.</span><span class="na">withBadRequest</span><span class="o">().</span><span class="na">body</span><span class="o">(</span>
+                      <span class="n">jsonResponseBody1</span><span class="o">));</span>               <span class="c1">// …(F)</span>
+
+       <span class="n">expectedException</span><span class="o">.</span><span class="na">expect</span><span class="o">(</span><span class="n">BusinessException</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+       <span class="n">expectedException</span><span class="o">.</span><span class="na">expect</span><span class="o">(</span><span class="n">BusinessExceptionMatcher</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+              <span class="o">.</span><span class="na">businessException</span><span class="o">(</span><span class="n">businessException</span><span class="o">).</span><span class="na">build</span><span class="o">());</span>
+
+       <span class="n">userResourceRepository</span><span class="o">.</span><span class="na">findOne</span><span class="o">(</span><span class="n">userId</span><span class="o">);</span>
+
+  <span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id4">
+<caption><span class="caption-text">マイクロサービスを呼び出すRepositoryクラスの単体テストコードの説明</span><a class="headerlink" href="#id4" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>項番</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple">
+<li></li>
+</ol>
+</td>
+<td>テストランナーとして、SpringRunnerを指定します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="2">
+<li></li>
+</ol>
+</td>
+<td>&#64;RestClientTestアノテーションを付与します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="3">
+<li></li>
+</ol>
+</td>
+<td>UserResourceRepositoryでは、異常系のエラーメッセージの取得にMessageSourceを使用するため、テスト用のDIコンテナから取得できるように設定しておきます。&#64;ContextConfigurationについては、 <a class="reference external" href="http://terasolunaorg.github.io/guideline/5.5.1.RELEASE/ja/UnitTest/ImplementsOfUnitTest/UsageOfLibraryForTest.html#spring-testdi">TERASOLUNAガイドライン Spring TestのDI機能</a> を適宜参照してください。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="4">
+<li></li>
+</ol>
+</td>
+<td>MockRestServiceServerを動作させるRestTemplateを設定します。&#64;AutowiredでMockRestServiceServerをインジェクションしても良いです。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="5">
+<li></li>
+</ol>
+</td>
+<td>エラーメッセージを設定したビジネス例外をJSON表現の文字列化します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="6">
+<li></li>
+</ol>
+</td>
+<td>MockRestServiceServerが指定したURLでHTTPステータスコード400で(E)の文字列を返却するように設定します。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>サンプルとして実装したテストケースと検証観点は以下になります。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="35%" />
+<col width="30%" />
+<col width="35%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>ユースケース</td>
+<td>主な処理実装クラス・メソッド <br/> テストメソッド</td>
+<td>検証観点</td>
+</tr>
+<tr class="row-even"><td>[異常系]ユーザリソースを検索する1</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImpl.java#L43">UserResourceRepository#findOne</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImplTest.java#L86">UserResourceRepositoryTest#findOneAbnormalTest1()</a></td>
+<td>・正しくビジネス例外が返されるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]ユーザリソースを検索する2</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImpl.java#L43">UserResourceRepository#findOne</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImplTest.java#L116">UserResourceRepositoryTest#findOneAbnormalTest2()</a></td>
+<td>・異常なレスポンスを受け取った場合正しくシステム例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-even"><td>[異常系]ユーザリソースを検索する3</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImpl.java#L43">UserResourceRepository#findOne</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImplTest.java#L146">UserResourceRepositoryTest#findOneAbnormalTest3()</a></td>
+<td>・異常なレスポンスを受け取った場合正しくシステム例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]ユーザリソースを検索する4</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImpl.java#L43">UserResourceRepository#findOne</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImplTest.java#L198">UserResourceRepositoryTest#findOneAbnormalTest4()</a></td>
+<td>・マイクロサービス側のサーバエラー発生時に正しくシステム例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-even"><td>[異常系]全てのユーザリソースを検索する1</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImpl.java#L72">UserResourceRepository#findAll</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImplTest.java#L228">UserResourceRepositoryTest#findAllAbnormalTest1()</a></td>
+<td>・異常なレスポンスを受け取った場合正しくシステム例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]全てのユーザリソースを検索する2</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImpl.java#L72">UserResourceRepository#findAll</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImplTest.java#L252">UserResourceRepositoryTest#findAllAbnormalTest2()</a></td>
+<td>・マイクロサービス側のサーバエラー発生時に正しくシステム例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-even"><td>[正常系]ユーザリソースを追加する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImpl.java#L88">UserResourceRepository#save</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImplTest.java#L276">UserResourceRepositoryTest#saveNormalTest()</a></td>
+<td>・正しいステータスコードでアウトプットが返されるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]ユーザリソースを追加する1</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImpl.java#L88">UserResourceRepository#save</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImplTest.java#L332">UserResourceRepositoryTest#saveAbnormalTest1()</a></td>
+<td>・正しくビジネス例外が返されるか</td>
+</tr>
+<tr class="row-even"><td>[異常系]ユーザリソースを追加する2</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImpl.java#L88">UserResourceRepository#save</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImplTest.java#L388">UserResourceRepositoryTest#saveAbnormalTest2()</a></td>
+<td>・正しくビジネス例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]ユーザリソースを追加する3</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImpl.java#L88">UserResourceRepository#save</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImplTest.java#L444">UserResourceRepositoryTest#saveAbnormalTest3()</a></td>
+<td>・異常なレスポンスを受け取った場合正しくシステム例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-even"><td>[異常系]ユーザリソースを追加する4</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImpl.java#L88">UserResourceRepository#save</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImplTest.java#L500">UserResourceRepositoryTest#saveAbnormalTest4()</a></td>
+<td>・異常なレスポンスを受け取った場合正しくシステム例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]ユーザリソースを追加する5</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImpl.java#L88">UserResourceRepository#save</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImplTest.java#L553">UserResourceRepositoryTest#saveAbnormalTest5()</a></td>
+<td>・マイクロサービス側のサーバエラー発生時に正しくシステム例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-even"><td>[異常系]ユーザリソースを削除する1</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImpl.java#L121">UserResourceRepository#delete</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImplTest.java#L604">UserResourceRepositoryTest#deleteAbnormalTest1()</a></td>
+<td>・正しくビジネス例外が返されるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]ユーザリソースを削除する2</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImpl.java#L121">UserResourceRepository#delete</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImplTest.java#L635">UserResourceRepositoryTest#deleteAbnormalTest2()</a></td>
+<td>・異常なレスポンスを受け取った場合正しくシステム例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-even"><td>[異常系]ユーザリソースを削除する3</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImpl.java#L121">UserResourceRepository#delete</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImplTest.java#L666">UserResourceRepositoryTest#deleteAbnormalTest3()</a></td>
+<td>・異常なレスポンスを受け取った場合正しくシステム例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]ユーザリソースを削除する4</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImpl.java#L121">UserResourceRepository#delete</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImplTest.java#L718">UserResourceRepositoryTest#deleteAbnormalTest4()</a></td>
+<td>・マイクロサービス側のサーバエラー発生時に正しくシステム例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-even"><td>[異常系]指定したログインIDをもつユーザリソースを検索する1</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImpl.java#L150">UserResourceRepository#findByLoginId</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImplTest.java#L748">UserResourceRepositoryTest#findByLoginIdAbnormalTest1()</a></td>
+<td>・正しくビジネス例外が返されるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]指定したログインIDをもつユーザリソースを検索する2</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImpl.java#L150">UserResourceRepository#findByLoginId</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImplTest.java#L781">UserResourceRepositoryTest#findByLoginIdAbnormalTest2()</a></td>
+<td>・異常なレスポンスを受け取った場合正しくシステム例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-even"><td>[異常系]指定したログインIDをもつユーザリソースを検索する3</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImpl.java#L150">UserResourceRepository#findByLoginId</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImplTest.java#L814">UserResourceRepositoryTest#findByLoginIdAbnormalTest3()</a></td>
+<td>・異常なレスポンスを受け取った場合正しくシステム例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]指定したログインIDをもつユーザリソースを検索する4</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImpl.java#L150">UserResourceRepository#findByLoginId</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImplTest.java#L843">UserResourceRepositoryTest#findByLoginIdAbnormalTest4()</a></td>
+<td>・マイクロサービス側のサーバエラー発生時に正しくシステム例外が返されるか <br/> ・例外に正しくメッセージが設定されるか</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">本来であればシステム例外は各コンポーネントの中で個別にハンドリングするのではなく、AOPなどで一律ハンドリングし、各業務開発者が意識せずに済むようにAP基盤部品として作成しておく方がベターです。今回はサンプルとしてシステム例外時のハンドリングもテストケースに含めています。</p>
+</div>
+<p><br/></p>
+</div>
+<div class="section" id="webapservice">
+<span id="section-service-test-for-webapp-label"></span><h3>マイクロサービスを呼び出すWebAPのService単体テスト実装<a class="headerlink" href="#webapservice" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>冒頭でも説明した通り、このWebアプリケーションでは。主なビジネス処理であるバックエンドのマイクロサービスを呼び出すかたちですが、
+Repositoryに実際の呼び出し処理を委譲し、Serviceではエラー発生時のリトライや、複数のマイクロサービスを呼び出した際に発生したエラー時のロールバック処理など実装します。
+このようなサービスのフロー制御を実行する役割をオーケストレーションと呼び、エラー発生時のマイクロサービスの呼び出しをロールバックする補償トランザクションを実行するパターンをSAGAパターンと呼びます。
+SAGAパターンの詳細は <a class="reference external" href="https://microservices.io/patterns/data/saga.html">microservices.io Pattern:Saga</a> によくまとめられていますのでこちらも適宜参考にしてください。
+以下のサンプルは、マイクロサービスを複数回呼び出し、エラーが発生した際、SAGAパターンに従ってロールバック処理するServiceコードです。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrchestrateServiceImpl</span> <span class="kd">implements</span> <span class="n">OrchestrateService</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">UserResourceRepository</span> <span class="n">userResourceRepository</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">UserResource</span><span class="o">&gt;</span> <span class="nf">addUsers</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">UserResource</span><span class="o">&gt;</span> <span class="n">addUserResources</span><span class="o">)</span>
+          <span class="kd">throws</span> <span class="n">BusinessException</span><span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">UserResource</span><span class="o">&gt;</span> <span class="n">userResources</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">UserResource</span> <span class="n">addUserResource</span> <span class="o">:</span> <span class="n">addUserResources</span><span class="o">){</span>
+            <span class="k">try</span><span class="o">{</span>
+                <span class="n">userResources</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">userResourceRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">addUserResource</span><span class="o">));</span>
+            <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">BusinessException</span> <span class="n">e</span><span class="o">){</span>
+            <span class="c1">// Rollback for SAGA Pattern.</span>
+                <span class="k">for</span><span class="o">(</span><span class="n">UserResource</span> <span class="n">userResource</span> <span class="o">:</span> <span class="n">userResources</span><span class="o">){</span>
+                    <span class="n">userResourceRepository</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="n">userResource</span><span class="o">.</span><span class="na">getUserId</span><span class="o">());</span>
+                <span class="o">}</span>
+                <span class="k">throw</span> <span class="n">e</span><span class="o">;</span>
+            <span class="o">}</span>
+       <span class="o">}</span>
+       <span class="k">return</span> <span class="n">userResources</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>こうした処理が実装されたServiceですが、実際のマイクロサービスの呼び出しはRepositoryに隠蔽されているため、テストコードもマイクロサービスにおけるServiceのそれと基本的に違いはありません。
+Repositoryをモック化して、DIコンテナとともに実行に必要なコンポーネントをオートコンフィグレーションする&#64;SpringBootTestアノテーションを用いて、
+MessageSourceなどのコンポーネントはSpringのDIコンテナから取得できるようにしてテストコードを実装します。</p>
+<p>Serviceの単体サンプルコードは以下の通りです。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.continuous.integration.bff.domain.service</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.test.context.SpringBootTest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.test.mock.mockito.MockBean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.test.context.junit4.SpringRunner</span><span class="o">;</span>
+
+<span class="nd">@RunWith</span><span class="o">(</span><span class="n">Enclosed</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrchestrateServiceImplTest</span> <span class="o">{</span>
+
+    <span class="c1">// omit</span>
+
+    <span class="nd">@RunWith</span><span class="o">(</span><span class="n">SpringRunner</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="nd">@SpringBootTest</span><span class="o">(</span><span class="n">classes</span> <span class="o">=</span> <span class="o">{</span>
+        <span class="n">OrchestrateServiceImplTest</span><span class="o">.</span><span class="na">UnitTest</span><span class="o">.</span><span class="na">Config</span><span class="o">.</span><span class="na">class</span>
+     <span class="o">},</span> <span class="n">webEnvironment</span> <span class="o">=</span> <span class="n">SpringBootTest</span><span class="o">.</span><span class="na">WebEnvironment</span><span class="o">.</span><span class="na">NONE</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">UnitTest</span><span class="o">{</span>
+
+        <span class="c1">// omit</span>
+
+        <span class="nd">@MockBean</span>
+        <span class="n">UserResourceRepository</span> <span class="n">userResourceRepositoryMock</span><span class="o">;</span>
+
+        <span class="nd">@Autowired</span>
+        <span class="n">OrchestrateService</span> <span class="n">orchestrateService</span><span class="o">;</span>
+
+        <span class="nd">@Rule</span>
+        <span class="kd">public</span> <span class="n">ExpectedException</span> <span class="n">expectedException</span> <span class="o">=</span> <span class="n">ExpectedException</span><span class="o">.</span><span class="na">none</span><span class="o">();</span>
+
+        <span class="c1">// omit</span>
+        <span class="nd">@Before</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+            <span class="c1">// omit</span>
+            <span class="n">when</span><span class="o">(</span><span class="n">userResourceRepositoryMock</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">mockUser1</span><span class="o">)).</span><span class="na">thenReturn</span><span class="o">(</span><span class="n">mockUser1</span><span class="o">);</span>
+            <span class="n">when</span><span class="o">(</span><span class="n">userResourceRepositoryMock</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">mockUser2</span><span class="o">)).</span><span class="na">thenThrow</span><span class="o">(</span><span class="n">BusinessException</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+            <span class="c1">// omit</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Test</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addUsersAbnormalTest1</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+            <span class="c1">//omit</span>
+            <span class="n">UserResource</span> <span class="n">user1</span> <span class="o">=</span> <span class="n">UserResource</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                     <span class="o">.</span><span class="na">userId</span><span class="o">(</span><span class="n">userId1</span><span class="o">).</span><span class="na">firstName</span><span class="o">(</span><span class="s">&quot;taro&quot;</span><span class="o">).</span><span class="na">familyName</span><span class="o">(</span><span class="s">&quot;mynavi&quot;</span><span class="o">)</span>
+                     <span class="o">.</span><span class="na">loginId</span><span class="o">(</span><span class="s">&quot;taro.mynavi&quot;</span><span class="o">).</span><span class="na">address</span><span class="o">(</span><span class="n">address1</span><span class="o">)</span>
+                     <span class="o">.</span><span class="na">emailList</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="k">new</span> <span class="n">EmailResource</span><span class="o">[]{</span><span class="n">email1</span><span class="o">,</span> <span class="n">email2</span><span class="o">})).</span><span class="na">build</span><span class="o">();</span>
+            <span class="n">UserResource</span> <span class="n">user2</span> <span class="o">=</span> <span class="n">UserResource</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                     <span class="o">.</span><span class="na">userId</span><span class="o">(</span><span class="n">userId2</span><span class="o">).</span><span class="na">familyName</span><span class="o">(</span><span class="s">&quot;mynavi&quot;</span><span class="o">).</span><span class="na">firstName</span><span class="o">(</span><span class="s">&quot;hanako&quot;</span><span class="o">)</span>
+                     <span class="o">.</span><span class="na">loginId</span><span class="o">(</span><span class="s">&quot;hanako.mynavi&quot;</span><span class="o">).</span><span class="na">address</span><span class="o">(</span><span class="n">address2</span><span class="o">)</span>
+                     <span class="o">.</span><span class="na">emailList</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="k">new</span> <span class="n">EmailResource</span><span class="o">[]{</span><span class="n">email3</span><span class="o">})).</span><span class="na">build</span><span class="o">();</span>
+            <span class="c1">//omit</span>
+            <span class="n">expectedException</span><span class="o">.</span><span class="na">expect</span><span class="o">(</span><span class="n">BusinessException</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+            <span class="n">orchestrateService</span><span class="o">.</span><span class="na">addUsers</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span>
+                <span class="k">new</span> <span class="n">UserResource</span><span class="o">[]{</span><span class="n">user1</span><span class="o">,</span> <span class="n">user2</span><span class="o">}));</span>
+       <span class="o">}</span>
+       <span class="c1">// omit</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>上記のテスト実装により、Sevice実行時のアウトプットオブジェクトの妥当性やビジネス例外発生の妥当性、ビジネス例外のメッセージなどを
+検証できます。サンプルで作成したテストケースは、Serviceの異常系処理を中心に、以下のようなユースケース・検証観点をもとに実装しています。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="35%" />
+<col width="30%" />
+<col width="35%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>ユースケース</td>
+<td>主な処理実装クラス・メソッド <br/> テストメソッド</td>
+<td>検証観点</td>
+</tr>
+<tr class="row-even"><td>[異常系]複数のユーザ情報を追加する(1)</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/service/OrchestrateServiceImpl.java#L20">OrchestrateService#addUsers</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/service/OrchestrateServiceImplTest.java#L141">OrchestrateServiceImplTest#addUsersAbnormalTest1()</a></td>
+<td>・Service実行の結果、正しくビジネス例外が返されるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]複数のユーザ情報を追加する(2)</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/service/OrchestrateServiceImpl.java#L20">OrchestrateService#addUsers</a> <br/> <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/service/OrchestrateServiceImplTest.java#L197">OrchestrateServiceImplTest#addUsersAbnormalTest2()</a></td>
+<td>・マイクロサービス側のサーバエラー発生時に正しくシステム例外が返されるか</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">このサンプルでは、ユーザを保存するマイクロサービスを複数回呼び出し、処理の途中でビジネスエラーが発生した場合、それまで成功した保存データを逆に削除していくロールバック処理をcatch節の中で実装します。ロールバック処理も含めて正常に完了した場合はビジネスエラーを返却し、また、マイクロサービスへの呼び出しの途中でサーバーエラーが発生した場合は、Repositoryからシステムエラーをスローする仕様を想定したテストケースとしています。</p>
+</div>
+<p><br/></p>
+<p>次回は、HTMLUnitを使用したWebアプリケーションの単体テスト、Seleiniumを使用したEndToEndのテストコードをSpringBootを使って実装していきます。</p>
+<p><br/></p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>著者紹介<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pic_image01.jpg"><img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+</div>
+<p>金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p><a class="reference external" href="https://aws.amazon.com/jp/blogs/psa/japan-apn-ambassador-2019/">2019 APN AWS Top Engineers &amp; Ambassadors</a> 選出。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

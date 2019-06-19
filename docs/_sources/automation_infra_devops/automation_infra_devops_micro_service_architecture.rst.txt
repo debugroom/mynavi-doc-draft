@@ -148,8 +148,8 @@ WebアプリケーションのHTMLテンプレートエンジンとしてThymele
          │               │ └service                                ... DomainConfigでコンポーネントスキャンの対象とするサービスクラスパッケージ
          │               │   ├SampleService.java                   ... シンプルに１つのマイクロサービスにアクセスするサービスクラス
          │               │   ├SampleServiceImpl.java               ... SampleServiceの実装クラス
-         │               │   ├MultiServicesCallingService.java     ... マイクロサービスに複数回アクセスするサービスクラス
-         │               │   └MultiServicesCallingServiceImpl.java ... MultiServicesCallingServiceインタフェースの実装クラス
+         │               │   ├OrchestrateService.java              ... マイクロサービスに複数回アクセスするサービスクラス
+         │               │   └OrchestrateServiceImpl.java          ... OrchestrateServiceインタフェースの実装クラス
          │               └config                                   ... 設定クラス用のパッケージ
          │                   ├WebApp.java                          ... Webアプリケーション起動クラス
          │                   ├DomainConfig.java                    ... ドメイン層に関する設定クラス

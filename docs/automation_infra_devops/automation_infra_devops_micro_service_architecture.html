@@ -64,6 +64,7 @@
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-1.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-2.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_integrationtest.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unittest.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -279,8 +280,8 @@ WebアプリケーションのHTMLテンプレートエンジンとしてThymele
       │               │ └service                                ... DomainConfigでコンポーネントスキャンの対象とするサービスクラスパッケージ
       │               │   ├SampleService.java                   ... シンプルに１つのマイクロサービスにアクセスするサービスクラス
       │               │   ├SampleServiceImpl.java               ... SampleServiceの実装クラス
-      │               │   ├MultiServicesCallingService.java     ... マイクロサービスに複数回アクセスするサービスクラス
-      │               │   └MultiServicesCallingServiceImpl.java ... MultiServicesCallingServiceインタフェースの実装クラス
+      │               │   ├OrchestrateService.java              ... マイクロサービスに複数回アクセスするサービスクラス
+      │               │   └OrchestrateServiceImpl.java          ... OrchestrateServiceインタフェースの実装クラス
       │               └config                                   ... 設定クラス用のパッケージ
       │                   ├WebApp.java                          ... Webアプリケーション起動クラス
       │                   ├DomainConfig.java                    ... ドメイン層に関する設定クラス

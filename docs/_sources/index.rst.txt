@@ -19,6 +19,7 @@
    automation_infra_devops/automation_infra_devops_micro_service_unittest-1.rst
    automation_infra_devops/automation_infra_devops_micro_service_unittest-2.rst
    automation_infra_devops/automation_infra_devops_micro_service_integrationtest.rst
+   automation_infra_devops/automation_infra_devops_web_app_unittest.rst
    cloud_native/aws-lambda-and-api-gateway-1.rst
    cloud_native/aws-lambda-and-api-gateway-2.rst
    cloud_native/aws-lambda-and-api-gateway-3.rst
