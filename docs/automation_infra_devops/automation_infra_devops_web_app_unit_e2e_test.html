@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>基盤・デプロイ自動化実践 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="../cloud_native/aws-lambda-and-api-gateway-1.html" />
+    <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_web_app_unittest.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarqube.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarlint.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_architecture.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_integrationtest.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unittest.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
+<li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li><a class="reference internal" href="#webendtoend">マイクロサービスを呼び出すWebアプリケーションの単体テスト・EndToEndテスト(後編)</a></li>
+<li><a class="reference internal" href="#webcontroller">マイクロサービスを呼び出すWebアプリケーションのController単体テスト実装</a></li>
+<li><a class="reference internal" href="#seleniumendtoend">Seleniumを使用したEndToEndテスト</a></li>
+<li><a class="reference internal" href="#web">マイクロサービスを呼び出すWebアプリケーションのテスト戦略</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id5">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="automation_infra_devops_web_app_unittest.html" title="Previous Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 基盤・デプロイ自動化実践</span>
+    </a>
+  </li>
+  <li>
+    <a href="../cloud_native/aws-lambda-and-api-gateway-1.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="section-automation-infra-devops-webapp-unit-e2e-test-label">
+<span id="id1"></span><h1>基盤・デプロイ自動化実践<a class="headerlink" href="#section-automation-infra-devops-webapp-unit-e2e-test-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id2">
+<h2>マイクロサービスアーキテクチャの基盤・デプロイ自動化<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<div class="section" id="webendtoend">
+<span id="section-application-test-2-for-web-application-label"></span><h3>マイクロサービスを呼び出すWebアプリケーションの単体テスト・EndToEndテスト(後編)<a class="headerlink" href="#webendtoend" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>前回は、マイクロサービスを呼び出す側のWebアプリケーション(BFFアプリケーション)におけるRepositoryやServiceの単体テストについて説明しました。
+今回は引き続き、HTMLUnitを使用したControllerの単体テスト、Seleniumを使用したバックエンドのマイクロサービスを含めたEndToEndテストについて説明します。</p>
+<p><br/></p>
+</div>
+<div class="section" id="webcontroller">
+<span id="section-controller-test-for-webapp-label"></span><h3>マイクロサービスを呼び出すWebアプリケーションのController単体テスト実装<a class="headerlink" href="#webcontroller" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/>
+リクエストハンドリングや、バリデーションの妥当性等、BFFアプリケーションのControllerテストは、マイクロサービスでのテスト観点と重複する部分がありますが、
+マイクロサービスのレスポンスがJSON文字列を返却するコンテンツタイプ「application/json」だったのに対し、BFFアプリケーションは「text/html」であるHTTPレスポンス返却が中心となります。
+そこで、マイクロサービスと同様、MockMvcを使ったControllerのテスト観点に加え、生成するHTTPレスポンスの中で必要なパラメータやメッセージが含まれているか、
+オープンソーステストライブラリであるHtmlUnitを使って行います。Mavenプロジェクトのpom.xmlで、spring-boot-starter-testに加えて、HtmlUnitのライブラリを定義します。</p>
+<p><br/></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependencies&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-test<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>net.sourceforge.htmlunit<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>htmlunit<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>Controllerの単体テスト実装でのリクエストハンドリングやMock設定などの基本的な要領は、 マイクロサービスにおける <a class="reference internal" href="automation_infra_devops_micro_service_unittest-2.html#section-controller-test-for-microservice-label"><span class="std std-ref">Controllerの単体テスト実装</span></a> とほぼ同様です。
+以降は、com.gargoylesoftware.htmlunit.WebClientを使用した、HTMLの検証コードを中心に解説を進めます。なお、SpringMVCおよびMockMvcを使用したHtmlUnitの使用方法については、
+<a class="reference external" href="https://docs.spring.io/spring/docs/current/spring-framework-reference/testing.html#spring-mvc-test-server-htmlunit">Springの公式ドキュメント HtmlUnit Integration</a> も適宜参照ください。
+また、Webアプリケーションでは、バリデーションエラーのテストコードなどはマイクロサービス時のものとは異なり、HTMLページへレンダリングするためにBindingResultにエラー項目が格納されます。
+テストコードではこちらからエラーとなる項目を取り出し、期待したパラメータやメッセージが取得できるか検証を行う必要があります。サンプルのコードは以下の通りです。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.continuous.integration.bff.app.web</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="kn">import</span> <span class="nn">com.gargoylesoftware.htmlunit.BrowserVersion</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.gargoylesoftware.htmlunit.BrowserVersion.BrowserVersionBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.gargoylesoftware.htmlunit.WebClient</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.gargoylesoftware.htmlunit.html.HtmlButton</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.gargoylesoftware.htmlunit.html.HtmlElement</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.gargoylesoftware.htmlunit.html.HtmlPage</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.gargoylesoftware.htmlunit.html.HtmlTextInput</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.test.context.junit4.SpringRunner</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.test.web.servlet.MockMvc</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.test.web.servlet.MvcResult</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="nd">@RunWith</span><span class="o">(</span><span class="n">SpringRunner</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>                                       <span class="c1">// …(A)</span>
+<span class="nd">@WebMvcTest</span><span class="o">(</span><span class="n">controllers</span> <span class="o">=</span> <span class="n">BackendForFrontendController</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>      <span class="c1">// …(B)</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">UnitTest</span><span class="o">{</span>
+
+    <span class="n">WebClient</span> <span class="n">webClient</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">MockMvc</span> <span class="n">mockMvc</span><span class="o">;</span>
+
+    <span class="c1">// omit</span>
+
+    <span class="nd">@Before</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+
+        <span class="n">BrowserVersionBuilder</span> <span class="n">browserVersionBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BrowserVersionBuilder</span><span class="o">(</span><span class="n">BrowserVersion</span><span class="o">.</span><span class="na">CHROME</span><span class="o">);</span>
+        <span class="n">browserVersionBuilder</span><span class="o">.</span><span class="na">setBrowserLanguage</span><span class="o">(</span><span class="s">&quot;jp_JP&quot;</span><span class="o">);</span>
+        <span class="n">webClient</span> <span class="o">=</span> <span class="n">MockMvcWebClientBuilder</span><span class="o">.</span><span class="na">mockMvcSetup</span><span class="o">(</span><span class="n">mockMvc</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">withDelegate</span><span class="o">(</span><span class="k">new</span> <span class="n">WebClient</span><span class="o">(</span><span class="n">browserVersionBuilder</span><span class="o">.</span><span class="na">build</span><span class="o">()))</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span>                                                        <span class="c1">// …(C)</span>
+        <span class="n">webClient</span><span class="o">.</span><span class="na">setAjaxController</span><span class="o">(</span><span class="k">new</span> <span class="n">NicelyResynchronizingAjaxController</span><span class="o">());</span>  <span class="c1">// …(D)</span>
+
+        <span class="c1">// omit</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">getUsersTest</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+        <span class="n">HtmlPage</span> <span class="n">page</span> <span class="o">=</span> <span class="n">webClient</span><span class="o">.</span><span class="na">getPage</span><span class="o">(</span><span class="s">&quot;http://localhost:8080/getUsers&quot;</span><span class="o">);</span>     <span class="c1">// …(E)</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">page</span><span class="o">.</span><span class="na">getTitleText</span><span class="o">(),</span> <span class="n">is</span><span class="o">(</span><span class="s">&quot;GetUsers&quot;</span><span class="o">));</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">page</span><span class="o">.</span><span class="na">getElementById</span><span class="o">(</span><span class="s">&quot;td-firstName-0&quot;</span><span class="o">)</span>
+             <span class="o">.</span><span class="na">getFirstChild</span><span class="o">().</span><span class="na">asText</span><span class="o">(),</span> <span class="n">is</span><span class="o">(</span><span class="s">&quot;太郎&quot;</span><span class="o">));</span>
+                                                                                 <span class="c1">// …(F)</span>
+        <span class="c1">// omit</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">isUsableLoginIdNormalTest</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+        <span class="n">HtmlPage</span> <span class="n">page</span> <span class="o">=</span> <span class="n">webClient</span><span class="o">.</span><span class="na">getPage</span><span class="o">(</span><span class="s">&quot;http://localhost:8080/portal&quot;</span><span class="o">);</span>
+        <span class="n">HtmlButton</span> <span class="n">htmlButton</span> <span class="o">=</span> <span class="o">(</span><span class="n">HtmlButton</span><span class="o">)</span><span class="n">page</span><span class="o">.</span><span class="na">getElementById</span><span class="o">(</span><span class="s">&quot;isUsableLoginIdButton-0&quot;</span><span class="o">);</span>
+        <span class="c1">// omit</span>
+        <span class="n">HtmlPage</span> <span class="n">updatePage</span> <span class="o">=</span> <span class="n">htmlButton</span><span class="o">.</span><span class="na">click</span><span class="o">();</span>
+        <span class="n">webClient</span><span class="o">.</span><span class="na">waitForBackgroundJavaScript</span><span class="o">(</span><span class="mi">10000</span><span class="o">);</span>
+        <span class="n">HtmlElement</span> <span class="n">htmlElement</span> <span class="o">=</span> <span class="o">(</span><span class="n">HtmlElement</span><span class="o">)</span><span class="n">updatePage</span><span class="o">.</span><span class="na">getElementById</span><span class="o">(</span><span class="s">&quot;message-panel&quot;</span><span class="o">);</span>
+
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">htmlElement</span><span class="o">.</span><span class="na">getFirstChild</span><span class="o">().</span><span class="na">asText</span><span class="o">(),</span> <span class="n">is</span><span class="o">(</span><span class="s">&quot;使用可能なログインIDです。&quot;</span><span class="o">));</span>
+                                                                                 <span class="c1">// …(G)</span>
+    <span class="o">}</span>
+
+    <span class="c1">// omit</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addUsersInputParamTest</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+        <span class="n">MultiValueMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedMultiValueMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;();</span>
+        <span class="n">params</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">&quot;users[0].firstName&quot;</span><span class="o">,</span> <span class="s">&quot;taro&quot;</span><span class="o">);</span>
+        <span class="c1">// omit</span>
+        <span class="n">MvcResult</span> <span class="n">mvcResult</span> <span class="o">=</span> <span class="n">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span><span class="n">MockMvcRequestBuilders</span>
+                                  <span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="s">&quot;/addUsers&quot;</span><span class="o">).</span><span class="na">params</span><span class="o">(</span><span class="n">params</span><span class="o">)).</span><span class="na">andReturn</span><span class="o">();</span>
+        <span class="n">ModelAndView</span> <span class="n">modelAndView</span> <span class="o">=</span> <span class="n">mvcResult</span><span class="o">.</span><span class="na">getModelAndView</span><span class="o">();</span>
+                                                                                 <span class="c1">// …(H)</span>
+
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">modelAndView</span><span class="o">.</span><span class="na">getViewName</span><span class="o">(),</span> <span class="n">is</span><span class="o">(</span><span class="s">&quot;portal&quot;</span><span class="o">));</span>
+        <span class="n">BindingResult</span> <span class="n">bindingResult</span> <span class="o">=</span> <span class="o">(</span><span class="n">BindingResult</span><span class="o">)</span>
+           <span class="n">modelAndView</span><span class="o">.</span><span class="na">getModel</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;org.springframework.validation.BindingResult.addUsersForm&quot;</span><span class="o">);</span>
+
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">FieldError</span><span class="o">&gt;</span> <span class="n">fieldErrors</span> <span class="o">=</span> <span class="n">bindingResult</span><span class="o">.</span><span class="na">getFieldErrors</span><span class="o">();</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">fieldErrors</span><span class="o">.</span><span class="na">size</span><span class="o">(),</span> <span class="n">is</span><span class="o">(</span><span class="mi">6</span><span class="o">));</span>
+                                                                                 <span class="c1">// …(I)</span>
+        <span class="c1">// omit</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id6">
+<caption><span class="caption-text">BFFアプリケーションのController単体テストコードの説明</span><a class="headerlink" href="#id6" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>項番</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple">
+<li></li>
+</ol>
+</td>
+<td>テストランナーとして、SpringRunnerを指定します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="2">
+<li></li>
+</ol>
+</td>
+<td>&#64;WebMvcTestでテスト対象のControllerを指定します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="3">
+<li></li>
+</ol>
+</td>
+<td>ブラウザとして日本語ロケールのChromeを指定してWebClientを構築します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="4">
+<li></li>
+</ol>
+</td>
+<td>非同期通信(AJAX)のテストを行うためにAjaxControllerを設定しておきます。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="5">
+<li></li>
+</ol>
+</td>
+<td>WebClientを使用して、テスト対象のHTMLページを取得します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="6">
+<li></li>
+</ol>
+</td>
+<td>HTMLページに含まれる項目のアサーションロジックを実装します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="7">
+<li></li>
+</ol>
+</td>
+<td>HTMLページに含まれるAJAX処理を実行し、処理実行時間を考慮してWAITした上で、処理実行後に得られる項目を検証します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="8">
+<li></li>
+</ol>
+</td>
+<td>リクエストパラメータを設定し、テスト対象のControllerメソッドを呼び出したのち、ModelAndViewを取得します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperroman simple">
+<li></li>
+</ol>
+</td>
+<td>BindingResultを取得し、エラーとなっている項目を取得して検証します。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>上記を含め、サンプルとして実装したテストケースと検証観点は以下になります。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="35%" />
+<col width="30%" />
+<col width="35%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>ユースケース</td>
+<td>主な処理実装クラス・メソッド <br/> テストメソッド</td>
+<td>検証観点</td>
+</tr>
+<tr class="row-even"><td>[正常系]ユーザ一覧画面を表示する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L69">BackendForFrontendController#getUsers</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L172">BackendForFrontendControllerTest#getUsersTest()</a></td>
+<td>・サービス実行結果が正しく画面に表示されるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]ユーザ情報を取得する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L64">BackendForFrontendController#getUser</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L207">BackendForFrontendControllerTest#getUserAbnormalTest()</a></td>
+<td>・入力チェックやビジネスエラー発生時に正しいメッセージやパラメータを返却するか</td>
+</tr>
+<tr class="row-even"><td>[正常系]ログインIDが使用可能か判定する(非同期通信)</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L76">BackendForFrontendController#isUsableLoginId</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L222">BackendForFrontendControllerTest#isUsableLoginIdNormalTest()</a></td>
+<td>・非同期通信の実行結果が正しく画面に表示されるか</td>
+</tr>
+<tr class="row-odd"><td>[異常系]ログインIDが使用可能か判定する(非同期通信)</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L76">BackendForFrontendController#isUsableLoginId</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L236">BackendForFrontendControllerTest#isUsableLoginIdAbnormalTest()</a></td>
+<td>・非同期通信の実行結果が正しく画面に表示されるか</td>
+</tr>
+<tr class="row-even"><td>[異常系]複数のユーザを追加する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L83">BackendForFrontendController#addUsers</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L250">BackendForFrontendControllerTest#addUsersInputParamTest()</a></td>
+<td>・入力チェックやビジネスエラー発生時に正しいメッセージやパラメータを返却するか</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+</div>
+<div class="section" id="seleniumendtoend">
+<span id="section-e2e-test-for-webapp-label"></span><h3>Seleniumを使用したEndToEndテスト<a class="headerlink" href="#seleniumendtoend" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>BFFアプリケーションの単体テストが一通り終わったタイミングで、マイクロサービスのときと同様、Service⇔Repository、Controller⇔Service⇔Repositoryの結合テストを実施するのも一つの考え方ですが、
+Repositoryがバックエンドのマイクロサービスを呼び出すことや、単体テストである程度異常系テストケースの網羅が可能であることから、次のステップとして、結合テストというよりか、
+EndToEndテスト(以降、E2Eテスト)としてバックエンドのマイクロサービスの呼び出しを含め検証を行うこととします。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/webapp-e2e-test-scope.png"><img alt="../_images/webapp-e2e-test-scope.png" src="../_images/webapp-e2e-test-scope.png" style="width: 1130.0px; height: 289.0px;" /></a>
+</div>
+<p><br/></p>
+<p>E2Eテストは一般にエンドユーザの操作を想定したユースケースを元に実行結果を検証します。ここではオープンソースのGUI自動化テストツールとして有名なSeleniumを使って、テストコードを実装します。
+なお、Seleniumで提供されるライブラリWebDriverのJava版はJUnitコードでのスクリプト記述が可能であり、Springが提供するMockMvcと統合して使用することが可能です。必要に応じて、
+<a class="reference external" href="https://docs.spring.io/spring/docs/current/spring-framework-reference/testing.html#spring-mvc-test-server-htmlunit-webdriver">Springの公式ドキュメント MockMvc and WebDriver</a> も適宜参照ください。
+SpringBootアプリケーションのテストでSeleniumを使用するには、以下の通り、Mavenプロジェクトのpom.xmlで、spring-boot-starter-testに加えて、Seleniumのライブラリを定義します。</p>
+<p><br/></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependencies&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-test<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.seleniumhq.selenium<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>selenium-java<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>また、ローカル環境であれば、Seleniumの実行にドライバのインストールが必要です。<a class="reference external" href="https://selenium-python.readthedocs.io/installation.html">Seleniumのインストール手順</a> に従って、ドライバをインストールしてください。
+以降は/usr/local/binにchromedriverがインストールされた前提で話を進めます。また、このE2Eテストではバックエンドのマイクロサービスを呼び出すため、事前にBackendアプリケーションを起動しておく必要があります。
+マイクロサービスのController⇔Sevice⇔Repositoryの結合テスト同様、&#64;SpringBootTestを使って実装したサンプルのテストコードは以下の通りです。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span> <span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.continuous.integration.bff.app.web</span><span class="o">;</span>
+
+ <span class="c1">// omit</span>
+<span class="kn">import</span> <span class="nn">org.junit.experimental.categories.Category</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.test.context.SpringBootTest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.web.server.LocalServerPort</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.openqa.selenium.By</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.openqa.selenium.OutputType</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.openqa.selenium.TakesScreenshot</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.openqa.selenium.WebDriver</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.openqa.selenium.chrome.ChromeDriver</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.continuous.integration.common.apinfra.test.junit.E2ETest</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="nd">@RunWith</span><span class="o">(</span><span class="n">SpringRunner</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>                                   <span class="c1">// …(A)</span>
+<span class="nd">@SpringBootTest</span><span class="o">(</span><span class="n">classes</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="n">TestConfig</span><span class="o">.</span><span class="na">EndToEndTestConfig</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+  <span class="n">BackendForFrontendControllerTest</span><span class="o">.</span><span class="na">EndToEndTest</span><span class="o">.</span><span class="na">Config</span><span class="o">.</span><span class="na">class</span>
+<span class="o">},</span> <span class="n">webEnvironment</span> <span class="o">=</span> <span class="n">SpringBootTest</span><span class="o">.</span><span class="na">WebEnvironment</span><span class="o">.</span><span class="na">RANDOM_PORT</span><span class="o">)</span> <span class="c1">// …(B)</span>
+<span class="nd">@Category</span><span class="o">(</span><span class="n">E2ETest</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>                                       <span class="c1">// …(C)</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">EndToEndTest</span><span class="o">{</span>
+
+    <span class="nd">@Configuration</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Config</span><span class="o">{</span>
+
+        <span class="nd">@Autowired</span>
+        <span class="n">SeleniumProperties</span> <span class="n">seleniumProperties</span><span class="o">;</span>                 <span class="c1">// …(D)</span>
+
+        <span class="nd">@Bean</span>
+        <span class="n">WebDriver</span> <span class="nf">webDriver</span><span class="o">(){</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">&quot;webdriver.chrome.driver&quot;</span><span class="o">,</span> <span class="n">seleniumProperties</span><span class="o">.</span><span class="na">getChromeDriverPath</span><span class="o">());</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="n">ChromeDriver</span><span class="o">();</span>                         <span class="c1">// …(E)</span>
+        <span class="o">}</span>
+
+    <span class="o">}</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">SeleniumProperties</span> <span class="n">seleniumProperties</span><span class="o">;</span>
+
+    <span class="nd">@LocalServerPort</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">port</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">WebDriver</span> <span class="n">webDriver</span><span class="o">;</span>                                       <span class="c1">// …(F)</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">PortalPage</span> <span class="n">portalPage</span><span class="o">;</span>                                     <span class="c1">// …(G)</span>
+
+    <span class="c1">// omit</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addUsers_2_AbnormalTest</span><span class="o">(){</span>
+        <span class="n">webDriver</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;http://localhost:&quot;</span> <span class="o">+</span> <span class="n">port</span> <span class="o">+</span> <span class="s">&quot;/portal&quot;</span><span class="o">);</span>
+        <span class="n">webDriver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="s">&quot;addFormButton-0&quot;</span><span class="o">)).</span><span class="na">click</span><span class="o">();</span>
+        <span class="n">portalPage</span><span class="o">.</span><span class="na">setAddUserForm1</span><span class="o">(</span><span class="s">&quot;saburo&quot;</span><span class="o">,</span> <span class="s">&quot;mynavi&quot;</span><span class="o">,</span>
+                <span class="s">&quot;saburo.mynavi1&quot;</span><span class="o">,</span> <span class="s">&quot;100-0000&quot;</span><span class="o">,</span> <span class="s">&quot;Tokyo　Minato&quot;</span><span class="o">,</span>
+                <span class="s">&quot;saburo.mynavi1@debugroom.org&quot;</span><span class="o">);</span>
+        <span class="n">portalPage</span><span class="o">.</span><span class="na">setAddUserForm2</span><span class="o">(</span><span class="s">&quot;jiro&quot;</span><span class="o">,</span> <span class="s">&quot;mynavi&quot;</span><span class="o">,</span>
+                <span class="s">&quot;jiro.mynavi1&quot;</span><span class="o">,</span> <span class="s">&quot;300-0000&quot;</span><span class="o">,</span> <span class="s">&quot;Tonde　Saitama&quot;</span><span class="o">,</span>
+                <span class="s">&quot;jiro.mynavi1@debugroom.org&quot;</span><span class="o">);</span>
+        <span class="n">webDriver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="s">&quot;addUsersButton&quot;</span><span class="o">)).</span><span class="na">click</span><span class="o">();</span>
+        <span class="n">webDriver</span><span class="o">.</span><span class="na">getPageSource</span><span class="o">().</span><span class="na">contains</span><span class="o">(</span><span class="s">&quot;使用できないログインIDです。LoginID : jiro.mynavi1&quot;</span><span class="o">);</span>
+        <span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="o">((</span><span class="n">TakesScreenshot</span><span class="o">)</span> <span class="n">webDriver</span><span class="o">).</span><span class="na">getScreenshotAs</span><span class="o">(</span><span class="n">OutputType</span><span class="o">.</span><span class="na">FILE</span><span class="o">);</span>
+        <span class="n">file</span><span class="o">.</span><span class="na">renameTo</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">seleniumProperties</span><span class="o">.</span><span class="na">getEvidencePath</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;/addUserAbnormalTest_screenshot.png&quot;</span><span class="o">));</span>
+                                                               <span class="c1">// …(H)</span>
+    <span class="o">}</span>
+   <span class="c1">// omit</span>
+</pre></div>
+</div>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id7">
+<caption><span class="caption-text">BFFアプリケーションのE2Eテストコードの説明</span><a class="headerlink" href="#id7" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>項番</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple">
+<li></li>
+</ol>
+</td>
+<td>テストランナーとして、SpringRunnerを指定します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="2">
+<li></li>
+</ol>
+</td>
+<td>&#64;SpringBootTestアノテーションには、テスト向け固有の設定クラスを任意に指定し、Webコンテナ(Server)の起動時のポートをランダムで指定しておきます。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="3">
+<li></li>
+</ol>
+</td>
+<td>テストクラスを種別で分類するためにCategoryアノテーションを付与します。テスト実行にはBackendアプリケーションの起動が前提となりますので、pom.xmlのmaven-surefire-pluginの指定で、ビルド時にE2ETestインターフェースのカテゴリのテストは実行されないようにしておきます。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="4">
+<li></li>
+</ol>
+</td>
+<td>Chromeドライバのパスや実行時のスクリーンショット画像を保存するパスなどをプロパティとして定義して利用します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="5">
+<li></li>
+</ol>
+</td>
+<td>WebDriverにChromeドライバを設定します。インスタンス生成前にシステム変数webdriver.chrome.driverにChromeドライバのパスを設定しておきます。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="6">
+<li></li>
+</ol>
+</td>
+<td>WebDriverをインジェクションして利用します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="7">
+<li></li>
+</ol>
+</td>
+<td>テスト対象のHTMLページを、PageObjectパターン※でPageObjectとして実装しておき、インジェクションして利用します。今回サンプルとして実装したPageObjectは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/selenium/PortalPage.java">こちら</a> を参照してください。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="8">
+<li></li>
+</ol>
+</td>
+<td>WebDriverでテスト対象のページに遷移し、テストパラメータを設定して処理ボタンを押下し、結果の文字列をアサーションします。最後に実行結果の画面をエビデンスとして指定したディレクトリに保存します。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">※PageObjectパターンとは、<a class="reference external" href="https://www.seleniumhq.org/docs/06_test_design_considerations.jsp#page-object-design-pattern">Selenium 公式サイトでも推奨されているパターン</a> で、HTMLページをPageObjectとして実装し、テストで関係する主なHTML要素を変数として定義して、WebDriverのアクセスを一元的に行い実装効率性を高めるデザインパターンです。</p>
+</div>
+<p><br/></p>
+<p>テスト実行すると、Chromeブラウザが起動し、テストケース操作が自動実行されます。最後に画面のスクリーンショットを保存して、画面表示のレイアウトが崩れていないか等目視確認します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/addUserAbnormalTest_screenshot.png"><img alt="../_images/addUserAbnormalTest_screenshot.png" src="../_images/addUserAbnormalTest_screenshot.png" style="width: 1178.0px; height: 640.0px;" /></a>
+</div>
+<p><br/></p>
+<p>上記を含め、サンプルとして実装したテストケースと検証観点は以下になります。必要に応じて、ブラウザごとの表示の差異やデータベースへの反映状況なども検証すると良いでしょう。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="35%" />
+<col width="30%" />
+<col width="35%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>ユースケース</td>
+<td>主な処理実装クラス・メソッド <br/> テストメソッド</td>
+<td>検証観点</td>
+</tr>
+<tr class="row-even"><td>[正常系]ユーザ一覧画面を表示する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L69">BackendForFrontendController#getUsers</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L350">BackendForFrontendControllerTest#E2E#getUsersTest()</a></td>
+<td>・ユースケースシナリオ通り操作した時に、正しく画面に結果が表示されるか <br/> ・画面表示のレイアウトが崩れていないか</td>
+</tr>
+<tr class="row-odd"><td>[正常系]複数ユーザを追加する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L83">BackendForFrontendController#addUsers</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L363">BackendForFrontendControllerTest#E2E#addUsers_1_NormalTest()</a></td>
+<td>・ユースケースシナリオ通り操作した時に、正しく画面に結果が表示されるか <br/> ・画面表示のレイアウトが崩れていないか</td>
+</tr>
+<tr class="row-even"><td>[異常系]複数ユーザを追加する</td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L83">BackendForFrontendController#addUsers</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L391">BackendForFrontendControllerTest#E2E#addUsers_2_AbnormalTest()</a></td>
+<td>・ユースケースシナリオ通り操作した時に、エラーメッセージが正しく表示されるか <br/> ・画面表示のレイアウトが崩れていないか</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">E2Eテストの実行は実装にかかる工数もさることながら、ブラウザの起動やスクリーンキャプチャ処理などが挟まることで、テスト実行時間も相応の時間を要します。実装するテストケースは最小限に絞り、異常系のパターンバリエーションなどは可能な限り、相対的にコストが低い単体テストで検証するようにしてください。</p>
+</div>
+<p><br/></p>
+</div>
+<div class="section" id="web">
+<span id="section-test-strategy-for-webapp-label"></span><h3>マイクロサービスを呼び出すWebアプリケーションのテスト戦略<a class="headerlink" href="#web" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>これまで、Repository、Service、Controllerの単体テストと、Seleniumを使ったE2E自動化テストコード実装を解説してきました。
+これまでの説明の再掲にはなりますが、初めから完璧にテストコードを整備しておく必要もありませんし、必要以上のテストコードの実装でかえって開発のアジリティを損なうようでは本末転倒です。
+ただ、テストが疎かになるとせっかくの継続的インテグレーションも機能しません。開発のスピードと品質を両立するために、テスト計画やスコープ、検証の観点を明示的に策定しておくことが重要です。</p>
+<p>マイクロサービスを呼び出す側のWebアプリケーションの効率的なテスト戦略策定のポイントとしては、以下のような点が挙げられるでしょう。</p>
+<ul class="simple">
+<li>バックエンドのマイクロサービスは別途試験されていることから、結合試験は除外し、E2Eテストにフォーカスする。</li>
+<li>E2Eテストは実装工数や処理時間など高コストになりがちなため、できるだけ異常系のバリエーションなどは単体テストで行う。</li>
+<li>探索的テストを導入し、実装状況に応じてテストケースの重複を極力減らしながらテストコードを作成する</li>
+<li>機能や処理の重要度に応じて、テスト実施内容に濃淡をつける(ビジネス的にそこまで重要でない処理の参照系はテストしない等)</li>
+</ul>
+<p><br/></p>
+<p>次回はこれまで実装したソースコード・テストコードに対し、AWS CodeBuildを使用して、ビルドやテスト実行、SonarQubeとの連携について、実践していきます。</p>
+<p><br/></p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>著者紹介<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pic_image01.jpg"><img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+</div>
+<p>金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p><a class="reference external" href="https://aws.amazon.com/jp/blogs/psa/japan-apn-ambassador-2019/">2019 APN AWS Top Engineers &amp; Ambassadors</a> 選出。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

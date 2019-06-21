@@ -18,7 +18,7 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="../cloud_native/aws-lambda-and-api-gateway-1.html" />
+    <link rel="next" title="基盤・デプロイ自動化実践" href="automation_infra_devops_web_app_unit_e2e_test.html" />
     <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_micro_service_integrationtest.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -65,6 +65,7 @@
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-2.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_integrationtest.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unit_e2e_test.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -128,7 +129,7 @@
     </a>
   </li>
   <li>
-    <a href="../cloud_native/aws-lambda-and-api-gateway-1.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    <a href="automation_infra_devops_web_app_unit_e2e_test.html" title="Next Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">基盤・デプロイ自動化実践 &raquo;</span>
     </a>
   </li>
               
@@ -162,13 +163,13 @@
   <div class="row">
     <div class="col-md-12 content">
       
-  <div class="section" id="section-automation-infra-devops-microservice-unittest-1-label">
-<span id="id1"></span><h1>基盤・デプロイ自動化実践<a class="headerlink" href="#section-automation-infra-devops-microservice-unittest-1-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
+  <div class="section" id="section-automation-infra-devops-webapp-unittest-label">
+<span id="id1"></span><h1>基盤・デプロイ自動化実践<a class="headerlink" href="#section-automation-infra-devops-webapp-unittest-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <div class="section" id="id2">
 <h2>マイクロサービスアーキテクチャの基盤・デプロイ自動化<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
 <div class="section" id="webendtoend">
-<span id="section-application-test-for-web-application-label"></span><h3>マイクロサービスを呼び出すWebアプリケーションの単体テスト・EndToEndテスト(前編)<a class="headerlink" href="#webendtoend" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<span id="section-application-test-1-for-web-application-label"></span><h3>マイクロサービスを呼び出すWebアプリケーションの単体テスト・EndToEndテスト(前編)<a class="headerlink" href="#webendtoend" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
 <p>前回までに、マイクロサービス(Backend)の単体・結合テストコードや効率的なテスト戦略のポイントなどを解説して来ました。今回からはマイクロサービスを呼び出す側のWebアプリケーション(BFFアプリケーション)における単体テストおよび、
 マイクロサービスを含めたEndToEndテストを実装する際のポイントやテスト戦略を説明していきます。</p>
@@ -297,12 +298,24 @@
 </tbody>
 </table>
 <p><br/></p>
+<p>また、以降、SpringBootを使ってテストコード実装を進めていきますが、プロジェクトのpom.xmlにspring-boot-starter-testのライブラリを含めておいてください。</p>
+<p><br/></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependencies&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-test<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+</div>
+<p><br/></p>
 </div>
 <div class="section" id="webaprepository">
 <span id="section-repository-test-for-webapp-label"></span><h3>マイクロサービスを呼び出すWebAPのRepository単体テスト実装<a class="headerlink" href="#webaprepository" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
-<p>前節でも説明した通り、このWebアプリケーションでは、バックエンドのマイクロサービスの呼び出しをResourceクラスのRepositoryとして実装します。
-マイクロサービスから返却されるレスポンスはResourceオブジェクトに加え、マイクロサービスで発生した、HTTPステータスコードが400(BadRequest)でセットされたビジネスエラー、ステータスコードが500のサーバエラーや通信エラーなどで返される場合もあります。
+<p>前節でも説明した通り、このBFFアプリケーションでは、バックエンドのマイクロサービスの呼び出しをResourceクラスのRepositoryとして実装します。
+マイクロサービスから返却されるレスポンスはResourceオブジェクトに加え、マイクロサービスで発生した、HTTPステータスコードが400(BadRequest)でセットされたビジネスエラーやバリデーションエラー、ステータスコードが500のサーバエラーや通信エラーなどで返される場合もあります。
 単体テストでは主にエラーが発生した場合の異常系のバリエーションケースを中心に、正しく例外ハンドリングが行われるかを検証します。とはいえ、実際にバックエンドのマイクロサービスを起動させてテストを実施するわけではなく、
 REST通信に関わるエラーレスポンスなどを擬似的に生成可能な、Springから提供されているorg.springframework.test.web.client.MockRestServiceServerを使って、マイクロサービスの呼び出しをスタブ化して実行します。
 また、RestTemplateを使ったテスト環境を簡易的に構築するorg.springframework.boot.test.autoconfigure.web.client.RestClientTestアノテーションを使用します。サンプルのテストコードは以下の通りです。</p>
@@ -527,7 +540,7 @@ REST通信に関わるエラーレスポンスなどを擬似的に生成可能�
 <div class="section" id="webapservice">
 <span id="section-service-test-for-webapp-label"></span><h3>マイクロサービスを呼び出すWebAPのService単体テスト実装<a class="headerlink" href="#webapservice" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
-<p>冒頭でも説明した通り、このWebアプリケーションでは。主なビジネス処理であるバックエンドのマイクロサービスを呼び出すかたちですが、
+<p>冒頭でも説明した通り、このBFFアプリケーションでは。主なビジネス処理であるバックエンドのマイクロサービスを呼び出すかたちですが、
 Repositoryに実際の呼び出し処理を委譲し、Serviceではエラー発生時のリトライや、複数のマイクロサービスを呼び出した際に発生したエラー時のロールバック処理など実装します。
 このようなサービスのフロー制御を実行する役割をオーケストレーションと呼び、エラー発生時のマイクロサービスの呼び出しをロールバックする補償トランザクションを実行するパターンをSAGAパターンと呼びます。
 SAGAパターンの詳細は <a class="reference external" href="https://microservices.io/patterns/data/saga.html">microservices.io Pattern:Saga</a> によくまとめられていますのでこちらも適宜参考にしてください。
@@ -625,7 +638,8 @@ MessageSourceなどのコンポーネントはSpringのDIコンテナから取�
 </div>
 <p><br/></p>
 <p>上記のテスト実装により、Sevice実行時のアウトプットオブジェクトの妥当性やビジネス例外発生の妥当性、ビジネス例外のメッセージなどを
-検証できます。サンプルで作成したテストケースは、Serviceの異常系処理を中心に、以下のようなユースケース・検証観点をもとに実装しています。</p>
+検証できます。サンプルで作成したテストケースは、Serviceの異常系処理を中心に、以下のようなユースケース・検証観点をもとに実装しています。
+Serviceが複数のサービスにアクセスする場合のSAGAパターンによるロールバックや、リトライ処理などオーケストレーションの責務を負う場合は、Seviceの単体テストで適宜異常系のバリエーションを追加して検証するのがベターです。</p>
 <p><br/></p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
@@ -654,7 +668,7 @@ MessageSourceなどのコンポーネントはSpringのDIコンテナから取�
 <p class="last">このサンプルでは、ユーザを保存するマイクロサービスを複数回呼び出し、処理の途中でビジネスエラーが発生した場合、それまで成功した保存データを逆に削除していくロールバック処理をcatch節の中で実装します。ロールバック処理も含めて正常に完了した場合はビジネスエラーを返却し、また、マイクロサービスへの呼び出しの途中でサーバーエラーが発生した場合は、Repositoryからシステムエラーをスローする仕様を想定したテストケースとしています。</p>
 </div>
 <p><br/></p>
-<p>次回は、HTMLUnitを使用したWebアプリケーションの単体テスト、Seleiniumを使用したEndToEndのテストコードをSpringBootを使って実装していきます。</p>
+<p>次回は、HTMLUnitを使用したBFFアプリケーションでのControllerの単体テスト、Seleiniumを使用したEndToEndのテストコードをSpringBootを使って実装していきます。</p>
 <p><br/></p>
 </div>
 </div>

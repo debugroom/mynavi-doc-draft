@@ -136,7 +136,21 @@ SpringBootを使ってアプリケーションを実装する場合は、主にC
      - Controller
      - ・指定したHTTPメソッドやURLで正しくリクエストハンドリングされるか |br| ・リクエストパラメータやパス変数が正しくマッピングされるか |br| ・入力チェックが正しく行われているか |br| ・入力チェックエラーやビジネスエラー発生時に正しいHTTPステータスを返却するか |br| ・入力チェックエラーやビジネスエラー発生時に正しいメッセージやパラメータを返却するか |br| ・レイヤ間のモデルオブジェクト変換は正しくマッピングされるか
 
+|br|
 
+また、以降、SpringBootを使ってテストコード実装を進めていきますが、プロジェクトのpom.xmlにspring-boot-starter-testのライブラリを含めておいてください。
+
+|br|
+
+.. sourcecode:: xml
+
+   <dependencies>
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-test</artifactId>
+       <scope>test</scope>
+     </dependency>
+   </dependencies>
 
 |br|
 

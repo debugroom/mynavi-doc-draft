@@ -1,6 +1,6 @@
 .. include:: ../module.txt
 
-.. _section-automation-infra-devops-microservice-unittest-1-label:
+.. _section-automation-infra-devops-webapp-unittest-label:
 
 基盤・デプロイ自動化実践
 ==================================================================
@@ -10,7 +10,7 @@
 
 |br|
 
-.. _section-application-test-for-web-application-label:
+.. _section-application-test-1-for-web-application-label:
 
 マイクロサービスを呼び出すWebアプリケーションの単体テスト・EndToEndテスト(前編)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -146,6 +146,22 @@
 
 |br|
 
+また、以降、SpringBootを使ってテストコード実装を進めていきますが、プロジェクトのpom.xmlにspring-boot-starter-testのライブラリを含めておいてください。
+
+|br|
+
+.. sourcecode:: xml
+
+   <dependencies>
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-test</artifactId>
+       <scope>test</scope>
+     </dependency>
+   </dependencies>
+
+|br|
+
 .. _section-repository-test-for-webapp-label:
 
 マイクロサービスを呼び出すWebAPのRepository単体テスト実装
@@ -153,8 +169,8 @@
 
 |br|
 
-前節でも説明した通り、このWebアプリケーションでは、バックエンドのマイクロサービスの呼び出しをResourceクラスのRepositoryとして実装します。
-マイクロサービスから返却されるレスポンスはResourceオブジェクトに加え、マイクロサービスで発生した、HTTPステータスコードが400(BadRequest)でセットされたビジネスエラー、ステータスコードが500のサーバエラーや通信エラーなどで返される場合もあります。
+前節でも説明した通り、このBFFアプリケーションでは、バックエンドのマイクロサービスの呼び出しをResourceクラスのRepositoryとして実装します。
+マイクロサービスから返却されるレスポンスはResourceオブジェクトに加え、マイクロサービスで発生した、HTTPステータスコードが400(BadRequest)でセットされたビジネスエラーやバリデーションエラー、ステータスコードが500のサーバエラーや通信エラーなどで返される場合もあります。
 単体テストでは主にエラーが発生した場合の異常系のバリエーションケースを中心に、正しく例外ハンドリングが行われるかを検証します。とはいえ、実際にバックエンドのマイクロサービスを起動させてテストを実施するわけではなく、
 REST通信に関わるエラーレスポンスなどを擬似的に生成可能な、Springから提供されているorg.springframework.test.web.client.MockRestServiceServerを使って、マイクロサービスの呼び出しをスタブ化して実行します。
 また、RestTemplateを使ったテスト環境を簡易的に構築するorg.springframework.boot.test.autoconfigure.web.client.RestClientTestアノテーションを使用します。サンプルのテストコードは以下の通りです。
@@ -385,7 +401,7 @@ REST通信に関わるエラーレスポンスなどを擬似的に生成可能�
 
 |br|
 
-冒頭でも説明した通り、このWebアプリケーションでは。主なビジネス処理であるバックエンドのマイクロサービスを呼び出すかたちですが、
+冒頭でも説明した通り、このBFFアプリケーションでは。主なビジネス処理であるバックエンドのマイクロサービスを呼び出すかたちですが、
 Repositoryに実際の呼び出し処理を委譲し、Serviceではエラー発生時のリトライや、複数のマイクロサービスを呼び出した際に発生したエラー時のロールバック処理など実装します。
 このようなサービスのフロー制御を実行する役割をオーケストレーションと呼び、エラー発生時のマイクロサービスの呼び出しをロールバックする補償トランザクションを実行するパターンをSAGAパターンと呼びます。
 SAGAパターンの詳細は `microservices.io Pattern:Saga <https://microservices.io/patterns/data/saga.html>`_ によくまとめられていますのでこちらも適宜参考にしてください。
@@ -492,6 +508,7 @@ Serviceの単体サンプルコードは以下の通りです。
 
 上記のテスト実装により、Sevice実行時のアウトプットオブジェクトの妥当性やビジネス例外発生の妥当性、ビジネス例外のメッセージなどを
 検証できます。サンプルで作成したテストケースは、Serviceの異常系処理を中心に、以下のようなユースケース・検証観点をもとに実装しています。
+Serviceが複数のサービスにアクセスする場合のSAGAパターンによるロールバックや、リトライ処理などオーケストレーションの責務を負う場合は、Seviceの単体テストで適宜異常系のバリエーションを追加して検証するのがベターです。
 
 
 .. _OrchestrateService#addUsers: https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/service/OrchestrateServiceImpl.java#L20
@@ -521,7 +538,7 @@ Serviceの単体サンプルコードは以下の通りです。
 
 |br|
 
-次回は、HTMLUnitを使用したWebアプリケーションの単体テスト、Seleiniumを使用したEndToEndのテストコードをSpringBootを使って実装していきます。
+次回は、HTMLUnitを使用したBFFアプリケーションでのControllerの単体テスト、Seleiniumを使用したEndToEndのテストコードをSpringBootを使って実装していきます。
 
 |br|
 
