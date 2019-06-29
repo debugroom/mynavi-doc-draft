@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>基盤・デプロイ自動化実践 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="../cloud_native/aws-lambda-and-api-gateway-1.html" />
+    <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_web_app_unit_e2e_test.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarqube.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarlint.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_architecture.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_integrationtest.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unittest.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unit_e2e_test.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
+<li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li><a class="reference internal" href="#codebuild-local">CodeBuild Localの環境設定</a></li>
+<li><a class="reference internal" href="#aws-systems-manager-parameter-store">AWS Systems Manager Parameter Storeの概要と設定</a></li>
+<li><a class="reference internal" href="#buildspec-ymlcodebuild-local">buildspec.ymlの作成とCodeBuild Localの実行</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="automation_infra_devops_web_app_unit_e2e_test.html" title="Previous Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 基盤・デプロイ自動化実践</span>
+    </a>
+  </li>
+  <li>
+    <a href="../cloud_native/aws-lambda-and-api-gateway-1.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/automation_infra_devops/automation_infra_devops_codebuild_local.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="section-automation-infra-devops-codebuild-local-label">
+<span id="id1"></span><h1>基盤・デプロイ自動化実践<a class="headerlink" href="#section-automation-infra-devops-codebuild-local-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id2">
+<h2>マイクロサービスアーキテクチャの基盤・デプロイ自動化<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>本連載では、以下のイメージに沿って「CodeBuild」「SonarQube」を使った継続的インテグレーション(CI：Continuous integration)環境を実際に構築しています。<br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/sample-continuous-integration.png"><img alt="../_images/sample-continuous-integration.png" src="../_images/sample-continuous-integration.png" style="width: 951.0px; height: 618.0px;" /></a>
+</div>
+<p><br/></p>
+<p>前回までに、以下のイメージに沿った、マイクロサービスアプリケーションや、それを呼び出すWebアプリケーションの単体・結合・E2E(EndToEnd)テストのコードを実装しました。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/MicroServiceArchitecture.png"><img alt="../_images/MicroServiceArchitecture.png" src="../_images/MicroServiceArchitecture.png" style="width: 786.0px; height: 801.0px;" /></a>
+</div>
+<p><br/></p>
+<p>続く今回は、GitHubにプッシュしたこのアプリケーションのソースコードやテストコードをAWS CodeBuildを使ってビルド・テストを行った後、カバレッジなどのソースコードメトリクスをスキャンした結果をSonarQuberServerへ連携する環境(最初のイメージの(3)〜(6))の構築を進めていきます。</p>
+<p><br/></p>
+<p>CodeBuildを利用するには、アプリケーションソースコードプロジェクト内のディレクトリに、ビルドを行う単位でbuildspec.ymlというビルド処理の手順を示したファイルを作成する必要があります。
+シンプルなアプリケーションビルド処理の場合は、ルートディレクトリに配置したbuildspec.ymlをGitHubへコミットして、AWSコンソール上で、CodeBuildの設定を行うことで簡単に環境構築できますが、
+実プロジェクトでアプリケーションをビルドする場合は、マルチプロジェクト構成や日本語ロケールなどに起因してトラブルが発生しがちであるため、まず最初に、AWSから提供されている、buildspec.ymlの挙動をローカル端末で確認できる
+CodeBuild Localの環境を構築し、buildspec.ymlを簡単に検証できるようにします。</p>
+<p><br/></p>
+<p>また、CodeBuildを使ったビルド中に、静的解析結果やカバレッジなどを取得して、SonarQubeServerへ連携するSonarScannerの実行を盛り込みます。実行に必要なパラメータを環境変数として、一元的に管理できるAWS Systems Manager Parameter Storeも合わせて設定していきます。</p>
+<p><br/></p>
+<div class="section" id="codebuild-local">
+<span id="section-codebuild-setting-codebuild-local-label"></span><h3>CodeBuild Localの環境設定<a class="headerlink" href="#codebuild-local" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p><a class="reference external" href="https://aws.amazon.com/jp/blogs/devops/announcing-local-build-support-for-aws-codebuild">CodeBuild Local は2018年5月からAWSによってサポートされています。</a> CodeBuild Localの利用により、以下のようなことができるようになります。</p>
+<ul class="simple">
+<li>buildspec.ymlのローカルでの検証</li>
+<li>codebuildと同等の環境でコミット前にアプリケーションをテストとビルド</li>
+<li>ローカル環境で検証後、素早くバグフィクス</li>
+</ul>
+<p>CodeBuild Localを利用するには、事前に以下を実施しておく必要があります。</p>
+<ol class="arabic simple">
+<li>実際にビルド実行環境コンテナイメージ(デフォルトではUbuntu)を作成</li>
+<li>環境コンテナを起動するためのエージェントコンテナイメージを取得</li>
+</ol>
+<p>なお、CodeBuild Localを実行する際は2のエージェントコンテナイメージをDocker runするかたちになりますが、実行スクリプトが提供されているため、
+この実行スクリプトに1のコンテナイメージ名やアーティファクトの出力先フォルダ、認証情報など情報を渡して実行することになります。</p>
+<p>1の手順としては、<a class="reference external" href="https://github.com/aws/aws-codebuild-docker-images">CodeBuild LocalのGitHub README</a> の手順にそって、Dockerがインストールされたローカル端末でターミナルやGitBash等を使って、
+適当なディレクトリで、ビルド実行環境のコンテナイメージがあるaws-codebuild-docker-imagesのレポジトリをGit cloneします。そして、ビルド用のコンテナイメージ(2019年6月時点の正式サポートでは、starndard:1.0および2.0)を構築する
+Dockerfileがあるディレクトリへ移動し、docker buildコマンドを実行します。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/aws/aws-codebuild-docker-images.git
+$ <span class="nb">cd</span> aws-codebuild-docker-images
+$ <span class="nb">cd</span> ubuntu/standard/2.0
+$ docker build -t aws/codebuild/standard:2.0 .
+</pre></div>
+</div>
+<p><br/></p>
+<p>続いて、2.環境コンテナを起動するためのエージェントコンテナイメージをプルします。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ docker pull amazon/aws-codebuild-local:latest --disable-content-trust<span class="o">=</span><span class="nb">false</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>これでCodeBuild Localを実行する準備は整いましたが、buildspec.ymlを作成していく前に、ビルド中にSonarScannerを実行するために、
+SonarQubeのURLやトークンを環境変数から取得できるよう、AWS Systems Manager Parameter Storeの設定を行います。</p>
+<p><br/></p>
+</div>
+<div class="section" id="aws-systems-manager-parameter-store">
+<span id="section-codebuild-setting-sms-label"></span><h3>AWS Systems Manager Parameter Storeの概要と設定<a class="headerlink" href="#aws-systems-manager-parameter-store" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>AWS Systems Manager Parameter Storeはパスワードやデータベース文字列、ライセンスコードなどアプリケーションに直接実装せずに環境変数を経由して設定するデータ等を一元的に管理するためのサービスです。
+特に多くのEC2インスタンスやECSタスク上にデプロイされたアプリケーションなどで同一のデータを参照したい場合有効であり、データは階層構造をとることができます。
+データ値はプレーンテキストまたはAWS KMSを使用して暗号化データとして使用でき、Parameter Store自体で、暗号化や復号化も同時に実行してくれます。データの参照はIAMにより細かくアクセス制御でき、以下のAWSサービスから利用可能です。</p>
+<ul class="simple">
+<li>Amazon EC2</li>
+<li>Amazon ECS</li>
+<li>AWS Lambda</li>
+<li>AWS CloudFormation</li>
+<li>AWS CodeBuild</li>
+<li>AWS CodeDeploy</li>
+</ul>
+<p>また、暗号化や通知、モニタリング、監査を行うため、以下のサービスと連動して機能します。</p>
+<ul class="simple">
+<li>AWS KMS</li>
+<li>Amazon SNS</li>
+<li>Amazon CloudWatch</li>
+<li>AWS CloudTrail</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">以前はデータサイズが4KBまで、スループット上限は規定範囲内でしたが、<a class="reference external" href="https://aws.amazon.com/jp/about-aws/whats-new/2019/04/aws_systems_manager_parameter_store_introduces_advanced_parameters/">2019年4月のアップデートでアドバンスドパラメータオプションが導入</a> され、10000を変えるパラメータの作成、最大8KB、スループットの上限緩和(デフォルト40tpsから最大1000tpsまで)等、拡張されました。</p>
+</div>
+<p><br/></p>
+<p>Parameter Storeを利用するには、AWSコンソールで 「Systems Manager」サービスから「Parameter Store」メニューを選択し、「パラメータの作成」ボタンを押下します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management_console_ssm_create_parameter_store_1.png"><img alt="../_images/management_console_ssm_create_parameter_store_1.png" src="../_images/management_console_ssm_create_parameter_store_1.png" style="width: 663.0px; height: 342.0px;" /></a>
+</div>
+<p><br/></p>
+<p>パラメータの名前と値をそれぞれ入力し、「パラメータの作成」ボタンを押下します。</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management_console_ssm_create_parameter_store_2.png"><img alt="../_images/management_console_ssm_create_parameter_store_2.png" src="../_images/management_console_ssm_create_parameter_store_2.png" style="width: 552.0px; height: 778.0px;" /></a>
+</div>
+<p><br/></p>
+<p>なお、CodeBuildなど各サービスからParameterStoreを参照するためには、アクセスユーザを作成し、権限を付与しておく必要があります。
+第2回「 <a class="reference internal" href="automation_infra_devops_sonarqube.html#section-create-rds-for-sonarqube-label"><span class="std std-ref">Amazon RDSを使ったSonarQubeServer用データベースの構築</span></a> 」の際、RDSへアクセスするユーザを作成し、権限を付与している手順を紹介していますが、
+同様の要領で、「AmazonSSMFullAccess」ポリシーを付与しておきましょう。</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">ユーザや認証情報をIAMを使って作成する実際の手順は <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4422">Amazon RDSにアクセスするSpringアプリケーション(1) ユーザ／認証情報の作成</a> に記載しています。</p>
+</div>
+<p><br/></p>
+</div>
+<div class="section" id="buildspec-ymlcodebuild-local">
+<span id="section-codebuild-create-buildspec-label"></span><h3>buildspec.ymlの作成とCodeBuild Localの実行<a class="headerlink" href="#buildspec-ymlcodebuild-local" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>それでは、CodeBuildから実行されるbuildspec.ymlを作成します。buildspec.ymlの記載方法・仕様は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/codebuild/latest/userguide/build-spec-ref.html">AWSの公式 odeBuildのビルド仕様に関するリファレンス</a> に詳細な説明がありますが、
+ここでは、前回までに作成したBFFアプリケーションに対するbuildspec.ymlをサンプルに、ポイントとなる箇所の解説を進めます。なお、buildspec.ymlはBFFアプリケーションプロジェクトの直下に作成します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>version: <span class="m">0</span>.2
+env:
+  parameter-store:
+    SONAR_HOST_URL: <span class="s2">&quot;SONAR_HOST_URL&quot;</span>
+    SONAR_LOGIN: <span class="s2">&quot;SONAR_LOGIN_BACKEND_FOR_FRONTEND&quot;</span>                  <span class="c1"># …(A)</span>
+phases:
+  install:
+    runtime-versions:
+      docker: <span class="m">18</span>                                                     <span class="c1"># …(B)</span>
+    commands:
+      - apt-get update -y
+      - apt-get -y install language-pack-ja-base language-pack-ja    <span class="c1"># …(C)</span>
+  pre_build:
+    commands:
+      - /usr/sbin/update-locale <span class="nv">LANG</span><span class="o">=</span>ja_JP.UTF-8 <span class="nv">LANGUAGE</span><span class="o">=</span><span class="s2">&quot;ja_JP:ja&quot;</span>
+      - <span class="nb">export</span> <span class="nv">LC_ALL</span><span class="o">=</span><span class="s2">&quot;ja_JP.UTF-8&quot;</span>
+      - locale-gen ja_JP.UTF-8
+      - dpkg-reconfigure locales                                     <span class="c1"># …(D)</span>
+  build:
+    commands:
+      - mvn -f common/pom.xml install                                <span class="c1"># …(E)</span>
+      - mvn -f backend-for-frontend/pom.xml package sonar:sonar -Dspring.profiles.active<span class="o">=</span><span class="s2">&quot;test&quot;</span> -Dsonar.host.url<span class="o">=</span><span class="si">${</span><span class="nv">SONAR_HOST_URL</span><span class="si">}</span> -Dsonar.login<span class="o">=</span><span class="si">${</span><span class="nv">SONAR_LOGIN</span><span class="si">}</span>
+                                                                     <span class="c1"># …(F)</span>
+artifacts:
+  files:
+    - backend-for-frontend/target/mynavi-sample-continuous-integration-backend-for-frontend-0.0.1-SNAPSHOT.jar
+                                                                     <span class="c1"># …(G)</span>
+</pre></div>
+</div>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id5">
+<caption><span class="caption-text">BFFアプリケーションのビルド・テストするbuildspec.yml</span><a class="headerlink" href="#id5" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>項番</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple">
+<li></li>
+</ol>
+</td>
+<td>AWS Systems Manager Parameter Storeで設定したデータを環境変数に設定します。ダブルクォーテーションで囲まれた値がParamter Storeで定義した名称です。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="2">
+<li></li>
+</ol>
+</td>
+<td>Ubuntu Standard Image 2.0 以降を使用する場合は、buildspec ファイルで runtime-versions を指定する必要があります。詳細については、「 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/codebuild/latest/userguide/build-spec-ref.html#runtime-versions-buildspec-file">buildspec ファイルのランタイムバージョンの指定</a> 」を参照してください。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="3">
+<li></li>
+</ol>
+</td>
+<td>日本語ロケールのランゲージパックを取得します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="4">
+<li></li>
+</ol>
+</td>
+<td>OSのデフォルトロケールを「ja_JP」に変更します。もとの「en_US」だと、アプリケーション内でSpringのMessageSourceから取得したメッセージが英語となりアサーションに失敗するため、デフォルトロケールを日本語におきます。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="5">
+<li></li>
+</ol>
+</td>
+<td>BFFアプリケーションは共通のcommonライブラリに依存しているため、事前にMaven installで.m2配下にライブラリをインストールしておきます。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="6">
+<li></li>
+</ol>
+</td>
+<td>mvnコマンドでゴールをpackageに指定し、BFFアプリケーションをテスト・ビルドします。またsonar:sonarで、SonarScannerプラグインを実行することにより、ビルド後にSonarQubeServerへ静的チェック結果を送信します。なお、このソースコードプロジェクト内にあるBFFのE2Eテストコードはバックエンドアプリケーションの起動が必要なため、このビルドでは実行されないよう、pom.xml上で実行をスキップする設定になっています。E2Eテストの設定クラスを読み込むことがないよう、Springプロファイル設定をspring.profiles.active=&quot;test&quot;としておきます。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="7">
+<li></li>
+</ol>
+</td>
+<td>ビルドが完了すると、アーティファクトとしてbackend-for-frontend/targetフォルダに作成したJARファイルを保存します。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>上記のサンプルの要領で、同様に、backendプロジェクトやcommonプロジェクトにbuildspec.ymlを作成します。
+また、前節でgit cloneしたhttps://github.com/aws/aws-codebuild-docker-images.git内には、local_builds/codebuild_build.shがあるので、以下のように、ソースコードのプロジェクトルートにコピーしてください。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>mynavi-sample-continuous-integration<span class="o">]</span>
+    │
+    ├-<span class="o">[</span>backend<span class="o">]</span>
+    │   ├- src
+    │   │   ├-main .....
+    │   │   └-test .....
+    │   ├- buildspec.yml
+    │   │  .....
+    │   └- pom.xml
+    │
+    ├-<span class="o">[</span>backend-for-frontend<span class="o">]</span>
+    │   ├- src
+    │   │   ├-main .....
+    │   │   └-test .....
+    │   ├- buildspec.yml
+    │   │  .....
+    │   └- pom.xml
+    │
+    ├-<span class="o">[</span>common<span class="o">]</span>
+    │   ├- src
+    │   │   ├-main .....
+    │   │   └-test .....
+    │   ├- buildspec.yml
+    │   │  .....
+    │   └- pom.xml
+    │
+    ├- codebuild_build.sh
+    └- pom.xml
+</pre></div>
+</div>
+<p><br/></p>
+<p>上記で作成したbuildspec.ymlに対して、CodeBuild Localを実行するには、プロジェクトルートで、codebuild_build.shの引数に以下のようなオプションを与えて実行します。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ./codebuild_build.sh -i aws/codebuild/standard:2.0 -a backend-for-frontend/target/ -c -b backend-for-frontend/buildspec.yml
+</pre></div>
+</div>
+<p><br/></p>
+<p>各オプションの説明は以下の通りです。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id6">
+<caption><span class="caption-text">codebuild_build.shのオプション</span><a class="headerlink" href="#id6" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>オプション</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td>iオプション(必須)</td>
+<td>事前準備で作成したCodeBuildでビルドするコンテナイメージを指定する。</td>
+</tr>
+<tr class="row-odd"><td>aオプション(必須)</td>
+<td>アーティファクトを出力するディレクトリを指定する。</td>
+</tr>
+<tr class="row-even"><td>cオプション</td>
+<td>AWS認証情報を指定する(デフォルトでは~/.aws/credentialsの認証情報が使用される)</td>
+</tr>
+<tr class="row-odd"><td>bオプション</td>
+<td>buildspec.ymlを指定する。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>スクリプトを実行すると、以下の通り、CodeBuildがローカルのDocker環境で実行されます。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Build Command:
+
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock -e <span class="s2">&quot;IMAGE_NAME=aws/codebuild/standard:2.0&quot;</span> -e <span class="s2">&quot;ARTIFACTS=/xxxxx/mynavi-sample-continuous-integration/backend-for-frontend/target/&quot;</span> -e <span class="s2">&quot;SOURCE=/xxxxxx/mynavi-sample-continuous-integration&quot;</span> -e <span class="s2">&quot;BUILDSPEC=/xxxxxx/mynavi-sample-continuous-integration/backend-for-frontend/buildspec.yml&quot;</span> -e <span class="s2">&quot;AWS_CONFIGURATION=/yyyyyyy/.aws&quot;</span> -e <span class="s2">&quot;INITIATOR=kawabatakouhei&quot;</span> amazon/aws-codebuild-local:latest
+
+Removing agent-resources_build_1 ... <span class="k">done</span>
+Removing agent-resources_agent_1 ... <span class="k">done</span>
+Removing network agent-resources_default
+Removing volume agent-resources_source_volume
+Removing volume agent-resources_user_volume
+Creating network <span class="s2">&quot;agent-resources_default&quot;</span> with the default driver
+Creating volume <span class="s2">&quot;agent-resources_source_volume&quot;</span> with <span class="nb">local</span> driver
+Creating volume <span class="s2">&quot;agent-resources_user_volume&quot;</span> with <span class="nb">local</span> driver
+Creating agent-resources_agent_1 ... <span class="k">done</span>
+Creating agent-resources_build_1 ... <span class="k">done</span>
+Attaching to agent-resources_agent_1, agent-resources_build_1
+agent_1  <span class="p">|</span> <span class="o">[</span>Container<span class="o">]</span> <span class="m">2019</span>/06/27 <span class="m">19</span>:25:01 Waiting <span class="k">for</span> agent ping
+
+// omit
+
+agent_1  <span class="p">|</span> <span class="o">[</span>INFO<span class="o">]</span> Analysis total time: <span class="m">24</span>.128 s
+agent_1  <span class="p">|</span> <span class="o">[</span>INFO<span class="o">]</span> ------------------------------------------------------------------------
+agent_1  <span class="p">|</span> <span class="o">[</span>INFO<span class="o">]</span> BUILD SUCCESS
+agent_1  <span class="p">|</span> <span class="o">[</span>INFO<span class="o">]</span> ------------------------------------------------------------------------
+agent_1  <span class="p">|</span> <span class="o">[</span>INFO<span class="o">]</span> Total time:  <span class="m">02</span>:14 min
+agent_1  <span class="p">|</span> <span class="o">[</span>INFO<span class="o">]</span> Finished at: <span class="m">2019</span>-06-28T10:04:54Z
+agent_1  <span class="p">|</span> <span class="o">[</span>INFO<span class="o">]</span> ------------------------------------------------------------------------
+agent_1  <span class="p">|</span>
+agent_1  <span class="p">|</span> <span class="o">[</span>Container<span class="o">]</span> <span class="m">2019</span>/06/28 <span class="m">10</span>:04:54 Phase complete: BUILD State: SUCCEEDED
+agent_1  <span class="p">|</span> <span class="o">[</span>Container<span class="o">]</span> <span class="m">2019</span>/06/28 <span class="m">10</span>:04:54 Phase context status code:  Message:
+agent_1  <span class="p">|</span> <span class="o">[</span>Container<span class="o">]</span> <span class="m">2019</span>/06/28 <span class="m">10</span>:04:54 Entering phase POST_BUILD
+agent_1  <span class="p">|</span> <span class="o">[</span>Container<span class="o">]</span> <span class="m">2019</span>/06/28 <span class="m">10</span>:04:54 Phase complete: POST_BUILD State: SUCCEEDED
+agent_1  <span class="p">|</span> <span class="o">[</span>Container<span class="o">]</span> <span class="m">2019</span>/06/28 <span class="m">10</span>:04:54 Phase context status code:  Message:
+agent_1  <span class="p">|</span> <span class="o">[</span>Container<span class="o">]</span> <span class="m">2019</span>/06/28 <span class="m">10</span>:04:54 Expanding base directory path: .
+agent_1  <span class="p">|</span> <span class="o">[</span>Container<span class="o">]</span> <span class="m">2019</span>/06/28 <span class="m">10</span>:04:54 Assembling file list
+agent_1  <span class="p">|</span> <span class="o">[</span>Container<span class="o">]</span> <span class="m">2019</span>/06/28 <span class="m">10</span>:04:54 Expanding .
+agent_1  <span class="p">|</span> <span class="o">[</span>Container<span class="o">]</span> <span class="m">2019</span>/06/28 <span class="m">10</span>:04:54 Expanding artifact file paths <span class="k">for</span> base directory .
+agent_1  <span class="p">|</span> <span class="o">[</span>Container<span class="o">]</span> <span class="m">2019</span>/06/28 <span class="m">10</span>:04:54 Assembling file list
+agent_1  <span class="p">|</span> <span class="o">[</span>Container<span class="o">]</span> <span class="m">2019</span>/06/28 <span class="m">10</span>:04:54 Expanding backend-for-frontend/target/mynavi-sample-continuous-integration-backend-for-frontend-0.0.1-SNAPSHOT.jar
+agent_1  <span class="p">|</span> <span class="o">[</span>Container<span class="o">]</span> <span class="m">2019</span>/06/28 <span class="m">10</span>:04:54 Found <span class="m">1</span> file<span class="o">(</span>s<span class="o">)</span>
+agent_1  <span class="p">|</span> <span class="o">[</span>Container<span class="o">]</span> <span class="m">2019</span>/06/28 <span class="m">10</span>:04:54 Preparing to copy secondary artifacts
+agent_1  <span class="p">|</span> <span class="o">[</span>Container<span class="o">]</span> <span class="m">2019</span>/06/28 <span class="m">10</span>:04:54 No secondary artifacts defined in buildspec
+agent_1  <span class="p">|</span> <span class="o">[</span>Container<span class="o">]</span> <span class="m">2019</span>/06/28 <span class="m">10</span>:04:54 Phase complete: UPLOAD_ARTIFACTS State: SUCCEEDED
+agent_1  <span class="p">|</span> <span class="o">[</span>Container<span class="o">]</span> <span class="m">2019</span>/06/28 <span class="m">10</span>:04:54 Phase context status code:  Message:
+</pre></div>
+</div>
+<p><br/></p>
+<p>上記の、buildspec.ymlをGitHub上のソースコードにコミット・プッシュすると、CodeBuildを使用できる準備が整います。次回は、AWSコンソール上からCodeBuildを設定し、GitHubへのコミットやプルリクエストに応じてビルド・テストを実行するよう設定してみます。</p>
+<p><br/></p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>著者紹介<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pic_image01.jpg"><img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+</div>
+<p>金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p><a class="reference external" href="https://aws.amazon.com/jp/blogs/psa/japan-apn-ambassador-2019/">2019 APN AWS Top Engineers &amp; Ambassadors</a> 選出。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -169,8 +169,8 @@
 
 |br|
 
-前節でも説明した通り、このBFFアプリケーションでは、バックエンドのマイクロサービスの呼び出しをResourceクラスのRepositoryとして実装します。
-マイクロサービスから返却されるレスポンスはResourceオブジェクトに加え、マイクロサービスで発生した、HTTPステータスコードが400(BadRequest)でセットされたビジネスエラーやバリデーションエラー、ステータスコードが500のサーバエラーや通信エラーなどで返される場合もあります。
+前節でも説明した通り、このBFFアプリケーションでは、バックエンドのマイクロサービスの呼び出しを `ResourceクラスのRepository <https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/domain/repository/UserResourceRepositoryImpl.java>`_ として実装します。
+リンク先のソースコードをみるとわかる通り、マイクロサービスから返却されるレスポンスはResourceオブジェクトに加え、マイクロサービスで発生した、HTTPステータスコードが400(BadRequest)でセットされたビジネスエラーやバリデーションエラー、ステータスコードが500のサーバエラーや通信エラーなどで返される場合もあります。
 単体テストでは主にエラーが発生した場合の異常系のバリエーションケースを中心に、正しく例外ハンドリングが行われるかを検証します。とはいえ、実際にバックエンドのマイクロサービスを起動させてテストを実施するわけではなく、
 REST通信に関わるエラーレスポンスなどを擬似的に生成可能な、Springから提供されているorg.springframework.test.web.client.MockRestServiceServerを使って、マイクロサービスの呼び出しをスタブ化して実行します。
 また、RestTemplateを使ったテスト環境を簡易的に構築するorg.springframework.boot.test.autoconfigure.web.client.RestClientTestアノテーションを使用します。サンプルのテストコードは以下の通りです。
@@ -178,6 +178,10 @@ REST通信に関わるエラーレスポンスなどを擬似的に生成可能�
 |br|
 
 .. sourcecode:: java
+
+   package org.debugroom.mynavi.sample.continuous.integration.bff.domain.repository;
+
+   // omit
 
    import org.springframework.beans.factory.annotation.Autowired;
    import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
@@ -189,59 +193,65 @@ REST通信に関わるエラーレスポンスなどを擬似的に生成可能�
    import org.springframework.test.web.client.response.MockRestResponseCreators;
    import org.springframework.web.client.RestTemplate;
 
-   @RunWith(SpringRunner.class)                                  // …(A)
-   @RestClientTest                                               // …(B)
-   @ContextConfiguration(classes = {UnitTest.Config.class,
-            TestConfig.UnitTestConfig.class})                    // …(C)
-   public static class UnitTest{
+   @RunWith(Enclosed.class)
+   public class UserResourceRepositoryImplTest {
 
-       //omit
 
-       @Autowired
-       RestTemplate restTemplate;
+       @RunWith(SpringRunner.class)                                  // …(A)
+       @RestClientTest                                               // …(B)
+       @ContextConfiguration(classes = {UnitTest.Config.class,
+                TestConfig.UnitTestConfig.class})                    // …(C)
+       public static class UnitTest{
 
-       @Autowired
-       MessageSource messageSource;
+           //omit
 
-       @Autowired
-       ObjectMapper objectMapper;
+           @Autowired
+           RestTemplate restTemplate;
 
-       @Autowired
-       UserResourceRepository userResourceRepository;
+           @Autowired
+           MessageSource messageSource;
 
-       @Rule
-       public ExpectedException expectedException = ExpectedException.none();
+           @Autowired
+           ObjectMapper objectMapper;
 
-       @Test
-       public void findOneAbnormalTest1() throws Exception{
+           @Autowired
+           UserResourceRepository userResourceRepository;
 
-           MockRestServiceServer mockRestServiceServer = MockRestServiceServer
-                 .bindTo(restTemplate).build();              // …(D)
+           @Rule
+           public ExpectedException expectedException = ExpectedException.none();
 
-           Long userId = 0L;
+           @Test
+           public void findOneAbnormalTest1() throws Exception{
 
-           String errorCode = "E0001";
-           BusinessException businessException = new BusinessException(errorCode,
-                 messageSource.getMessage(errorCode, new Long[]{userId},
+               MockRestServiceServer mockRestServiceServer = MockRestServiceServer
+                     .bindTo(restTemplate).build();              // …(D)
+
+               Long userId = 0L;
+
+               String errorCode = "E0001";
+               BusinessException businessException = new BusinessException(errorCode,
+                     messageSource.getMessage(errorCode, new Long[]{userId},
                          Locale.getDefault()), Long.toString(userId));
-           String jsonResponseBody1 = objectMapper.writeValueAsString(
-                 BusinessExceptionResponse.builder()
-                         .businessException(businessException)
-                         .build());                         // …(E)
+               String jsonResponseBody1 = objectMapper.writeValueAsString(
+                     BusinessExceptionResponse.builder()
+                             .businessException(businessException)
+                             .build());                         // …(E)
 
-           mockRestServiceServer
+               mockRestServiceServer
                  .expect(MockRestRequestMatchers.requestTo("/backend/api/v1/users/0"))
                  .andExpect(MockRestRequestMatchers.method(HttpMethod.GET))
                  .andRespond(MockRestResponseCreators.withBadRequest().body(
-                         jsonResponseBody1));               // …(F)
+                             jsonResponseBody1));               // …(F)
 
-          expectedException.expect(BusinessException.class);
-          expectedException.expect(BusinessExceptionMatcher.builder()
-                 .businessException(businessException).build());
+               expectedException.expect(BusinessException.class);
+               expectedException.expect(BusinessExceptionMatcher.builder()
+                     .businessException(businessException).build());
 
-          userResourceRepository.findOne(userId);
+              userResourceRepository.findOne(userId);
 
-     }
+         }
+         // omit
+   }
 
 |br|
 

@@ -18,7 +18,7 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="../cloud_native/aws-lambda-and-api-gateway-1.html" />
+    <link rel="next" title="基盤・デプロイ自動化実践" href="automation_infra_devops_codebuild_local.html" />
     <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_web_app_unittest.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -66,6 +66,7 @@
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_integrationtest.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unittest.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -130,7 +131,7 @@
     </a>
   </li>
   <li>
-    <a href="../cloud_native/aws-lambda-and-api-gateway-1.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    <a href="automation_infra_devops_codebuild_local.html" title="Next Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">基盤・デプロイ自動化実践 &raquo;</span>
     </a>
   </li>
               
@@ -173,16 +174,16 @@
 <span id="section-application-test-2-for-web-application-label"></span><h3>マイクロサービスを呼び出すWebアプリケーションの単体テスト・EndToEndテスト(後編)<a class="headerlink" href="#webendtoend" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
 <p>前回は、マイクロサービスを呼び出す側のWebアプリケーション(BFFアプリケーション)におけるRepositoryやServiceの単体テストについて説明しました。
-今回は引き続き、HTMLUnitを使用したControllerの単体テスト、Seleniumを使用したバックエンドのマイクロサービスを含めたEndToEndテストについて説明します。</p>
+今回は引き続き、HTMLUnitを使用したControllerの単体テスト、Seleniumを使用したEndToEndテストについて説明します。</p>
 <p><br/></p>
 </div>
 <div class="section" id="webcontroller">
 <span id="section-controller-test-for-webapp-label"></span><h3>マイクロサービスを呼び出すWebアプリケーションのController単体テスト実装<a class="headerlink" href="#webcontroller" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/>
-リクエストハンドリングや、バリデーションの妥当性等、BFFアプリケーションのControllerテストは、マイクロサービスでのテスト観点と重複する部分がありますが、
+BFFアプリケーションのControllerテストは、リクエストハンドリングや、バリデーションの妥当性等、マイクロサービスでのテスト観点と重複する部分もありますが、
 マイクロサービスのレスポンスがJSON文字列を返却するコンテンツタイプ「application/json」だったのに対し、BFFアプリケーションは「text/html」であるHTTPレスポンス返却が中心となります。
-そこで、マイクロサービスと同様、MockMvcを使ったControllerのテスト観点に加え、生成するHTTPレスポンスの中で必要なパラメータやメッセージが含まれているか、
-オープンソーステストライブラリであるHtmlUnitを使って行います。Mavenプロジェクトのpom.xmlで、spring-boot-starter-testに加えて、HtmlUnitのライブラリを定義します。</p>
+そこで、マイクロサービスのテストで実施した、MockMvcを使ったControllerのテスト観点に加え、生成するHTTPレスポンスの中で必要なパラメータやメッセージが含まれているか、
+オープンソーステストライブラリであるHtmlUnitを使って行います。その準備として、Mavenプロジェクトのpom.xmlで、spring-boot-starter-testに加えて、HtmlUnitのライブラリを定義します。</p>
 <p><br/></p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependencies&gt;</span>
   <span class="nt">&lt;dependency&gt;</span>
@@ -201,8 +202,9 @@
 <p>Controllerの単体テスト実装でのリクエストハンドリングやMock設定などの基本的な要領は、 マイクロサービスにおける <a class="reference internal" href="automation_infra_devops_micro_service_unittest-2.html#section-controller-test-for-microservice-label"><span class="std std-ref">Controllerの単体テスト実装</span></a> とほぼ同様です。
 以降は、com.gargoylesoftware.htmlunit.WebClientを使用した、HTMLの検証コードを中心に解説を進めます。なお、SpringMVCおよびMockMvcを使用したHtmlUnitの使用方法については、
 <a class="reference external" href="https://docs.spring.io/spring/docs/current/spring-framework-reference/testing.html#spring-mvc-test-server-htmlunit">Springの公式ドキュメント HtmlUnit Integration</a> も適宜参照ください。
-また、Webアプリケーションでは、バリデーションエラーのテストコードなどはマイクロサービス時のものとは異なり、HTMLページへレンダリングするためにBindingResultにエラー項目が格納されます。
-テストコードではこちらからエラーとなる項目を取り出し、期待したパラメータやメッセージが取得できるか検証を行う必要があります。サンプルのコードは以下の通りです。</p>
+また、Webアプリケーションでは、バリデーションエラーのテストコードなどはマイクロサービスのテストのものとは異なり、HTMLページへレンダリングするためにBindingResultにエラー項目が格納されます。
+テストコードではこちらからエラーとなる項目を取り出し、期待したパラメータやメッセージが取得できるか検証を行う必要があります。
+また、HTMLUnitはAJAX(非同期通信)における実行をサポートするため、画面遷移を伴わない処理も合わせて検証が可能です。サンプルのテストコードは以下の通りです。</p>
 <p><br/></p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.continuous.integration.bff.app.web</span><span class="o">;</span>
 
@@ -234,6 +236,9 @@
 
     <span class="nd">@Autowired</span>
     <span class="n">MockMvc</span> <span class="n">mockMvc</span><span class="o">;</span>
+
+    <span class="nd">@MockBean</span>
+    <span class="n">OrchestrateService</span> <span class="n">orchestrateServiceMock</span><span class="o">;</span>
 
     <span class="c1">// omit</span>
 
@@ -366,7 +371,10 @@
 </tbody>
 </table>
 <p><br/></p>
-<p>上記を含め、サンプルとして実装したテストケースと検証観点は以下になります。</p>
+<p>上記の通り、マイクロサービスを呼び出しをモック化して、取得したデータが正しく画面に表示されるか、入力チェックエラー発生時に正しいメッセージやパラメータが含まれるかを検証できます。
+マイクロサービスにおけるControllerの単体テスト同様、ControllerやFormの設定誤りはセキュリティホールに直結しますので、境界値試験など含め、リクエストパラメータの異常系バリエーションを充実させて検証した方が良いでしょう。
+また、後述しますが、後続のSeleniumを使用したEndToEndテストは実装・処理コストが大きいため、マイクロサービスの時とは異なり、できるだけController単体試験に寄せて試験を行う方が得策です。</p>
+<p>サンプルとして実装したテストケースと検証観点は以下になります。</p>
 <p><br/></p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
@@ -414,7 +422,7 @@ EndToEndテスト(以降、E2Eテスト)としてバックエンドのマイク�
 <a class="reference internal image-reference" href="../_images/webapp-e2e-test-scope.png"><img alt="../_images/webapp-e2e-test-scope.png" src="../_images/webapp-e2e-test-scope.png" style="width: 1130.0px; height: 289.0px;" /></a>
 </div>
 <p><br/></p>
-<p>E2Eテストは一般にエンドユーザの操作を想定したユースケースを元に実行結果を検証します。ここではオープンソースのGUI自動化テストツールとして有名なSeleniumを使って、テストコードを実装します。
+<p>E2Eテストは一般にエンドユーザの操作を想定したユースケースを元に実行結果を検証します。ここではオープンソースのGUI自動化テストツールとして多くの実績があるSeleniumを使って、テストコードを実装します。
 なお、Seleniumで提供されるライブラリWebDriverのJava版はJUnitコードでのスクリプト記述が可能であり、Springが提供するMockMvcと統合して使用することが可能です。必要に応じて、
 <a class="reference external" href="https://docs.spring.io/spring/docs/current/spring-framework-reference/testing.html#spring-mvc-test-server-htmlunit-webdriver">Springの公式ドキュメント MockMvc and WebDriver</a> も適宜参照ください。
 SpringBootアプリケーションのテストでSeleniumを使用するには、以下の通り、Mavenプロジェクトのpom.xmlで、spring-boot-starter-testに加えて、Seleniumのライブラリを定義します。</p>
@@ -474,6 +482,7 @@ SpringBootアプリケーションのテストでSeleniumを使用するには�
         <span class="n">SeleniumProperties</span> <span class="n">seleniumProperties</span><span class="o">;</span>                 <span class="c1">// …(D)</span>
 
         <span class="nd">@Bean</span>
+        <span class="nd">@Profile</span><span class="o">(</span><span class="s">&quot;dev&quot;</span><span class="o">)</span>
         <span class="n">WebDriver</span> <span class="nf">webDriver</span><span class="o">(){</span>
             <span class="n">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">&quot;webdriver.chrome.driver&quot;</span><span class="o">,</span> <span class="n">seleniumProperties</span><span class="o">.</span><span class="na">getChromeDriverPath</span><span class="o">());</span>
             <span class="k">return</span> <span class="k">new</span> <span class="n">ChromeDriver</span><span class="o">();</span>                         <span class="c1">// …(E)</span>
@@ -487,7 +496,7 @@ SpringBootアプリケーションのテストでSeleniumを使用するには�
     <span class="nd">@LocalServerPort</span>
     <span class="kd">private</span> <span class="kt">int</span> <span class="n">port</span><span class="o">;</span>
 
-    <span class="nd">@Autowired</span>
+    <span class="nd">@Autowired</span><span class="o">(</span><span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
     <span class="n">WebDriver</span> <span class="n">webDriver</span><span class="o">;</span>                                       <span class="c1">// …(F)</span>
 
     <span class="nd">@Autowired</span>
@@ -559,7 +568,7 @@ SpringBootアプリケーションのテストでSeleniumを使用するには�
 <li></li>
 </ol>
 </td>
-<td>WebDriverをインジェクションして利用します。</td>
+<td>WebDriverをインジェクションして利用します。次回以降後述しますが、バックエンドのマイクロサービスの起動が前提となるE2Eテストはビルド時にテストを実施しないよう設定し、WebDriverが除外されてもテストクラスが問題ないようrequiredオプションをfalseに設定しておきます。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="7">
 <li></li>
@@ -629,7 +638,7 @@ SpringBootアプリケーションのテストでSeleniumを使用するには�
 ただ、テストが疎かになるとせっかくの継続的インテグレーションも機能しません。開発のスピードと品質を両立するために、テスト計画やスコープ、検証の観点を明示的に策定しておくことが重要です。</p>
 <p>マイクロサービスを呼び出す側のWebアプリケーションの効率的なテスト戦略策定のポイントとしては、以下のような点が挙げられるでしょう。</p>
 <ul class="simple">
-<li>バックエンドのマイクロサービスは別途試験されていることから、結合試験は除外し、E2Eテストにフォーカスする。</li>
+<li>バックエンドのマイクロサービスは別途試験されていることから、結合試験を除外し、E2Eテストにフォーカスする。</li>
 <li>E2Eテストは実装工数や処理時間など高コストになりがちなため、できるだけ異常系のバリエーションなどは単体テストで行う。</li>
 <li>探索的テストを導入し、実装状況に応じてテストケースの重複を極力減らしながらテストコードを作成する</li>
 <li>機能や処理の重要度に応じて、テスト実施内容に濃淡をつける(ビジネス的にそこまで重要でない処理の参照系はテストしない等)</li>

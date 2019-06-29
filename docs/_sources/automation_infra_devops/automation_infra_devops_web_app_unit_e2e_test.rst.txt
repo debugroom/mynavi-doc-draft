@@ -18,7 +18,7 @@
 |br|
 
 前回は、マイクロサービスを呼び出す側のWebアプリケーション(BFFアプリケーション)におけるRepositoryやServiceの単体テストについて説明しました。
-今回は引き続き、HTMLUnitを使用したControllerの単体テスト、Seleniumを使用したバックエンドのマイクロサービスを含めたEndToEndテストについて説明します。
+今回は引き続き、HTMLUnitを使用したControllerの単体テスト、Seleniumを使用したEndToEndテストについて説明します。
 
 |br|
 
@@ -28,10 +28,10 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 |br|
-リクエストハンドリングや、バリデーションの妥当性等、BFFアプリケーションのControllerテストは、マイクロサービスでのテスト観点と重複する部分がありますが、
+BFFアプリケーションのControllerテストは、リクエストハンドリングや、バリデーションの妥当性等、マイクロサービスでのテスト観点と重複する部分もありますが、
 マイクロサービスのレスポンスがJSON文字列を返却するコンテンツタイプ「application/json」だったのに対し、BFFアプリケーションは「text/html」であるHTTPレスポンス返却が中心となります。
-そこで、マイクロサービスと同様、MockMvcを使ったControllerのテスト観点に加え、生成するHTTPレスポンスの中で必要なパラメータやメッセージが含まれているか、
-オープンソーステストライブラリであるHtmlUnitを使って行います。Mavenプロジェクトのpom.xmlで、spring-boot-starter-testに加えて、HtmlUnitのライブラリを定義します。
+そこで、マイクロサービスのテストで実施した、MockMvcを使ったControllerのテスト観点に加え、生成するHTTPレスポンスの中で必要なパラメータやメッセージが含まれているか、
+オープンソーステストライブラリであるHtmlUnitを使って行います。その準備として、Mavenプロジェクトのpom.xmlで、spring-boot-starter-testに加えて、HtmlUnitのライブラリを定義します。
 
 
 |br|
@@ -55,8 +55,9 @@
 Controllerの単体テスト実装でのリクエストハンドリングやMock設定などの基本的な要領は、 マイクロサービスにおける :ref:`section-controller-test-for-microservice-label` とほぼ同様です。
 以降は、com.gargoylesoftware.htmlunit.WebClientを使用した、HTMLの検証コードを中心に解説を進めます。なお、SpringMVCおよびMockMvcを使用したHtmlUnitの使用方法については、
 `Springの公式ドキュメント HtmlUnit Integration <https://docs.spring.io/spring/docs/current/spring-framework-reference/testing.html#spring-mvc-test-server-htmlunit>`_ も適宜参照ください。
-また、Webアプリケーションでは、バリデーションエラーのテストコードなどはマイクロサービス時のものとは異なり、HTMLページへレンダリングするためにBindingResultにエラー項目が格納されます。
-テストコードではこちらからエラーとなる項目を取り出し、期待したパラメータやメッセージが取得できるか検証を行う必要があります。サンプルのコードは以下の通りです。
+また、Webアプリケーションでは、バリデーションエラーのテストコードなどはマイクロサービスのテストのものとは異なり、HTMLページへレンダリングするためにBindingResultにエラー項目が格納されます。
+テストコードではこちらからエラーとなる項目を取り出し、期待したパラメータやメッセージが取得できるか検証を行う必要があります。
+また、HTMLUnitはAJAX(非同期通信)における実行をサポートするため、画面遷移を伴わない処理も合わせて検証が可能です。サンプルのテストコードは以下の通りです。
 
 |br|
 
@@ -92,6 +93,9 @@ Controllerの単体テスト実装でのリクエストハンドリングやMock
 
        @Autowired
        MockMvc mockMvc;
+
+       @MockBean
+       OrchestrateService orchestrateServiceMock;
 
        // omit
 
@@ -192,7 +196,11 @@ Controllerの単体テスト実装でのリクエストハンドリングやMock
 
 |br|
 
-上記を含め、サンプルとして実装したテストケースと検証観点は以下になります。
+上記の通り、マイクロサービスを呼び出しをモック化して、取得したデータが正しく画面に表示されるか、入力チェックエラー発生時に正しいメッセージやパラメータが含まれるかを検証できます。
+マイクロサービスにおけるControllerの単体テスト同様、ControllerやFormの設定誤りはセキュリティホールに直結しますので、境界値試験など含め、リクエストパラメータの異常系バリエーションを充実させて検証した方が良いでしょう。
+また、後述しますが、後続のSeleniumを使用したEndToEndテストは実装・処理コストが大きいため、マイクロサービスの時とは異なり、できるだけController単体試験に寄せて試験を行う方が得策です。
+
+サンプルとして実装したテストケースと検証観点は以下になります。
 
 .. _BackendForFrontendController#getUsers: https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L69
 .. _BackendForFrontendControllerTest#getUsersTest(): https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L172
@@ -253,7 +261,7 @@ EndToEndテスト(以降、E2Eテスト)としてバックエンドのマイク�
 
 |br|
 
-E2Eテストは一般にエンドユーザの操作を想定したユースケースを元に実行結果を検証します。ここではオープンソースのGUI自動化テストツールとして有名なSeleniumを使って、テストコードを実装します。
+E2Eテストは一般にエンドユーザの操作を想定したユースケースを元に実行結果を検証します。ここではオープンソースのGUI自動化テストツールとして多くの実績があるSeleniumを使って、テストコードを実装します。
 なお、Seleniumで提供されるライブラリWebDriverのJava版はJUnitコードでのスクリプト記述が可能であり、Springが提供するMockMvcと統合して使用することが可能です。必要に応じて、
 `Springの公式ドキュメント MockMvc and WebDriver <https://docs.spring.io/spring/docs/current/spring-framework-reference/testing.html#spring-mvc-test-server-htmlunit-webdriver>`_ も適宜参照ください。
 SpringBootアプリケーションのテストでSeleniumを使用するには、以下の通り、Mavenプロジェクトのpom.xmlで、spring-boot-starter-testに加えて、Seleniumのライブラリを定義します。
@@ -322,6 +330,7 @@ SpringBootアプリケーションのテストでSeleniumを使用するには�
            SeleniumProperties seleniumProperties;                 // …(D)
 
            @Bean
+           @Profile("dev")
            WebDriver webDriver(){
                System.setProperty("webdriver.chrome.driver", seleniumProperties.getChromeDriverPath());
                return new ChromeDriver();                         // …(E)
@@ -335,7 +344,7 @@ SpringBootアプリケーションのテストでSeleniumを使用するには�
        @LocalServerPort
        private int port;
 
-       @Autowired
+       @Autowired(required = false)
        WebDriver webDriver;                                       // …(F)
 
        @Autowired
@@ -385,7 +394,7 @@ SpringBootアプリケーションのテストでSeleniumを使用するには�
      - WebDriverにChromeドライバを設定します。インスタンス生成前にシステム変数webdriver.chrome.driverにChromeドライバのパスを設定しておきます。
 
    * - (F)
-     - WebDriverをインジェクションして利用します。
+     - WebDriverをインジェクションして利用します。次回以降後述しますが、バックエンドのマイクロサービスの起動が前提となるE2Eテストはビルド時にテストを実施しないよう設定し、WebDriverが除外されてもテストクラスが問題ないようrequiredオプションをfalseに設定しておきます。
 
    * - (G)
      - テスト対象のHTMLページを、PageObjectパターン※でPageObjectとして実装しておき、インジェクションして利用します。今回サンプルとして実装したPageObjectは `こちら <https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/selenium/PortalPage.java>`_ を参照してください。
@@ -454,7 +463,7 @@ SpringBootアプリケーションのテストでSeleniumを使用するには�
 
 マイクロサービスを呼び出す側のWebアプリケーションの効率的なテスト戦略策定のポイントとしては、以下のような点が挙げられるでしょう。
 
-* バックエンドのマイクロサービスは別途試験されていることから、結合試験は除外し、E2Eテストにフォーカスする。
+* バックエンドのマイクロサービスは別途試験されていることから、結合試験を除外し、E2Eテストにフォーカスする。
 * E2Eテストは実装工数や処理時間など高コストになりがちなため、できるだけ異常系のバリエーションなどは単体テストで行う。
 * 探索的テストを導入し、実装状況に応じてテストケースの重複を極力減らしながらテストコードを作成する
 * 機能や処理の重要度に応じて、テスト実施内容に濃淡をつける(ビジネス的にそこまで重要でない処理の参照系はテストしない等)
