@@ -17,7 +17,7 @@
 
 |br|
 
-前回までに、マイクロサービス(Backend)の単体・結合テストコードや効率的なテスト戦略のポイントなどを解説して来ました。今回からはマイクロサービスを呼び出す側のWebアプリケーション(BFFアプリケーション)における単体テストおよび、
+前回までに、マイクロサービス(Backend)の単体・結合テストコードや効率的なテスト戦略のポイントなどを解説して来ました。今回からはマイクロサービスを呼び出す側のWebアプリケーション(BackendForFrontend:BFFアプリケーション)における単体テストおよび、
 マイクロサービスを含めたEndToEndテストを実装する際のポイントやテスト戦略を説明していきます。
 
 アプリケーションおよびテストのパッケージ・コンポーネント構成は以下としています。
@@ -26,7 +26,7 @@
 
 .. sourcecode:: bash
 
-   [backend for frontend]
+   [backend-for-frontend]
      └src
        ├main
        │ ├java
@@ -51,7 +51,7 @@
        │ │               │ └service                                    ... DomainConfigでコンポーネントスキャンの対象とするサービスクラスパッケージ
        │ │               │   ├SampleService.java                       ... シンプルに１つのマイクロサービスにアクセスするサービスクラス
        │ │               │   ├SampleServiceImpl.java                   ... SampleServiceの実装クラス
-       │ │               │   ├OrchestrateService.java                  ... マイクロサービスに複数回アクセスするサービスクラス
+       │ │               │   ├OrchestrateService.java                  ... マイクロサービスの実行フロー制御を行うサービスクラス
        │ │               │   └OrchestrateServiceImpl.java              ... OrchestrateServiceインタフェースの実装クラス
        │ │               └config                                       ... 設定クラス用のパッケージ
        │ │                   ├WebApp.java                              ... Webアプリケーション起動クラス
@@ -271,7 +271,7 @@ REST通信に関わるエラーレスポンスなどを擬似的に生成可能�
      - UserResourceRepositoryでは、異常系のエラーメッセージの取得にMessageSourceを使用するため、テスト用のDIコンテナから取得できるように設定しておきます。@ContextConfigurationについては、 `TERASOLUNAガイドライン Spring TestのDI機能 <http://terasolunaorg.github.io/guideline/5.5.1.RELEASE/ja/UnitTest/ImplementsOfUnitTest/UsageOfLibraryForTest.html#spring-testdi>`_ を適宜参照してください。
 
    * - (D)
-     - MockRestServiceServerを動作させるRestTemplateを設定します。@AutowiredでMockRestServiceServerをインジェクションしても良いです。
+     - MockRestServiceServerを動作させるRestTemplateを設定します。なお、@AutowiredでMockRestServiceServerをインジェクションしてもよいです。
 
    * - (E)
      - エラーメッセージを設定したビジネス例外をJSON表現の文字列化します。
@@ -411,15 +411,19 @@ REST通信に関わるエラーレスポンスなどを擬似的に生成可能�
 
 |br|
 
-冒頭でも説明した通り、このBFFアプリケーションでは。主なビジネス処理であるバックエンドのマイクロサービスを呼び出すかたちですが、
-Repositoryに実際の呼び出し処理を委譲し、Serviceではエラー発生時のリトライや、複数のマイクロサービスを呼び出した際に発生したエラー時のロールバック処理など実装します。
-このようなサービスのフロー制御を実行する役割をオーケストレーションと呼び、エラー発生時のマイクロサービスの呼び出しをロールバックする補償トランザクションを実行するパターンをSAGAパターンと呼びます。
+前節でも説明した通り、このBFFアプリケーションでは。主なビジネス処理であるバックエンドのマイクロサービスを呼び出すかたちですが、
+Repositoryに実際の呼び出し処理を委譲し、Serviceではエラー発生時のリトライや、複数のマイクロサービスを呼び出した際に発生したエラー時のロールバック処理などの責務をもたせて実装します。
+このようなサービスのフロー制御を実行する役割をオーケストレーションと呼び、エラー発生時のマイクロサービスの処理結果をロールバックする補償トランザクションを実行するパターンをSAGAパターンと呼びます。
 SAGAパターンの詳細は `microservices.io Pattern:Saga <https://microservices.io/patterns/data/saga.html>`_ によくまとめられていますのでこちらも適宜参考にしてください。
-以下のサンプルは、マイクロサービスを複数回呼び出し、エラーが発生した際、SAGAパターンに従ってロールバック処理するServiceコードです。
+以下のサンプルは、ユーザデータを複数保存する場合に、マイクロサービスを複数回呼び出し、エラーが発生した際、SAGAパターンに従ってロールバック処理するServiceコードの例です。
 
 |br|
 
 .. sourcecode:: java
+
+   package org.debugroom.mynavi.sample.continuous.integration.bff.domain.service;
+
+   // omit
 
    @Service
    public class OrchestrateServiceImpl implements OrchestrateService {
@@ -453,6 +457,8 @@ Repositoryをモック化して、DIコンテナとともに実行に必要な�
 MessageSourceなどのコンポーネントはSpringのDIコンテナから取得できるようにしてテストコードを実装します。
 
 Serviceの単体サンプルコードは以下の通りです。
+
+|br|
 
 .. sourcecode:: java
 
@@ -548,7 +554,7 @@ Serviceが複数のサービスにアクセスする場合のSAGAパターンに
 
 |br|
 
-次回は、HTMLUnitを使用したBFFアプリケーションでのControllerの単体テスト、Seleiniumを使用したEndToEndのテストコードをSpringBootを使って実装していきます。
+次回は、HTMLUnitを使用したBFFアプリケーションでのControllerの単体テスト、Seleniumを使用したEndToEndのテストコードをSpringBootを使って実装していきます。
 
 |br|
 

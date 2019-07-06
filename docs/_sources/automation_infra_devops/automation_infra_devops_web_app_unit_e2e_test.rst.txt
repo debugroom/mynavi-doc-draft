@@ -17,7 +17,7 @@
 
 |br|
 
-前回は、マイクロサービスを呼び出す側のWebアプリケーション(BFFアプリケーション)におけるRepositoryやServiceの単体テストについて説明しました。
+前回は、マイクロサービスを呼び出す側のWebアプリケーション(BackendForFrontend:BFFアプリケーション)におけるRepositoryやServiceの単体テストについて説明しました。
 今回は引き続き、HTMLUnitを使用したControllerの単体テスト、Seleniumを使用したEndToEndテストについて説明します。
 
 |br|
@@ -28,7 +28,7 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 |br|
-BFFアプリケーションのControllerテストは、リクエストハンドリングや、バリデーションの妥当性等、マイクロサービスでのテスト観点と重複する部分もありますが、
+BFFアプリケーションのControllerテストは、リクエストハンドリング・バリデーションの妥当性等、マイクロサービスでのテスト観点と重複する部分もありますが、
 マイクロサービスのレスポンスがJSON文字列を返却するコンテンツタイプ「application/json」だったのに対し、BFFアプリケーションは「text/html」であるHTTPレスポンス返却が中心となります。
 そこで、マイクロサービスのテストで実施した、MockMvcを使ったControllerのテスト観点に加え、生成するHTTPレスポンスの中で必要なパラメータやメッセージが含まれているか、
 オープンソーステストライブラリであるHtmlUnitを使って行います。その準備として、Mavenプロジェクトのpom.xmlで、spring-boot-starter-testに加えて、HtmlUnitのライブラリを定義します。
@@ -55,9 +55,9 @@ BFFアプリケーションのControllerテストは、リクエストハンド�
 Controllerの単体テスト実装でのリクエストハンドリングやMock設定などの基本的な要領は、 マイクロサービスにおける :ref:`section-controller-test-for-microservice-label` とほぼ同様です。
 以降は、com.gargoylesoftware.htmlunit.WebClientを使用した、HTMLの検証コードを中心に解説を進めます。なお、SpringMVCおよびMockMvcを使用したHtmlUnitの使用方法については、
 `Springの公式ドキュメント HtmlUnit Integration <https://docs.spring.io/spring/docs/current/spring-framework-reference/testing.html#spring-mvc-test-server-htmlunit>`_ も適宜参照ください。
-また、Webアプリケーションでは、バリデーションエラーのテストコードなどはマイクロサービスのテストのものとは異なり、HTMLページへレンダリングするためにBindingResultにエラー項目が格納されます。
+また、Webアプリケーションでは、バリデーションエラーのテストコードなどはマイクロサービスのテストのものとは異なり、HTMLページへレンダリングするために、org.springframework.validation.BindingResultにエラー項目が格納されます。
 テストコードではこちらからエラーとなる項目を取り出し、期待したパラメータやメッセージが取得できるか検証を行う必要があります。
-また、HTMLUnitはAJAX(非同期通信)における実行をサポートするため、画面遷移を伴わない処理も合わせて検証が可能です。サンプルのテストコードは以下の通りです。
+また、HTMLUnitはAJAX(非同期通信)における実行をサポートするため、画面遷移を伴わない処理も合わせて検証が可能です。サンプルテストコードは以下の通りです。
 
 |br|
 
@@ -174,7 +174,7 @@ Controllerの単体テスト実装でのリクエストハンドリングやMock
      - @WebMvcTestでテスト対象のControllerを指定します。
 
    * - (C)
-     - ブラウザとして日本語ロケールのChromeを指定してWebClientを構築します。
+     - ブラウザとして日本語ロケールのChromeを指定して、セットアップメソッドでWebClientを構築します。
 
    * - (D)
      - 非同期通信(AJAX)のテストを行うためにAjaxControllerを設定しておきます。
@@ -202,15 +202,15 @@ Controllerの単体テスト実装でのリクエストハンドリングやMock
 
 サンプルとして実装したテストケースと検証観点は以下になります。
 
-.. _BackendForFrontendController#getUsers: https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L69
-.. _BackendForFrontendControllerTest#getUsersTest(): https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L172
-.. _BackendForFrontendController#getUser: https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L64
-.. _BackendForFrontendControllerTest#getUserAbnormalTest(): https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L207
-.. _BackendForFrontendController#isUsableLoginId: https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L76
-.. _BackendForFrontendControllerTest#isUsableLoginIdNormalTest(): https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L222
-.. _BackendForFrontendControllerTest#isUsableLoginIdAbnormalTest(): https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L236
-.. _BackendForFrontendController#addUsers: https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L83
-.. _BackendForFrontendControllerTest#addUsersInputParamTest(): https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L250
+.. _BackendForFrontendController#getUsers: https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L74
+.. _BackendForFrontendControllerTest#getUsersTest(): https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L178
+.. _BackendForFrontendController#getUser: https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L69
+.. _BackendForFrontendControllerTest#getUserAbnormalTest(): https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L213
+.. _BackendForFrontendController#isUsableLoginId: https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L81
+.. _BackendForFrontendControllerTest#isUsableLoginIdNormalTest(): https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L228
+.. _BackendForFrontendControllerTest#isUsableLoginIdAbnormalTest(): https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L242
+.. _BackendForFrontendController#addUsers: https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L88
+.. _BackendForFrontendControllerTest#addUsersInputParamTest(): https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L256
 
 |br|
 
@@ -262,7 +262,7 @@ EndToEndテスト(以降、E2Eテスト)としてバックエンドのマイク�
 |br|
 
 E2Eテストは一般にエンドユーザの操作を想定したユースケースを元に実行結果を検証します。ここではオープンソースのGUI自動化テストツールとして多くの実績があるSeleniumを使って、テストコードを実装します。
-なお、Seleniumで提供されるライブラリWebDriverのJava版はJUnitコードでのスクリプト記述が可能であり、Springが提供するMockMvcと統合して使用することが可能です。必要に応じて、
+なお、WebDriverなどSeleniumで提供されるライブラリは様々な言語で利用可能ですが、Java版ではJUnitコードでのスクリプト記述が可能であり、Springが提供するMockMvcと統合して使用することが可能です。必要に応じて、
 `Springの公式ドキュメント MockMvc and WebDriver <https://docs.spring.io/spring/docs/current/spring-framework-reference/testing.html#spring-mvc-test-server-htmlunit-webdriver>`_ も適宜参照ください。
 SpringBootアプリケーションのテストでSeleniumを使用するには、以下の通り、Mavenプロジェクトのpom.xmlで、spring-boot-starter-testに加えて、Seleniumのライブラリを定義します。
 
@@ -285,15 +285,15 @@ SpringBootアプリケーションのテストでSeleniumを使用するには�
 
 |br|
 
-また、ローカル環境であれば、Seleniumの実行にドライバのインストールが必要です。`Seleniumのインストール手順 <https://selenium-python.readthedocs.io/installation.html>`_ に従って、ドライバをインストールしてください。
+また、ローカル環境では、Seleniumの実行にドライバのインストールが必要です。`Seleniumのインストール手順 <https://selenium-python.readthedocs.io/installation.html>`_ に従って、ドライバをインストールしてください。
 以降は/usr/local/binにchromedriverがインストールされた前提で話を進めます。また、このE2Eテストではバックエンドのマイクロサービスを呼び出すため、事前にBackendアプリケーションを起動しておく必要があります。
-マイクロサービスのController⇔Sevice⇔Repositoryの結合テスト同様、@SpringBootTestを使って実装したサンプルのテストコードは以下の通りです。
+マイクロサービスのController⇔Sevice⇔Repositoryの結合テスト同様に@SpringBootTestを使って実装した、サンプルのテストコードは以下の通りです。
 
 |br|
 
 .. sourcecode:: java
 
-    package org.debugroom.mynavi.sample.continuous.integration.bff.app.web;
+   package org.debugroom.mynavi.sample.continuous.integration.bff.app.web;
 
     // omit
    import org.junit.experimental.categories.Category;
@@ -333,10 +333,15 @@ SpringBootアプリケーションのテストでSeleniumを使用するには�
            @Profile("dev")
            WebDriver webDriver(){
                System.setProperty("webdriver.chrome.driver", seleniumProperties.getChromeDriverPath());
-               return new ChromeDriver();                         // …(E)
+               ChromeOptions options = new ChromeOptions();
+               //omit
+               return new ChromeDriver(options);                  // …(E)
            }
 
        }
+
+       @Value("#{servletContext.contextPath}")
+       private String contextPath;
 
        @Autowired
        SeleniumProperties seleniumProperties;
@@ -354,7 +359,7 @@ SpringBootアプリケーションのテストでSeleniumを使用するには�
 
        @Test
        public void addUsers_2_AbnormalTest(){
-           webDriver.get("http://localhost:" + port + "/portal");
+           webDriver.get("http://localhost:" + port + contextPath + "/portal");
            webDriver.findElement(By.id("addFormButton-0")).click();
            portalPage.setAddUserForm1("saburo", "mynavi",
                    "saburo.mynavi1", "100-0000", "Tokyo　Minato",
@@ -385,7 +390,7 @@ SpringBootアプリケーションのテストでSeleniumを使用するには�
      - @SpringBootTestアノテーションには、テスト向け固有の設定クラスを任意に指定し、Webコンテナ(Server)の起動時のポートをランダムで指定しておきます。
 
    * - (C)
-     - テストクラスを種別で分類するためにCategoryアノテーションを付与します。テスト実行にはBackendアプリケーションの起動が前提となりますので、pom.xmlのmaven-surefire-pluginの指定で、ビルド時にE2ETestインターフェースのカテゴリのテストは実行されないようにしておきます。
+     - テストクラスを種別で分類するためにCategoryアノテーションを付与します。テスト実行にはBackendアプリケーションの起動が前提となりますので、pom.xmlのデフォルトプロファイル内でmaven-surefire-pluginを設定し、Mavenビルド時に、デフォルトではE2ETestインターフェースのカテゴリのテストは実行されないようにしておきます。
 
    * - (D)
      - Chromeドライバのパスや実行時のスクリーンショット画像を保存するパスなどをプロパティとして定義して利用します。
@@ -419,9 +424,9 @@ SpringBootアプリケーションのテストでSeleniumを使用するには�
 
 上記を含め、サンプルとして実装したテストケースと検証観点は以下になります。必要に応じて、ブラウザごとの表示の差異やデータベースへの反映状況なども検証すると良いでしょう。
 
-.. _BackendForFrontendControllerTest#E2E#getUsersTest(): https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L350
-.. _BackendForFrontendControllerTest#E2E#addUsers_1_NormalTest(): https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L363
-.. _BackendForFrontendControllerTest#E2E#addUsers_2_AbnormalTest(): https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L391
+.. _BackendForFrontendControllerTest#E2E#getUsersTest(): https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L380
+.. _BackendForFrontendControllerTest#E2E#addUsers_1_NormalTest(): https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L393
+.. _BackendForFrontendControllerTest#E2E#addUsers_2_AbnormalTest(): https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L421
 
 |br|
 

@@ -67,6 +67,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unit_e2e_test.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codebuild.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -172,11 +173,11 @@
 <div class="section" id="webendtoend">
 <span id="section-application-test-1-for-web-application-label"></span><h3>マイクロサービスを呼び出すWebアプリケーションの単体テスト・EndToEndテスト(前編)<a class="headerlink" href="#webendtoend" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
-<p>前回までに、マイクロサービス(Backend)の単体・結合テストコードや効率的なテスト戦略のポイントなどを解説して来ました。今回からはマイクロサービスを呼び出す側のWebアプリケーション(BFFアプリケーション)における単体テストおよび、
+<p>前回までに、マイクロサービス(Backend)の単体・結合テストコードや効率的なテスト戦略のポイントなどを解説して来ました。今回からはマイクロサービスを呼び出す側のWebアプリケーション(BackendForFrontend:BFFアプリケーション)における単体テストおよび、
 マイクロサービスを含めたEndToEndテストを実装する際のポイントやテスト戦略を説明していきます。</p>
 <p>アプリケーションおよびテストのパッケージ・コンポーネント構成は以下としています。</p>
 <p><br/></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>backend <span class="k">for</span> frontend<span class="o">]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>backend-for-frontend<span class="o">]</span>
   └src
     ├main
     │ ├java
@@ -201,7 +202,7 @@
     │ │               │ └service                                    ... DomainConfigでコンポーネントスキャンの対象とするサービスクラスパッケージ
     │ │               │   ├SampleService.java                       ... シンプルに１つのマイクロサービスにアクセスするサービスクラス
     │ │               │   ├SampleServiceImpl.java                   ... SampleServiceの実装クラス
-    │ │               │   ├OrchestrateService.java                  ... マイクロサービスに複数回アクセスするサービスクラス
+    │ │               │   ├OrchestrateService.java                  ... マイクロサービスの実行フロー制御を行うサービスクラス
     │ │               │   └OrchestrateServiceImpl.java              ... OrchestrateServiceインタフェースの実装クラス
     │ │               └config                                       ... 設定クラス用のパッケージ
     │ │                   ├WebApp.java                              ... Webアプリケーション起動クラス
@@ -429,7 +430,7 @@ REST通信に関わるエラーレスポンスなどを擬似的に生成可能�
 <li></li>
 </ol>
 </td>
-<td>MockRestServiceServerを動作させるRestTemplateを設定します。&#64;AutowiredでMockRestServiceServerをインジェクションしても良いです。</td>
+<td>MockRestServiceServerを動作させるRestTemplateを設定します。なお、&#64;AutowiredでMockRestServiceServerをインジェクションしてもよいです。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="5">
 <li></li>
@@ -551,13 +552,17 @@ REST通信に関わるエラーレスポンスなどを擬似的に生成可能�
 <div class="section" id="webapservice">
 <span id="section-service-test-for-webapp-label"></span><h3>マイクロサービスを呼び出すWebAPのService単体テスト実装<a class="headerlink" href="#webapservice" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
-<p>冒頭でも説明した通り、このBFFアプリケーションでは。主なビジネス処理であるバックエンドのマイクロサービスを呼び出すかたちですが、
-Repositoryに実際の呼び出し処理を委譲し、Serviceではエラー発生時のリトライや、複数のマイクロサービスを呼び出した際に発生したエラー時のロールバック処理など実装します。
-このようなサービスのフロー制御を実行する役割をオーケストレーションと呼び、エラー発生時のマイクロサービスの呼び出しをロールバックする補償トランザクションを実行するパターンをSAGAパターンと呼びます。
+<p>前節でも説明した通り、このBFFアプリケーションでは。主なビジネス処理であるバックエンドのマイクロサービスを呼び出すかたちですが、
+Repositoryに実際の呼び出し処理を委譲し、Serviceではエラー発生時のリトライや、複数のマイクロサービスを呼び出した際に発生したエラー時のロールバック処理などの責務をもたせて実装します。
+このようなサービスのフロー制御を実行する役割をオーケストレーションと呼び、エラー発生時のマイクロサービスの処理結果をロールバックする補償トランザクションを実行するパターンをSAGAパターンと呼びます。
 SAGAパターンの詳細は <a class="reference external" href="https://microservices.io/patterns/data/saga.html">microservices.io Pattern:Saga</a> によくまとめられていますのでこちらも適宜参考にしてください。
-以下のサンプルは、マイクロサービスを複数回呼び出し、エラーが発生した際、SAGAパターンに従ってロールバック処理するServiceコードです。</p>
+以下のサンプルは、ユーザデータを複数保存する場合に、マイクロサービスを複数回呼び出し、エラーが発生した際、SAGAパターンに従ってロールバック処理するServiceコードの例です。</p>
 <p><br/></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Service</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.continuous.integration.bff.domain.service</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="nd">@Service</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrchestrateServiceImpl</span> <span class="kd">implements</span> <span class="n">OrchestrateService</span> <span class="o">{</span>
 
     <span class="nd">@Autowired</span>
@@ -588,6 +593,7 @@ SAGAパターンの詳細は <a class="reference external" href="https://microse
 Repositoryをモック化して、DIコンテナとともに実行に必要なコンポーネントをオートコンフィグレーションする&#64;SpringBootTestアノテーションを用いて、
 MessageSourceなどのコンポーネントはSpringのDIコンテナから取得できるようにしてテストコードを実装します。</p>
 <p>Serviceの単体サンプルコードは以下の通りです。</p>
+<p><br/></p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.continuous.integration.bff.domain.service</span><span class="o">;</span>
 
 <span class="c1">// omit</span>
@@ -679,7 +685,7 @@ Serviceが複数のサービスにアクセスする場合のSAGAパターンに
 <p class="last">このサンプルでは、ユーザを保存するマイクロサービスを複数回呼び出し、処理の途中でビジネスエラーが発生した場合、それまで成功した保存データを逆に削除していくロールバック処理をcatch節の中で実装します。ロールバック処理も含めて正常に完了した場合はビジネスエラーを返却し、また、マイクロサービスへの呼び出しの途中でサーバーエラーが発生した場合は、Repositoryからシステムエラーをスローする仕様を想定したテストケースとしています。</p>
 </div>
 <p><br/></p>
-<p>次回は、HTMLUnitを使用したBFFアプリケーションでのControllerの単体テスト、Seleiniumを使用したEndToEndのテストコードをSpringBootを使って実装していきます。</p>
+<p>次回は、HTMLUnitを使用したBFFアプリケーションでのControllerの単体テスト、Seleniumを使用したEndToEndのテストコードをSpringBootを使って実装していきます。</p>
 <p><br/></p>
 </div>
 </div>

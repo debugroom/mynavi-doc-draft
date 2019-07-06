@@ -22,6 +22,7 @@
    automation_infra_devops/automation_infra_devops_web_app_unittest.rst
    automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.rst
    automation_infra_devops/automation_infra_devops_codebuild_local.rst
+   automation_infra_devops/automation_infra_devops_codebuild.rst
    cloud_native/aws-lambda-and-api-gateway-1.rst
    cloud_native/aws-lambda-and-api-gateway-2.rst
    cloud_native/aws-lambda-and-api-gateway-3.rst

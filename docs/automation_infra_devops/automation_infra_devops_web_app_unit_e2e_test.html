@@ -67,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unittest.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codebuild.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -173,14 +174,14 @@
 <div class="section" id="webendtoend">
 <span id="section-application-test-2-for-web-application-label"></span><h3>マイクロサービスを呼び出すWebアプリケーションの単体テスト・EndToEndテスト(後編)<a class="headerlink" href="#webendtoend" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
-<p>前回は、マイクロサービスを呼び出す側のWebアプリケーション(BFFアプリケーション)におけるRepositoryやServiceの単体テストについて説明しました。
+<p>前回は、マイクロサービスを呼び出す側のWebアプリケーション(BackendForFrontend:BFFアプリケーション)におけるRepositoryやServiceの単体テストについて説明しました。
 今回は引き続き、HTMLUnitを使用したControllerの単体テスト、Seleniumを使用したEndToEndテストについて説明します。</p>
 <p><br/></p>
 </div>
 <div class="section" id="webcontroller">
 <span id="section-controller-test-for-webapp-label"></span><h3>マイクロサービスを呼び出すWebアプリケーションのController単体テスト実装<a class="headerlink" href="#webcontroller" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/>
-BFFアプリケーションのControllerテストは、リクエストハンドリングや、バリデーションの妥当性等、マイクロサービスでのテスト観点と重複する部分もありますが、
+BFFアプリケーションのControllerテストは、リクエストハンドリング・バリデーションの妥当性等、マイクロサービスでのテスト観点と重複する部分もありますが、
 マイクロサービスのレスポンスがJSON文字列を返却するコンテンツタイプ「application/json」だったのに対し、BFFアプリケーションは「text/html」であるHTTPレスポンス返却が中心となります。
 そこで、マイクロサービスのテストで実施した、MockMvcを使ったControllerのテスト観点に加え、生成するHTTPレスポンスの中で必要なパラメータやメッセージが含まれているか、
 オープンソーステストライブラリであるHtmlUnitを使って行います。その準備として、Mavenプロジェクトのpom.xmlで、spring-boot-starter-testに加えて、HtmlUnitのライブラリを定義します。</p>
@@ -202,9 +203,9 @@ BFFアプリケーションのControllerテストは、リクエストハンド�
 <p>Controllerの単体テスト実装でのリクエストハンドリングやMock設定などの基本的な要領は、 マイクロサービスにおける <a class="reference internal" href="automation_infra_devops_micro_service_unittest-2.html#section-controller-test-for-microservice-label"><span class="std std-ref">Controllerの単体テスト実装</span></a> とほぼ同様です。
 以降は、com.gargoylesoftware.htmlunit.WebClientを使用した、HTMLの検証コードを中心に解説を進めます。なお、SpringMVCおよびMockMvcを使用したHtmlUnitの使用方法については、
 <a class="reference external" href="https://docs.spring.io/spring/docs/current/spring-framework-reference/testing.html#spring-mvc-test-server-htmlunit">Springの公式ドキュメント HtmlUnit Integration</a> も適宜参照ください。
-また、Webアプリケーションでは、バリデーションエラーのテストコードなどはマイクロサービスのテストのものとは異なり、HTMLページへレンダリングするためにBindingResultにエラー項目が格納されます。
+また、Webアプリケーションでは、バリデーションエラーのテストコードなどはマイクロサービスのテストのものとは異なり、HTMLページへレンダリングするために、org.springframework.validation.BindingResultにエラー項目が格納されます。
 テストコードではこちらからエラーとなる項目を取り出し、期待したパラメータやメッセージが取得できるか検証を行う必要があります。
-また、HTMLUnitはAJAX(非同期通信)における実行をサポートするため、画面遷移を伴わない処理も合わせて検証が可能です。サンプルのテストコードは以下の通りです。</p>
+また、HTMLUnitはAJAX(非同期通信)における実行をサポートするため、画面遷移を伴わない処理も合わせて検証が可能です。サンプルテストコードは以下の通りです。</p>
 <p><br/></p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.continuous.integration.bff.app.web</span><span class="o">;</span>
 
@@ -330,7 +331,7 @@ BFFアプリケーションのControllerテストは、リクエストハンド�
 <li></li>
 </ol>
 </td>
-<td>ブラウザとして日本語ロケールのChromeを指定してWebClientを構築します。</td>
+<td>ブラウザとして日本語ロケールのChromeを指定して、セットアップメソッドでWebClientを構築します。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="4">
 <li></li>
@@ -388,23 +389,23 @@ BFFアプリケーションのControllerテストは、リクエストハンド�
 <td>検証観点</td>
 </tr>
 <tr class="row-even"><td>[正常系]ユーザ一覧画面を表示する</td>
-<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L69">BackendForFrontendController#getUsers</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L172">BackendForFrontendControllerTest#getUsersTest()</a></td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L74">BackendForFrontendController#getUsers</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L178">BackendForFrontendControllerTest#getUsersTest()</a></td>
 <td>・サービス実行結果が正しく画面に表示されるか</td>
 </tr>
 <tr class="row-odd"><td>[異常系]ユーザ情報を取得する</td>
-<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L64">BackendForFrontendController#getUser</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L207">BackendForFrontendControllerTest#getUserAbnormalTest()</a></td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L69">BackendForFrontendController#getUser</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L213">BackendForFrontendControllerTest#getUserAbnormalTest()</a></td>
 <td>・入力チェックやビジネスエラー発生時に正しいメッセージやパラメータを返却するか</td>
 </tr>
 <tr class="row-even"><td>[正常系]ログインIDが使用可能か判定する(非同期通信)</td>
-<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L76">BackendForFrontendController#isUsableLoginId</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L222">BackendForFrontendControllerTest#isUsableLoginIdNormalTest()</a></td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L81">BackendForFrontendController#isUsableLoginId</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L228">BackendForFrontendControllerTest#isUsableLoginIdNormalTest()</a></td>
 <td>・非同期通信の実行結果が正しく画面に表示されるか</td>
 </tr>
 <tr class="row-odd"><td>[異常系]ログインIDが使用可能か判定する(非同期通信)</td>
-<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L76">BackendForFrontendController#isUsableLoginId</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L236">BackendForFrontendControllerTest#isUsableLoginIdAbnormalTest()</a></td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L81">BackendForFrontendController#isUsableLoginId</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L242">BackendForFrontendControllerTest#isUsableLoginIdAbnormalTest()</a></td>
 <td>・非同期通信の実行結果が正しく画面に表示されるか</td>
 </tr>
 <tr class="row-even"><td>[異常系]複数のユーザを追加する</td>
-<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L83">BackendForFrontendController#addUsers</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L250">BackendForFrontendControllerTest#addUsersInputParamTest()</a></td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L88">BackendForFrontendController#addUsers</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L256">BackendForFrontendControllerTest#addUsersInputParamTest()</a></td>
 <td>・入力チェックやビジネスエラー発生時に正しいメッセージやパラメータを返却するか</td>
 </tr>
 </tbody>
@@ -423,7 +424,7 @@ EndToEndテスト(以降、E2Eテスト)としてバックエンドのマイク�
 </div>
 <p><br/></p>
 <p>E2Eテストは一般にエンドユーザの操作を想定したユースケースを元に実行結果を検証します。ここではオープンソースのGUI自動化テストツールとして多くの実績があるSeleniumを使って、テストコードを実装します。
-なお、Seleniumで提供されるライブラリWebDriverのJava版はJUnitコードでのスクリプト記述が可能であり、Springが提供するMockMvcと統合して使用することが可能です。必要に応じて、
+なお、WebDriverなどSeleniumで提供されるライブラリは様々な言語で利用可能ですが、Java版ではJUnitコードでのスクリプト記述が可能であり、Springが提供するMockMvcと統合して使用することが可能です。必要に応じて、
 <a class="reference external" href="https://docs.spring.io/spring/docs/current/spring-framework-reference/testing.html#spring-mvc-test-server-htmlunit-webdriver">Springの公式ドキュメント MockMvc and WebDriver</a> も適宜参照ください。
 SpringBootアプリケーションのテストでSeleniumを使用するには、以下の通り、Mavenプロジェクトのpom.xmlで、spring-boot-starter-testに加えて、Seleniumのライブラリを定義します。</p>
 <p><br/></p>
@@ -441,11 +442,11 @@ SpringBootアプリケーションのテストでSeleniumを使用するには�
 </pre></div>
 </div>
 <p><br/></p>
-<p>また、ローカル環境であれば、Seleniumの実行にドライバのインストールが必要です。<a class="reference external" href="https://selenium-python.readthedocs.io/installation.html">Seleniumのインストール手順</a> に従って、ドライバをインストールしてください。
+<p>また、ローカル環境では、Seleniumの実行にドライバのインストールが必要です。<a class="reference external" href="https://selenium-python.readthedocs.io/installation.html">Seleniumのインストール手順</a> に従って、ドライバをインストールしてください。
 以降は/usr/local/binにchromedriverがインストールされた前提で話を進めます。また、このE2Eテストではバックエンドのマイクロサービスを呼び出すため、事前にBackendアプリケーションを起動しておく必要があります。
-マイクロサービスのController⇔Sevice⇔Repositoryの結合テスト同様、&#64;SpringBootTestを使って実装したサンプルのテストコードは以下の通りです。</p>
+マイクロサービスのController⇔Sevice⇔Repositoryの結合テスト同様に&#64;SpringBootTestを使って実装した、サンプルのテストコードは以下の通りです。</p>
 <p><br/></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span> <span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.continuous.integration.bff.app.web</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.continuous.integration.bff.app.web</span><span class="o">;</span>
 
  <span class="c1">// omit</span>
 <span class="kn">import</span> <span class="nn">org.junit.experimental.categories.Category</span><span class="o">;</span>
@@ -485,10 +486,15 @@ SpringBootアプリケーションのテストでSeleniumを使用するには�
         <span class="nd">@Profile</span><span class="o">(</span><span class="s">&quot;dev&quot;</span><span class="o">)</span>
         <span class="n">WebDriver</span> <span class="nf">webDriver</span><span class="o">(){</span>
             <span class="n">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">&quot;webdriver.chrome.driver&quot;</span><span class="o">,</span> <span class="n">seleniumProperties</span><span class="o">.</span><span class="na">getChromeDriverPath</span><span class="o">());</span>
-            <span class="k">return</span> <span class="k">new</span> <span class="n">ChromeDriver</span><span class="o">();</span>                         <span class="c1">// …(E)</span>
+            <span class="n">ChromeOptions</span> <span class="n">options</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ChromeOptions</span><span class="o">();</span>
+            <span class="c1">//omit</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="n">ChromeDriver</span><span class="o">(</span><span class="n">options</span><span class="o">);</span>                  <span class="c1">// …(E)</span>
         <span class="o">}</span>
 
     <span class="o">}</span>
+
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">&quot;#{servletContext.contextPath}&quot;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">contextPath</span><span class="o">;</span>
 
     <span class="nd">@Autowired</span>
     <span class="n">SeleniumProperties</span> <span class="n">seleniumProperties</span><span class="o">;</span>
@@ -506,7 +512,7 @@ SpringBootアプリケーションのテストでSeleniumを使用するには�
 
     <span class="nd">@Test</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addUsers_2_AbnormalTest</span><span class="o">(){</span>
-        <span class="n">webDriver</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;http://localhost:&quot;</span> <span class="o">+</span> <span class="n">port</span> <span class="o">+</span> <span class="s">&quot;/portal&quot;</span><span class="o">);</span>
+        <span class="n">webDriver</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;http://localhost:&quot;</span> <span class="o">+</span> <span class="n">port</span> <span class="o">+</span> <span class="n">contextPath</span> <span class="o">+</span> <span class="s">&quot;/portal&quot;</span><span class="o">);</span>
         <span class="n">webDriver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="s">&quot;addFormButton-0&quot;</span><span class="o">)).</span><span class="na">click</span><span class="o">();</span>
         <span class="n">portalPage</span><span class="o">.</span><span class="na">setAddUserForm1</span><span class="o">(</span><span class="s">&quot;saburo&quot;</span><span class="o">,</span> <span class="s">&quot;mynavi&quot;</span><span class="o">,</span>
                 <span class="s">&quot;saburo.mynavi1&quot;</span><span class="o">,</span> <span class="s">&quot;100-0000&quot;</span><span class="o">,</span> <span class="s">&quot;Tokyo　Minato&quot;</span><span class="o">,</span>
@@ -550,7 +556,7 @@ SpringBootアプリケーションのテストでSeleniumを使用するには�
 <li></li>
 </ol>
 </td>
-<td>テストクラスを種別で分類するためにCategoryアノテーションを付与します。テスト実行にはBackendアプリケーションの起動が前提となりますので、pom.xmlのmaven-surefire-pluginの指定で、ビルド時にE2ETestインターフェースのカテゴリのテストは実行されないようにしておきます。</td>
+<td>テストクラスを種別で分類するためにCategoryアノテーションを付与します。テスト実行にはBackendアプリケーションの起動が前提となりますので、pom.xmlのデフォルトプロファイル内でmaven-surefire-pluginを設定し、Mavenビルド時に、デフォルトではE2ETestインターフェースのカテゴリのテストは実行されないようにしておきます。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="4">
 <li></li>
@@ -610,15 +616,15 @@ SpringBootアプリケーションのテストでSeleniumを使用するには�
 <td>検証観点</td>
 </tr>
 <tr class="row-even"><td>[正常系]ユーザ一覧画面を表示する</td>
-<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L69">BackendForFrontendController#getUsers</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L350">BackendForFrontendControllerTest#E2E#getUsersTest()</a></td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L74">BackendForFrontendController#getUsers</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L380">BackendForFrontendControllerTest#E2E#getUsersTest()</a></td>
 <td>・ユースケースシナリオ通り操作した時に、正しく画面に結果が表示されるか <br/> ・画面表示のレイアウトが崩れていないか</td>
 </tr>
 <tr class="row-odd"><td>[正常系]複数ユーザを追加する</td>
-<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L83">BackendForFrontendController#addUsers</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L363">BackendForFrontendControllerTest#E2E#addUsers_1_NormalTest()</a></td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L88">BackendForFrontendController#addUsers</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L393">BackendForFrontendControllerTest#E2E#addUsers_1_NormalTest()</a></td>
 <td>・ユースケースシナリオ通り操作した時に、正しく画面に結果が表示されるか <br/> ・画面表示のレイアウトが崩れていないか</td>
 </tr>
 <tr class="row-even"><td>[異常系]複数ユーザを追加する</td>
-<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L83">BackendForFrontendController#addUsers</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L391">BackendForFrontendControllerTest#E2E#addUsers_2_AbnormalTest()</a></td>
+<td><a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendController.java#L88">BackendForFrontendController#addUsers</a>  <br/> <br/>  <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/test/java/org/debugroom/mynavi/sample/continuous/integration/bff/app/web/BackendForFrontendControllerTest.java#L421">BackendForFrontendControllerTest#E2E#addUsers_2_AbnormalTest()</a></td>
 <td>・ユースケースシナリオ通り操作した時に、エラーメッセージが正しく表示されるか <br/> ・画面表示のレイアウトが崩れていないか</td>
 </tr>
 </tbody>

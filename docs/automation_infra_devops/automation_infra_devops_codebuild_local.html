@@ -18,7 +18,7 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="../cloud_native/aws-lambda-and-api-gateway-1.html" />
+    <link rel="next" title="基盤・デプロイ自動化実践" href="automation_infra_devops_codebuild.html" />
     <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_web_app_unit_e2e_test.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -67,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unittest.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unit_e2e_test.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codebuild.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -109,6 +110,7 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
 <li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li><a class="reference internal" href="#codebuild">CodeBuildの概要</a></li>
 <li><a class="reference internal" href="#codebuild-local">CodeBuild Localの環境設定</a></li>
 <li><a class="reference internal" href="#aws-systems-manager-parameter-store">AWS Systems Manager Parameter Storeの概要と設定</a></li>
 <li><a class="reference internal" href="#buildspec-ymlcodebuild-local">buildspec.ymlの作成とCodeBuild Localの実行</a></li>
@@ -130,7 +132,7 @@
     </a>
   </li>
   <li>
-    <a href="../cloud_native/aws-lambda-and-api-gateway-1.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    <a href="automation_infra_devops_codebuild.html" title="Next Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">基盤・デプロイ自動化実践 &raquo;</span>
     </a>
   </li>
               
@@ -182,6 +184,12 @@
 <p><br/></p>
 <p>続く今回は、GitHubにプッシュしたこのアプリケーションのソースコードやテストコードをAWS CodeBuildを使ってビルド・テストを行った後、カバレッジなどのソースコードメトリクスをスキャンした結果をSonarQuberServerへ連携する環境(最初のイメージの(3)〜(6))の構築を進めていきます。</p>
 <p><br/></p>
+<div class="section" id="codebuild">
+<span id="section-codebuild-setting-codebuild-overview-label"></span><h3>CodeBuildの概要<a class="headerlink" href="#codebuild" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>AWS CodeBuildはクラウドでアプリケーションのビルドを行う従量課金型サービスです。
+ビルドの元になるソースコードはS3に保存したものに加え、AWS CodeCommit、GitHub、BitBucketなどの各Gitベースのバージョン管理システムをサポートします。
+Jenkins等同様のCIツールでも同じことは行えるものの、クラウドでマネージドな環境下で行われるため、大規模開発でのコミットやプルリクエスト後のテスト、ビルド処理をマシンリソースを気にせず実行できることがメリットです。</p>
 <p>CodeBuildを利用するには、アプリケーションソースコードプロジェクト内のディレクトリに、ビルドを行う単位でbuildspec.ymlというビルド処理の手順を示したファイルを作成する必要があります。
 シンプルなアプリケーションビルド処理の場合は、ルートディレクトリに配置したbuildspec.ymlをGitHubへコミットして、AWSコンソール上で、CodeBuildの設定を行うことで簡単に環境構築できますが、
 実プロジェクトでアプリケーションをビルドする場合は、マルチプロジェクト構成や日本語ロケールなどに起因してトラブルが発生しがちであるため、まず最初に、AWSから提供されている、buildspec.ymlの挙動をローカル端末で確認できる
@@ -189,6 +197,7 @@ CodeBuild Localの環境を構築し、buildspec.ymlを簡単に検証できる�
 <p><br/></p>
 <p>また、CodeBuildを使ったビルド中に、静的解析結果やカバレッジなどを取得して、SonarQubeServerへ連携するSonarScannerの実行を盛り込みます。実行に必要なパラメータを環境変数として、一元的に管理できるAWS Systems Manager Parameter Storeも合わせて設定していきます。</p>
 <p><br/></p>
+</div>
 <div class="section" id="codebuild-local">
 <span id="section-codebuild-setting-codebuild-local-label"></span><h3>CodeBuild Localの環境設定<a class="headerlink" href="#codebuild-local" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
