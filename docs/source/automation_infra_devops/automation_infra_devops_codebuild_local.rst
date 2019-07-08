@@ -42,11 +42,14 @@ AWS CodeBuildはクラウドでアプリケーションのビルドを行う従�
 Jenkins等同様のCIツールでも同じことは行えるものの、クラウドでマネージドな環境下で行われるため、大規模開発でのコミットやプルリクエスト後のテスト、ビルド処理をマシンリソースを気にせず実行できることがメリットです。
 
 CodeBuildを利用するには、アプリケーションソースコードプロジェクト内のディレクトリに、ビルドを行う単位でbuildspec.ymlというビルド処理の手順を示したファイルを作成する必要があります。
-シンプルなアプリケーションビルド処理の場合は、ルートディレクトリに配置したbuildspec.ymlをGitHubへコミットして、AWSコンソール上で、CodeBuildの設定を行うことで簡単に環境構築できますが、
-実プロジェクトでアプリケーションをビルドする場合は、マルチプロジェクト構成や日本語ロケールなどに起因してトラブルが発生しがちであるため、まず最初に、AWSから提供されている、buildspec.ymlの挙動をローカル端末で確認できる
-CodeBuild Localの環境を構築し、buildspec.ymlを簡単に検証できるようにします。
+このbuildspec.ymlを元に、CodeBuildが、Ubuntuをベースとしたデフォルトのビルド用コンテナイメージをAWSクラウド内で実行し、成果物アーティファクトを生成するようなかたちでビルド処理が実行されます。
 
 |br|
+
+シンプルなアプリケーションビルド処理の場合は、ルートディレクトリに配置したbuildspec.ymlをGitHub等へコミットして、AWSコンソールのCodeBuildサービス内で、ソースコードプロジェクトの配置場所やビルドコンテナの条件等の設定を行うにより簡単に環境構築できます。しかし、
+実プロジェクトでアプリケーションをビルドする場合は、マルチプロジェクト構成や日本語ロケールなどに起因してトラブルが発生しがちであるため、まず最初に、buildspec.ymlのデバッグ環境構築を目的としてAWSから提供されている、buildspec.ymlの挙動をローカル端末で確認可能な
+CodeBuild Localの環境を構築し、buildspec.ymlを簡単に検証できるようにします。
+
 
 また、CodeBuildを使ったビルド中に、静的解析結果やカバレッジなどを取得して、SonarQubeServerへ連携するSonarScannerの実行を盛り込みます。実行に必要なパラメータを環境変数として、一元的に管理できるAWS Systems Manager Parameter Storeも合わせて設定していきます。
 
@@ -99,7 +102,7 @@ Dockerfileがあるディレクトリへ移動し、docker buildコマンドを�
 |br|
 
 これでCodeBuild Localを実行する準備は整いましたが、buildspec.ymlを作成していく前に、ビルド中にSonarScannerを実行するために、
-SonarQubeのURLやトークンを環境変数から取得できるよう、AWS Systems Manager Parameter Storeの設定を行います。
+SonarQubeのURLやトークンを、buildspec.yml中に定義した環境変数から取得できるよう、AWS Systems Manager Parameter Storeの設定を行います。
 
 |br|
 
@@ -148,9 +151,10 @@ Parameter Storeを利用するには、AWSコンソールで 「Systems Manager�
 
 |br|
 
-なお、CodeBuildなど各サービスからParameterStoreを参照するためには、アクセスユーザを作成し、権限を付与しておく必要があります。
+なお、CodeBuildなど各サービスからParameterStoreを参照するためには、Sysmtems Managerの権限を付与しておく必要があります。
+今回のCodeBuild Localのようにローカル端末からアクセスする場合は、SSMアクセス許可ポリシーをアタッチして権限をしたユーザの認証情報をローカル端末のホームフォルダ配下の.aws/credentialsに置いておく必要があります。
 第2回「 :ref:`section-create-rds-for-sonarqube-label` 」の際、RDSへアクセスするユーザを作成し、権限を付与している手順を紹介していますが、
-同様の要領で、「AmazonSSMFullAccess」ポリシーを付与しておきましょう。
+これ同様の要領で、ユーザに「AmazonSSMFullAccess」ポリシーを付与して、認証情報をローカル端末へ設定しておきましょう。
 
 .. note:: ユーザや認証情報をIAMを使って作成する実際の手順は `Amazon RDSにアクセスするSpringアプリケーション(1) ユーザ／認証情報の作成 <https://news.mynavi.jp/itsearch/article/devsoft/4422>`_ に記載しています。
 
@@ -163,8 +167,14 @@ buildspec.ymlの作成とCodeBuild Localの実行
 
 |br|
 
-それでは、CodeBuildから実行されるbuildspec.ymlを作成します。buildspec.ymlの記載方法・仕様は `AWSの公式 odeBuildのビルド仕様に関するリファレンス <https://docs.aws.amazon.com/ja_jp/codebuild/latest/userguide/build-spec-ref.html>`_ に詳細な説明がありますが、
-ここでは、前回までに作成したBFFアプリケーションに対するbuildspec.ymlをサンプルに、ポイントとなる箇所の解説を進めます。なお、buildspec.ymlはBFFアプリケーションプロジェクトの直下に作成します。
+CodeBuild Localを使用する事前準備ができたところで、buildspec.ymlを作成します。buildspec.ymlの記載方法・仕様は `AWSの公式 CodeBuildのビルド仕様に関するリファレンス <https://docs.aws.amazon.com/ja_jp/codebuild/latest/userguide/build-spec-ref.html>`_ に詳細な説明がありますが、
+ここでは、前回までに実装したBFFアプリケーション向けに作成したbuildspec.ymlをサンプルに、ポイントとなる箇所の解説を進めます。なお、buildspec.ymlはBackendおよびBFFアプリケーションについては、プロジェクトの配下にbuild/devディレクトリを作成してその中に保存しておきます。
+
+|br|
+
+.. note:: 次回以降で、別の用途でbuildspec.ymlを作成する必要があるので、CodeBuildがデフォルトで読み込む対象であるソールコードルートディレクトリに保存せず、別途ディレクトリを分けて保存しておきます。
+
+|br|
 
 .. sourcecode:: bash
 
@@ -194,7 +204,6 @@ buildspec.ymlの作成とCodeBuild Localの実行
    artifacts:
      files:
        - backend-for-frontend/target/mynavi-sample-continuous-integration-backend-for-frontend-0.0.1-SNAPSHOT.jar
-                                                                        # …(G)
 
 |br|
 
@@ -240,7 +249,9 @@ buildspec.ymlの作成とCodeBuild Localの実行
        │   ├- src
        │   │   ├-main .....
        │   │   └-test .....
-       │   ├- buildspec.yml
+       │   ├- build
+       │   │   ├-dev
+       │   │   │  └- buildspec.yml
        │   │  .....
        │   └- pom.xml
        │
@@ -248,7 +259,9 @@ buildspec.ymlの作成とCodeBuild Localの実行
        │   ├- src
        │   │   ├-main .....
        │   │   └-test .....
-       │   ├- buildspec.yml
+       │   ├- build
+       │   │   ├-dev
+       │   │   │  └- buildspec.yml
        │   │  .....
        │   └- pom.xml
        │
@@ -271,7 +284,7 @@ buildspec.ymlの作成とCodeBuild Localの実行
 
 .. sourcecode:: bash
 
-   $ ./codebuild_build.sh -i aws/codebuild/standard:2.0 -a backend-for-frontend/target/ -c -b backend-for-frontend/buildspec.yml
+   $ ./codebuild_build.sh -i aws/codebuild/standard:2.0 -a backend-for-frontend/target/ -c -b backend-for-frontend/build/dev/buildspec.yml
 
 |br|
 
@@ -307,7 +320,8 @@ buildspec.ymlの作成とCodeBuild Localの実行
 
    Build Command:
 
-   docker run -it -v /var/run/docker.sock:/var/run/docker.sock -e "IMAGE_NAME=aws/codebuild/standard:2.0" -e "ARTIFACTS=/xxxxx/mynavi-sample-continuous-integration/backend-for-frontend/target/" -e "SOURCE=/xxxxxx/mynavi-sample-continuous-integration" -e "BUILDSPEC=/xxxxxx/mynavi-sample-continuous-integration/backend-for-frontend/buildspec.yml" -e "AWS_CONFIGURATION=/yyyyyyy/.aws" -e "INITIATOR=kawabatakouhei" amazon/aws-codebuild-local:latest
+   docker run -it -v /var/run/docker.sock:/var/run/docker.sock -e "IMAGE_NAME=aws/codebuild/standard:2.0" -e "ARTIFACTS=/xxxxx/mynavi-sample-continuous-integration/backend-for-frontend/target/" -e "SOURCE=/xxxxxx/mynavi-sample-continuous-integration" -e "BUILDSPEC=/xxxxxx/mynavi-sample-continuous-integration/backend-for-frontend/build/dev/buildspec.yml" -e "AWS_CONFIGURATION=/yyyyyy/.aws" -e "INITIATOR=kawabatakouhei" amazon/aws-codebuild-local:latest
+
 
    Removing agent-resources_build_1 ... done
    Removing agent-resources_agent_1 ... done

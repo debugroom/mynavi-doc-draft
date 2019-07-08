@@ -29,7 +29,7 @@
 
 |br|
 
-事前準備として、CodeBuildが実行するビルド環境のコンテナイメージに適用するセキュリティグループを、「VPC」サービスで作成しておきましょう。
+CodeBuild設定の事前準備として、CodeBuildが実行するビルド環境のコンテナイメージに適用するセキュリティグループを、「VPC」サービスで作成しておきましょう。
 ビルドに必要なソフトウェアやGitHubへソースコードを取得するための任意のアウトバウンド許可設定があれば、特にインバウンド許可は必要ありません。
 
 |br|
@@ -61,7 +61,7 @@ AWSコンソールメニューから、「CodeBuild」サービスを選択し�
 |br|
 
 CodeBuildの主な設定項目は以下の通りです。説明に記載の要領に従って入力したのち、「ビルドプロジェクトを作成する」ボタンを押下してください。
-なお、各項目の必須は `CodeBuildでビルドプロジェクトを作成する <https://docs.aws.amazon.com/ja_jp/codebuild/latest/userguide/create-project.html#create-project-console>`_ にある表を参考にしてください。
+なお、各項目の必須は `AWS公式 CodeBuildでビルドプロジェクトを作成する <https://docs.aws.amazon.com/ja_jp/codebuild/latest/userguide/create-project.html#create-project-console>`_ にある表を参考にしてください。
 
 |br|
 
@@ -118,7 +118,7 @@ CodeBuildの主な設定項目は以下の通りです。説明に記載の要�
 
    * -
      - イメージ※マネージド型イメージの場合
-     - コンテナイメージのバージョンを選択します。2019年6月では1.0もしくは2.0が選択可能です。
+     - コンテナイメージのバージョンを選択します。2019年6月時点では1.0もしくは2.0が選択可能です。
 
    * -
      - サービスロール
@@ -218,7 +218,8 @@ CodeBuildの主な設定項目は以下の通りです。説明に記載の要�
 
 |br|
 
-早速ビルドの実行と行きたいところですが、その前にAWS Systems Manager ParameterStoreへアクセスするための権限設定を追加で実施する必要があります。
+早速ビルドの実行と行きたいところですが、その前にビルド用のコンテナイメージがAWS Systems Manager ParameterStoreへアクセスするための権限設定を追加で実施する必要があります。
+
 |br|
 
 .. _section-codebuild-iam-setting-ssm-label:
@@ -228,7 +229,7 @@ AWS Systems Manager Parameter Storeへのアクセス権限の付与
 
 |br|
 
-前回設定したAWS Systems Manager Parameter Storeで定義したデータを参照するのに、アクセス権限を付与しておかなければ実行エラーとなるため、
+前回設定したAWS Systems Manager Parameter Storeで定義したデータを参照するのに、CodeBuildの実行ロールにも、アクセス権限を付与しておかなければ実行エラーとなるため、
 前節で作成されるサービスロールにSystems Managerのアクセス権限を割り当てておきます。
 
 AWSコンソールで、「IAM」サービスから「ロール」メニューを選択し、作成したポリシーに対して、以下の通り、「AmazonSSMFullAccess」のポリシーをアタッチしてください。
@@ -242,7 +243,7 @@ AWSコンソールで、「IAM」サービスから「ロール」メニュー�
 
 .. _section-codebuild-build-execution-label:
 
-Buildの実行とGitHubのWebHook設定
+Buildの実行とWebHook設定
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 |br|
@@ -261,14 +262,131 @@ Buildの実行とGitHubのWebHook設定
 
 |br|
 
-ビルドが正常に実行できることを確認したら、次はプルリクエストや特定のブランチに対するプッシュを契機に上記のビルド処理が実行されるよう、
-CodeBuildのWebhookやGitHubのWebhookの設定を行います。今回は以下のような条件でビルド処理が実行されるように設定してみましょう。
-
-
-
+また、buildspec.ymlに記載した通り、Mavenビルド中に実行したSonarScannerの実行結果も、以前の連載で設定していたSonarQubeServerへ送信されるようになります。
+Scannerの結果も合わせて確認し、静的チェックに引っかかってQualityGateをパスしているか確認しましょう。
 
 |br|
 
+.. figure:: img/automation_infra_devops_codebuild/sonarqube-scanner-result.png
+   :scale: 100%
+
+|br|
+
+なお、SonarQubeServerもWebhookにより解析が完了したタイミングで別の外部サービスへ処理完了通知することも可能です。
+詳細は `SonarQube公式 Webhooks <https://docs.sonarqube.org/latest/project-administration/webhooks/>`_ や `API/Webhooks <https://next.sonarqube.com/sonarqube/web_api/api/webhooks>`_ を参照してください。
+
+|br|
+
+ビルドが正常に実行したことを確認したら、次はプルリクエストや特定のブランチに対するプッシュを契機に上記のビルド処理が実行されるよう、
+CodeBuildやGitHubのWebhookの設定を行います。今回は以下のように、Git Flowをベースとしたブランチを構成し、赤い吹き出しの箇所でCodeBuildによるビルド処理が実行されるように設定するものとします。
+
+|br|
+
+.. figure:: img/automation_infra_devops_codebuild/branch_strategy.png
+   :scale: 100%
+
+|br|
+
+図のイメージの構成では、masterブランチをベースにdevelopブランチを作成し、またdevelopブランチから、featureブランチを作成しています。
+Git Flowのブランチモデルに従って、機能開発を各々featureブランチに対しておこなう想定とし、feature/＊＊＊＊＊となるブランチに対して、プッシュが行われたタイミングで、そのコミットによるソースコードの追加・変更が問題ないかビルドとテストを実行するように設定します。
+自らの開発対象であるfeatureブランチはもちろんですが、並行して行われる他のfeatureブランチの変更を、プルリクエスト(PullRequest:PR)されたdevelopブランチを経由で変更を取り込みながら、ビルド・テストが問題なく実行終了するか、その担保をとってから開発を進めることができるようになります。
+なお、developブランチに対するPRによるビルド処理は、次回以降「CodePipelineを使った継続的デリバリー」で扱います。
+
+引き続き、GitHub上で上記イメージの構成通り、ブランチを作成して、ローカル端末へフェッチしていきます。住所系とメール系の機能を拡充するためのfeature/addressとfeature/emailを作成します。
+
+|br|
+
+.. figure:: img/automation_infra_devops_codebuild/github_create_branches.png
+   :scale: 100%
+
+|br|
+
+ブランチ作成後は、ローカルへフェッチして、ブランチをチェックアウトし、feature/addressブランチへ切り替えましょう。以下はターミナルコマンドなどで実行する例です。
+
+.. sourcecode:: bash
+
+   > git fetch
+   > git checkout -b feature/address origin/feature/address
+
+|br|
+
+住所系機能のベースモジュールを追加で実装しましょう。取り急ぎ、先に `住所系機能で追加実装した結果のリンク <https://github.com/debugroom/mynavi-sample-continuous-integration/commit/a0bd03a7d9066d9570377d415218ef4207889375>`_ を載せて起きますが、
+コミットしてプッシュする前に、CodeBuildで以下の通り、「feature/xxxxxxブランチにプッシュが行われた場合、ビルドを実行する設定」を行います。
+
+|br|
+
+「CodeBuild」サービスから、「ビルドプロジェクト」メニューを選択し、前節で作成したプロジェクトを選択して、「ビルドの詳細」タブにある、「プライマリソースのウェブフックイベント」の「編集」ボタンを押下します。
+
+|br|
+
+.. figure:: img/automation_infra_devops_codebuild/management_console_codebuild_edit_webhook_backend_1.png
+   :scale: 100%
+
+|br|
+
+「送信元」の変更はしませんが、プライマリソースのウェブフックイベントを以下の通り設定します。
+
+* 「コードの変更がこのレポジトリにプッシュされるたびに再構築する」にチェック
+* 「イベントタイプ」には「プッシュ」を設定。
+* 「これらの条件でビルドを開始する」において、「HEAD_REF」オプションに、正規表現「^refs/heads/feature/.*」を設定
+
+|br|
+
+.. figure:: img/automation_infra_devops_codebuild/management_console_codebuild_edit_webhook_backend_2.png
+   :scale: 100%
+
+|br|
+
+.. figure:: img/automation_infra_devops_codebuild/management_console_codebuild_edit_webhook_backend_3.png
+   :scale: 100%
+
+|br|
+
+上記の手順は、Backend、BFFなどCodeBuildを作成しているプロダクト単位に設定を行います。なお、設定の詳細は、
+`AWS公式の「CodeBuildのGitHubプルリクエストとウェブフックフィルタのサンプル」 <https://docs.aws.amazon.com/ja_jp/codebuild/latest/userguide/sample-github-pull-request.html#sample-github-pull-request-filter-webhook-events-console>`_ も適宜参照してください。
+
+設定完了後、GitHubのfeature/addressブランチに対してプッシュしたのち、CodeBuildが実行されることを確認します。
+
+|br|
+
+.. figure:: img/automation_infra_devops_codebuild/github_push_add_feature_address.png
+   :scale: 100%
+
+|br|
+
+.. figure:: img/automation_infra_devops_codebuild/management_console_codebuild_start_webhook_bff.png
+   :scale: 100%
+
+|br|
+
+.. _section-codebuild-conclusion-label:
+
+マイクロサービスにおける継続的インテグレーションのまとめ
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+|br|
+
+以上、ここまでの連載で、ECSコンテナ、RDSを使ったSonarQubeServerによる静的チェック環境の構築から、SpringBootを使ったマイクロサービスにおける各種テストコードの実装、
+GitHubへプッシュされたソースコードに対するCodeBuildを使ったビルド・テスト、SonarScannerによる静的チェック結果の可視化といった一連の継続的インテグレーション自動化の仕組みを解説してきました。
+今回は触れていませんが、より上位のオプションとして、SonarQubeServer Developer Editionを使えば、静的チェックの結果をレビューコメントとしてGitHubへ反映することも可能です(なお、ComunityEditionでもGitへ連携するプラグインはありますが、現時点で既に非推奨となっているため、本連載では除外しています)。
+
+SonarQubeServerではALB、ECS、RDSを使用して環境構築することにより、自動バックアップなどの保守性や耐障害性も高まります。
+また、クラウドをベースとしたCodeBuildでマシンリソースを気にすることなく、静的解析、ビルド・テスト実行を自動化し、迅速に問題検出しながら、複数人での開発をスピーティかつ効率的に進めていくことができます。
+マイクロサービスアーキテクチャをベースとしたアプリケーション開発では、そのアジリティを高めるために、こうしたクラウドの利点をフル活用した、継続的インテグレーションの自動化環境が求められます。
+
+ただし、今回、SpringBootをベースとしたWebアプリケーションで実装したSeleiumベースのE2Eテストは、バックエンドのマイクロサービスが起動している必要があるため、ビルド時に実行しないように設定しています。
+本来であれば、以降、E2Eテストを含め、以下のようなプロセスでプロダクション環境へリリースされていきます。
+
+#. バックエンドのマイクロサービスのコンテナイメージのビルド
+#. マイクロサービスコンテナイメージをプロダクションとほぼ同等のステージング環境へデプロイ
+#. WebアプリケーションのE2Eとして、Seleniumテストコード実行
+#. Webアプリケーションのコンテナイメージのビルドおよびステージング環境へデプロイ
+#. パフォーマンステストやセキュリティテスト、受入等のその他テスト後の管理者によるリリース承認
+#. ステージング環境でテスト済みのコンテナイメージをプロダクション環境へリリース
+
+次回以降、AWS CodePipelineを使って、上記をパイプライン的に自動化する仕組みを構築・解説していきます。
+
+|br|
 
 
 著者紹介
