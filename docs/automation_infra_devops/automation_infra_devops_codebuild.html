@@ -18,7 +18,7 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="../cloud_native/aws-lambda-and-api-gateway-1.html" />
+    <link rel="next" title="基盤・デプロイ自動化実践" href="automation_infra_devops_codepipeline_1.html" />
     <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_codebuild_local.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -68,6 +68,7 @@
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unit_e2e_test.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_1.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -110,6 +111,7 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
 <li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li><a class="reference internal" href="#aws-codebuild2">AWS CodeBuildを用いた継続的インテグレーション自動化2</a></li>
 <li><a class="reference internal" href="#section-codebuild-create-security-group-label">事前準備：セキュリティグループの作成</a></li>
 <li><a class="reference internal" href="#codebuild">CodeBuildの設定</a></li>
 <li><a class="reference internal" href="#aws-systems-manager-parameter-store">AWS Systems Manager Parameter Storeへのアクセス権限の付与</a></li>
@@ -133,7 +135,7 @@
     </a>
   </li>
   <li>
-    <a href="../cloud_native/aws-lambda-and-api-gateway-1.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    <a href="automation_infra_devops_codepipeline_1.html" title="Next Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">基盤・デプロイ自動化実践 &raquo;</span>
     </a>
   </li>
               
@@ -172,6 +174,9 @@
 <div class="section" id="id2">
 <h2>マイクロサービスアーキテクチャの基盤・デプロイ自動化<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
+<div class="section" id="aws-codebuild2">
+<span id="section-automation-infra-devops-continuous-integration-automation-using-codebuild-2-label"></span><h3>AWS CodeBuildを用いた継続的インテグレーション自動化2<a class="headerlink" href="#aws-codebuild2" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
 <p>本連載では、以下のイメージに沿って「CodeBuild」「SonarQube」を使った継続的インテグレーション(CI：Continuous integration)環境を実際に構築しています。<br/></p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/sample-continuous-integration.png"><img alt="../_images/sample-continuous-integration.png" src="../_images/sample-continuous-integration.png" style="width: 951.0px; height: 618.0px;" /></a>
@@ -180,6 +185,7 @@
 <p>前回は、AWSから提供されている、buildspec.ymlの挙動をローカル端末で確認できるCodeBuild Local環境を構築し、環境変数を一元管理するAWS Sysmtes Managerを設定して、buildspec.ymlを作成して検証しました。
 続く今回は、AWS CodeBuildを設定し、GitHubへのプッシュやプルリクエストに対して、CodeBuildを実行するよう設定してみます。</p>
 <p><br/></p>
+</div>
 <div class="section" id="section-codebuild-create-security-group-label">
 <span id="id3"></span><h3>事前準備：セキュリティグループの作成<a class="headerlink" href="#section-codebuild-create-security-group-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
@@ -466,14 +472,16 @@ GitHubへプッシュされたソースコードに対するCodeBuildを使っ�
 また、クラウドをベースとしたCodeBuildでマシンリソースを気にすることなく、静的解析、ビルド・テスト実行を自動化し、迅速に問題検出しながら、複数人での開発をスピーティかつ効率的に進めていくことができます。
 マイクロサービスアーキテクチャをベースとしたアプリケーション開発では、そのアジリティを高めるために、こうしたクラウドの利点をフル活用した、継続的インテグレーションの自動化環境が求められます。</p>
 <p>ただし、今回、SpringBootをベースとしたWebアプリケーションで実装したSeleiumベースのE2Eテストは、バックエンドのマイクロサービスが起動している必要があるため、ビルド時に実行しないように設定しています。
-本来であれば、以降、E2Eテストを含め、以下のようなプロセスでプロダクション環境へリリースされていきます。</p>
+本来であれば、以降、E2Eテストを含め、以下のようなプロセス例でプロダクション環境へのリリースを検討します。</p>
 <ol class="arabic simple">
 <li>バックエンドのマイクロサービスのコンテナイメージのビルド</li>
 <li>マイクロサービスコンテナイメージをプロダクションとほぼ同等のステージング環境へデプロイ</li>
-<li>WebアプリケーションのE2Eとして、Seleniumテストコード実行</li>
-<li>Webアプリケーションのコンテナイメージのビルドおよびステージング環境へデプロイ</li>
+<li>Webアプリケーション(BFF)のE2Eテストとして、Seleniumテストコード実行</li>
+<li>Webアプリケーション(BFF)のコンテナイメージのビルド</li>
+<li>Webアプリケーション(BFF)のステージング環境へデプロイ</li>
 <li>パフォーマンステストやセキュリティテスト、受入等のその他テスト後の管理者によるリリース承認</li>
-<li>ステージング環境でテスト済みのコンテナイメージをプロダクション環境へリリース</li>
+<li>ステージング環境でテスト済みのコンテナイメージをリリース用にタグ付け</li>
+<li>プロダクション環境へリリース</li>
 </ol>
 <p>次回以降、AWS CodePipelineを使って、上記をパイプライン的に自動化する仕組みを構築・解説していきます。</p>
 <p><br/></p>

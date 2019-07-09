@@ -110,6 +110,7 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
 <li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li><a class="reference internal" href="#aws-codebuild1">AWS CodeBuildを用いた継続的インテグレーション自動化1</a></li>
 <li><a class="reference internal" href="#codebuild">CodeBuildの概要</a></li>
 <li><a class="reference internal" href="#codebuild-local">CodeBuild Localの環境設定</a></li>
 <li><a class="reference internal" href="#aws-systems-manager-parameter-store">AWS Systems Manager Parameter Storeの概要と設定</a></li>
@@ -171,6 +172,9 @@
 <div class="section" id="id2">
 <h2>マイクロサービスアーキテクチャの基盤・デプロイ自動化<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
+<div class="section" id="aws-codebuild1">
+<span id="section-automation-infra-devops-continuous-integration-automation-using-codebuild-1-label"></span><h3>AWS CodeBuildを用いた継続的インテグレーション自動化1<a class="headerlink" href="#aws-codebuild1" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
 <p>本連載では、以下のイメージに沿って「CodeBuild」「SonarQube」を使った継続的インテグレーション(CI：Continuous integration)環境を実際に構築しています。<br/></p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/sample-continuous-integration.png"><img alt="../_images/sample-continuous-integration.png" src="../_images/sample-continuous-integration.png" style="width: 951.0px; height: 618.0px;" /></a>
@@ -184,6 +188,7 @@
 <p><br/></p>
 <p>続く今回は、GitHubにプッシュしたこのアプリケーションのソースコードやテストコードをAWS CodeBuildを使ってビルド・テストを行った後、カバレッジなどのソースコードメトリクスをスキャンした結果をSonarQuberServerへ連携する環境(最初のイメージの(3)〜(6))の構築を進めていきます。</p>
 <p><br/></p>
+</div>
 <div class="section" id="codebuild">
 <span id="section-codebuild-setting-codebuild-overview-label"></span><h3>CodeBuildの概要<a class="headerlink" href="#codebuild" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>

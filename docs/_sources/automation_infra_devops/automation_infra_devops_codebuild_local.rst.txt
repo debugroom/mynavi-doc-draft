@@ -10,6 +10,13 @@
 
 |br|
 
+.. _section-automation-infra-devops-continuous-integration-automation-using-codebuild-1-label:
+
+AWS CodeBuildを用いた継続的インテグレーション自動化1
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+|br|
+
 本連載では、以下のイメージに沿って「CodeBuild」「SonarQube」を使った継続的インテグレーション(CI：Continuous integration)環境を実際に構築しています。|br|
 
 .. figure:: img/automation_infra_devops_actual_experience/sample-continuous-integration.png
