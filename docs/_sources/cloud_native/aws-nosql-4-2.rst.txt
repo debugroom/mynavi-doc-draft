@@ -131,7 +131,9 @@ spring-boot-starter-web、thymeleafテンプレートエンジンを使用する
 |br|
 
 今回、アプリケーションは以下のコンポーネントで構成しますが、Spring Session とSpring Data Redisで最低限作成しなければならない必須のクラスは以下の通りです。
-なお、thymeleafテンプレートエンジンに関する説明は省略しますが、index.htmlからセッション情報を更新し、結果に遷移する画面HTMLを各々実装しています。
+なお、thymeleafテンプレートエンジンに関する説明は省略しますが、必要に応じて、`Thymeleaf公式ドキュメント <https://www.thymeleaf.org/documentation.html>`_ や
+`Macchinetta Framework テンプレートエンジン <https://macchinetta.github.io/server-guideline-thymeleaf/current/ja/ArchitectureInDetail/WebApplicationDetail/Thymeleaf.html>`_ を参照してください。
+ここでは、index.htmlからセッション情報を更新し、結果に遷移する画面HTMLを各々実装しています。
 
 |br|
 

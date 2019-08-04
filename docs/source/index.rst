@@ -24,6 +24,14 @@
    automation_infra_devops/automation_infra_devops_codebuild_local.rst
    automation_infra_devops/automation_infra_devops_codebuild.rst
    automation_infra_devops/automation_infra_devops_codepipeline_1.rst
+   automation_infra_devops/automation_infra_devops_codepipeline_2.rst
+   automation_infra_devops/automation_infra_devops_codepipeline_3.rst
+   automation_infra_devops/automation_infra_devops_codepipeline_4.rst
+   automation_infra_devops/automation_infra_devops_codepipeline_5.rst
+   automation_infra_devops/automation_infra_devops_codepipeline_6.rst
+   automation_infra_devops/automation_infra_devops_codepipeline_7.rst
+   automation_infra_devops/automation_infra_devops_codepipeline_8.rst
+   automation_infra_devops/automation_infra_devops_codepipeline_9.rst
    cloud_native/aws-lambda-and-api-gateway-1.rst
    cloud_native/aws-lambda-and-api-gateway-2.rst
    cloud_native/aws-lambda-and-api-gateway-3.rst

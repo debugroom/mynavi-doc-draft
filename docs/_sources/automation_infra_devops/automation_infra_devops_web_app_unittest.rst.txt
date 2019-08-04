@@ -20,7 +20,7 @@
 前回までに、マイクロサービス(Backend)の単体・結合テストコードや効率的なテスト戦略のポイントなどを解説して来ました。今回からはマイクロサービスを呼び出す側のWebアプリケーション(BackendForFrontend:BFFアプリケーション)における単体テストおよび、
 マイクロサービスを含めたEndToEndテストを実装する際のポイントやテスト戦略を説明していきます。
 
-アプリケーションおよびテストのパッケージ・コンポーネント構成は以下としています。
+アプリケーションおよびテストのパッケージ・コンポーネント構成は以下としています。実際のソースコードは `GitHub <https://github.com/debugroom/mynavi-sample-continuous-integration/tree/master/backend-for-frontend>`_ 上にありますので、必要に応じて適宜参照ください。
 
 |br|
 
@@ -85,7 +85,7 @@
          │               │ └web
          │               │   ├selenium                                 ... seleniumで使用するクラスパッケージ
          │               │   │ ├PortalPage.java                        ... Pageオブジェクトクラス
-         │               │   │ └SeleniumProperties.java                ... Repositoryのテストクラス
+         │               │   │ └SeleniumProperties.java                ... Selenium実行に使用するプロパティクラス
          │               │   └BackendForFrontendControllerTest.java    ... Controllerのテストクラス
          │               ├domain
          │               │ ├repository                                 ... Repositoryテストパッケージ

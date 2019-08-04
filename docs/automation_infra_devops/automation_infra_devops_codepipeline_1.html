@@ -18,7 +18,7 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="../cloud_native/aws-lambda-and-api-gateway-1.html" />
+    <link rel="next" title="基盤・デプロイ自動化実践" href="automation_infra_devops_codepipeline_2.html" />
     <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_codebuild.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -69,6 +69,14 @@
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codebuild.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_3.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_4.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_5.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_6.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_7.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_8.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_9.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -111,9 +119,9 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
 <li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li><a class="reference internal" href="#aws-codepipeline">AWS CodePipeLineを用いた継続的デリバリ自動化</a></li>
+<li><a class="reference internal" href="#aws-codepipeline">AWS CodePipeLineを用いた継続的デリバリ</a></li>
 <li><a class="reference internal" href="#codepipeline">CodePipelineの概要</a></li>
-<li><a class="reference internal" href="#section-codebuild-setting-codepipeline-pipeline-overview-label">マイクロサービスでのパイプライン構成</a></li>
+<li><a class="reference internal" href="#section-codepipeline-microservice-pipeline-overview-label">マイクロサービスでのパイプライン構成</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#id4">著者紹介</a></li>
@@ -132,7 +140,7 @@
     </a>
   </li>
   <li>
-    <a href="../cloud_native/aws-lambda-and-api-gateway-1.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    <a href="automation_infra_devops_codepipeline_2.html" title="Next Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">基盤・デプロイ自動化実践 &raquo;</span>
     </a>
   </li>
               
@@ -171,7 +179,7 @@
 <div class="section" id="id2">
 <h2>マイクロサービスアーキテクチャの基盤・デプロイ自動化<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <div class="section" id="aws-codepipeline">
-<span id="section-automation-infra-devops-continuous-delivery-automation-using-codepipeline-label"></span><h3>AWS CodePipeLineを用いた継続的デリバリ自動化<a class="headerlink" href="#aws-codepipeline" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<span id="section-automation-infra-devops-continuous-delivery-automation-using-codepipeline-label"></span><h3>AWS CodePipeLineを用いた継続的デリバリ<a class="headerlink" href="#aws-codepipeline" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
 <p>本連載では、以下のイメージの構成のようなマイクロサービスアーキテクチャでの継続的インテグレーション(Continuous Integration:CI)や継続的デリバリ(Continuous Delivery:CD)の自動化環境の構築を実践しています。</p>
 <p><br/></p>
@@ -188,43 +196,42 @@ GitHubへプッシュされたソースコードに対するCodeBuildを使っ�
 </div>
 <p><br/></p>
 <p>feature/＊＊＊＊ブランチに対する機能実装が完了した後は、developブランチに対してプルリクスト(Pull Request:PR)をコードオーナーや管理者に送信してマージ要求を行います。
-developブランチへPRが発出されると、以下のようなプロセスを経て、プロダクション環境へリリースしていくものとします。</p>
+developブランチへPRが発出されたタイミングやコードのマージを契機として、以下のようなプロセスを経て、プロダクション環境へリリースしていくものとします。</p>
 <ol class="arabic simple">
-<li>バックエンドのマイクロサービスのコンテナイメージのビルド</li>
+<li>バックエンドのマイクロサービスのコンテナイメージのビルド、DockerHubへのプッシュ</li>
 <li>マイクロサービスコンテナイメージをプロダクションとほぼ同等のステージング環境へデプロイ</li>
 <li>Webアプリケーション(BFF)のE2Eテストとして、Seleniumテストコード実行</li>
-<li>Webアプリケーション(BFF)のコンテナイメージのビルド</li>
+<li>Webアプリケーション(BFF)のコンテナイメージのビルド、DockerHubへのプッシュ</li>
 <li>Webアプリケーション(BFF)のステージング環境へデプロイ</li>
 <li>パフォーマンステストやセキュリティテスト、受入等のその他テスト後の管理者によるリリース承認</li>
-<li>ステージング環境でテスト済みのコンテナイメージをリリース用にタグ付け</li>
+<li>ステージング環境でテスト済みのコンテナイメージをリリース用にタグ付けし、DockerHubへプッシュ</li>
 <li>プロダクション環境へリリース</li>
 </ol>
 <p><br/></p>
-<p>続く今回からは、上記の一連の流れをAWS CodePipelineを使ってパイプライン的に自動化する仕組みを構築・解説していきます。
-今回はCodePipelineの概要および、リリースまでのパイプライン構成および実行環境構成イメージを解説します。</p>
+<p>続く今回からは、上記の一連の流れをAWS CodePipelineを使ってパイプライン的に自動化する仕組みを構築・解説していきます。今回はCodePipelineの概要および、リリースまでのパイプライン構成および実行環境構成イメージを解説します。</p>
 <p><br/></p>
 </div>
 <div class="section" id="codepipeline">
-<span id="section-codebuild-setting-codepipeline-overview-label"></span><h3>CodePipelineの概要<a class="headerlink" href="#codepipeline" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<span id="section-codepipeline-setting-codepipeline-overview-label"></span><h3>CodePipelineの概要<a class="headerlink" href="#codepipeline" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
-<p>CodePipelineはアプリケーションのソースコードコミット・プッシュやプルリクエストを契機として、テスト・ビルドやステージング・プロダクション環境へのデプロイといった一連のソフトウェアリリースプロセスを自動化・可視化し、継続的インテグレーション・デリバリーを実現するサービスです。
+<p>CodePipelineはアプリケーションのソースコードコミット・プッシュやプルリクエストを契機として、テスト・ビルドやステージング・プロダクション環境へのデプロイといった一連のソフトウェアリリースプロセスを自動化・可視化し、継続的デリバリーを実現するサービスです。
 主な特徴・メリットとして、以下のような点が挙げられます。</p>
 <ul class="simple">
 <li>ECR、S3、ElasticBeanstalk、CodeCommit、CodeDeploy、CodeBuild、LambdaといったAWSの様々なサービスと統合し、リリースプロセスを構築できること。</li>
 <li>アプリケーション実行環境となるECSやEC2などへのデプロイをシームレスに行えること。</li>
-<li>クラウド実行ベースのCodeBuildとの連携により、マシンリソースを気にせず、様々なソースコードレポジトリに対し同時に多数のビルド処理やデプロイが行えること。</li>
+<li>クラウド実行ベースのCodeBuildとの連携により、マシンリソースを気にせず、様々なソースコードレポジトリに対し同時に多数のビルド処理やデプロイを同時実行できること。</li>
 <li>GitHubやJenkinsなどの主要なレポジトリやCIツールとの連携もシームレスに実行できること。</li>
 </ul>
 <p>それでは、本連載で解説中の前節のイメージ図にあるマイクロサービスアーキテクチャでのアプリケーションリリースプロセスの自動化を、CodePipelineを使って実際に進めていきましょう。</p>
 <p><br/></p>
 </div>
-<div class="section" id="section-codebuild-setting-codepipeline-pipeline-overview-label">
-<span id="id3"></span><h3>マイクロサービスでのパイプライン構成<a class="headerlink" href="#section-codebuild-setting-codepipeline-pipeline-overview-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="section-codepipeline-microservice-pipeline-overview-label">
+<span id="id3"></span><h3>マイクロサービスでのパイプライン構成<a class="headerlink" href="#section-codepipeline-microservice-pipeline-overview-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
-<p>前節のブランチ構成のイメージに基づき、feature/＊＊＊＊ブランチから、developブランチへのPRを契機として、以下のようなリリースプロセスに基づくパイプラインを構成します。</p>
+<p>前節のブランチ構成のイメージに基づき、feature/＊＊＊＊ブランチから、developブランチへのPRを契機として、前節の1〜8に対応して、以下のようなリリースプロセスに基づくパイプラインを構成します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline.png"><img alt="../_images/pipeline.png" src="../_images/pipeline.png" style="width: 734.0px; height: 953.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/pipeline.png"><img alt="../_images/pipeline.png" src="../_images/pipeline.png" style="width: 727.0px; height: 955.0px;" /></a>
 </div>
 <p><br/></p>
 <p>各パイプラインの具体的な処理のイメージは以下の通りです。</p>
@@ -232,68 +239,105 @@ developブランチへPRが発出されると、以下のようなプロセス�
 <ol class="arabic simple">
 <li>バックエンドのマイクロサービスのコンテナイメージのビルド</li>
 </ol>
+<ul class="simple">
+<li>(1-1) CodeBuildがbackendアプリケーションのステージング環境向けbuildspec.ymlに記載したビルド処理を行うコンテナを実行します。</li>
+<li>(1-2) ビルド処理の中で、アプリケーション実行コンテナイメージを作成し、DockerHubへプッシュします。</li>
+</ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline-1.png"><img alt="../_images/pipeline-1.png" src="../_images/pipeline-1.png" style="width: 1156.0px; height: 826.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/pipeline-1.png"><img alt="../_images/pipeline-1.png" src="../_images/pipeline-1.png" style="width: 1163.0px; height: 821.0px;" /></a>
 </div>
 <p><br/></p>
 <ol class="arabic simple" start="2">
 <li>マイクロサービスコンテナイメージをプロダクションとほぼ同等のステージング環境へデプロイ</li>
 </ol>
+<ul class="simple">
+<li>(2-1) ECSクラスタ上にアプリケーションコンテナを実行させる命令を発出します。</li>
+<li>(2-2) ECSエージェントが(1-2)でプッシュしたコンテナをECSクラスタ上にプルします。</li>
+<li>(2-3) ECSクラスタ上でアプリケーションコンテナが実行されます。</li>
+</ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline-2.png"><img alt="../_images/pipeline-2.png" src="../_images/pipeline-2.png" style="width: 1136.0px; height: 822.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/pipeline-2.png"><img alt="../_images/pipeline-2.png" src="../_images/pipeline-2.png" style="width: 1136.0px; height: 816.0px;" /></a>
 </div>
 <p><br/></p>
 <ol class="arabic simple" start="3">
 <li>Webアプリケーション(BFF)のE2Eテストとして、Seleniumテストコード実行</li>
 </ol>
+<ul class="simple">
+<li>(3-1) CodeBuildがBFFアプリケーションのbuildspec_e2e.ymlに記載したビルド処理(テスト)を行うコンテナを実行します。</li>
+<li>(3-2) ビルド処理の中で、GitHubからBFFのアプリケーションソースコードをクローンします。</li>
+<li>(3-3) ビルド処理の中で、MavenビルドによりSeleniumを使ったE2Eテストを実行します。E2Eテストでは２でデプロイしたバックエンドアプリケーションの呼び出しを通してテスト実行されます。</li>
+</ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline-3.png"><img alt="../_images/pipeline-3.png" src="../_images/pipeline-3.png" style="width: 1135.0px; height: 823.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/pipeline-3.png"><img alt="../_images/pipeline-3.png" src="../_images/pipeline-3.png" style="width: 1143.0px; height: 819.0px;" /></a>
 </div>
 <p><br/></p>
 <ol class="arabic simple" start="4">
 <li>Webアプリケーション(BFF)のコンテナイメージのビルド</li>
 </ol>
+<ul class="simple">
+<li>(4-1) CodeBuildがBFFアプリケーションのステージング環境向けbuildspec.ymlに記載したビルド処理を行うコンテナを実行します。</li>
+<li>(4-2) ビルド処理の中で、アプリケーション実行コンテナイメージを作成し、DockerHubへプッシュします。</li>
+</ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline-4.png"><img alt="../_images/pipeline-4.png" src="../_images/pipeline-4.png" style="width: 1136.0px; height: 828.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/pipeline-4.png"><img alt="../_images/pipeline-4.png" src="../_images/pipeline-4.png" style="width: 1131.0px; height: 818.0px;" /></a>
 </div>
 <p><br/></p>
 <ol class="arabic simple" start="5">
 <li>Webアプリケーション(BFF)のステージング環境へデプロイ</li>
 </ol>
+<ul class="simple">
+<li>(5-1) ECSクラスタ上にアプリケーションコンテナを実行させる命令を発出します。</li>
+<li>(5-2) ECSエージェントが(4-2)でプッシュしたコンテナをECSクラスタ上にプルします。</li>
+<li>(5-3) ECSクラスタ上でアプリケーションコンテナが実行されます。</li>
+</ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline-5.png"><img alt="../_images/pipeline-5.png" src="../_images/pipeline-5.png" style="width: 1134.0px; height: 822.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/pipeline-5.png"><img alt="../_images/pipeline-5.png" src="../_images/pipeline-5.png" style="width: 1132.0px; height: 820.0px;" /></a>
 </div>
 <p><br/></p>
 <ol class="arabic simple" start="6">
 <li>パフォーマンステストやセキュリティテスト、受入等のその他テスト後の管理者によるリリース承認</li>
 </ol>
+<ul class="simple">
+<li>(6-1) CodePipelineがSNSに対し承認のトピックを発行し、パイプラインを一時停止させます。</li>
+<li>(6-2) デプロイされたBackendおよびBFFアプリケーションに対してパフォーマンステストやセキュリティテストを実行します。</li>
+<li>(6-3) テストの結果を踏まえ、プロダクトオーナーやマネージャがAWSコンソールでCodePipeline上で保留しているトピックを承認・否認します。</li>
+</ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline-6.png"><img alt="../_images/pipeline-6.png" src="../_images/pipeline-6.png" style="width: 1137.0px; height: 819.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/pipeline-6.png"><img alt="../_images/pipeline-6.png" src="../_images/pipeline-6.png" style="width: 1135.0px; height: 817.0px;" /></a>
 </div>
 <p><br/></p>
 <ol class="arabic simple" start="7">
-<li>ステージング環境でテスト済みのコンテナイメージをリリース用にタグ付け</li>
+<li>ステージング環境でテスト済みのコンテナイメージをリリース用にタグ付けして、DockerHubへプッシュ</li>
 </ol>
+<ul class="simple">
+<li>(7-1) CodeBuildがアプリケーションのプロダクション環境向けbuildspec.ymlに記載したビルド処理を行うコンテナを実行します(BackendおよびBFFは並列実行)。</li>
+<li>(7-2) 各々ビルド処理の中で、アプリケーション実行コンテナイメージを作成し、DockerHubへプッシュします。</li>
+</ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline-7.png"><img alt="../_images/pipeline-7.png" src="../_images/pipeline-7.png" style="width: 1134.0px; height: 828.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/pipeline-7.png"><img alt="../_images/pipeline-7.png" src="../_images/pipeline-7.png" style="width: 1131.0px; height: 820.0px;" /></a>
 </div>
 <p><br/></p>
 <ol class="arabic simple" start="8">
 <li>プロダクション環境へリリース</li>
 </ol>
+<ul class="simple">
+<li>(8-1) ECSクラスタ上にアプリケーションコンテナを実行させる命令を発出します(BackendおよびBFFは並列実行)。</li>
+<li>(8-2) ECSエージェントが(7-2)でプッシュしたコンテナを、各々ECSクラスタ上にプルします。</li>
+<li>(8-3) 各々ECSクラスタ上でアプリケーションコンテナが実行されます。</li>
+</ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline-8.png"><img alt="../_images/pipeline-8.png" src="../_images/pipeline-8.png" style="width: 1132.0px; height: 820.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/pipeline-8.png"><img alt="../_images/pipeline-8.png" src="../_images/pipeline-8.png" style="width: 1141.0px; height: 816.0px;" /></a>
 </div>
 <p><br/></p>
-<p>次回以降は、各パイプラインの処理の内容を説明し、実際に環境を構築していきます。</p>
+<p>次回以降は、各パイプラインの処理の内容を順次説明し、実際に環境を構築していきます。</p>
 <p><br/></p>
 </div>
 </div>

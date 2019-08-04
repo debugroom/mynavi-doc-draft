@@ -69,6 +69,14 @@
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_3.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_4.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_5.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_6.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_7.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_8.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_9.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -211,7 +219,7 @@
 </div>
 <p><br/></p>
 <p>CodeBuildの主な設定項目は以下の通りです。説明に記載の要領に従って入力したのち、「ビルドプロジェクトを作成する」ボタンを押下してください。
-なお、各項目の必須は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/codebuild/latest/userguide/create-project.html#create-project-console">AWS公式 CodeBuildでビルドプロジェクトを作成する</a> にある表を参考にしてください。</p>
+なお、各項目の必須有無は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/codebuild/latest/userguide/create-project.html#create-project-console">AWS公式 CodeBuildでビルドプロジェクトを作成する</a> にある表を参考にしてください。</p>
 <p><br/></p>
 <table border="1" class="colwidths-given docutils" id="id8">
 <caption><span class="caption-text">CodeBuildの設定</span><a class="headerlink" href="#id8" title="このテーブルへのパーマリンク">¶</a></caption>
@@ -393,13 +401,13 @@
 </div>
 <p><br/></p>
 <p>また、buildspec.ymlに記載した通り、Mavenビルド中に実行したSonarScannerの実行結果も、以前の連載で設定していたSonarQubeServerへ送信されるようになります。
-Scannerの結果も合わせて確認し、静的チェックに引っかかってQualityGateをパスしているか確認しましょう。</p>
+Scannerの結果も合わせて確認し、QualityGateをパスしているか確認しましょう。</p>
 <p><br/></p>
 <div class="figure">
 <a class="reference internal image-reference" href="../_images/sonarqube-scanner-result.png"><img alt="../_images/sonarqube-scanner-result.png" src="../_images/sonarqube-scanner-result.png" style="width: 1305.0px; height: 840.0px;" /></a>
 </div>
 <p><br/></p>
-<p>なお、SonarQubeServerもWebhookにより解析が完了したタイミングで別の外部サービスへ処理完了通知することも可能です。
+<p>なお、SonarQubeServerもWebhookにより解析が完了したタイミングで、別の外部サービス(SlackやTrelloなど)へ処理完了通知することも可能です。
 詳細は <a class="reference external" href="https://docs.sonarqube.org/latest/project-administration/webhooks/">SonarQube公式 Webhooks</a> や <a class="reference external" href="https://next.sonarqube.com/sonarqube/web_api/api/webhooks">API/Webhooks</a> を参照してください。</p>
 <p><br/></p>
 <p>ビルドが正常に実行したことを確認したら、次はプルリクエストや特定のブランチに対するプッシュを契機に上記のビルド処理が実行されるよう、
@@ -474,13 +482,13 @@ GitHubへプッシュされたソースコードに対するCodeBuildを使っ�
 <p>ただし、今回、SpringBootをベースとしたWebアプリケーションで実装したSeleiumベースのE2Eテストは、バックエンドのマイクロサービスが起動している必要があるため、ビルド時に実行しないように設定しています。
 本来であれば、以降、E2Eテストを含め、以下のようなプロセス例でプロダクション環境へのリリースを検討します。</p>
 <ol class="arabic simple">
-<li>バックエンドのマイクロサービスのコンテナイメージのビルド</li>
+<li>バックエンドのマイクロサービスのコンテナイメージのビルド、DockerHubへのプッシュ</li>
 <li>マイクロサービスコンテナイメージをプロダクションとほぼ同等のステージング環境へデプロイ</li>
 <li>Webアプリケーション(BFF)のE2Eテストとして、Seleniumテストコード実行</li>
-<li>Webアプリケーション(BFF)のコンテナイメージのビルド</li>
+<li>Webアプリケーション(BFF)のコンテナイメージのビルド、DockerHubへのプッシュ</li>
 <li>Webアプリケーション(BFF)のステージング環境へデプロイ</li>
 <li>パフォーマンステストやセキュリティテスト、受入等のその他テスト後の管理者によるリリース承認</li>
-<li>ステージング環境でテスト済みのコンテナイメージをリリース用にタグ付け</li>
+<li>ステージング環境でテスト済みのコンテナイメージをリリース用にタグ付け、DockerHubへのプッシュ</li>
 <li>プロダクション環境へリリース</li>
 </ol>
 <p>次回以降、AWS CodePipelineを使って、上記をパイプライン的に自動化する仕組みを構築・解説していきます。</p>

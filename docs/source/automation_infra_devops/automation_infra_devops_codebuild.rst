@@ -68,7 +68,7 @@ AWSコンソールメニューから、「CodeBuild」サービスを選択し�
 |br|
 
 CodeBuildの主な設定項目は以下の通りです。説明に記載の要領に従って入力したのち、「ビルドプロジェクトを作成する」ボタンを押下してください。
-なお、各項目の必須は `AWS公式 CodeBuildでビルドプロジェクトを作成する <https://docs.aws.amazon.com/ja_jp/codebuild/latest/userguide/create-project.html#create-project-console>`_ にある表を参考にしてください。
+なお、各項目の必須有無は `AWS公式 CodeBuildでビルドプロジェクトを作成する <https://docs.aws.amazon.com/ja_jp/codebuild/latest/userguide/create-project.html#create-project-console>`_ にある表を参考にしてください。
 
 |br|
 
@@ -270,7 +270,7 @@ Buildの実行とWebHook設定
 |br|
 
 また、buildspec.ymlに記載した通り、Mavenビルド中に実行したSonarScannerの実行結果も、以前の連載で設定していたSonarQubeServerへ送信されるようになります。
-Scannerの結果も合わせて確認し、静的チェックに引っかかってQualityGateをパスしているか確認しましょう。
+Scannerの結果も合わせて確認し、QualityGateをパスしているか確認しましょう。
 
 |br|
 
@@ -279,7 +279,7 @@ Scannerの結果も合わせて確認し、静的チェックに引っかかっ�
 
 |br|
 
-なお、SonarQubeServerもWebhookにより解析が完了したタイミングで別の外部サービスへ処理完了通知することも可能です。
+なお、SonarQubeServerもWebhookにより解析が完了したタイミングで、別の外部サービス(SlackやTrelloなど)へ処理完了通知することも可能です。
 詳細は `SonarQube公式 Webhooks <https://docs.sonarqube.org/latest/project-administration/webhooks/>`_ や `API/Webhooks <https://next.sonarqube.com/sonarqube/web_api/api/webhooks>`_ を参照してください。
 
 |br|
@@ -384,13 +384,13 @@ SonarQubeServerではALB、ECS、RDSを使用して環境構築することに�
 ただし、今回、SpringBootをベースとしたWebアプリケーションで実装したSeleiumベースのE2Eテストは、バックエンドのマイクロサービスが起動している必要があるため、ビルド時に実行しないように設定しています。
 本来であれば、以降、E2Eテストを含め、以下のようなプロセス例でプロダクション環境へのリリースを検討します。
 
-#. バックエンドのマイクロサービスのコンテナイメージのビルド
+#. バックエンドのマイクロサービスのコンテナイメージのビルド、DockerHubへのプッシュ
 #. マイクロサービスコンテナイメージをプロダクションとほぼ同等のステージング環境へデプロイ
 #. Webアプリケーション(BFF)のE2Eテストとして、Seleniumテストコード実行
-#. Webアプリケーション(BFF)のコンテナイメージのビルド
+#. Webアプリケーション(BFF)のコンテナイメージのビルド、DockerHubへのプッシュ
 #. Webアプリケーション(BFF)のステージング環境へデプロイ
 #. パフォーマンステストやセキュリティテスト、受入等のその他テスト後の管理者によるリリース承認
-#. ステージング環境でテスト済みのコンテナイメージをリリース用にタグ付け
+#. ステージング環境でテスト済みのコンテナイメージをリリース用にタグ付け、DockerHubへのプッシュ
 #. プロダクション環境へリリース
 
 次回以降、AWS CodePipelineを使って、上記をパイプライン的に自動化する仕組みを構築・解説していきます。

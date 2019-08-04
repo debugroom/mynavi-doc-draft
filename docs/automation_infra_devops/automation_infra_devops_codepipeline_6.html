@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>基盤・デプロイ自動化実践 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="基盤・デプロイ自動化実践" href="automation_infra_devops_codepipeline_7.html" />
+    <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_codepipeline_5.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarqube.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarlint.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_architecture.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_integrationtest.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unittest.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unit_e2e_test.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codebuild.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_3.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_4.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_5.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_7.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_8.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_9.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
+<li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li><a class="reference internal" href="#web">(5)Webアプリケーションコンテナをステージング環境へデプロイするパイプラインの構築</a></li>
+<li><a class="reference internal" href="#web-bff">事前準備：Web(BFF)アプリケーションのステージング環境の構築</a></li>
+<li><a class="reference internal" href="#aws-sysmtems-managers-parameter-storeecs">AWS Sysmtems Managers Parameter Storeでの環境変数の定義とECSサービスロールへのアクセス権限の付与</a></li>
+<li><a class="reference internal" href="#section-codepipeline-setting-pipeline-deploy-bff-staging-label">Web(BFF)アプリケーションのステージング環境へのデプロイ</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="automation_infra_devops_codepipeline_5.html" title="Previous Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 基盤・デプロイ自動化実践</span>
+    </a>
+  </li>
+  <li>
+    <a href="automation_infra_devops_codepipeline_7.html" title="Next Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">基盤・デプロイ自動化実践 &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/automation_infra_devops/automation_infra_devops_codepipeline_6.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="section-automation-infra-devops-codepipeline-6-label">
+<span id="id1"></span><h1>基盤・デプロイ自動化実践<a class="headerlink" href="#section-automation-infra-devops-codepipeline-6-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id2">
+<h2>マイクロサービスアーキテクチャの基盤・デプロイ自動化<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="web">
+<span id="section-codepipeline-setting-codepipeline-deploy-bff-label"></span><h3>(5)Webアプリケーションコンテナをステージング環境へデプロイするパイプラインの構築<a class="headerlink" href="#web" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>本連載では、マイクロサービスアーキテクチャでの継続的デリバリ(Continuous Delivery:CD)を以下のようなパイプラインで実現していきます。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pipeline.png"><img alt="../_images/pipeline.png" src="../_images/pipeline.png" style="width: 727.0px; height: 955.0px;" /></a>
+</div>
+<p><br/></p>
+<p>前回は(4)E2Eテストが完了したWeb(BackendForFrontend:BFF)アプリケーションのコンテナイメージをビルドして、DockerHubへプッシュするパイプラインを構築しました。
+続く今回は、そのコンテナをステージング環境へデプロイするパイプラインを構築します。</p>
+<p><br/></p>
+<ol class="arabic simple" start="5">
+<li>Webアプリケーション(BFF)のステージング環境へデプロイ</li>
+</ol>
+<ul class="simple">
+<li>(5-1) ECSクラスタ上にアプリケーションコンテナを実行させる命令を発出します。</li>
+<li>(5-2) ECSエージェントが(4-2)でプッシュしたコンテナをECSクラスタ上にプルします。</li>
+<li>(5-3) ECSクラスタ上でアプリケーションコンテナが実行されます。</li>
+</ul>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pipeline-5.png"><img alt="../_images/pipeline-5.png" src="../_images/pipeline-5.png" style="width: 1132.0px; height: 820.0px;" /></a>
+</div>
+<p><br/></p>
+</div>
+<div class="section" id="web-bff">
+<span id="section-codepipeline-setting-bff-staging-environment-label"></span><h3>事前準備：Web(BFF)アプリケーションのステージング環境の構築<a class="headerlink" href="#web-bff" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>パイプラインの設定を行う前に、BFFアプリケーションをデプロイする先であるステージング環境のアプリケーションロードバランサ、ECSクラスタ、タスク定義、サービスの構築を行います。
+作成方法の要領は、以下の手順と同様です。</p>
+<ul class="simple">
+<li>アプリケーションロードバランサ： <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4359">AWS ECS上に構築するSpringアプリケーション(2)</a></li>
+<li>ECSクラスタ： <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4405">AWS ECS上に構築するSpringアプリケーション(5)</a></li>
+<li>ECSタスク定義： <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4408">AWS ECS上に構築するSpringアプリケーション(6)</a></li>
+<li>ECSサービス実行： <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4416">AWS ECS上に構築するSpringアプリケーション(7)</a></li>
+</ul>
+<p><br/></p>
+<p>上記の設定では、マイクロサービスにおけるステージング環境の構築と同様、<a class="reference internal" href="automation_infra_devops_codepipeline_3.html#section-codepipeline-setting-codepipeline-backend-staging-environment-label"><span class="std std-ref">事前準備：マイクロサービスのステージング環境の構築</span></a> の表の記載してある、
+タスクのメモリ、CPU、コンテナ名、イメージ設定で同様の留意が必要です。加えて、BFFアプリケーションは、マイクロサービスを呼び出すため、
+バックエンドサブネットのロードバランサのDNSを <a class="reference external" href="https://github.com/debugroom/mynavi-sample-continuous-integration/blob/master/backend-for-frontend/src/main/resources/application.yml">applicaiton.yml</a> で環境変数から取得するよう定義しています。
+そのため、このアプリケーションロードバランサのDNSを、BFFアプリケーションコンテナの実行時に環境変数として渡すように、下記の要領に従って設定します。
+コンテナ実行時に参照する環境変数はECSタスク定義で設定しておくことが可能ですが、ここでは更に、SystemsManager ParameterStoreを経由して環境変数を取得するものとし、ECSサービスを実行するサービスロールにSSMのアクセス権限を付与しておきましょう。
+このように設定しておくことで、ステージング・プロダクションともに同一のコンテナイメージで、コンテナ実行時の環境変数を切り替えて、テストが完了したステージング環境のコンテナイメージをそのままプロダクション環境で利用できるようになります。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="20%" />
+<col width="30%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>設定箇所</td>
+<td>設定内容</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td>ECSタスク定義：コンテナの追加</td>
+<td>環境：環境変数</td>
+<td>バックエンドマイクロサービスへパスルーティングするアプリケーションロードバランサのDNSをSERVICE_DNS環境変数として設定します。ステージング環境での具体的な設定値は、SystemsManagerParameterStoreで定義した&quot;SERVICE_DNS_STAGING&quot;から取得するよう、ValueFromフィールドを設定します。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management_console_ecs_task_definition_bff_staging_1.png"><img alt="../_images/management_console_ecs_task_definition_bff_staging_1.png" src="../_images/management_console_ecs_task_definition_bff_staging_1.png" style="width: 534.0px; height: 1247.0px;" /></a>
+</div>
+<p><br/></p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management_console_ecs_task_definition_bff_staging_2.png"><img alt="../_images/management_console_ecs_task_definition_bff_staging_2.png" src="../_images/management_console_ecs_task_definition_bff_staging_2.png" style="width: 773.0px; height: 809.0px;" /></a>
+</div>
+<p><br/></p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management_console_ecs_task_definition_bff_staging_3.png"><img alt="../_images/management_console_ecs_task_definition_bff_staging_3.png" src="../_images/management_console_ecs_task_definition_bff_staging_3.png" style="width: 747.0px; height: 607.0px;" /></a>
+</div>
+<p><br/></p>
+<p><br/></p>
+</div>
+<div class="section" id="aws-sysmtems-managers-parameter-storeecs">
+<span id="section-codepipeline-setting-ssm-definition-bff-staging-and-ecs-service-role-label"></span><h3>AWS Sysmtems Managers Parameter Storeでの環境変数の定義とECSサービスロールへのアクセス権限の付与<a class="headerlink" href="#aws-sysmtems-managers-parameter-storeecs" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>CodePipelineの設定を行う前に、前節のECSで使用する環境変数を定義しておきます。設定の要領は、 <a class="reference internal" href="automation_infra_devops_codebuild_local.html#section-codebuild-setting-sms-label"><span class="std std-ref">AWS Systems Manager Parameter Storeの概要と設定</span></a> と同様です。以下のパラメータを定義します。</p>
+<ul class="simple">
+<li>&quot;SERVICE_DNS_STAGING&quot;：前節で作成したアプリケーションロードバランサーのDNS</li>
+</ul>
+<p><br/></p>
+<p>また、前節で設定しているECSのタスク実行IAMロールにSystemsManagerParameterStoreのアクセス権限を付与しておきましょう。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_40_add_ssm_to_ecs_task.png"><img alt="../_images/management_console_codepipeline_edit_project_40_add_ssm_to_ecs_task.png" src="../_images/management_console_codepipeline_edit_project_40_add_ssm_to_ecs_task.png" style="width: 780.0px; height: 490.0px;" /></a>
+</div>
+<p><br/></p>
+</div>
+<div class="section" id="section-codepipeline-setting-pipeline-deploy-bff-staging-label">
+<span id="id3"></span><h3>Web(BFF)アプリケーションのステージング環境へのデプロイ<a class="headerlink" href="#section-codepipeline-setting-pipeline-deploy-bff-staging-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>これまで作成してきたCodePipelineを編集して、BFFアプリケーションのコンテナイメージをデプロイ設定します。
+AWSコンソールの「CodePipeline」サービスを選択し、パイプラインを選択して、「編集する」ボタンを押下します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_31_build_bff_staging.png"><img alt="../_images/management_console_codepipeline_edit_project_31_build_bff_staging.png" src="../_images/management_console_codepipeline_edit_project_31_build_bff_staging.png" style="width: 1062.0px; height: 910.0px;" /></a>
+</div>
+<p><br/></p>
+<p>「ステージを追加する」ボタンを押下し、新たなステージを追加します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_41_deploy_bff_staging.png"><img alt="../_images/management_console_codepipeline_edit_project_41_deploy_bff_staging.png" src="../_images/management_console_codepipeline_edit_project_41_deploy_bff_staging.png" style="width: 653.0px; height: 431.0px;" /></a>
+</div>
+<p><br/></p>
+<p>任意のステージ名を設定します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_42_deploy_bff_staging.png"><img alt="../_images/management_console_codepipeline_edit_project_42_deploy_bff_staging.png" src="../_images/management_console_codepipeline_edit_project_42_deploy_bff_staging.png" style="width: 400.0px; height: 212.0px;" /></a>
+</div>
+<p><br/></p>
+<p>コンテナイメージをデプロイするための設定を行います。以下の要領でアクションを設定し、「完了」ボタンを押下します。</p>
+<ul class="simple">
+<li>アクション名：任意のアクション名を追加します。</li>
+<li>アクションプロバイダー：「Amazon ECS」を選択します。</li>
+<li>リージョン：ステージング環境があるリージョンを選択します。</li>
+<li>入力アーティファクト：前回のコンテナをビルドするパイプラインで出力アーティファクトとなっている「BuildArtifact-BFF」を選択します。なお、この実体はimagedefinition.jsonであり、S3に保存されています。</li>
+<li>クラスタ名： 前節で作成したECSクラスタを選択します。</li>
+<li>サービス名： 前節で作成したECSサービスを選択します。</li>
+<li>イメージ定義ファイル：前回のパイプライン処理でbuildspec.ymlで出力したimagedefition.jsonを設定します。</li>
+</ul>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_43_deploy_bff_staging.png"><img alt="../_images/management_console_codepipeline_edit_project_43_deploy_bff_staging.png" src="../_images/management_console_codepipeline_edit_project_43_deploy_bff_staging.png" style="width: 788.0px; height: 777.0px;" /></a>
+</div>
+<p><br/></p>
+<p>設定完了後、「変更をリリースする」ボタンを押下し、デプロイが問題なく完了するか確認します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_44_deploy_bff_staging.png"><img alt="../_images/management_console_codepipeline_edit_project_44_deploy_bff_staging.png" src="../_images/management_console_codepipeline_edit_project_44_deploy_bff_staging.png" style="width: 671.0px; height: 792.0px;" /></a>
+</div>
+<p><br/></p>
+<p>これでBFFアプリケーションをステージング環境へデプロイするパイプラインが作成できました。次回は、AmazonSNSへのトピックの作成とパイプラインの一時停止を行い、ステージング環境で実行したテスト結果を確認し、プロダクション環境へのリリースを承認するプロセスを行うパイプラインを作成します。</p>
+<p><br/></p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>著者紹介<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pic_image01.jpg"><img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+</div>
+<p>金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p><a class="reference external" href="https://aws.amazon.com/jp/blogs/psa/japan-apn-ambassador-2019/">2019 APN AWS Top Engineers &amp; Ambassadors</a> 選出。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

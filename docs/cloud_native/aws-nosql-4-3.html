@@ -66,6 +66,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unittest.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_3.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_4.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_5.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_6.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_7.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_8.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -246,8 +256,9 @@
 <p>Controllerでは、リクエストを受け取り、上記のオブジェクトの変数である、ホスト名と最新日時を更新した後、セッションに保存して、結果をテンプレートに渡す処理を実装します。
 オブジェクトには&#64;SessionScopeアノテーションが付与されているので、Controllerクラスで対象オブジェクトを&#64;Autowiredすれば、固有のセッションを取得できます。
 オブジェクトのパラメータを更新するだけで自動的にセッション内のデータも更新されるようになります。</p>
-<p>また、次回以降、AWS ECSを使って複数のコンテナ上で、当アプリケーションを実行しますが、画面から指定するcontainerGroupというパラメータで
-アプリケーションロードバランサーが実行するコンテナを振り分けて指定できるように、セッションを保存するURLにはパスパターンにパラメータを含めておきましょう。</p>
+<p>また、次回以降、AWS ECSを使って複数のコンテナ上で、当アプリケーションを実行しますが、異なるコンテナ上で実行されている複数のアプリケーションが共通して、
+同じセッションデータを保存しているElastiCacheにアクセスしていることが分かるように、リクエストのパスによって異なるコンテナへアクセスするよう、ALBのパスベースルーティングを利用します。
+画面から指定するcontainerGroupというパラメータでアプリケーションロードバランサーが実行するコンテナを振り分けて指定できるように、セッションを保存するURLにはパスパターンにパラメータを含めておきましょう。</p>
 <p>その他、セッションを無効化する処理をもつメソッドも合わせて実装しておきます。</p>
 <p><br/></p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.elasticache.app.web</span><span class="o">;</span>

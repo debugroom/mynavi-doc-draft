@@ -68,6 +68,14 @@
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_3.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_4.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_5.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_6.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_7.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_8.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -299,12 +307,98 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_1.html">基盤・デプロイ自動化実践</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_1.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_1.html#aws-codepipeline">AWS CodePipeLineを用いた継続的デリバリ自動化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_1.html#aws-codepipeline">AWS CodePipeLineを用いた継続的デリバリ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_1.html#codepipeline">CodePipelineの概要</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_1.html#section-codebuild-setting-codepipeline-pipeline-overview-label">マイクロサービスでのパイプライン構成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_1.html#section-codepipeline-microservice-pipeline-overview-label">マイクロサービスでのパイプライン構成</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_1.html#id4">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_2.html">基盤・デプロイ自動化実践</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_2.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_2.html#dockerhub">(1)バックエンドのマイクロサービスアプリケーションをビルドし、DockerHubへプッシュするパイプラインの構築</a></li>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_2.html#backendbuildspec-ymldockerfile">Backendマイクロサービスのコンテナイメージをビルドするbuildspec.ymlおよびDockerfileの作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_2.html#aws-sysmtems-managers-parameter-store">AWS Sysmtems Managers Parameter Storeでの環境変数の定義</a></li>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_2.html#codepipeline">CodePipelineの設定</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_2.html#id3">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_3.html">基盤・デプロイ自動化実践</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_3.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_3.html#section-codepipeline-setting-codepipeline-deploy-backend-staging-label">(2)バックエンドマイクロサービスのコンテナイメージをデプロイするパイプラインの構築</a></li>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_3.html#section-codepipeline-setting-codepipeline-backend-staging-environment-label">事前準備：マイクロサービスのステージング環境の構築</a></li>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_3.html#section-codepipeline-setting-pipeline-deploy-backend-staging-label">マイクロサービスのステージング環境へのデプロイパイプラインの設定</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_3.html#id6">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_4.html">基盤・デプロイ自動化実践</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_4.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_4.html#e2e">(3)E2Eテストを実行するパイプラインの構築</a></li>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_4.html#e2ebuildspec-yml">E2Eテストを実行するbuildspec.ymlの実装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_4.html#section-codepipeline-setting-pipeline-for-e2etest-label">E2Eテストを実行するパイプラインの設定</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_4.html#id4">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_5.html">基盤・デプロイ自動化実践</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_5.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_5.html#web-bff-dockerhub">(4)Web(BFF)アプリケーションのコンテナイメージをビルドして、DockerHubへプッシュするパイプラインの構築</a></li>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_5.html#bffbuildspec-ymldockerfile">BFFアプリケーションをビルドするbuildspec.ymlおよびDockerfileの作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_5.html#aws-sysmtems-managers-parameter-store">AWS Sysmtems Managers Parameter Storeでの環境変数の定義</a></li>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_5.html#codepipeline">ビルドプロジェクトの作成とCodePipelineの設定</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_5.html#id3">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_6.html">基盤・デプロイ自動化実践</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_6.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_6.html#web">(5)Webアプリケーションコンテナをステージング環境へデプロイするパイプラインの構築</a></li>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_6.html#web-bff">事前準備：Web(BFF)アプリケーションのステージング環境の構築</a></li>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_6.html#aws-sysmtems-managers-parameter-storeecs">AWS Sysmtems Managers Parameter Storeでの環境変数の定義とECSサービスロールへのアクセス権限の付与</a></li>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_6.html#section-codepipeline-setting-pipeline-deploy-bff-staging-label">Web(BFF)アプリケーションのステージング環境へのデプロイ</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_6.html#id4">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_7.html">基盤・デプロイ自動化実践</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_7.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_7.html#section-codepipeline-setting-codepipeline-approve-production-label">(6)プロダクション環境へのリリース承認を行うパイプラインの構築</a></li>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_7.html#amazon-sns">Amazon SNSの概要と承認トピックの作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_7.html#section-codepipeline-setting-pipeline-for-release-approval-label">プロダクション環境へのリリース承認フローパイプラインの設定</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_7.html#id5">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_8.html">基盤・デプロイ自動化実践</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_8.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_8.html#dockerhub">(7)プロダクション環境へリリースするコンテナイメージをビルドして、DockerHubへプッシュするパイプラインの構築</a></li>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_8.html#buildspec-yml">プロダクション環境のコンテナイメージをビルドするbuildspec.ymlの作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_8.html#aws-sysmtems-managers-parameter-store">AWS Sysmtems Managers Parameter Storeでの環境変数の定義</a></li>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_8.html#codepipeline">ビルドプロジェクトの作成とCodePipelineの設定</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_8.html#id3">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html">基盤・デプロイ自動化実践</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html#section-codepipeline-setting-codepipeline-deploy-label">(8)プロダクション環境へデプロイするパイプラインの構築</a></li>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html#section-codepipeline-setting-codepipeline-production-environment-label">事前準備：アプリケーションのプロダクション環境の構築</a></li>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html#aws-sysmtems-managers-parameter-store">AWS Sysmtems Managers Parameter Storeでの環境変数の定義</a></li>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html#section-codebuild-setting-pipeline-deploy-production-label">プロダクション環境デプロイのパイプラインの作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html#section-codepipeline-conclusion-label">マイクロサービスにおける継続的デリバリーのまとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html#id7">著者紹介</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
