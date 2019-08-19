@@ -190,7 +190,7 @@
 <p><br/></p>
 <p>アプリケーションコンポーネントの実装に移ります。Controllerでは、以下3種類の処理を実装します。</p>
 <ul class="simple">
-<li>S3のバケット内にアップロードしている画像ファイル「sample.png」を取得し、MediaType.IMAGE_PNG_VALUEとして、画像データをレスポンスとして返却する処理※</li>
+<li>S3のバケット内にアップロードしている画像ファイル「sample.jpg」を取得し、MediaType.IMAGE_JPEG_VALUEとして、画像データをレスポンスとして返却する処理※</li>
 <li>S3のバケット内にアップロードしているテキストファイル「test.txt」を取得し、中身の文字列をレスポンスとして返却する処理</li>
 <li>画面からアップロードされたマルチパート形式のファイルをS3バケットに保存し、「uploadResult.html」へリダイレクトする処理</li>
 </ul>
@@ -399,6 +399,26 @@ WritableResourceとして取得し、OutputStreamにデータを保存します�
     <span class="o">}</span>
 <span class="o">}</span>
 </pre></div>
+</div>
+<p><br/></p>
+<p>実装が完了したら、画面を作成し、実際に画像がダウンロードされるかを確認し、アップロード処理を実行してみましょう。
+今回アップロードしていた「sample.jpg」は当連載のバナー画像であり、「test.txt」をアップロードして、
+「Get TextFile Body」ボタンを押して、その内容を取得してみます。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/webapp-1.png"><img alt="../_images/webapp-1.png" src="../_images/webapp-1.png" style="width: 1031.0px; height: 632.0px;" /></a>
+</div>
+<p><br/></p>
+<p>ファイルがアップロードされていることが確認できます。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-s3-view-bucket.png"><img alt="../_images/management-console-s3-view-bucket.png" src="../_images/management-console-s3-view-bucket.png" style="width: 918.0px; height: 481.0px;" /></a>
+</div>
+<p><br/></p>
+<p>アップロードしたファイルを取得します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/webapp-2.png"><img alt="../_images/webapp-2.png" src="../_images/webapp-2.png" style="width: 966.0px; height: 657.0px;" /></a>
 </div>
 <p><br/></p>
 <p>このように、S3にアクセスしてダウンロード・アップロードするアプリケーションをSpring Cloud AWSを用いて簡単に実装することができます。

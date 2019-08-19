@@ -35,7 +35,7 @@ Spring Cloud AWSを使ったS3アクセスアプリケーション(2)
 
 アプリケーションコンポーネントの実装に移ります。Controllerでは、以下3種類の処理を実装します。
 
-* S3のバケット内にアップロードしている画像ファイル「sample.png」を取得し、MediaType.IMAGE_PNG_VALUEとして、画像データをレスポンスとして返却する処理※
+* S3のバケット内にアップロードしている画像ファイル「sample.jpg」を取得し、MediaType.IMAGE_JPEG_VALUEとして、画像データをレスポンスとして返却する処理※
 * S3のバケット内にアップロードしているテキストファイル「test.txt」を取得し、中身の文字列をレスポンスとして返却する処理
 * 画面からアップロードされたマルチパート形式のファイルをS3バケットに保存し、「uploadResult.html」へリダイレクトする処理
 
@@ -256,6 +256,35 @@ WritableResourceとして取得し、OutputStreamにデータを保存します�
            e.printStackTrace();;
        }
    }
+
+|br|
+
+実装が完了したら、画面を作成し、実際に画像がダウンロードされるかを確認し、アップロード処理を実行してみましょう。
+今回アップロードしていた「sample.jpg」は当連載のバナー画像であり、「test.txt」をアップロードして、
+「Get TextFile Body」ボタンを押して、その内容を取得してみます。
+
+|br|
+
+.. figure:: img/aws-s3/webapp-1.png
+   :scale: 100%
+
+|br|
+
+ファイルがアップロードされていることが確認できます。
+
+|br|
+
+.. figure:: img/aws-s3/management-console-s3-view-bucket.png
+   :scale: 100%
+
+|br|
+
+アップロードしたファイルを取得します。
+
+|br|
+
+.. figure:: img/aws-s3/webapp-2.png
+   :scale: 100%
 
 |br|
 
