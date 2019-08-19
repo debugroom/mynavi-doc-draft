@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AWSで作るクラウドネイティブアプリケーションの基本 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-s3-2.html" />
+    <link rel="prev" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-nosql-4-6.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_sonarqube.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_sonarlint.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_architecture.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_unittest-1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_unittest-2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unittest.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_3.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_4.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_5.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_6.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_7.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_8.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_9.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
+<li><a class="reference internal" href="#amazon-s3">Amazon S3の概要とバケットの作成・ファイルのアップロード</a><ul>
+<li><a class="reference internal" href="#section-cloud-native-s3-overview-label">Amazon S3の概要</a></li>
+<li><a class="reference internal" href="#section-cloud-native-s3-create-bucket-and-upload-label">バケットの作成とファイルのアップロード</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="aws-nosql-4-6.html" title="Previous Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; AWSで作るクラウドネイテ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="aws-s3-2.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/cloud_native/aws-s3-1.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="aws">
+<span id="section-cloud-native-s3-label1-1"></span><h1>AWSで作るクラウドネイティブアプリケーションの基本<a class="headerlink" href="#aws" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="amazon-s3">
+<span id="section-cloud-native-s3-1st-label"></span><h2>Amazon S3の概要とバケットの作成・ファイルのアップロード<a class="headerlink" href="#amazon-s3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>クラウド上のストレージとして、AWSで利用可能なAmazon S3。今回はSpring Cloud AWSを用いてAmazon S3へアクセスするSpringアプリケーションの実装方法について解説します。</p>
+<p>本連載では、以下のステップで解説を進めていきます。</p>
+<p><br/></p>
+<ol class="arabic simple">
+<li><strong>Amazon S3の概要とバケットの作成・ファイルのアップロード</strong></li>
+<li>Spring Cloud AWSを用いたアプリケーション実装(1)</li>
+<li>Spring Cloud AWSを用いたアプリケーション実装(2)</li>
+</ol>
+<p><br/></p>
+<p>なお、本連載は以下の前提知識がある開発者を想定しています。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>対象読者</td>
+<td>前提知識</td>
+</tr>
+<tr class="row-even"><td>エンタープライズ開発者</td>
+<td>Java言語及びSpringFrameworkを使った開発に従事したことがある経験者。経験がなければ、<br/>
+<a class="reference external" href="http://terasolunaorg.github.io/guideline/5.5.1.RELEASE/ja/Tutorial/index.html">こちらのチュートリアル</a> を実施することを推奨します。TERASOLUNAはSpringのベストプラクティスをまとめた開発方法論で、このチュートリアルでは、JavaやSpring Frameworkを使った開発に必要な最低限の知識を得ることができます。</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>GitHubなどのバージョン管理ツールやApache Mavenなどのライブラリ管理ツールを使った開発に従事したことがある経験者。</td>
+</tr>
+<tr class="row-even"><td>AWS開発経験者</td>
+<td>AWSアカウントをもち、コンソール上で各サービスを実行したことがある経験者</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>また、動作環境は以下のバージョンで実施しています。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>動作対象</td>
+<td>バージョン</td>
+</tr>
+<tr class="row-even"><td>Java</td>
+<td>1.8</td>
+</tr>
+<tr class="row-odd"><td>Spring Boot</td>
+<td>2.1.6.RELEASE</td>
+</tr>
+<tr class="row-even"><td>Spring Cloud AWS</td>
+<td>2.1.2.RELEASE</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>将来的には、AWSコンソール上の画面イメージや操作、バージョンアップによりJavaのソースコード内で使用するクラスが異なる可能性があります。</p>
+<p><br/></p>
+<div class="section" id="section-cloud-native-s3-overview-label">
+<span id="id2"></span><h3>Amazon S3の概要<a class="headerlink" href="#section-cloud-native-s3-overview-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>Amazon S3(Simple Storage Service)は、各リージョン毎で利用可能なWebベースのデータストレージサービスで、基本的にAWSコンソールやアプリケーションを経由して、データの保存や取出しが可能です。保存できるファイル数に限界はありませんが、
+1ファイルあたり最大5TBに制限されます。</p>
+<p>保存先のストレージの主な特徴として、データセンタ内の複数ストレージに必ず3箇所以上に複製されることにより、
+きわめて高い信頼性を確保する(イレブン9のオーダー)とともにファイルにバージョンが付与可能なため、ユーザの誤操作による復元も可能となっています。
+なお、S3のデータは同一リージョンの専用のデータ領域に保存されます。</p>
+<p>データは、ユーザが最初に作成する「バケット」と呼ばれる保存場所に「オブジェクト」として、アップロードする形となります。
+オブジェクトを保存するときは、オプションでスタンダード、低冗長化、標準IA、Glacierが選択できます。
+発生料金は、概ね以下の通り、データ使用量に応じた従量課金性(リージョンにより単価は異なる)ですが、信頼性とアクセス頻度に応じて異なります。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="30%" />
+<col width="30%" />
+<col width="40%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">オプション</th>
+<th class="head">信頼性</th>
+<th class="head">料金</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>スタンダード</td>
+<td>99.999999999%</td>
+<td>1GBあたり３円程度</td>
+</tr>
+<tr class="row-odd"><td>低冗長化</td>
+<td>99.99%</td>
+<td>スタンダードの2/3</td>
+</tr>
+<tr class="row-even"><td>標準IA</td>
+<td>99.999999999%</td>
+<td>スタンダードの2/3 <br/> ただし、アクセス料金が高い</td>
+</tr>
+<tr class="row-odd"><td>Glacier</td>
+<td>99.999999999%</td>
+<td>スタンダードの1/3 <br/> データの取り出しに数時間必要。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>S3へアクセスする全ての通信はSSLによって暗号化され、バケットごとにポリシーを設定でき、アクセスを詳細に制御可能です。
+アップロードデータの自動暗号化機能もあり、こちらを有効化すると情報漏洩が発生してもデータの参照はできません。</p>
+<p>また、S3はWebサーバとしても動作し、アップロードされたデータをそのままコンテンツとして保存できます。
+ただし、スクリプト言語やデータベースの導入はできないため、動的なコンテンツは利用できませんが、HTMLや画像ファイルなどの静的なコンテンツならば、
+信頼性が高いWebサイトをそのまま構築することが可能です。</p>
+<p><br/></p>
+</div>
+<div class="section" id="section-cloud-native-s3-create-bucket-and-upload-label">
+<span id="id3"></span><h3>バケットの作成とファイルのアップロード<a class="headerlink" href="#section-cloud-native-s3-create-bucket-and-upload-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>まず最初にデータを保存するためのバケットを作成しましょう。AWSマネジメントコンソールからS3サービスメニューを選択し、「バケットを作成する」ボタンを押下して、バケット名とリージョンを選択します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-s3-create-bucket-1.png"><img alt="../_images/management-console-s3-create-bucket-1.png" src="../_images/management-console-s3-create-bucket-1.png" style="width: 1096.0px; height: 791.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">バケット名には小文字の英文字、数字およびハイフン(-)やドット(.)を含むことができますが、S3へのダイレクトアップロード時などにドットを含めるとエラーとなるため、<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/dev/BucketRestrictions.html">AWS 公式ページ「バケット命名規則」</a> に従って、バケット名を作成してください。なお、作成後にバケット名を変更することはできません。</p>
+</div>
+<p><br/></p>
+<p>オプションは今回は何も設定せず、「次へ」ボタンを押下します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-s3-create-bucket-2.png"><img alt="../_images/management-console-s3-create-bucket-2.png" src="../_images/management-console-s3-create-bucket-2.png" style="width: 1091.0px; height: 791.0px;" /></a>
+</div>
+<p><br/></p>
+<p>アクセス制御ではパブリックアクセスをブロックしておきます。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-s3-create-bucket-3.png"><img alt="../_images/management-console-s3-create-bucket-3.png" src="../_images/management-console-s3-create-bucket-3.png" style="width: 1092.0px; height: 792.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">最近では、S3のドメインを自動スキャンしてパブリックアクセスが可能なバケットに悪意のあるJavaScriptのコードを埋め込むセキュリティ攻撃が確認されているため、開発や検証用途のバケットだとしても基本的にパブリックアクセスは避けるように設定しましょう。</p>
+</div>
+<p><br/></p>
+<p>設定内容を確認し、「バケットを作成」ボタンを押下します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-s3-create-bucket-4.png"><img alt="../_images/management-console-s3-create-bucket-4.png" src="../_images/management-console-s3-create-bucket-4.png" style="width: 1096.0px; height: 793.0px;" /></a>
+</div>
+<p><br/></p>
+<p>バケットを作成できたら、ファイルをアップロードしてみましょう。作成したバケットを選択し、「アップロード」ボタンを押下します。
+ダイアログが出てきたら「ファイルを追加」ボタンを押下し、ファイルを選択します。選択したら「次へ」ボタンを押下します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-s3-upload-file-1.png"><img alt="../_images/management-console-s3-upload-file-1.png" src="../_images/management-console-s3-upload-file-1.png" style="width: 1093.0px; height: 694.0px;" /></a>
+</div>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">Amazon S3 では、オブジェクトのキー名に基づきバケットが仕切られるため、タイムスタンプやアルファベット順など、重複するプレフィックスを使用すると、特定のパーティションが使用される確率が高くなります。S3のリクエストのワークロードが1秒につき、100を超えるPUT、LIST、DELETE、あるいは300を超えるGETが見込まれるとき、<a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/request-rate-perf-considerations.html">ガイドライン</a> に従い、パフォーマンスの向上のためにバケット名の先頭に異なる英数字の使用を検討しましょう。</p>
+</div>
+<p><br/></p>
+<p>アップロードするファイルへのアクセス権限を設定します。ここではデフォルトのまま所有者のみアクセス権限を設定しておきます。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-s3-upload-file-3.png"><img alt="../_images/management-console-s3-upload-file-3.png" src="../_images/management-console-s3-upload-file-3.png" style="width: 1093.0px; height: 694.0px;" /></a>
+</div>
+<p><br/></p>
+<p>アップロードするファイルのストレージオプションを選択します。ここでは「スタンダード」を選択します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-s3-upload-file-4.png"><img alt="../_images/management-console-s3-upload-file-4.png" src="../_images/management-console-s3-upload-file-4.png" style="width: 1092.0px; height: 693.0px;" /></a>
+</div>
+<p><br/></p>
+<p>内容を確認したら「アップロード」ボタンを押下します。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-s3-upload-file-5.png"><img alt="../_images/management-console-s3-upload-file-5.png" src="../_images/management-console-s3-upload-file-5.png" style="width: 1095.0px; height: 693.0px;" /></a>
+</div>
+<p><br/></p>
+<p>これでファイルのアップロードができました。次回は、SpringアプリケーションでS3へアクセスする方法を説明し、実装していきます。</p>
+<p><br/></p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>著者紹介<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei)</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+</div>
+<p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p><a class="reference external" href="https://aws.amazon.com/jp/blogs/psa/japan-apn-ambassador-2019/">2019 APN AWS Top Engineers &amp; Ambassadors</a> 選出。</p>
+<p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

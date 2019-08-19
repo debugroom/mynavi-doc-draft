@@ -59,3 +59,6 @@
    cloud_native/aws-nosql-4-4.rst
    cloud_native/aws-nosql-4-5.rst
    cloud_native/aws-nosql-4-6.rst
+   cloud_native/aws-s3-1.rst
+   cloud_native/aws-s3-2.rst
+   cloud_native/aws-s3-3.rst

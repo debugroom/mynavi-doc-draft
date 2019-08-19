@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AWSで作るクラウドネイティブアプリケーションの基本 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-s3-3.html" />
+    <link rel="prev" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-s3-1.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_sonarqube.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_sonarlint.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_architecture.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_unittest-1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_unittest-2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unittest.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_3.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_4.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_5.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_6.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_7.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_8.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_9.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
+<li><a class="reference internal" href="#amazon-s3spring-1">Amazon S3にアクセスするSpringアプリケーション(1)</a><ul>
+<li><a class="reference internal" href="#s3">アプリケーションでのS3アクセス方式</a></li>
+<li><a class="reference internal" href="#spring-cloud-awss3-1">Spring Cloud AWSを使ったS3アクセスアプリケーション(1)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="aws-s3-1.html" title="Previous Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; AWSで作るクラウドネイテ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="aws-s3-3.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/cloud_native/aws-s3-2.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="aws">
+<span id="section-cloud-native-s3-label-2"></span><h1>AWSで作るクラウドネイティブアプリケーションの基本<a class="headerlink" href="#aws" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="amazon-s3spring-1">
+<span id="section-cloud-native-s3-2nd-label"></span><h2>Amazon S3にアクセスするSpringアプリケーション(1)<a class="headerlink" href="#amazon-s3spring-1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>クラウド上のストレージとして、AWSで利用可能なAmazon S3。今回以降はSpring Cloud AWSを用いてAmazon S3へアクセスするSpringアプリケーションの実装方法について解説します。</p>
+<p><br/></p>
+<ol class="arabic simple">
+<li>Amazon S3の概要とバケットの作成・ファイルのアップロード</li>
+<li><strong>Spring Cloud AWSを用いたアプリケーション実装(1)</strong></li>
+<li>Spring Cloud AWSを用いたアプリケーション実装(2)</li>
+</ol>
+<p><br/></p>
+<p>前回はAmazon S3の概要を説明し、バケットを作成、ファイルをアップロードしました。今回はアプリケーションにおけるS3アクセス方式について説明し、前回アップロードしたファイルにSpring Cloud AWSを使って、アクセスするアプリケーションを実装していきます。</p>
+<p><br/></p>
+<div class="section" id="s3">
+<span id="section-cloud-native-s3-access-application-implementation-label"></span><h3>アプリケーションでのS3アクセス方式<a class="headerlink" href="#s3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>EC2やECSなどをベースに構築したスケールイン・スケールアウトが可能なアプリケーション実行環境は(インスタンスの終了とともにデータが失われる)揮発性であるため、
+従来、アプリケーションサーバのファイルシステムへアクセスして行なっていた処理はS3などの共通ストレージに対して行う方がベターです。</p>
+<p>アプリケーションからS3へファイルをアップロード・ダウンロードする場合、大きく２つの方法があります。VPC内にあるEC2やECSなどで実行されているアプリケーション内からAmazonSDK(SoftwareDevelopersKit:要はライブラリ)を使って
+S3へアクセスする方法と、AWS STS(SecurityTokenSerivce)を使って作成する一時的に有効な、署名付きURLやクレデンシャルキーなどを使って、クライアントから直接S3へアクセスする方式です。</p>
+<p><br/></p>
+<ol class="arabic simple">
+<li>VPC内のアプリケーションからSDKを使ってS3へアクセスする方法</li>
+</ol>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/S3Access.png"><img alt="../_images/S3Access.png" src="../_images/S3Access.png" style="width: 1376.0px; height: 837.0px;" /></a>
+</div>
+<p><br/></p>
+<p><br/></p>
+<ol class="arabic simple" start="2">
+<li>一時的に有効な、署名付きURLやクレデンシャルキーを使って、クライアントからダイレクトアクセスする方法</li>
+</ol>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/S3DirectAccess.png"><img alt="../_images/S3DirectAccess.png" src="../_images/S3DirectAccess.png" style="width: 1377.0px; height: 869.0px;" /></a>
+</div>
+<p><br/></p>
+<p>アプリケーションから直接アクセスするやり方は、後述するSpring Cloud AWSなどを使用して、比較的容易に実装が可能です。反面、取り扱うファイルの量やサイズが大きくなる場合、アプリケーション自体に負荷がかかってしまうので、
+2のようにクライアントから直接S3へアクセスする方式をとる方が望ましくなります。ただし、ダイレクトアクセス方式は、AWS上での一時的な認証情報取得やCORS設定、PostPolicyに施す署名のエンコード処理などでアプリケーション実装が複雑になるというデメリットがあります。
+以下にポイントを整理するので、取り扱うユースケースやファイルの特性に応じて、処理を使い分けてください。</p>
+<table border="1" class="colwidths-given docutils" id="id7">
+<caption><span class="caption-text">各アクセス方式のメリットデメリットと用途にマッチするユースケース</span><a class="headerlink" href="#id7" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="17%" />
+<col width="42%" />
+<col width="42%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>&#160;</td>
+<td>VPC内のアプリケーションからアクセス</td>
+<td>一時的に有効な、署名付きURLやクレデンシャルキーを使って、クライアントからダイレクトアクセス</td>
+</tr>
+<tr class="row-even"><td>メリット</td>
+<td>・実装が容易 <br/> ・VPC内でアクセスが完結するのでセキュリティが担保される</td>
+<td>・アプリケーションサーバに負荷がかからない <br/> ・直接S3へアクセスするため、処理が高速</td>
+</tr>
+<tr class="row-odd"><td>デメリット</td>
+<td>・ファイルサイズが大きいとサーバに負荷がかかる</td>
+<td>・セキュリティ設定やアプリケーション実装が複雑 <br/></td>
+</tr>
+<tr class="row-even"><td>ユースケース</td>
+<td>・テキストファイルなど比較的サイズが小さいものを扱う処理</td>
+<td>・画像や動画などの比較的サイズが大きいものを扱う処理 <br/> ・クライアントから大量にファイルをやり取りする処理</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>また、前回のS3の概要でも説明した通り、S3は各リージョンごとに提供されるストレージサービスであり、
+上記の構成のようにリージョンを跨がない、複数のアベイラビリティゾーンで構成されるアプリケーションであれば
+いずれの方式でも特に問題はありませんが、同じアプリケーションを複数のリージョン(例えば東京と大阪)で運用する場合は
+アクセスしたアプリケーションのリージョンによってファイルの有無に差が生じるため、<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/dev/crr.html">クロスリージョンレプリケーション</a> の適用を検討しましょう。</p>
+<p><br/></p>
+</div>
+<div class="section" id="spring-cloud-awss3-1">
+<span id="section-cloud-native-s3-access-using-spring-cloud-aws-implementation-1-label"></span><h3>Spring Cloud AWSを使ったS3アクセスアプリケーション(1)<a class="headerlink" href="#spring-cloud-awss3-1" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>Spring Cloud AWSは <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4426">第12回</a> でも説明した通り、AWSのサービスに対してサポートを提供していますが、
+S3に関しては、org.springframework.core.io.ResourceLoaderを使用したBucketアクセス手段を提供しています。ResourceLoaderはSpringによって提供されている
+リソースを抽象化したインターフェースで、アプリケーション上の実装でクラスパスやファイルシステム上などリソースの保存先の実体を意識せずにすみます。
+S3オブジェクトに対しては、AmazonSDK上で以下のような操作がサポートされていますが、うち、Spring Cloud AWSが提供しているオブジェクト操作は以下の通りです。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id8">
+<caption><span class="caption-text">S3のサポートする操作</span><a class="headerlink" href="#id8" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="20%" />
+<col width="60%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">S3の操作</th>
+<th class="head">詳細</th>
+<th class="head">Spring Cloud AWSのサポート</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>GET</td>
+<td>オブジェクト全体もしくはオブジェクトの一部を取得する。バイトレンジの指定が可能。</td>
+<td>○</td>
+</tr>
+<tr class="row-odd"><td>List Key</td>
+<td>プレフィックスと区切り記号でオブジェクトキーを一覧表示する。</td>
+<td>○</td>
+</tr>
+<tr class="row-even"><td>PUT</td>
+<td>オブジェクトのアップロード及び更新を行う。</td>
+<td>○</td>
+</tr>
+<tr class="row-odd"><td>DELETE</td>
+<td>オブジェクトの削除を行う。</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>その他、バケットの操作やダイレクトアップロード時に利用するAWS STSへ一時認証情報の取得処理などは、AmazonSDKのAPIを直接実行する必要があるので留意してください。
+なお、Spring Cloud AWSを使ったアプリケーションの実装方法はNTTが提供する <a class="reference external" href="https://macchinetta.github.io/cloud-guideline/current/ja/AWSCollaboration/FileManagement/index.html">Macchinetta Frameworkのガイドライン ファイル管理</a> でよく整理されています。
+必要に応じて、こちらも参照してください。</p>
+<p>本連載で実際に作成するアプリケーションでは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-aws-s3">GitHub</a> 上にコミットしています。
+以降に記載するソースコードでは、import文など本質的でない記述を省略している部分があるので、実行コードを作成する際は、必要に応じて適宜GitHubにあるソースコードも参照してください。</p>
+<p>Spring Cloud AWSを使用するには、まず、Mavenプロジェクトのpom.xmlでspring-cloud-starter-awsのライブラリを定義します。
+また、ファイルを画面上からアップロード・ダウンロードする処理を実装するので、以下の通り、spring-boot-starter-webおよびspring-boot-starter-tymeleafを、
+ファイルの入出力処理やモデルオブジェクトを簡素化する目的で、Apacheのcommons-ioライブラリやLombokライブラリを追加します。</p>
+<p><br/></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependencies&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-thymeleaf<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-aws<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.projectlombok<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>lombok<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;optional&gt;</span>true<span class="nt">&lt;/optional&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.projectlombok<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>lombok<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;optional&gt;</span>true<span class="nt">&lt;/optional&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>commons-io<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>commons-io<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>2.6<span class="nt">&lt;/version&gt;</span>
+   <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>なお、thymeleafテンプレートエンジンに関する説明は省略しますが、必要に応じて、<a class="reference external" href="https://www.thymeleaf.org/documentation.html">Thymeleaf公式ドキュメント</a> や
+<a class="reference external" href="https://macchinetta.github.io/server-guideline-thymeleaf/current/ja/ArchitectureInDetail/WebApplicationDetail/Thymeleaf.html">Macchinetta Framework テンプレートエンジン</a> を参照してください。</p>
+<p><br/></p>
+<p>それでは、アプリケーションの実装に進みます。今回作成するアプリケーションは以下の構成です。</p>
+<table border="1" class="colwidths-given docutils" id="id9">
+<caption><span class="caption-text">アプリケーション</span><a class="headerlink" href="#id9" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="30%" />
+<col width="60%" />
+<col width="10%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>コンポーネント</td>
+<td>説明</td>
+<td>必須</td>
+</tr>
+<tr class="row-even"><td>WebApp</td>
+<td>SpringBootアプリケーションを実行する起動クラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-odd"><td>MvcConfig</td>
+<td>SpringMVCの設定を行うクラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-even"><td>S3Config</td>
+<td>S3への接続に関する設定クラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-odd"><td>SampleController</td>
+<td>ダウンロード・アップロードを呼び出し画面もしくはJSONレスポンスを返却するController</td>
+<td>◯</td>
+</tr>
+<tr class="row-even"><td>XxxxxHelper</td>
+<td>ダウンロード・アップロード各処理を実装したクラス。なおHelperとは <a class="reference external" href="http://terasolunaorg.github.io/guideline/5.5.1.RELEASE/ja/Overview/ApplicationLayering.html#helper">TERASOLUNAのガイドライン Helper</a> と同様、Controllerの複雑化を避けるために補助的に作成するクラスです。</td>
+<td>◯</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>以降、各々のクラスについて解説を進めていきますが、事前にAWSコンソールでアプリケーション用のユーザを作成し、 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/cli-configure-files.html">AWS公式ページ「設定ファイルと認証情報ファイル」</a> を参考に
+ユーザホームフォルダに.awsディレクトリを作成し、credentialというファイル名で、CSV形式の認証キーに記載しているユーザ認証情報を、以下の形式で保存してください。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>default<span class="o">]</span>
+<span class="nv">aws_access_key_id</span><span class="o">=</span>XXXXXXXXXXXXXXXX
+<span class="nv">aws_secret_access_key</span><span class="o">=</span>YYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+</pre></div>
+</div>
+<p><br/></p>
+<p>また、上記のクレデンシャルをもつユーザはS3への接続権限を持つ必要があります。以下のように、AWSコンソールで「IAM」サービスメニューから、ユーザにS3のアクセス権限を付与しておいてください。</p>
+<p><br/></p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/management-console-iam-attach-policy-s3.png"><img alt="../_images/management-console-iam-attach-policy-s3.png" src="../_images/management-console-iam-attach-policy-s3.png" style="width: 633.0px; height: 411.0px;" /></a>
+</div>
+<p><br/></p>
+<p>それでは、実装していくクラスを説明します。まず、最初にSpringBoot起動クラス及び、各種設定クラスです。
+&#64;SpringBootApplicaitonアノテーションが付与された起動クラスは、同一パッケージにある&#64;Configurationアノテーションが付与された設定クラス及び、
+設定クラス内で&#64;ComponentScanされたパッケージにあるクラスを読み取ります。今回は目的に応じて以下の2つに分類して設定クラスを作成します。</p>
+<ul class="simple">
+<li>SpringMVCの設定クラス：MvcConfigクラス</li>
+<li>S3の接続を行う設定クラス：S3Configクラス</li>
+</ul>
+<p>設定クラスは必ずしも複数である必要はなく一つにまとめても動作上問題ありませんが、クラス名と役割を対応づけて作成していた方が、
+後々設定内容を混乱することなく、クラス名から識別できてベターです。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.s3.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
+
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WebApp</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">WebApp</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>同一パッケージに配置するMvcConfigクラスでは、HTMLやCSSなどの静的リソースのURLと実際のリソースの物理配置の対応づけの定義をResourceHandlerRegistryに追加し、
+Controller、Helperクラスを読み取るために、ComponentScanアノテーションに該当のパッケージを指定しておきます。また、今回は、
+S3から取得した画像ファイルおよびテキストデータを返却するので、必要なMessageConverterを追加します。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.s3.config</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.ComponentScan</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.http.MediaType</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.http.converter.BufferedImageHttpMessageConverter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.http.converter.ByteArrayHttpMessageConverter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.http.converter.HttpMessageConverter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.http.converter.StringHttpMessageConverter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.http.converter.json.MappingJackson2HttpMessageConverter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.config.annotation.ViewControllerRegistry</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.config.annotation.WebMvcConfigurer</span><span class="o">;</span>
+
+<span class="nd">@ComponentScan</span><span class="o">(</span><span class="s">&quot;org.debugroom.mynavi.sample.aws.s3.app.web&quot;</span><span class="o">)</span>
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MvcConfig</span> <span class="kd">implements</span> <span class="n">WebMvcConfigurer</span> <span class="o">{</span>
+
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addResourceHandlers</span><span class="o">(</span><span class="n">ResourceHandlerRegistry</span> <span class="n">registry</span><span class="o">)</span> <span class="o">{</span>
+       <span class="n">registry</span><span class="o">.</span><span class="na">addResourceHandler</span><span class="o">(</span><span class="s">&quot;/static/**&quot;</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">addResourceLocations</span><span class="o">(</span><span class="s">&quot;classpath:/static/&quot;</span><span class="o">);</span>
+   <span class="o">}</span>
+
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">configureMessageConverters</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">HttpMessageConverter</span><span class="o">&lt;?&gt;&gt;</span> <span class="n">converters</span><span class="o">)</span> <span class="o">{</span>
+       <span class="n">converters</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">BufferedImageHttpMessageConverter</span><span class="o">());</span>
+       <span class="n">converters</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">byteArrayHttpMessageConverter</span><span class="o">());</span>
+       <span class="n">converters</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">StringHttpMessageConverter</span><span class="o">());</span>
+       <span class="n">converters</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">MappingJackson2HttpMessageConverter</span><span class="o">());</span>
+   <span class="o">}</span>
+
+   <span class="nd">@Bean</span>
+   <span class="kd">public</span> <span class="n">ByteArrayHttpMessageConverter</span> <span class="nf">byteArrayHttpMessageConverter</span><span class="o">()</span> <span class="o">{</span>
+       <span class="n">ByteArrayHttpMessageConverter</span> <span class="n">arrayHttpMessageConverter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ByteArrayHttpMessageConverter</span><span class="o">();</span>
+       <span class="n">arrayHttpMessageConverter</span><span class="o">.</span><span class="na">setSupportedMediaTypes</span><span class="o">(</span><span class="n">getSupportedMediaTypes</span><span class="o">());</span>
+       <span class="k">return</span> <span class="n">arrayHttpMessageConverter</span><span class="o">;</span>
+   <span class="o">}</span>
+
+   <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">MediaType</span><span class="o">&gt;</span> <span class="nf">getSupportedMediaTypes</span><span class="o">()</span> <span class="o">{</span>
+       <span class="n">List</span><span class="o">&lt;</span><span class="n">MediaType</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">MediaType</span><span class="o">&gt;();</span>
+       <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">IMAGE_JPEG</span><span class="o">);</span>
+       <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">IMAGE_PNG</span><span class="o">);</span>
+       <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_OCTET_STREAM</span><span class="o">);</span>
+       <span class="k">return</span> <span class="n">list</span><span class="o">;</span>
+   <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>次に、S3への接続情報を設定するS3Configですが、AmazonSDKで提供されているAmazonS3をBean定義するだけでOKです。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.s3.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.s3.AmazonS3</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.s3.AmazonS3ClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">S3Config</span> <span class="o">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">AmazonS3</span> <span class="nf">amazonS3</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">AmazonS3ClientBuilder</span><span class="o">.</span><span class="na">standard</span><span class="o">().</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>よく古いWeb記事でAccessKeyなどをプロパティファイルに設定している例を見かけますが、この方法は、AWSとしては非推奨であり、
+本番環境ではEC2やECSが持つインスタンスプロファイルから、開発環境は~/.awsフォルダに保存してあるCredential情報等からアクセスキーを取得するのがベターです。
+詳細は <a class="reference external" href="https://news.mynavi.jp/itsearch/article/cloud/4506">第17回</a> の末端の脚注「AmazonDynamoDBClientBuilderについて」でも記載していますが、
+Spring Cloud AWSは、com.amazonaws.auth.DefaultAWSCredentialsProviderChainを利用して、AWSの認証情報を取得します。
+DefaultAWSCredentialsProviderChainでは、以下の順序で情報を取得していく実装になっています。</p>
+<ol class="arabic simple">
+<li>環境変数AWS_ACCESS_KEY_IDとAWS_SECRET_ACCESS_KEY</li>
+<li>システムプロパティaws.accessKeyIdとaws.secretKey</li>
+<li>ユーザのAWS認証情報ファイル</li>
+<li>AWSインスタンスプロファイルの認証情報</li>
+</ol>
+<p>アクセスキーなどは設定せずに、開発端末下だけで有効されるapplication-dev.ymlで、cloud.aws.credentials.profileに空白を、instaceProfileをfalseにしておきましょう。
+また、リージョンの自動検出をOFFにするよう、cloud.aws.region.autoにfalseを、今回アプリケーションが実行されるリージョンをcloud.aws.region.staticに手動設定しておきます。</p>
+<p><br/></p>
+<p>applicaiton-dev.yml</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cloud:
+  aws:
+    credentials:
+      profileName:
+      instanceProfile: <span class="nb">false</span>
+    region:
+      auto: <span class="nb">false</span>
+      static: ap-northeast-1
+</pre></div>
+</div>
+<p><br/></p>
+<p>なお、アプリケーション起動時に、Spring Cloud AWSのAuto-configurationであるContextStackAutoConfigurationによって、 アプリケーションのスタック名自動検出が有効になり、
+AWS CloudFormationのスタックが見つからない場合、 AmazonServiceExceptionが発生しアプリケーションが起動しなくなります。そのため、application.ymlで、cloud.aws.stack.auto = falseを設定し、スタックの自動検出を無効化することでエラーを回避します。</p>
+<p><br/></p>
+<p>application.yml</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cloud:
+  aws:
+    stack:
+      auto: <span class="nb">false</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>ここまで設定クラスの実装まで完了しました。次回はアプリケーションのSpring Cloud AWSを使用したアプリケーションのS3アクセス処理実装を進めていきます。</p>
+<p><br/></p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>著者紹介<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei)</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+</div>
+<p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p><a class="reference external" href="https://aws.amazon.com/jp/blogs/psa/japan-apn-ambassador-2019/">2019 APN AWS Top Engineers &amp; Ambassadors</a> 選出。</p>
+<p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
