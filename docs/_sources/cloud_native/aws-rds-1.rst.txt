@@ -125,7 +125,7 @@ Amazon RDSの構築
 |br|
 
 .. figure:: img/aws-rds/management-console-rds-create-database-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -135,7 +135,7 @@ Amazon RDSの構築
 
 
 .. figure:: img/aws-rds/management-console-rds-create-database-2.png
-   :scale: 100%
+
 
 |br|
 
@@ -145,7 +145,7 @@ Amazon RDSの構築
 
 
 .. figure:: img/aws-rds/management-console-rds-create-database-3.png
-   :scale: 100%
+
 
 |br|
 
@@ -190,12 +190,12 @@ Amazon RDSの構築
 |br|
 
 .. figure:: img/aws-rds/management-console-rds-create-database-4.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/aws-rds/management-console-rds-create-database-5.png
-   :scale: 100%
+
 
 |br|
 
@@ -277,27 +277,27 @@ Amazon RDSの構築
 |br|
 
 .. figure:: img/aws-rds/management-console-rds-create-database-6.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/aws-rds/management-console-rds-create-database-7.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/aws-rds/management-console-rds-create-database-8.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/aws-rds/management-console-rds-create-database-9.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/aws-rds/management-console-rds-create-database-10.png
-   :scale: 100%
+
 
 |br|
 
@@ -312,7 +312,7 @@ Amazon RDSの構築
 川畑 光平(KAWABATA Kohei)
 
 .. figure:: img/aws-lambda-and-api-gateway/pic_image01.jpg
-   :scale: 100%
+
 
 某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 

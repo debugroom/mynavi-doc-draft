@@ -66,6 +66,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unittest.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_3.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_4.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_5.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_6.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_7.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_8.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_9.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -93,6 +104,13 @@
 <li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 </ul>
 </ul>
 </li>
@@ -179,7 +197,7 @@
 <p>前回の記事「 <a class="reference internal" href="aws-ecs-1.html#section-cloud-native-ecs-1st-label"><span class="std std-ref">第2回 AWS ECS上に構築するSpringアプリケーション(1)</span></a> 」では、以下イメージの構成に沿って、VPC環境を構築しました。今回は「2.アプリケーションロードバランサ(ALB)の作成」です。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/ecs-architecture.png"><img alt="../_images/ecs-architecture.png" src="../_images/ecs-architecture.png" style="width: 786.0px; height: 723.0px;" /></a>
+<img alt="../_images/ecs-architecture.png" src="../_images/ecs-architecture.png" />
 </div>
 <p><br/></p>
 <div class="section" id="alb">
@@ -219,7 +237,7 @@
 <p><br/></p>
 <p>「EC2」サービスから、「ロードバランサー」メニューを選択し、「ロードバランサーの作成」を押下します。ALBを選択し、「作成」ボタンを押下します。</p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ec2-create-alb-1.png"><img alt="../_images/management-console-ec2-create-alb-1.png" src="../_images/management-console-ec2-create-alb-1.png" style="width: 1163.0px; height: 741.0px;" /></a>
+<img alt="../_images/management-console-ec2-create-alb-1.png" src="../_images/management-console-ec2-create-alb-1.png" />
 </div>
 <p><br/></p>
 <p>以下の要領に従って、ALBを設定します。「セキュリティ設定の構成」ボタンを押下後、そのまま「セキュリティグループの設定」ボタンを押下し、先に進んでください。</p>
@@ -254,7 +272,7 @@
 </tbody>
 </table>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ec2-create-alb-2.png"><img alt="../_images/management-console-ec2-create-alb-2.png" src="../_images/management-console-ec2-create-alb-2.png" style="width: 931.0px; height: 637.0px;" /></a>
+<img alt="../_images/management-console-ec2-create-alb-2.png" src="../_images/management-console-ec2-create-alb-2.png" />
 </div>
 <p><br/></p>
 <p>ロードバランサーのセキュリティグループを作成します。後々、作成するECSクラスタのセキュリティグループの発信元ソースに、このロードバランサーのセキュリティグループを許可対象として設定することになるので、ここでは今回ユニークに割り当てるセキュリティグループを新規作成してください。</p>
@@ -267,7 +285,7 @@
 <li>ソース：0.0.0.0/0</li>
 </ul>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ec2-create-alb-3.png"><img alt="../_images/management-console-ec2-create-alb-3.png" src="../_images/management-console-ec2-create-alb-3.png" style="width: 880.0px; height: 419.0px;" /></a>
+<img alt="../_images/management-console-ec2-create-alb-3.png" src="../_images/management-console-ec2-create-alb-3.png" />
 </div>
 <p><br/></p>
 <div class="admonition note">
@@ -280,7 +298,7 @@
 <li>ソース：172.0.0.0/16</li>
 </ul>
 <div class="last figure">
-<a class="reference internal image-reference" href="../_images/management-console-ec2-create-alb-4.png"><img alt="../_images/management-console-ec2-create-alb-4.png" src="../_images/management-console-ec2-create-alb-4.png" style="width: 879.0px; height: 421.0px;" /></a>
+<img alt="../_images/management-console-ec2-create-alb-4.png" src="../_images/management-console-ec2-create-alb-4.png" />
 </div>
 </div>
 <p><br/></p>
@@ -303,22 +321,22 @@
 <p class="last">ヘルスチェックするアプリケーションのURLがhttp://localhost:8080/backend-for-frontend/index.htmlであれば、パス名はアプリケーションコンテキストパス以下となる/backend-for-frontend/index.htmlを指定します。</p>
 </div>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ec2-create-alb-5.png"><img alt="../_images/management-console-ec2-create-alb-5.png" src="../_images/management-console-ec2-create-alb-5.png" style="width: 888.0px; height: 612.0px;" /></a>
+<img alt="../_images/management-console-ec2-create-alb-5.png" src="../_images/management-console-ec2-create-alb-5.png" />
 </div>
 <p><br/></p>
 <p>ターゲットグループにはECSサービスの作成で改めて登録するので、ここでは特に何もターゲットの登録をせずALBを作成してください。</p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ec2-create-alb-7.png"><img alt="../_images/management-console-ec2-create-alb-7.png" src="../_images/management-console-ec2-create-alb-7.png" style="width: 882.0px; height: 606.0px;" /></a>
+<img alt="../_images/management-console-ec2-create-alb-7.png" src="../_images/management-console-ec2-create-alb-7.png" />
 </div>
 <p><br/></p>
 <p>作成したロードバランサーにパスベースのルーティングをターゲットグループに対して設定します。「EC2」サービスから「ロードバランサー」メニューを選択し、作成した２つのパブリック・プライベート用のロードバランサーを各々選択し、「リスナー」タブから「ルールの表示/編集」リンクを押下します。</p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ec2-setting-path-1.png"><img alt="../_images/management-console-ec2-setting-path-1.png" src="../_images/management-console-ec2-setting-path-1.png" style="width: 1119.0px; height: 550.0px;" /></a>
+<img alt="../_images/management-console-ec2-setting-path-1.png" src="../_images/management-console-ec2-setting-path-1.png" />
 </div>
 <p><br/></p>
 <p>画面上部のプラスボタンを押下し、ルールを追加します。各ターゲットグループにどのパスで、どのターゲットグループへルーティングするかを設定します。条件を設定した後、「保存」ボタンを押して、パスベースのルーティングのルールを保存してください。</p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ec2-setting-path-2.png"><img alt="../_images/management-console-ec2-setting-path-2.png" src="../_images/management-console-ec2-setting-path-2.png" style="width: 1165.0px; height: 519.0px;" /></a>
+<img alt="../_images/management-console-ec2-setting-path-2.png" src="../_images/management-console-ec2-setting-path-2.png" />
 </div>
 <div class="admonition note">
 <p class="first admonition-title">注釈</p>
@@ -332,7 +350,7 @@
 <h2>著者紹介<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei)</p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+<img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" />
 </div>
 <p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
 <p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>

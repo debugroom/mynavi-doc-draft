@@ -104,6 +104,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 </ul>
 </ul>
 </li>
@@ -187,7 +194,7 @@
 <p><br/></p>
 <p>本連載では、以下のイメージに沿って「CodeBuild」「SonarQube」を使った継続的インテグレーション(CI：Continuous integration)環境を実際に構築しています。<br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/sample-continuous-integration.png"><img alt="../_images/sample-continuous-integration.png" src="../_images/sample-continuous-integration.png" style="width: 951.0px; height: 618.0px;" /></a>
+<img alt="../_images/sample-continuous-integration.png" src="../_images/sample-continuous-integration.png" />
 </div>
 <p><br/></p>
 <p>前回は、AWSから提供されている、buildspec.ymlの挙動をローカル端末で確認できるCodeBuild Local環境を構築し、環境変数を一元管理するAWS Sysmtes Managerを設定して、buildspec.ymlを作成して検証しました。
@@ -201,11 +208,11 @@
 ビルドに必要なソフトウェアやGitHubへソースコードを取得するための任意のアウトバウンド許可設定があれば、特にインバウンド許可は必要ありません。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_vpc_create_security_group_1.png"><img alt="../_images/management_console_vpc_create_security_group_1.png" src="../_images/management_console_vpc_create_security_group_1.png" style="width: 930.0px; height: 360.0px;" /></a>
+<img alt="../_images/management_console_vpc_create_security_group_1.png" src="../_images/management_console_vpc_create_security_group_1.png" />
 </div>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_vpc_create_security_group_2.png"><img alt="../_images/management_console_vpc_create_security_group_2.png" src="../_images/management_console_vpc_create_security_group_2.png" style="width: 447.0px; height: 128.0px;" /></a>
+<img alt="../_images/management_console_vpc_create_security_group_2.png" src="../_images/management_console_vpc_create_security_group_2.png" />
 </div>
 <p><br/></p>
 </div>
@@ -215,7 +222,7 @@
 <p>AWSコンソールメニューから、「CodeBuild」サービスを選択し、「プロジェクトの作成」ボタンを押下します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codebuild_create_project_bff_1.png"><img alt="../_images/management_console_codebuild_create_project_bff_1.png" src="../_images/management_console_codebuild_create_project_bff_1.png" style="width: 771.0px; height: 354.0px;" /></a>
+<img alt="../_images/management_console_codebuild_create_project_bff_1.png" src="../_images/management_console_codebuild_create_project_bff_1.png" />
 </div>
 <p><br/></p>
 <p>CodeBuildの主な設定項目は以下の通りです。説明に記載の要領に従って入力したのち、「ビルドプロジェクトを作成する」ボタンを押下してください。
@@ -345,31 +352,31 @@
 </table>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codebuild_create_project_bff_2.png"><img alt="../_images/management_console_codebuild_create_project_bff_2.png" src="../_images/management_console_codebuild_create_project_bff_2.png" style="width: 553.0px; height: 538.0px;" /></a>
+<img alt="../_images/management_console_codebuild_create_project_bff_2.png" src="../_images/management_console_codebuild_create_project_bff_2.png" />
 </div>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codebuild_create_project_bff_3.png"><img alt="../_images/management_console_codebuild_create_project_bff_3.png" src="../_images/management_console_codebuild_create_project_bff_3.png" style="width: 656.0px; height: 705.0px;" /></a>
+<img alt="../_images/management_console_codebuild_create_project_bff_3.png" src="../_images/management_console_codebuild_create_project_bff_3.png" />
 </div>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codebuild_create_project_bff_4.png"><img alt="../_images/management_console_codebuild_create_project_bff_4.png" src="../_images/management_console_codebuild_create_project_bff_4.png" style="width: 603.0px; height: 875.0px;" /></a>
+<img alt="../_images/management_console_codebuild_create_project_bff_4.png" src="../_images/management_console_codebuild_create_project_bff_4.png" />
 </div>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codebuild_create_project_bff_5.png"><img alt="../_images/management_console_codebuild_create_project_bff_5.png" src="../_images/management_console_codebuild_create_project_bff_5.png" style="width: 802.0px; height: 847.0px;" /></a>
+<img alt="../_images/management_console_codebuild_create_project_bff_5.png" src="../_images/management_console_codebuild_create_project_bff_5.png" />
 </div>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codebuild_create_project_bff_6.png"><img alt="../_images/management_console_codebuild_create_project_bff_6.png" src="../_images/management_console_codebuild_create_project_bff_6.png" style="width: 653.0px; height: 917.0px;" /></a>
+<img alt="../_images/management_console_codebuild_create_project_bff_6.png" src="../_images/management_console_codebuild_create_project_bff_6.png" />
 </div>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codebuild_create_project_bff_7.png"><img alt="../_images/management_console_codebuild_create_project_bff_7.png" src="../_images/management_console_codebuild_create_project_bff_7.png" style="width: 545.0px; height: 641.0px;" /></a>
+<img alt="../_images/management_console_codebuild_create_project_bff_7.png" src="../_images/management_console_codebuild_create_project_bff_7.png" />
 </div>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codebuild_create_project_bff_8.png"><img alt="../_images/management_console_codebuild_create_project_bff_8.png" src="../_images/management_console_codebuild_create_project_bff_8.png" style="width: 545.0px; height: 482.0px;" /></a>
+<img alt="../_images/management_console_codebuild_create_project_bff_8.png" src="../_images/management_console_codebuild_create_project_bff_8.png" />
 </div>
 <p><br/></p>
 <p>早速ビルドの実行と行きたいところですが、その前にビルド用のコンテナイメージがAWS Systems Manager ParameterStoreへアクセスするための権限設定を追加で実施する必要があります。</p>
@@ -383,7 +390,7 @@
 <p>AWSコンソールで、「IAM」サービスから「ロール」メニューを選択し、作成したポリシーに対して、以下の通り、「AmazonSSMFullAccess」のポリシーをアタッチしてください。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_iam_attach_ssm_access.png"><img alt="../_images/management_console_iam_attach_ssm_access.png" src="../_images/management_console_iam_attach_ssm_access.png" style="width: 989.0px; height: 654.0px;" /></a>
+<img alt="../_images/management_console_iam_attach_ssm_access.png" src="../_images/management_console_iam_attach_ssm_access.png" />
 </div>
 <p><br/></p>
 </div>
@@ -393,18 +400,18 @@
 <p>アクセス権限の付与が完了したら、早速ビルドを実行してみましょう。「ビルドの開始」ボタンを押下し、buildspec.ymlに記載された各フェーズやログが出力されることを確認します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codebuild_build_execution_1.png"><img alt="../_images/management_console_codebuild_build_execution_1.png" src="../_images/management_console_codebuild_build_execution_1.png" style="width: 951.0px; height: 570.0px;" /></a>
+<img alt="../_images/management_console_codebuild_build_execution_1.png" src="../_images/management_console_codebuild_build_execution_1.png" />
 </div>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codebuild_build_execution_2.png"><img alt="../_images/management_console_codebuild_build_execution_2.png" src="../_images/management_console_codebuild_build_execution_2.png" style="width: 808.0px; height: 911.0px;" /></a>
+<img alt="../_images/management_console_codebuild_build_execution_2.png" src="../_images/management_console_codebuild_build_execution_2.png" />
 </div>
 <p><br/></p>
 <p>また、buildspec.ymlに記載した通り、Mavenビルド中に実行したSonarScannerの実行結果も、以前の連載で設定していたSonarQubeServerへ送信されるようになります。
 Scannerの結果も合わせて確認し、QualityGateをパスしているか確認しましょう。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/sonarqube-scanner-result.png"><img alt="../_images/sonarqube-scanner-result.png" src="../_images/sonarqube-scanner-result.png" style="width: 1305.0px; height: 840.0px;" /></a>
+<img alt="../_images/sonarqube-scanner-result.png" src="../_images/sonarqube-scanner-result.png" />
 </div>
 <p><br/></p>
 <p>なお、SonarQubeServerもWebhookにより解析が完了したタイミングで、別の外部サービス(SlackやTrelloなど)へ処理完了通知することも可能です。
@@ -414,7 +421,7 @@ Scannerの結果も合わせて確認し、QualityGateをパスしているか�
 CodeBuildやGitHubのWebhookの設定を行います。今回は以下のように、Git Flowをベースとしたブランチを構成し、赤い吹き出しの箇所でCodeBuildによるビルド処理が実行されるように設定するものとします。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/branch_strategy.png"><img alt="../_images/branch_strategy.png" src="../_images/branch_strategy.png" style="width: 1416.0px; height: 558.0px;" /></a>
+<img alt="../_images/branch_strategy.png" src="../_images/branch_strategy.png" />
 </div>
 <p><br/></p>
 <p>図のイメージの構成では、masterブランチをベースにdevelopブランチを作成し、またdevelopブランチから、featureブランチを作成しています。
@@ -424,7 +431,7 @@ Git Flowのブランチモデルに従って、機能開発を各々featureブ�
 <p>引き続き、GitHub上で上記イメージの構成通り、ブランチを作成して、ローカル端末へフェッチしていきます。住所系とメール系の機能を拡充するためのfeature/addressとfeature/emailを作成します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/github_create_branches.png"><img alt="../_images/github_create_branches.png" src="../_images/github_create_branches.png" style="width: 304.0px; height: 286.0px;" /></a>
+<img alt="../_images/github_create_branches.png" src="../_images/github_create_branches.png" />
 </div>
 <p><br/></p>
 <p>ブランチ作成後は、ローカルへフェッチして、ブランチをチェックアウトし、feature/addressブランチへ切り替えましょう。以下はターミナルコマンドなどで実行する例です。</p>
@@ -439,7 +446,7 @@ Git Flowのブランチモデルに従って、機能開発を各々featureブ�
 <p>「CodeBuild」サービスから、「ビルドプロジェクト」メニューを選択し、前節で作成したプロジェクトを選択して、「ビルドの詳細」タブにある、「プライマリソースのウェブフックイベント」の「編集」ボタンを押下します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codebuild_edit_webhook_backend_1.png"><img alt="../_images/management_console_codebuild_edit_webhook_backend_1.png" src="../_images/management_console_codebuild_edit_webhook_backend_1.png" style="width: 768.0px; height: 884.0px;" /></a>
+<img alt="../_images/management_console_codebuild_edit_webhook_backend_1.png" src="../_images/management_console_codebuild_edit_webhook_backend_1.png" />
 </div>
 <p><br/></p>
 <p>「送信元」の変更はしませんが、プライマリソースのウェブフックイベントを以下の通り設定します。</p>
@@ -450,11 +457,11 @@ Git Flowのブランチモデルに従って、機能開発を各々featureブ�
 </ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codebuild_edit_webhook_backend_2.png"><img alt="../_images/management_console_codebuild_edit_webhook_backend_2.png" src="../_images/management_console_codebuild_edit_webhook_backend_2.png" style="width: 559.0px; height: 784.0px;" /></a>
+<img alt="../_images/management_console_codebuild_edit_webhook_backend_2.png" src="../_images/management_console_codebuild_edit_webhook_backend_2.png" />
 </div>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codebuild_edit_webhook_backend_3.png"><img alt="../_images/management_console_codebuild_edit_webhook_backend_3.png" src="../_images/management_console_codebuild_edit_webhook_backend_3.png" style="width: 554.0px; height: 596.0px;" /></a>
+<img alt="../_images/management_console_codebuild_edit_webhook_backend_3.png" src="../_images/management_console_codebuild_edit_webhook_backend_3.png" />
 </div>
 <p><br/></p>
 <p>上記の手順は、Backend、BFFなどCodeBuildを作成しているプロダクト単位に設定を行います。なお、設定の詳細は、
@@ -462,11 +469,11 @@ Git Flowのブランチモデルに従って、機能開発を各々featureブ�
 <p>設定完了後、GitHubのfeature/addressブランチに対してプッシュしたのち、CodeBuildが実行されることを確認します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/github_push_add_feature_address.png"><img alt="../_images/github_push_add_feature_address.png" src="../_images/github_push_add_feature_address.png" style="width: 1012.0px; height: 791.0px;" /></a>
+<img alt="../_images/github_push_add_feature_address.png" src="../_images/github_push_add_feature_address.png" />
 </div>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codebuild_start_webhook_bff.png"><img alt="../_images/management_console_codebuild_start_webhook_bff.png" src="../_images/management_console_codebuild_start_webhook_bff.png" style="width: 1028.0px; height: 915.0px;" /></a>
+<img alt="../_images/management_console_codebuild_start_webhook_bff.png" src="../_images/management_console_codebuild_start_webhook_bff.png" />
 </div>
 <p><br/></p>
 </div>
@@ -499,7 +506,7 @@ GitHubへプッシュされたソースコードに対するCodeBuildを使っ�
 <h2>著者紹介<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pic_image01.jpg"><img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+<img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" />
 </div>
 <p>金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
 <p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>

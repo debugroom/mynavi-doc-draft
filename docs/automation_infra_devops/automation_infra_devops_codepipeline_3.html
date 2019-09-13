@@ -104,6 +104,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 </ul>
 </ul>
 </li>
@@ -184,7 +191,7 @@
 <p>本連載では、マイクロサービスアーキテクチャでの継続的デリバリ(Continuous Delivery:CD)を以下のようなパイプラインで実現していきます。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline.png"><img alt="../_images/pipeline.png" src="../_images/pipeline.png" style="width: 727.0px; height: 955.0px;" /></a>
+<img alt="../_images/pipeline.png" src="../_images/pipeline.png" />
 </div>
 <p><br/></p>
 <p>前回は(1)バックエンドのマイクロサービスアプリケーションをビルドし、DockerHubへプッシュするパイプライン処理を構築しました。今回はプッシュしたコンテナイメージをECSクラスタ上にデプロイするパイプラインを構築します。</p>
@@ -199,7 +206,7 @@
 </ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline-2.png"><img alt="../_images/pipeline-2.png" src="../_images/pipeline-2.png" style="width: 1136.0px; height: 816.0px;" /></a>
+<img alt="../_images/pipeline-2.png" src="../_images/pipeline-2.png" />
 </div>
 <p><br/></p>
 </div>
@@ -248,11 +255,11 @@
 </table>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_ecs_task_definition_backend_staging_1.png"><img alt="../_images/management_console_ecs_task_definition_backend_staging_1.png" src="../_images/management_console_ecs_task_definition_backend_staging_1.png" style="width: 593.0px; height: 826.0px;" /></a>
+<img alt="../_images/management_console_ecs_task_definition_backend_staging_1.png" src="../_images/management_console_ecs_task_definition_backend_staging_1.png" />
 </div>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_ecs_task_definition_backend_staging_2.png"><img alt="../_images/management_console_ecs_task_definition_backend_staging_2.png" src="../_images/management_console_ecs_task_definition_backend_staging_2.png" style="width: 773.0px; height: 759.0px;" /></a>
+<img alt="../_images/management_console_ecs_task_definition_backend_staging_2.png" src="../_images/management_console_ecs_task_definition_backend_staging_2.png" />
 </div>
 <p><br/></p>
 </div>
@@ -263,13 +270,13 @@
 CodePipelineサービスメニューから、前回作成したパイプラインを選択し、「編集する」ボタンを押下して末尾にある「ステージを追加する」ボタンを押下します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_13_deploy_backend_staging.png"><img alt="../_images/management_console_codepipeline_edit_project_13_deploy_backend_staging.png" src="../_images/management_console_codepipeline_edit_project_13_deploy_backend_staging.png" style="width: 758.0px; height: 609.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_13_deploy_backend_staging.png" src="../_images/management_console_codepipeline_edit_project_13_deploy_backend_staging.png" />
 </div>
 <p><br/></p>
 <p>ステージングへデプロイするためのステージを追加します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_14_deploy_backend_staging.png"><img alt="../_images/management_console_codepipeline_edit_project_14_deploy_backend_staging.png" src="../_images/management_console_codepipeline_edit_project_14_deploy_backend_staging.png" style="width: 401.0px; height: 214.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_14_deploy_backend_staging.png" src="../_images/management_console_codepipeline_edit_project_14_deploy_backend_staging.png" />
 </div>
 <p><br/></p>
 <p>「アクションを追加する」ボタンを押下して、以下の要領でステージングデプロイアクションを設定します。</p>
@@ -289,23 +296,23 @@ CodePipelineサービスメニューから、前回作成したパイプライ�
 </div>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_15_deploy_backend_staging.png"><img alt="../_images/management_console_codepipeline_edit_project_15_deploy_backend_staging.png" src="../_images/management_console_codepipeline_edit_project_15_deploy_backend_staging.png" style="width: 823.0px; height: 777.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_15_deploy_backend_staging.png" src="../_images/management_console_codepipeline_edit_project_15_deploy_backend_staging.png" />
 </div>
 <p><br/></p>
 <p>作成が完了したら、「変更をリリースする」ボタンを押下して、パイプラインを実行しなおしてみましょう。グリーンで表示されれば正常完了です。
 ECSタスクのリビジョンがあがり、ECSサービスのイベントログでは、コネクションドレイニングされて、実行コンテナが入れ替わったことがわかります。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_16_deploy_backend_staging.png"><img alt="../_images/management_console_codepipeline_edit_project_16_deploy_backend_staging.png" src="../_images/management_console_codepipeline_edit_project_16_deploy_backend_staging.png" style="width: 756.0px; height: 912.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_16_deploy_backend_staging.png" src="../_images/management_console_codepipeline_edit_project_16_deploy_backend_staging.png" />
 </div>
 <p><br/></p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_17_deploy_backend_staging.png"><img alt="../_images/management_console_codepipeline_edit_project_17_deploy_backend_staging.png" src="../_images/management_console_codepipeline_edit_project_17_deploy_backend_staging.png" style="width: 894.0px; height: 585.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_17_deploy_backend_staging.png" src="../_images/management_console_codepipeline_edit_project_17_deploy_backend_staging.png" />
 </div>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_18_deploy_backend_staging.png"><img alt="../_images/management_console_codepipeline_edit_project_18_deploy_backend_staging.png" src="../_images/management_console_codepipeline_edit_project_18_deploy_backend_staging.png" style="width: 977.0px; height: 709.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_18_deploy_backend_staging.png" src="../_images/management_console_codepipeline_edit_project_18_deploy_backend_staging.png" />
 </div>
 <p><br/></p>
 <p>これでBakcendサービスのコンテナイメージをステージング環境へデプロイするパイプラインが完成し、プッシュしたコンテナがECSクラスタ上で起動しました。
@@ -317,7 +324,7 @@ ECSタスクのリビジョンがあがり、ECSサービスのイベントロ�
 <h2>著者紹介<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pic_image01.jpg"><img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+<img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" />
 </div>
 <p>金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
 <p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>

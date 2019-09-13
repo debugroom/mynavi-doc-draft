@@ -18,6 +18,7 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-sqs-1.html" />
     <link rel="prev" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-s3-2.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -106,6 +107,10 @@
 <li class="toctree-l1"><a class="reference internal" href="aws-s3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-s3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 </ul>
 </ul>
 </li>
@@ -137,6 +142,10 @@
                 
   <li>
     <a href="aws-s3-2.html" title="Previous Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; AWSで作るクラウドネイテ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="aws-sqs-1.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
     </a>
   </li>
               
@@ -186,7 +195,7 @@
 <p>前回、 <a class="reference internal" href="aws-s3-2.html#section-cloud-native-s3-access-using-spring-cloud-aws-implementation-1-label"><span class="std std-ref">Spring Cloud AWSを使ったS3アクセスアプリケーション(1)</span></a> に引き続き、 Spring Cloud AWSでS3へアクセスするアプリケーションを実装しています。</p>
 <p><br/></p>
 <div class="section" id="spring-cloud-awss3-2">
-<span id="section-cloud-native-spring-data-dynamodb-implementation-2-label"></span><h3>Spring Cloud AWSを使ったS3アクセスアプリケーション(2)<a class="headerlink" href="#spring-cloud-awss3-2" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<span id="section-cloud-native-spring-cloud-aws-for-s3-implementation-2-label"></span><h3>Spring Cloud AWSを使ったS3アクセスアプリケーション(2)<a class="headerlink" href="#spring-cloud-awss3-2" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
 <p>アプリケーションコンポーネントの実装に移ります。Controllerでは、以下3種類の処理を実装します。</p>
 <ul class="simple">
@@ -406,19 +415,19 @@ WritableResourceとして取得し、OutputStreamにデータを保存します�
 「Get TextFile Body」ボタンを押して、その内容を取得してみます。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/webapp-1.png"><img alt="../_images/webapp-1.png" src="../_images/webapp-1.png" style="width: 1031.0px; height: 632.0px;" /></a>
+<img alt="../_images/webapp-1.png" src="../_images/webapp-1.png" />
 </div>
 <p><br/></p>
 <p>ファイルがアップロードされていることが確認できます。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-s3-view-bucket.png"><img alt="../_images/management-console-s3-view-bucket.png" src="../_images/management-console-s3-view-bucket.png" style="width: 918.0px; height: 481.0px;" /></a>
+<img alt="../_images/management-console-s3-view-bucket.png" src="../_images/management-console-s3-view-bucket.png" />
 </div>
 <p><br/></p>
-<p>アップロードしたファイルを取得します。</p>
+<p>アップロードしたファイルの中身を取得し、表示します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/webapp-2.png"><img alt="../_images/webapp-2.png" src="../_images/webapp-2.png" style="width: 966.0px; height: 657.0px;" /></a>
+<img alt="../_images/webapp-2.png" src="../_images/webapp-2.png" />
 </div>
 <p><br/></p>
 <p>このように、S3にアクセスしてダウンロード・アップロードするアプリケーションをSpring Cloud AWSを用いて簡単に実装することができます。
@@ -435,7 +444,7 @@ AWS上に構築するクラウドネイティブなアプリケーションは�
 <h2>著者紹介<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei)</p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+<img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" />
 </div>
 <p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
 <p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>

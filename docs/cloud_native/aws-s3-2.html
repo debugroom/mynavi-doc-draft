@@ -107,6 +107,10 @@
 <li class="toctree-l1"><a class="reference internal" href="aws-s3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-s3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 </ul>
 </ul>
 </li>
@@ -204,7 +208,7 @@ S3へアクセスする方法と、AWS STS(SecurityTokenSerivce)を使って作�
 </ol>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/S3Access.png"><img alt="../_images/S3Access.png" src="../_images/S3Access.png" style="width: 1376.0px; height: 837.0px;" /></a>
+<img alt="../_images/S3Access.png" src="../_images/S3Access.png" />
 </div>
 <p><br/></p>
 <p><br/></p>
@@ -213,7 +217,7 @@ S3へアクセスする方法と、AWS STS(SecurityTokenSerivce)を使って作�
 </ol>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/S3DirectAccess.png"><img alt="../_images/S3DirectAccess.png" src="../_images/S3DirectAccess.png" style="width: 1377.0px; height: 869.0px;" /></a>
+<img alt="../_images/S3DirectAccess.png" src="../_images/S3DirectAccess.png" />
 </div>
 <p><br/></p>
 <p>アプリケーションから直接アクセスするやり方は、後述するSpring Cloud AWSなどを使用して、比較的容易に実装が可能です。反面、取り扱うファイルの量やサイズが大きくなる場合、アプリケーション自体に負荷がかかってしまうので、
@@ -321,11 +325,6 @@ S3オブジェクトに対しては、AmazonSDK上で以下のような操作が
     <span class="nt">&lt;optional&gt;</span>true<span class="nt">&lt;/optional&gt;</span>
   <span class="nt">&lt;/dependency&gt;</span>
   <span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>org.projectlombok<span class="nt">&lt;/groupId&gt;</span>
-    <span class="nt">&lt;artifactId&gt;</span>lombok<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;optional&gt;</span>true<span class="nt">&lt;/optional&gt;</span>
-  <span class="nt">&lt;/dependency&gt;</span>
-  <span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>commons-io<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>commons-io<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;version&gt;</span>2.6<span class="nt">&lt;/version&gt;</span>
@@ -385,7 +384,7 @@ S3オブジェクトに対しては、AmazonSDK上で以下のような操作が
 <p>また、上記のクレデンシャルをもつユーザはS3への接続権限を持つ必要があります。以下のように、AWSコンソールで「IAM」サービスメニューから、ユーザにS3のアクセス権限を付与しておいてください。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-iam-attach-policy-s3.png"><img alt="../_images/management-console-iam-attach-policy-s3.png" src="../_images/management-console-iam-attach-policy-s3.png" style="width: 633.0px; height: 411.0px;" /></a>
+<img alt="../_images/management-console-iam-attach-policy-s3.png" src="../_images/management-console-iam-attach-policy-s3.png" />
 </div>
 <p><br/></p>
 <p>それでは、実装していくクラスを説明します。まず、最初にSpringBoot起動クラス及び、各種設定クラスです。
@@ -536,7 +535,7 @@ AWS CloudFormationのスタックが見つからない場合、 AmazonServiceExc
 <h2>著者紹介<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei)</p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+<img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" />
 </div>
 <p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
 <p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>

@@ -181,7 +181,7 @@ CAP定理は、限定的な条件が前提にはなるのですが、「広域�
 #. X/Openに対応した分散トランザクションマネージャを使い、２フェーズコミットで双方のデータベースを更新
 
 .. figure:: img/aws-nosql/ca-database.png
-   :scale: 100%
+
 
 |br|
 
@@ -197,7 +197,7 @@ CAP定理は、限定的な条件が前提にはなるのですが、「広域�
 CP型の特徴であるシャーディングを機能として有するデータベースとしては、Apache HBaseやMongoDB、Redisなどが有名なプロダクトです。
 
 .. figure:: img/aws-nosql/cp-database.png
-   :scale: 100%
+
 
 |br|
 
@@ -209,14 +209,14 @@ Quorumをベースとした結果整合性(雑に言えば、不整合が出た�
 
 
 .. figure:: img/aws-nosql/ap-database.png
-   :scale: 100%
+
 
 |br|
 
 このようにCAPによる特性に応じて、各データベースに適したユースケースやデータ特性をまとめると以下の様になります。
 
 .. figure:: img/aws-nosql/database-cap-category.png
-   :scale: 100%
+
 
 |br|
 
@@ -272,7 +272,7 @@ Quorumをベースとした結果整合性(雑に言えば、不整合が出た�
 川畑 光平(KAWABATA Kohei)
 
 .. figure:: img/aws-lambda-and-api-gateway/pic_image01.jpg
-   :scale: 100%
+
 
 某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 

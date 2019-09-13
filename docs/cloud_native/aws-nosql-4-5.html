@@ -66,6 +66,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unittest.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_3.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_4.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_5.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_6.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_7.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_8.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_9.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -93,6 +104,13 @@
 <li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 </ul>
 </ul>
 </li>
@@ -213,7 +231,7 @@
 今回からは、ElastiCacheでセッション共有するアプリケーションを構築していきましょう。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/architecture-elasticache.png"><img alt="../_images/architecture-elasticache.png" src="../_images/architecture-elasticache.png" style="width: 471.0px; height: 644.0px;" /></a>
+<img alt="../_images/architecture-elasticache.png" src="../_images/architecture-elasticache.png" />
 </div>
 <p><br/></p>
 <div class="section" id="ecs-1">
@@ -289,38 +307,38 @@ docker push xxxxxx/mynavi-sample-redis-client:latest
 以下の通り、ロードバランサーの構成を設定します。VPC及びサブネットは前回 <a class="reference internal" href="aws-nosql-4-4.html#section-cloud-native-create-elasticache-redis-label"><span class="std std-ref">Amazon ElastiCache(Redis)の設定</span></a> で作成したものを指定してください。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ec2-create-alb-for-elasticache-1.png"><img alt="../_images/management-console-ec2-create-alb-for-elasticache-1.png" src="../_images/management-console-ec2-create-alb-for-elasticache-1.png" style="width: 715.0px; height: 841.0px;" /></a>
+<img alt="../_images/management-console-ec2-create-alb-for-elasticache-1.png" src="../_images/management-console-ec2-create-alb-for-elasticache-1.png" />
 </div>
 <p><br/></p>
 <p>セキュリティ設定の構成は今回はHTTPを利用するので必要ありませんが、セキュリティグループの設定は、任意のソースからの80番ポートのリクエストを受け付けるものを指定します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ec2-create-alb-for-elasticache-2.png"><img alt="../_images/management-console-ec2-create-alb-for-elasticache-2.png" src="../_images/management-console-ec2-create-alb-for-elasticache-2.png" style="width: 729.0px; height: 330.0px;" /></a>
+<img alt="../_images/management-console-ec2-create-alb-for-elasticache-2.png" src="../_images/management-console-ec2-create-alb-for-elasticache-2.png" />
 </div>
 <p><br/></p>
 <p>ターゲットグループは、ALB構築後にもう１つ作成を行いますが、ここでは１つ目を作成しておきます。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ec2-create-alb-for-elasticache-3.png"><img alt="../_images/management-console-ec2-create-alb-for-elasticache-3.png" src="../_images/management-console-ec2-create-alb-for-elasticache-3.png" style="width: 668.0px; height: 449.0px;" /></a>
+<img alt="../_images/management-console-ec2-create-alb-for-elasticache-3.png" src="../_images/management-console-ec2-create-alb-for-elasticache-3.png" />
 </div>
 <p><br/></p>
 <p>ターゲットの登録はECSコンテナの実行時に指定しますので、ここでは設定をスキップします。</p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ec2-create-alb-for-elasticache-4.png"><img alt="../_images/management-console-ec2-create-alb-for-elasticache-4.png" src="../_images/management-console-ec2-create-alb-for-elasticache-4.png" style="width: 667.0px; height: 443.0px;" /></a>
+<img alt="../_images/management-console-ec2-create-alb-for-elasticache-4.png" src="../_images/management-console-ec2-create-alb-for-elasticache-4.png" />
 </div>
 <p><br/></p>
 <p>引き続き、ターゲットグループをもう一つ作成しておきます。「EC2」サービスから、「ターゲットグループ」メニューを選択し、「ターゲットグループの作成」ボタンを押下して、
 以下の通り、２つ目のターゲットグループを作成します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ec2-create-target-group-for-elasticache-1.png"><img alt="../_images/management-console-ec2-create-target-group-for-elasticache-1.png" src="../_images/management-console-ec2-create-target-group-for-elasticache-1.png" style="width: 669.0px; height: 515.0px;" /></a>
+<img alt="../_images/management-console-ec2-create-target-group-for-elasticache-1.png" src="../_images/management-console-ec2-create-target-group-for-elasticache-1.png" />
 </div>
 <p><br/></p>
 <p>ALBが特定のパスパターンで特定のコンテナのターゲットグループにディスパッチするよう、ALBの設定を行います。
 「ロードバランサー」メニューから上記で作成したALBを選択し、「リスナー」タブにある、「ルールの表示/編集」を選択します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ec2-setting-alb-for-elasticache-1.png"><img alt="../_images/management-console-ec2-setting-alb-for-elasticache-1.png" src="../_images/management-console-ec2-setting-alb-for-elasticache-1.png" style="width: 776.0px; height: 634.0px;" /></a>
+<img alt="../_images/management-console-ec2-setting-alb-for-elasticache-1.png" src="../_images/management-console-ec2-setting-alb-for-elasticache-1.png" />
 </div>
 <p><br/></p>
 <p>以下の通り、アプリケーションで実装したcontainerGroupパラメータのパターンに応じて、異なるターゲットグループへディスパッチするよう設定を追加します。</p>
@@ -329,7 +347,7 @@ docker push xxxxxx/mynavi-sample-redis-client:latest
 </ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ec2-setting-alb-for-elasticache-2.png"><img alt="../_images/management-console-ec2-setting-alb-for-elasticache-2.png" src="../_images/management-console-ec2-setting-alb-for-elasticache-2.png" style="width: 767.0px; height: 343.0px;" /></a>
+<img alt="../_images/management-console-ec2-setting-alb-for-elasticache-2.png" src="../_images/management-console-ec2-setting-alb-for-elasticache-2.png" />
 </div>
 <p><br/></p>
 <ul class="simple">
@@ -338,7 +356,7 @@ docker push xxxxxx/mynavi-sample-redis-client:latest
 </ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ec2-setting-alb-for-elasticache-3.png"><img alt="../_images/management-console-ec2-setting-alb-for-elasticache-3.png" src="../_images/management-console-ec2-setting-alb-for-elasticache-3.png" style="width: 917.0px; height: 343.0px;" /></a>
+<img alt="../_images/management-console-ec2-setting-alb-for-elasticache-3.png" src="../_images/management-console-ec2-setting-alb-for-elasticache-3.png" />
 </div>
 <p><br/></p>
 <p>引き続き、次回はECSクラスタの構築とタスク定義を行い、ECSサービスをデプロイします。</p>
@@ -351,7 +369,7 @@ docker push xxxxxx/mynavi-sample-redis-client:latest
 <h2>著者紹介<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei)</p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+<img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" />
 </div>
 <p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
 <p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>

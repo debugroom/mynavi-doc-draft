@@ -62,3 +62,8 @@
    cloud_native/aws-s3-1.rst
    cloud_native/aws-s3-2.rst
    cloud_native/aws-s3-3.rst
+   cloud_native/aws-sqs-1.rst
+   cloud_native/aws-sqs-2.rst
+   cloud_native/aws-sqs-3.rst
+   cloud_native/aws-sqs-4.rst
+   cloud_native/aws-sqs-5.rst

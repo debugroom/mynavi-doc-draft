@@ -60,7 +60,7 @@ Amazon ElastiCacheへアクセスするSpringアプリケーション
 |br|
 
 .. figure:: img/aws-nosql/architecture-elasticache.png
-   :scale: 100%
+
 
 |br|
 
@@ -85,7 +85,7 @@ ECSコンテナを実行するためのECSクラスタ及びセキュリティ�
 |br|
 
 .. figure:: img/aws-nosql/management-console-ec2-create-security-group-for-ecs-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -94,12 +94,12 @@ ECSコンテナを実行するためのECSクラスタ及びセキュリティ�
 |br|
 
 .. figure:: img/aws-nosql/management-console-ecs-create-cluster-for-elasticache-1.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/aws-nosql/management-console-ecs-create-cluster-for-elasticache-2.png
-   :scale: 100%
+
 
 |br|
 
@@ -115,17 +115,17 @@ ECSタスクの定義
 |br|
 
 .. figure:: img/aws-nosql/management-console-ecs-create-task-for-elasticache-1.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/aws-nosql/management-console-ecs-create-task-for-elasticache-2.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/aws-nosql/management-console-ecs-create-task-for-elasticache-3.png
-   :scale: 100%
+
 
 |br|
 
@@ -134,7 +134,7 @@ ECSタスクの定義
 |br|
 
 .. figure:: img/aws-nosql/management-console-ecs-create-task-for-elasticache-4.png
-   :scale: 100%
+
 
 |br|
 
@@ -155,12 +155,12 @@ ECSサービスの実行・アプリケーション起動の確認
 |br|
 
 .. figure:: img/aws-nosql/management-console-ecs-create-service-for-elasticache-1.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/aws-nosql/management-console-ecs-create-service-for-elasticache-2.png
-   :scale: 100%
+
 
 |br|
 
@@ -175,17 +175,17 @@ ECSサービスの実行・アプリケーション起動の確認
 |br|
 
 .. figure:: img/aws-nosql/aws-elasticache-app.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/aws-nosql/aws-elasticache-app-sharedSession-1.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/aws-nosql/aws-elasticache-app-sharedSession-2.png
-   :scale: 100%
+
 
 |br|
 
@@ -255,7 +255,7 @@ ECSクラスタにSSHでログインし、前回 :ref:`section-cloud-native-crea
 川畑 光平(KAWABATA Kohei)
 
 .. figure:: img/aws-lambda-and-api-gateway/pic_image01.jpg
-   :scale: 100%
+
 
 某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 

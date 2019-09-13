@@ -20,7 +20,7 @@
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/pipeline.png
-   :scale: 100%
+
 
 |br|
 
@@ -38,7 +38,7 @@
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/pipeline-3.png
-   :scale: 100%
+
 
 |br|
 
@@ -221,42 +221,42 @@ E2Eテストを実行するパイプラインの設定
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_19_e2etest_bff_codebuild.png
-   :scale: 100%
+
 
 |br|
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_20_e2etest_bff_codebuild.png
-   :scale: 100%
+
 
 |br|
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_21_e2etest_bff_codebuild.png
-   :scale: 100%
+
 
 |br|
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_22_e2etest_bff_codebuild.png
-   :scale: 100%
+
 
 |br|
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_23_e2etest_bff_codebuild.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_24_e2etest_bff_codebuild.png
-   :scale: 100%
+
 
 |br|
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_25_e2etest_bff_codebuild.png
-   :scale: 100%
+
 
 |br|
 
@@ -265,7 +265,7 @@ E2Eテストを実行するパイプラインの設定
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_26_add_ssm.png
-   :scale: 100%
+
 
 |br|
 |br|
@@ -276,7 +276,7 @@ E2Eテストを実行するパイプラインを作成します。CodePipeline�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_27_e2etest_bff_staging.png
-   :scale: 100%
+
 
 |br|
 
@@ -285,7 +285,7 @@ E2Eテストを実行するパイプラインを作成します。CodePipeline�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_28_e2etest_bff_staging.png
-   :scale: 100%
+
 
 |br|
 
@@ -301,7 +301,7 @@ E2Eテストを実行するパイプラインを作成します。CodePipeline�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_29_e2etest_bff_staging.png
-   :scale: 100%
+
 
 |br|
 
@@ -310,7 +310,7 @@ E2Eテストを実行するパイプラインを作成します。CodePipeline�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_30_e2etest_bff_staging.png
-   :scale: 100%
+
 
 |br|
 
@@ -328,7 +328,7 @@ E2Eテストを実行するパイプラインを作成します。CodePipeline�
 川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理
 
 .. figure:: img/automation_infra_devops_overview/pic_image01.jpg
-   :scale: 100%
+
 
 金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 

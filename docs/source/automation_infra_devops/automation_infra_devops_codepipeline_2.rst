@@ -20,7 +20,7 @@
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/pipeline.png
-   :scale: 100%
+
 
 |br|
 
@@ -37,7 +37,7 @@ GitHub⇒CodePipelineへのWebhookにより、(1)バックエンドのマイク�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/pipeline-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -216,7 +216,7 @@ AWSコンソールの「CodePipeline」サービスを選択し、「パイプ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_create_project_0_base_backend.png
-   :scale: 100%
+
 
 |br|
 
@@ -225,7 +225,7 @@ AWSコンソールの「CodePipeline」サービスを選択し、「パイプ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_create_project_1_base_backend.png
-   :scale: 100%
+
 
 |br|
 
@@ -235,7 +235,7 @@ AWSコンソールの「CodePipeline」サービスを選択し、「パイプ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_create_project_2_base_backend.png
-   :scale: 100%
+
 
 |br|
 
@@ -244,7 +244,7 @@ AWSコンソールの「CodePipeline」サービスを選択し、「パイプ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_create_project_3_base_backend.png
-   :scale: 100%
+
 
 |br|
 
@@ -254,27 +254,27 @@ AWSコンソールの「CodePipeline」サービスを選択し、「パイプ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_create_project_4_codebuild_backend.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_create_project_5_codebuild_backend.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_create_project_6_codebuild_backend.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_create_project_7_codebuild_backend.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_create_project_8_codebuild_backend.png
-   :scale: 100%
+
 
 |br|
 
@@ -283,7 +283,7 @@ AWSコンソールの「CodePipeline」サービスを選択し、「パイプ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_create_project_9_base_backend.png
-   :scale: 100%
+
 
 |br|
 
@@ -292,7 +292,7 @@ AWSコンソールの「CodePipeline」サービスを選択し、「パイプ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_create_project_10_base_backend.png
-   :scale: 100%
+
 
 |br|
 
@@ -306,7 +306,7 @@ AWSコンソールの「CodePipeline」サービスを選択し、「パイプ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_create_project_11_webhook_backend.png
-   :scale: 100%
+
 
 |br|
 
@@ -315,12 +315,12 @@ AWSコンソールの「CodePipeline」サービスを選択し、「パイプ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_create_project_12_base_backend.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/dockerhub_backend_image.png
-   :scale: 100%
+
 
 |br|
 
@@ -334,7 +334,7 @@ AWSコンソールの「CodePipeline」サービスを選択し、「パイプ�
 川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理
 
 .. figure:: img/automation_infra_devops_overview/pic_image01.jpg
-   :scale: 100%
+
 
 金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 

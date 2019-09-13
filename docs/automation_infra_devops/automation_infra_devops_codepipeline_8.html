@@ -104,6 +104,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 </ul>
 </ul>
 </li>
@@ -185,7 +192,7 @@
 <p>本連載では、マイクロサービスアーキテクチャでの継続的デリバリ(Continuous Delivery:CD)を以下のようなパイプラインで実現していきます。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline.png"><img alt="../_images/pipeline.png" src="../_images/pipeline.png" style="width: 727.0px; height: 955.0px;" /></a>
+<img alt="../_images/pipeline.png" src="../_images/pipeline.png" />
 </div>
 <p><br/></p>
 <p>前回は(6)ステージング環境で、後続の性能テスト、セキュリティテスト、受入テストを実行したのち、プロダクション環境リリースを承認するパイプラインを構築しました。
@@ -200,7 +207,7 @@
 </ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline-7.png"><img alt="../_images/pipeline-7.png" src="../_images/pipeline-7.png" style="width: 1131.0px; height: 820.0px;" /></a>
+<img alt="../_images/pipeline-7.png" src="../_images/pipeline-7.png" />
 </div>
 <p><br/></p>
 </div>
@@ -331,23 +338,23 @@ artifacts:
 AWSコンソールの「CodePipeline」サービスを選択し、パイプラインを選択して、「編集する」ボタンを押下します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_31_build_bff_staging.png"><img alt="../_images/management_console_codepipeline_edit_project_31_build_bff_staging.png" src="../_images/management_console_codepipeline_edit_project_31_build_bff_staging.png" style="width: 1062.0px; height: 910.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_31_build_bff_staging.png" src="../_images/management_console_codepipeline_edit_project_31_build_bff_staging.png" />
 </div>
 <p><br/></p>
 <p>今回は、前回作成した承認のステージの後にアクションを追加するので、「ステージを追加する」ボタンを押下し、アクションを追加します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_50_build_backend_production.png"><img alt="../_images/management_console_codepipeline_edit_project_50_build_backend_production.png" src="../_images/management_console_codepipeline_edit_project_50_build_backend_production.png" style="width: 743.0px; height: 315.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_50_build_backend_production.png" src="../_images/management_console_codepipeline_edit_project_50_build_backend_production.png" />
 </div>
 <p><br/></p>
 <p>releaseステージを追加し、「アクショングループを追加する」ボタンを押下して、アクションを追加します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_51_build_backend_production.png"><img alt="../_images/management_console_codepipeline_edit_project_51_build_backend_production.png" src="../_images/management_console_codepipeline_edit_project_51_build_backend_production.png" style="width: 398.0px; height: 211.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_51_build_backend_production.png" src="../_images/management_console_codepipeline_edit_project_51_build_backend_production.png" />
 </div>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_52_build_backend_production.png"><img alt="../_images/management_console_codepipeline_edit_project_52_build_backend_production.png" src="../_images/management_console_codepipeline_edit_project_52_build_backend_production.png" style="width: 737.0px; height: 465.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_52_build_backend_production.png" src="../_images/management_console_codepipeline_edit_project_52_build_backend_production.png" />
 </div>
 <p><br/></p>
 <p>まずBackendのプロダクション向けコンテナイメージをビルドするための設定を行います。以下の要領でアクションを設定し、「完了」ボタンを押下します。</p>
@@ -361,7 +368,7 @@ AWSコンソールの「CodePipeline」サービスを選択し、パイプラ�
 </ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_53_build_backend_production.png"><img alt="../_images/management_console_codepipeline_edit_project_53_build_backend_production.png" src="../_images/management_console_codepipeline_edit_project_53_build_backend_production.png" style="width: 635.0px; height: 877.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_53_build_backend_production.png" src="../_images/management_console_codepipeline_edit_project_53_build_backend_production.png" />
 </div>
 <p><br/></p>
 <p><br/></p>
@@ -395,47 +402,47 @@ AWSコンソールの「CodePipeline」サービスを選択し、パイプラ�
 </table>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_54_codebuild_backend_production.png"><img alt="../_images/management_console_codepipeline_edit_project_54_codebuild_backend_production.png" src="../_images/management_console_codepipeline_edit_project_54_codebuild_backend_production.png" style="width: 419.0px; height: 604.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_54_codebuild_backend_production.png" src="../_images/management_console_codepipeline_edit_project_54_codebuild_backend_production.png" />
 </div>
 <p><br/>
 <br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_55_codebuild_backend_production.png"><img alt="../_images/management_console_codepipeline_edit_project_55_codebuild_backend_production.png" src="../_images/management_console_codepipeline_edit_project_55_codebuild_backend_production.png" style="width: 415.0px; height: 954.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_55_codebuild_backend_production.png" src="../_images/management_console_codepipeline_edit_project_55_codebuild_backend_production.png" />
 </div>
 <p><br/>
 <br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_56_codebuild_backend_production.png"><img alt="../_images/management_console_codepipeline_edit_project_56_codebuild_backend_production.png" src="../_images/management_console_codepipeline_edit_project_56_codebuild_backend_production.png" style="width: 416.0px; height: 899.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_56_codebuild_backend_production.png" src="../_images/management_console_codepipeline_edit_project_56_codebuild_backend_production.png" />
 </div>
 <p><br/></p>
 <p>作成が完了したら、引き続きBFFアプリケーションのプロダクション向けコンテナイメージをビルドするための設定を行います。E2Eテストが必要だったステージング環境とは違い、今回のプロダクション環境の設定では特にBackendアプリケーションを先に構築する必要はないので、並列化して実行するように設定しましょう。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_57_build_bff_production.png"><img alt="../_images/management_console_codepipeline_edit_project_57_build_bff_production.png" src="../_images/management_console_codepipeline_edit_project_57_build_bff_production.png" style="width: 740.0px; height: 378.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_57_build_bff_production.png" src="../_images/management_console_codepipeline_edit_project_57_build_bff_production.png" />
 </div>
 <p><br/></p>
 <p>Backendと同じ要領で、CodeBuildプロジェクトを作成、アクションを設定し、「完了」ボタンを押下します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_58_build_bff_production.png"><img alt="../_images/management_console_codepipeline_edit_project_58_build_bff_production.png" src="../_images/management_console_codepipeline_edit_project_58_build_bff_production.png" style="width: 634.0px; height: 878.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_58_build_bff_production.png" src="../_images/management_console_codepipeline_edit_project_58_build_bff_production.png" />
 </div>
 <p><br/></p>
 <p>パイプラインの編集完了後、保存ボタンを押下します。サービスロールを新規作成している場合は、CodeBuildからSystemsManagerParameterStoreに環境変数のアクセスができるよう、サービスロールに権限を付与しておきます。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_62_add_ssm.png"><img alt="../_images/management_console_codepipeline_edit_project_62_add_ssm.png" src="../_images/management_console_codepipeline_edit_project_62_add_ssm.png" style="width: 808.0px; height: 568.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_62_add_ssm.png" src="../_images/management_console_codepipeline_edit_project_62_add_ssm.png" />
 </div>
 <p><br/>
 <br/></p>
 <p>作成したパイプラインを実行し、DockerHub上にプロダクション向けのコンテナイメージが作成されていることを確認します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_63_build_bff_production.png"><img alt="../_images/management_console_codepipeline_edit_project_63_build_bff_production.png" src="../_images/management_console_codepipeline_edit_project_63_build_bff_production.png" style="width: 759.0px; height: 619.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_63_build_bff_production.png" src="../_images/management_console_codepipeline_edit_project_63_build_bff_production.png" />
 </div>
 <p><br/>
 <br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/dockerhub_backend_production.png"><img alt="../_images/dockerhub_backend_production.png" src="../_images/dockerhub_backend_production.png" style="width: 965.0px; height: 623.0px;" /></a>
+<img alt="../_images/dockerhub_backend_production.png" src="../_images/dockerhub_backend_production.png" />
 </div>
 <p>ここまでで、プロダクション環境のコンテナイメージを作成し、DockerHubへプッシュするパイプラインを設定できました。次回は、プロダクション環境にデプロイするパイプラインを構築します。</p>
 </div>
@@ -444,7 +451,7 @@ AWSコンソールの「CodePipeline」サービスを選択し、パイプラ�
 <h2>著者紹介<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pic_image01.jpg"><img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+<img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" />
 </div>
 <p>金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
 <p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>

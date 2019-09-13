@@ -20,7 +20,7 @@
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/pipeline.png
-   :scale: 100%
+
 
 |br|
 
@@ -38,7 +38,7 @@
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/pipeline-5.png
-   :scale: 100%
+
 
 |br|
 
@@ -82,21 +82,21 @@
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_ecs_task_definition_bff_staging_1.png
-   :scale: 100%
+
 
 |br|
 
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_ecs_task_definition_bff_staging_2.png
-   :scale: 100%
+
 
 |br|
 
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_ecs_task_definition_bff_staging_3.png
-   :scale: 100%
+
 
 |br|
 
@@ -120,7 +120,7 @@ CodePipelineの設定を行う前に、前節のECSで使用する環境変数�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_40_add_ssm_to_ecs_task.png
-   :scale: 100%
+
 
 |br|
 
@@ -138,7 +138,7 @@ AWSコンソールの「CodePipeline」サービスを選択し、パイプラ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_31_build_bff_staging.png
-   :scale: 100%
+
 
 |br|
 
@@ -147,7 +147,7 @@ AWSコンソールの「CodePipeline」サービスを選択し、パイプラ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_41_deploy_bff_staging.png
-   :scale: 100%
+
 
 |br|
 
@@ -156,7 +156,7 @@ AWSコンソールの「CodePipeline」サービスを選択し、パイプラ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_42_deploy_bff_staging.png
-   :scale: 100%
+
 
 |br|
 
@@ -173,7 +173,7 @@ AWSコンソールの「CodePipeline」サービスを選択し、パイプラ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_43_deploy_bff_staging.png
-   :scale: 100%
+
 
 |br|
 
@@ -182,7 +182,7 @@ AWSコンソールの「CodePipeline」サービスを選択し、パイプラ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_44_deploy_bff_staging.png
-   :scale: 100%
+
 
 |br|
 
@@ -196,7 +196,7 @@ AWSコンソールの「CodePipeline」サービスを選択し、パイプラ�
 川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理
 
 .. figure:: img/automation_infra_devops_overview/pic_image01.jpg
-   :scale: 100%
+
 
 金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 

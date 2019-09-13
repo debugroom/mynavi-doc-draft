@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AWSで作るクラウドネイティブアプリケーションの基本 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-sqs-2.html" />
+    <link rel="prev" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-s3-3.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_sonarqube.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_sonarlint.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_architecture.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_unittest-1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_unittest-2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unittest.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_3.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_4.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_5.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_6.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_7.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_8.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_9.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
+<li><a class="reference internal" href="#amazon-sqsspring-1">Amazon SQSを使ったSpringアプリケーション(1)</a><ul>
+<li><a class="reference internal" href="#amazon-sqs">Amazon SQSの概要</a></li>
+<li><a class="reference internal" href="#sqs">SQSを使ったアプリケーションの処理パターン</a></li>
+<li><a class="reference internal" href="#section-cloud-native-sqs-create-queue-label">SQSキューの作成</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="aws-s3-3.html" title="Previous Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; AWSで作るクラウドネイテ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="aws-sqs-2.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/cloud_native/aws-sqs-1.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="aws">
+<span id="section-cloud-native-sqs-label1-1"></span><h1>AWSで作るクラウドネイティブアプリケーションの基本<a class="headerlink" href="#aws" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="amazon-sqsspring-1">
+<span id="section-cloud-native-sqs-1st-label"></span><h2>Amazon SQSを使ったSpringアプリケーション(1)<a class="headerlink" href="#amazon-sqsspring-1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>クラウド上のメッセージキューサービスとして、AWSで利用可能なAmazon SQS。今回からはSpring Cloud AWSを用いてAmazon SQSへアクセスするSpringアプリケーションの実装方法について解説します。</p>
+<p>本連載では、以下のステップで解説を進めていきます。</p>
+<p><br/></p>
+<ol class="arabic simple">
+<li><strong>Amazon SQSの概要とアプリケーション処理パターン、SQSキューの作成</strong></li>
+<li>Spring Cloud AWSを用いたSQSProducerアプリケーション実装</li>
+<li>Spring Batchを用いたバッチアプリケーション実装(1)</li>
+<li>Spring Batchを用いたバッチアプリケーション実装(2)</li>
+<li>Spring Cloud AWSを用いたSQSConsumerアプリケーション実装</li>
+</ol>
+<p><br/></p>
+<p>なお、本連載は以下の前提知識がある開発者を想定しています。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>対象読者</td>
+<td>前提知識</td>
+</tr>
+<tr class="row-even"><td>エンタープライズ開発者</td>
+<td>Java言語及びSpringFrameworkを使った開発に従事したことがある経験者。経験がなければ、<br/>
+<a class="reference external" href="http://terasolunaorg.github.io/guideline/5.5.1.RELEASE/ja/Tutorial/index.html">こちらのチュートリアル</a> を実施することを推奨します。TERASOLUNAはSpringのベストプラクティスをまとめた開発方法論で、このチュートリアルでは、JavaやSpring Frameworkを使った開発に必要な最低限の知識を得ることができます。</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>GitHubなどのバージョン管理ツールやApache Mavenなどのライブラリ管理ツールを使った開発に従事したことがある経験者。</td>
+</tr>
+<tr class="row-even"><td>AWS開発経験者</td>
+<td>AWSアカウントをもち、コンソール上で各サービスを実行したことがある経験者</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>また、動作環境は以下のバージョンで実施しています。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>動作対象</td>
+<td>バージョン</td>
+</tr>
+<tr class="row-even"><td>Java</td>
+<td>1.8</td>
+</tr>
+<tr class="row-odd"><td>Spring Boot</td>
+<td>2.1.7.RELEASE</td>
+</tr>
+<tr class="row-even"><td>Spring Batch</td>
+<td>4.1.2.RELEASE</td>
+</tr>
+<tr class="row-odd"><td>Spring Cloud AWS</td>
+<td>2.1.2.RELEASE</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>将来的には、AWSコンソール上の画面イメージや操作、バージョンアップによりJavaのソースコード内で使用するクラスが異なる可能性があります。</p>
+<p><br/></p>
+<div class="section" id="amazon-sqs">
+<span id="section-cloud-native-sqs-overview-label"></span><h3>Amazon SQSの概要<a class="headerlink" href="#amazon-sqs" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>Amazon SQS(Simple Queue Service)はS3と同じく、リージョン単位で提供される完全マネージド分散型キュー配信方式のメッセージサービスです。
+複数のサーバに複数のメッセージのコピーを保存して信頼性を確保しながら最低一度の配信を保証しています。
+大容量のデータを高スループットで転送可能であり、メッセージ送信の信頼性が高く、各コンポーネントを疎結合にして、アプリケーションを構成することが可能です。<br/>
+メッセージキューは以下のようなURLフォーマット、メッセージID、受信ハンドル(ReceiptHandle)で識別され、操作用のAPIが提供されています。</p>
+<p><a class="reference external" href="http://sqs">http://sqs</a>.&lt;region&gt;.amazonaws.com/&lt;accout-id&gt;</p>
+<table border="1" class="colwidths-given docutils" id="id4">
+<caption><span class="caption-text">キューの操作</span><a class="headerlink" href="#id4" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">API</th>
+<th class="head">概要</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>CreateQueue</td>
+<td>新しいキューを作成するか、既存のキューのURLを返す</td>
+</tr>
+<tr class="row-odd"><td>SetQueueAttribute</td>
+<td>キューの属性を設定する。属性値は下記表を参照。</td>
+</tr>
+<tr class="row-even"><td>GetQueueAttribute</td>
+<td>キューの属性を取得する。属性値は下記表を参照。</td>
+</tr>
+<tr class="row-odd"><td>GetQueueUrl</td>
+<td>キューのURLを取得する。</td>
+</tr>
+<tr class="row-even"><td>ListQueues</td>
+<td>キューのリストを取得する。</td>
+</tr>
+<tr class="row-odd"><td>DeleteQueues</td>
+<td>キューを削除する。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id5">
+<caption><span class="caption-text">キューの属性</span><a class="headerlink" href="#id5" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">属性名</th>
+<th class="head">概要</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>DelaySecounds</td>
+<td>メッセージの遅延配信時間</td>
+</tr>
+<tr class="row-odd"><td>MaximumMessageSize</td>
+<td>メッセージに含まれる最大バイト数(デフォルト・最大値ともに256KiB)</td>
+</tr>
+<tr class="row-even"><td>MessageRetentionPeriod</td>
+<td>メッセージが保持される秒数(デフォルト４日、最大１４日)</td>
+</tr>
+<tr class="row-odd"><td>RecieveMessageWaitTimeSeconds</td>
+<td>呼び出しがメッセージ到着を待機する時間(デフォルト0秒、最大20秒)</td>
+</tr>
+<tr class="row-even"><td>Visibility Timeout</td>
+<td>特定のアプリケーションコンポーネントからキューがメッセージを取得した後、 <br/> その他からメッセージが不可視となる時間。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>SQSでは、通常メッセージの処理順序でシーケンス性が保証されません。メッセージ順序を保証する場合はFIFOキューを利用します。
+また、SQSには可視性タイムアウト(Visibility Timeout)機能があります。あるキューが処理中に異常処理した場合に、
+別のノードでキューを処理するためにキューをロックした状態で残すようにしていますが、可視性タイムアウトとはそのロック時間を指します。
+ロックをかけるのは、複数のノードが同じキューを処理することを避けるためです。また、処理できなかったキューを除外し、デッドレターキューとして、別のキューに蓄積しておくことも可能です。
+キューは他のユーザとも共有することができ、暗号化オプション、匿名で他のAWSユーザと共有するオプション、アクセス許可を利用して特定のユーザとシェアするオプションがあります。なお、その場合、料金はメッセージの所有者です。</p>
+<p><br/></p>
+</div>
+<div class="section" id="sqs">
+<span id="section-cloud-native-sqs-application-process-pattern-label"></span><h3>SQSを使ったアプリケーションの処理パターン<a class="headerlink" href="#sqs" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>上述の特性をもつキューですが、アプリケーションの処理中にキュー操作を組み込むことにより、疎結合で耐障害性・パフォーマンスに優れたアプリケーションを構築することができます。
+キューを使った代表的な処理パターンは以下の通りです。</p>
+<ol class="arabic simple">
+<li>Webアプリケーションが処理要求を受け付け、クライアントには受付要求が完了したことを返却する。<ol class="arabic">
+<li>後続の処理は別のイベントを契機として、後続の処理を１つのトランザクションとして非同期実行します(翌日付の振込などが代表的な例です)。</li>
+<li>Webアプリケーションの受付とは別に負荷が高い処理を別プロセスで実行します(ディレードバッチとも呼ばれます。帳票データを一括してPDF化する処理要求などが代表的な例です)</li>
+</ol>
+</li>
+<li>他のアプリケーションからの処理要求を契機として、一括処理を起動する。<ol class="arabic">
+<li>マネジメントセグメントにある運用端末から、バックヤードでフロントから受け付けたデータの一連の業務処理実行を行います(銀行口座開設の受付に対する審査などが代表的な例です)。</li>
+</ol>
+</li>
+<li>クラウドサービスへのイベントを契機として、一括処理を起動する<ol class="arabic">
+<li>共有ストレージへの書き込み、メタ情報の永続化を１つのトランザクションとして実行します(画像データのサムネイル作成やそのファイルパスをデータストアに保存する処理などが代表的な例です)</li>
+</ol>
+</li>
+</ol>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/sqs-pattern.png" src="../_images/sqs-pattern.png" />
+</div>
+<p><br/></p>
+<p>処理やワークロードに応じて、適切なユースケースで、SQSを活用し、一部のサーバに障害が起こった場合でも安定して処理を行うことができますが、上記の非同期処理においては、同期型処理の場合に比べ、
+実行エラーの対処が複雑化しがちなため、ユーザビリティを損なわない適切な例外ハンドリング設計が重要になります。</p>
+<p><br/></p>
+</div>
+<div class="section" id="section-cloud-native-sqs-create-queue-label">
+<span id="id2"></span><h3>SQSキューの作成<a class="headerlink" href="#section-cloud-native-sqs-create-queue-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>それでは、早速AWSコンソールからキューを作成して使用してみましょう。サービスメニューからSimpleQueueServiceを選択し、「新しいキューの作成」ボタンを押下し、
+キュー名を入力してキューのタイプを選択します。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/management-console-sqs-create-queue-1.png" src="../_images/management-console-sqs-create-queue-1.png" />
+</div>
+<p><br/></p>
+<p>前節で説明した、デフォルト可視性やデッドレターキュー等のオプション設定を行う場合は、「キューの設定」ボタンを押下します(フォームに入力の要領が書いているので説明は省略します)。
+オプションのパラメータを必要に応じて入力し、「キューの作成」ボタンを押下します。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/management-console-sqs-create-queue-2.png" src="../_images/management-console-sqs-create-queue-2.png" />
+</div>
+<p><br/></p>
+<p>これでキューの設定が完了しました。次回以降はこのキューにメッセージを送信・ポーリングで取得するProducer、Consumerアプリケーション及び、そこから実行されるSpringBatchアプリケーションを実装していきます。</p>
+<p><br/></p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>著者紹介<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei)</p>
+<div class="figure">
+<img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" />
+</div>
+<p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p><a class="reference external" href="https://aws.amazon.com/jp/blogs/psa/japan-apn-ambassador-2019/">2019 APN AWS Top Engineers &amp; Ambassadors</a> 選出。</p>
+<p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

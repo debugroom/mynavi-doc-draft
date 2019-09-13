@@ -104,6 +104,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 </ul>
 </ul>
 </li>
@@ -184,7 +191,7 @@
 <p>本連載では、マイクロサービスアーキテクチャでの継続的デリバリ(Continuous Delivery:CD)を以下のようなパイプラインで実現していきます。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline.png"><img alt="../_images/pipeline.png" src="../_images/pipeline.png" style="width: 727.0px; height: 955.0px;" /></a>
+<img alt="../_images/pipeline.png" src="../_images/pipeline.png" />
 </div>
 <p><br/></p>
 <p>前回は(5)E2Eテストが完了したWeb(BackendForFrontend:BFF)アプリケーションのコンテナイメージをステージング環境へデプロイするパイプラインを構築しました。
@@ -200,7 +207,7 @@
 </ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline-6.png"><img alt="../_images/pipeline-6.png" src="../_images/pipeline-6.png" style="width: 1135.0px; height: 817.0px;" /></a>
+<img alt="../_images/pipeline-6.png" src="../_images/pipeline-6.png" />
 </div>
 <p><br/></p>
 <p>管理者による承認プロセスはAmazon SNS(Simple Notification Service)を使用して行い、承認が完了後、後続のパイプラインが動き出すように設定します。
@@ -297,7 +304,7 @@ Publisherは、自分が作成したトピック、または発行を許可さ�
 </table>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="automation_infra_devops/img/automation_infra_devops_codepipeline/management_console_sns_create_approval_topic.png"><img alt="automation_infra_devops/img/automation_infra_devops_codepipeline/management_console_sns_create_approval_topic.png" src="automation_infra_devops/img/automation_infra_devops_codepipeline/management_console_sns_create_approval_topic.png" /></a>
+<img alt="../_images/management_console_sns_create_approval_topic.png" src="../_images/management_console_sns_create_approval_topic.png" />
 </div>
 <p><br/></p>
 <p>なお、アクセスポリシーには、必要に応じてリリース承認を行える管理者ユーザを追加してください。</p>
@@ -310,13 +317,13 @@ Publisherは、自分が作成したトピック、または発行を許可さ�
 承認を行うフローを想定した承認アクションをこれまで作成してきたパイプラインへ設定します。AWSコンソールの「CodePipeline」サービスを選択し、パイプラインを選択して、「編集する」ボタンを押下します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_31_build_bff_staging.png"><img alt="../_images/management_console_codepipeline_edit_project_31_build_bff_staging.png" src="../_images/management_console_codepipeline_edit_project_31_build_bff_staging.png" style="width: 1062.0px; height: 910.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_31_build_bff_staging.png" src="../_images/management_console_codepipeline_edit_project_31_build_bff_staging.png" />
 </div>
 <p><br/></p>
 <p>新たにパイプラインステージを追加します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_45_approve_release.png"><img alt="../_images/management_console_codepipeline_edit_project_45_approve_release.png" src="../_images/management_console_codepipeline_edit_project_45_approve_release.png" style="width: 301.0px; height: 213.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_45_approve_release.png" src="../_images/management_console_codepipeline_edit_project_45_approve_release.png" />
 </div>
 <p><br/></p>
 <p>ステージ追加後、アクションを追加します。以下の要領に沿って、アクションを追加した後、「完了」ボタンを押下してください。</p>
@@ -329,25 +336,25 @@ Publisherは、自分が作成したトピック、または発行を許可さ�
 </ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_46_approve_release.png"><img alt="../_images/management_console_codepipeline_edit_project_46_approve_release.png" src="../_images/management_console_codepipeline_edit_project_46_approve_release.png" style="width: 841.0px; height: 619.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_46_approve_release.png" src="../_images/management_console_codepipeline_edit_project_46_approve_release.png" />
 </div>
 <p><br/></p>
 <p>パイプライン変更後は、「変更をリリースする」ボタンを押下し、SNSトピックへメッセージが発行されて、承認を待機する状態となるか確認し、「Review」ボタンを押下します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_47_approve_release.png"><img alt="../_images/management_console_codepipeline_edit_project_47_approve_release.png" src="../_images/management_console_codepipeline_edit_project_47_approve_release.png" style="width: 858.0px; height: 621.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_47_approve_release.png" src="../_images/management_console_codepipeline_edit_project_47_approve_release.png" />
 </div>
 <p><br/></p>
 <p>コメントを入力し、承認するボタンを押下します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_48_approve_release.png"><img alt="../_images/management_console_codepipeline_edit_project_48_approve_release.png" src="../_images/management_console_codepipeline_edit_project_48_approve_release.png" style="width: 301.0px; height: 252.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_48_approve_release.png" src="../_images/management_console_codepipeline_edit_project_48_approve_release.png" />
 </div>
 <p><br/></p>
 <p>承認すると、正常完了し、後続のパイプラインへ処理が移行するようになります。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_49_approve_release.png"><img alt="../_images/management_console_codepipeline_edit_project_49_approve_release.png" src="../_images/management_console_codepipeline_edit_project_49_approve_release.png" style="width: 859.0px; height: 603.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_49_approve_release.png" src="../_images/management_console_codepipeline_edit_project_49_approve_release.png" />
 </div>
 <p><br/></p>
 <p>ここまでで、プロダクション環境へのリリースを承認するパイプラインを設定できました。次回は、プロダクション環境にリリースするコンテナイメージを作成するパイプラインを構築します。</p>
@@ -358,7 +365,7 @@ Publisherは、自分が作成したトピック、または発行を許可さ�
 <h2>著者紹介<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pic_image01.jpg"><img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+<img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" />
 </div>
 <p>金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
 <p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>

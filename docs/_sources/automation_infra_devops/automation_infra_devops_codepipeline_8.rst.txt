@@ -20,7 +20,7 @@
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/pipeline.png
-   :scale: 100%
+
 
 |br|
 
@@ -37,7 +37,7 @@
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/pipeline-7.png
-   :scale: 100%
+
 
 |br|
 
@@ -195,7 +195,7 @@ AWSコンソールの「CodePipeline」サービスを選択し、パイプラ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_31_build_bff_staging.png
-   :scale: 100%
+
 
 |br|
 
@@ -204,7 +204,7 @@ AWSコンソールの「CodePipeline」サービスを選択し、パイプラ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_50_build_backend_production.png
-   :scale: 100%
+
 
 |br|
 
@@ -213,12 +213,12 @@ releaseステージを追加し、「アクショングループを追加する�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_51_build_backend_production.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_52_build_backend_production.png
-   :scale: 100%
+
 
 |br|
 
@@ -234,7 +234,7 @@ releaseステージを追加し、「アクショングループを追加する�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_53_build_backend_production.png
-   :scale: 100%
+
 
 |br|
 
@@ -267,19 +267,19 @@ releaseステージを追加し、「アクショングループを追加する�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_54_codebuild_backend_production.png
-   :scale: 100%
+
 
 |br|
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_55_codebuild_backend_production.png
-   :scale: 100%
+
 
 |br|
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_56_codebuild_backend_production.png
-   :scale: 100%
+
 
 |br|
 
@@ -288,7 +288,7 @@ releaseステージを追加し、「アクショングループを追加する�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_57_build_bff_production.png
-   :scale: 100%
+
 
 |br|
 
@@ -297,7 +297,7 @@ Backendと同じ要領で、CodeBuildプロジェクトを作成、アクショ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_58_build_bff_production.png
-   :scale: 100%
+
 
 |br|
 
@@ -306,7 +306,7 @@ Backendと同じ要領で、CodeBuildプロジェクトを作成、アクショ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_62_add_ssm.png
-   :scale: 100%
+
 
 |br|
 |br|
@@ -316,13 +316,13 @@ Backendと同じ要領で、CodeBuildプロジェクトを作成、アクショ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_63_build_bff_production.png
-   :scale: 100%
+
 
 |br|
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/dockerhub_backend_production.png
-   :scale: 100%
+
 
 
 ここまでで、プロダクション環境のコンテナイメージを作成し、DockerHubへプッシュするパイプラインを設定できました。次回は、プロダクション環境にデプロイするパイプラインを構築します。
@@ -333,7 +333,7 @@ Backendと同じ要領で、CodeBuildプロジェクトを作成、アクショ�
 川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理
 
 .. figure:: img/automation_infra_devops_overview/pic_image01.jpg
-   :scale: 100%
+
 
 金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 

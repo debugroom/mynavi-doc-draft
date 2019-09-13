@@ -66,6 +66,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unittest.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_3.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_4.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_5.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_6.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_7.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_8.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_9.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -93,6 +104,13 @@
 <li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 </ul>
 </ul>
 </li>
@@ -181,7 +199,7 @@
 Dockerコンテナイメージを作成してレジストリにプッシュしました。そして、コンテナを実行するためのECSクラスタを作成し、ECSコンテナの定義まで完了しました。第二回の最後となる今回は「7. ECSサービスの実行」です。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/ecs-architecture.png"><img alt="../_images/ecs-architecture.png" src="../_images/ecs-architecture.png" style="width: 786.0px; height: 723.0px;" /></a>
+<img alt="../_images/ecs-architecture.png" src="../_images/ecs-architecture.png" />
 </div>
 <p><br/></p>
 <div class="section" id="ecs">
@@ -193,13 +211,13 @@ Dockerコンテナイメージを作成してレジストリにプッシュし�
 <p>ECSサービス実行では、ECSクラスタ上にコンテナを起動します。「ECS」サービスから「ECSクラスタ」メニューを選択し、コンテナを実行するクラスタを選択します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ecs-create-service-1.png"><img alt="../_images/management-console-ecs-create-service-1.png" src="../_images/management-console-ecs-create-service-1.png" style="width: 1064.0px; height: 826.0px;" /></a>
+<img alt="../_images/management-console-ecs-create-service-1.png" src="../_images/management-console-ecs-create-service-1.png" />
 </div>
 <p><br/></p>
 <p>「サービス」タブにある「作成」ボタンを押下します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ecs-create-service-2.png"><img alt="../_images/management-console-ecs-create-service-2.png" src="../_images/management-console-ecs-create-service-2.png" style="width: 1062.0px; height: 469.0px;" /></a>
+<img alt="../_images/management-console-ecs-create-service-2.png" src="../_images/management-console-ecs-create-service-2.png" />
 </div>
 <p><br/></p>
 <p>以下の要領に従って、ECSサービス定義の設定を行います。</p>
@@ -283,32 +301,32 @@ Dockerコンテナイメージを作成してレジストリにプッシュし�
 </table>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ecs-create-service-3.png"><img alt="../_images/management-console-ecs-create-service-3.png" src="../_images/management-console-ecs-create-service-3.png" style="width: 893.0px; height: 606.0px;" /></a>
+<img alt="../_images/management-console-ecs-create-service-3.png" src="../_images/management-console-ecs-create-service-3.png" />
 </div>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ecs-create-service-4.png"><img alt="../_images/management-console-ecs-create-service-4.png" src="../_images/management-console-ecs-create-service-4.png" style="width: 893.0px; height: 564.0px;" /></a>
+<img alt="../_images/management-console-ecs-create-service-4.png" src="../_images/management-console-ecs-create-service-4.png" />
 </div>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ecs-create-service-5.png"><img alt="../_images/management-console-ecs-create-service-5.png" src="../_images/management-console-ecs-create-service-5.png" style="width: 896.0px; height: 793.0px;" /></a>
+<img alt="../_images/management-console-ecs-create-service-5.png" src="../_images/management-console-ecs-create-service-5.png" />
 </div>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ecs-create-service-6.png"><img alt="../_images/management-console-ecs-create-service-6.png" src="../_images/management-console-ecs-create-service-6.png" style="width: 891.0px; height: 623.0px;" /></a>
+<img alt="../_images/management-console-ecs-create-service-6.png" src="../_images/management-console-ecs-create-service-6.png" />
 </div>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ecs-create-service-7.png"><img alt="../_images/management-console-ecs-create-service-7.png" src="../_images/management-console-ecs-create-service-7.png" style="width: 899.0px; height: 334.0px;" /></a>
+<img alt="../_images/management-console-ecs-create-service-7.png" src="../_images/management-console-ecs-create-service-7.png" />
 </div>
 <p><br/></p>
 <p>入力項目を確認し、サービスの作成ボタンを押下します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ecs-create-service-8.png"><img alt="../_images/management-console-ecs-create-service-8.png" src="../_images/management-console-ecs-create-service-8.png" style="width: 891.0px; height: 820.0px;" /></a>
+<img alt="../_images/management-console-ecs-create-service-8.png" src="../_images/management-console-ecs-create-service-8.png" />
 </div>
 <p><br/></p>
 <p>同様にプライベートサブネットのアプリケーションコンテナもサービスを実行します。パブリックサブネットのALBのDNSにBFFアプリケーションのパスを加え、アプリケーションが正しく実行されるか確認します。xxxxxxの部分は自身の環境のALBのDNS名に合わせてアクセスしてください。</p>
 <p>BFFアプリケーションのURL：　<a class="reference external" href="http://xxxxxxxx.ap-northeast-1.elb.amazonaws.com/backend-for-frontend/index.html">http://xxxxxxxx.ap-northeast-1.elb.amazonaws.com/backend-for-frontend/index.html</a></p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/ecs-bff-application.png"><img alt="../_images/ecs-bff-application.png" src="../_images/ecs-bff-application.png" style="width: 608.0px; height: 480.0px;" /></a>
+<img alt="../_images/ecs-bff-application.png" src="../_images/ecs-bff-application.png" />
 </div>
 <p><br/></p>
 <div class="admonition note">
@@ -338,7 +356,7 @@ ALBのパスベースのルーティング機能を使い、サービスを呼�
 <h2>著者紹介<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei)</p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+<img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" />
 </div>
 <p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
 <p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>

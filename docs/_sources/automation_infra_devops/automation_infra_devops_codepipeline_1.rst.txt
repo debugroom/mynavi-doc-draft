@@ -20,7 +20,7 @@ AWS CodePipeLineを用いた継続的デリバリ
 |br|
 
 .. figure:: img/automation_infra_devops_overview/MicroServiceArchitecture.png
-   :scale: 100%
+
 
 |br|
 
@@ -31,7 +31,7 @@ GitHubへプッシュされたソースコードに対するCodeBuildを使っ�
 |br|
 
 .. figure:: img/automation_infra_devops_codebuild/branch_strategy.png
-   :scale: 100%
+
 
 |br|
 
@@ -84,7 +84,7 @@ CodePipelineはアプリケーションのソースコードコミット・プ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/pipeline.png
-   :scale: 100%
+
 
 |br|
 
@@ -100,7 +100,7 @@ CodePipelineはアプリケーションのソースコードコミット・プ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/pipeline-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -113,7 +113,7 @@ CodePipelineはアプリケーションのソースコードコミット・プ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/pipeline-2.png
-   :scale: 100%
+
 
 |br|
 
@@ -126,7 +126,7 @@ CodePipelineはアプリケーションのソースコードコミット・プ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/pipeline-3.png
-   :scale: 100%
+
 
 |br|
 
@@ -138,7 +138,7 @@ CodePipelineはアプリケーションのソースコードコミット・プ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/pipeline-4.png
-   :scale: 100%
+
 
 |br|
 
@@ -151,7 +151,7 @@ CodePipelineはアプリケーションのソースコードコミット・プ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/pipeline-5.png
-   :scale: 100%
+
 
 |br|
 
@@ -164,7 +164,7 @@ CodePipelineはアプリケーションのソースコードコミット・プ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/pipeline-6.png
-   :scale: 100%
+
 
 |br|
 
@@ -176,7 +176,7 @@ CodePipelineはアプリケーションのソースコードコミット・プ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/pipeline-7.png
-   :scale: 100%
+
 
 |br|
 
@@ -189,7 +189,7 @@ CodePipelineはアプリケーションのソースコードコミット・プ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/pipeline-8.png
-   :scale: 100%
+
 
 |br|
 
@@ -203,7 +203,7 @@ CodePipelineはアプリケーションのソースコードコミット・プ�
 川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理
 
 .. figure:: img/automation_infra_devops_overview/pic_image01.jpg
-   :scale: 100%
+
 
 金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 

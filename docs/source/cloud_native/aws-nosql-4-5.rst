@@ -60,7 +60,7 @@ Amazon ElastiCacheへアクセスするSpringアプリケーション
 |br|
 
 .. figure:: img/aws-nosql/architecture-elasticache.png
-   :scale: 100%
+
 
 |br|
 
@@ -170,7 +170,7 @@ Redisクライアントのコンテナイメージ作成では、DockerHub上で
 |br|
 
 .. figure:: img/aws-nosql/management-console-ec2-create-alb-for-elasticache-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -179,7 +179,7 @@ Redisクライアントのコンテナイメージ作成では、DockerHub上で
 |br|
 
 .. figure:: img/aws-nosql/management-console-ec2-create-alb-for-elasticache-2.png
-   :scale: 100%
+
 
 |br|
 
@@ -188,14 +188,14 @@ Redisクライアントのコンテナイメージ作成では、DockerHub上で
 |br|
 
 .. figure:: img/aws-nosql/management-console-ec2-create-alb-for-elasticache-3.png
-   :scale: 100%
+
 
 |br|
 
 ターゲットの登録はECSコンテナの実行時に指定しますので、ここでは設定をスキップします。
 
 .. figure:: img/aws-nosql/management-console-ec2-create-alb-for-elasticache-4.png
-   :scale: 100%
+
 
 |br|
 
@@ -205,7 +205,7 @@ Redisクライアントのコンテナイメージ作成では、DockerHub上で
 |br|
 
 .. figure:: img/aws-nosql/management-console-ec2-create-target-group-for-elasticache-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -215,7 +215,7 @@ ALBが特定のパスパターンで特定のコンテナのターゲットグ�
 |br|
 
 .. figure:: img/aws-nosql/management-console-ec2-setting-alb-for-elasticache-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -226,7 +226,7 @@ ALBが特定のパスパターンで特定のコンテナのターゲットグ�
 |br|
 
 .. figure:: img/aws-nosql/management-console-ec2-setting-alb-for-elasticache-2.png
-   :scale: 100%
+
 
 |br|
 
@@ -236,7 +236,7 @@ ALBが特定のパスパターンで特定のコンテナのターゲットグ�
 |br|
 
 .. figure:: img/aws-nosql/management-console-ec2-setting-alb-for-elasticache-3.png
-   :scale: 100%
+
 
 |br|
 
@@ -250,7 +250,7 @@ ALBが特定のパスパターンで特定のコンテナのターゲットグ�
 川畑 光平(KAWABATA Kohei)
 
 .. figure:: img/aws-lambda-and-api-gateway/pic_image01.jpg
-   :scale: 100%
+
 
 某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 

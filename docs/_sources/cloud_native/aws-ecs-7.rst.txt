@@ -28,7 +28,7 @@ Dockerコンテナイメージを作成してレジストリにプッシュし�
 |br|
 
 .. figure:: img/aws-ecs/ecs-architecture.png
-   :scale: 100%
+
 
 |br|
 
@@ -48,7 +48,7 @@ ECSサービス実行では、ECSクラスタ上にコンテナを起動しま�
 |br|
 
 .. figure:: img/aws-ecs/management-console-ecs-create-service-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -57,7 +57,7 @@ ECSサービス実行では、ECSクラスタ上にコンテナを起動しま�
 |br|
 
 .. figure:: img/aws-ecs/management-console-ecs-create-service-2.png
-   :scale: 100%
+
 
 |br|
 
@@ -139,19 +139,19 @@ ECSサービス実行では、ECSクラスタ上にコンテナを起動しま�
 |br|
 
 .. figure:: img/aws-ecs/management-console-ecs-create-service-3.png
-   :scale: 100%
+
 
 .. figure:: img/aws-ecs/management-console-ecs-create-service-4.png
-   :scale: 100%
+
 
 .. figure:: img/aws-ecs/management-console-ecs-create-service-5.png
-   :scale: 100%
+
 
 .. figure:: img/aws-ecs/management-console-ecs-create-service-6.png
-   :scale: 100%
+
 
 .. figure:: img/aws-ecs/management-console-ecs-create-service-7.png
-   :scale: 100%
+
 
 |br|
 
@@ -160,7 +160,7 @@ ECSサービス実行では、ECSクラスタ上にコンテナを起動しま�
 |br|
 
 .. figure:: img/aws-ecs/management-console-ecs-create-service-8.png
-   :scale: 100%
+
 
 |br|
 
@@ -171,7 +171,7 @@ BFFアプリケーションのURL：　http://xxxxxxxx.ap-northeast-1.elb.amazon
 |br|
 
 .. figure:: img/aws-ecs/ecs-bff-application.png
-   :scale: 100%
+
 
 |br|
 
@@ -204,7 +204,7 @@ ALBのパスベースのルーティング機能を使い、サービスを呼�
 川畑 光平(KAWABATA Kohei)
 
 .. figure:: img/aws-lambda-and-api-gateway/pic_image01.jpg
-   :scale: 100%
+
 
 某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 

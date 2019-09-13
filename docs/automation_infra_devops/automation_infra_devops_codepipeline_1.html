@@ -104,6 +104,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 </ul>
 </ul>
 </li>
@@ -184,7 +191,7 @@
 <p>本連載では、以下のイメージの構成のようなマイクロサービスアーキテクチャでの継続的インテグレーション(Continuous Integration:CI)や継続的デリバリ(Continuous Delivery:CD)の自動化環境の構築を実践しています。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/MicroServiceArchitecture.png"><img alt="../_images/MicroServiceArchitecture.png" src="../_images/MicroServiceArchitecture.png" style="width: 786.0px; height: 801.0px;" /></a>
+<img alt="../_images/MicroServiceArchitecture.png" src="../_images/MicroServiceArchitecture.png" />
 </div>
 <p><br/></p>
 <p>前回までにECSコンテナ、RDSを使ったSonarQubeServerによる静的チェック環境の構築から、SpringBootを使ったマイクロサービスにおける各種テストコードの実装、
@@ -192,7 +199,7 @@ GitHubへプッシュされたソースコードに対するCodeBuildを使っ�
 継続的インテグレーションは以下のようなGit Flowをベースとしたブランチ構成で、feature/＊＊＊＊＊＊ブランチを対象に、赤字の吹き出しのタイミングで、ソースコードのGitHubへのプッシュを契機にビルド・テスト・静的解析結果可視化の自動化を実現しています。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/branch_strategy.png"><img alt="../_images/branch_strategy.png" src="../_images/branch_strategy.png" style="width: 1416.0px; height: 558.0px;" /></a>
+<img alt="../_images/branch_strategy.png" src="../_images/branch_strategy.png" />
 </div>
 <p><br/></p>
 <p>feature/＊＊＊＊ブランチに対する機能実装が完了した後は、developブランチに対してプルリクスト(Pull Request:PR)をコードオーナーや管理者に送信してマージ要求を行います。
@@ -231,7 +238,7 @@ developブランチへPRが発出されたタイミングやコードのマー�
 <p>前節のブランチ構成のイメージに基づき、feature/＊＊＊＊ブランチから、developブランチへのPRを契機として、前節の1〜8に対応して、以下のようなリリースプロセスに基づくパイプラインを構成します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline.png"><img alt="../_images/pipeline.png" src="../_images/pipeline.png" style="width: 727.0px; height: 955.0px;" /></a>
+<img alt="../_images/pipeline.png" src="../_images/pipeline.png" />
 </div>
 <p><br/></p>
 <p>各パイプラインの具体的な処理のイメージは以下の通りです。</p>
@@ -245,7 +252,7 @@ developブランチへPRが発出されたタイミングやコードのマー�
 </ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline-1.png"><img alt="../_images/pipeline-1.png" src="../_images/pipeline-1.png" style="width: 1163.0px; height: 821.0px;" /></a>
+<img alt="../_images/pipeline-1.png" src="../_images/pipeline-1.png" />
 </div>
 <p><br/></p>
 <ol class="arabic simple" start="2">
@@ -258,7 +265,7 @@ developブランチへPRが発出されたタイミングやコードのマー�
 </ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline-2.png"><img alt="../_images/pipeline-2.png" src="../_images/pipeline-2.png" style="width: 1136.0px; height: 816.0px;" /></a>
+<img alt="../_images/pipeline-2.png" src="../_images/pipeline-2.png" />
 </div>
 <p><br/></p>
 <ol class="arabic simple" start="3">
@@ -271,7 +278,7 @@ developブランチへPRが発出されたタイミングやコードのマー�
 </ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline-3.png"><img alt="../_images/pipeline-3.png" src="../_images/pipeline-3.png" style="width: 1143.0px; height: 819.0px;" /></a>
+<img alt="../_images/pipeline-3.png" src="../_images/pipeline-3.png" />
 </div>
 <p><br/></p>
 <ol class="arabic simple" start="4">
@@ -283,7 +290,7 @@ developブランチへPRが発出されたタイミングやコードのマー�
 </ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline-4.png"><img alt="../_images/pipeline-4.png" src="../_images/pipeline-4.png" style="width: 1131.0px; height: 818.0px;" /></a>
+<img alt="../_images/pipeline-4.png" src="../_images/pipeline-4.png" />
 </div>
 <p><br/></p>
 <ol class="arabic simple" start="5">
@@ -296,7 +303,7 @@ developブランチへPRが発出されたタイミングやコードのマー�
 </ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline-5.png"><img alt="../_images/pipeline-5.png" src="../_images/pipeline-5.png" style="width: 1132.0px; height: 820.0px;" /></a>
+<img alt="../_images/pipeline-5.png" src="../_images/pipeline-5.png" />
 </div>
 <p><br/></p>
 <ol class="arabic simple" start="6">
@@ -309,7 +316,7 @@ developブランチへPRが発出されたタイミングやコードのマー�
 </ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline-6.png"><img alt="../_images/pipeline-6.png" src="../_images/pipeline-6.png" style="width: 1135.0px; height: 817.0px;" /></a>
+<img alt="../_images/pipeline-6.png" src="../_images/pipeline-6.png" />
 </div>
 <p><br/></p>
 <ol class="arabic simple" start="7">
@@ -321,7 +328,7 @@ developブランチへPRが発出されたタイミングやコードのマー�
 </ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline-7.png"><img alt="../_images/pipeline-7.png" src="../_images/pipeline-7.png" style="width: 1131.0px; height: 820.0px;" /></a>
+<img alt="../_images/pipeline-7.png" src="../_images/pipeline-7.png" />
 </div>
 <p><br/></p>
 <ol class="arabic simple" start="8">
@@ -334,7 +341,7 @@ developブランチへPRが発出されたタイミングやコードのマー�
 </ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline-8.png"><img alt="../_images/pipeline-8.png" src="../_images/pipeline-8.png" style="width: 1141.0px; height: 816.0px;" /></a>
+<img alt="../_images/pipeline-8.png" src="../_images/pipeline-8.png" />
 </div>
 <p><br/></p>
 <p>次回以降は、各パイプラインの処理の内容を順次説明し、実際に環境を構築していきます。</p>
@@ -345,7 +352,7 @@ developブランチへPRが発出されたタイミングやコードのマー�
 <h2>著者紹介<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pic_image01.jpg"><img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+<img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" />
 </div>
 <p>金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
 <p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>

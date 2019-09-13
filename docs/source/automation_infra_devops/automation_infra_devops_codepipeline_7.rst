@@ -20,7 +20,7 @@
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/pipeline.png
-   :scale: 100%
+
 
 |br|
 
@@ -38,7 +38,7 @@
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/pipeline-6.png
-   :scale: 100%
+
 
 |br|
 
@@ -131,7 +131,7 @@ Publisherは、自分が作成したトピック、または発行を許可さ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_sns_create_approval_topic.png
-   :scale: 100%
+
 
 |br|
 
@@ -153,7 +153,7 @@ Publisherは、自分が作成したトピック、または発行を許可さ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_31_build_bff_staging.png
-   :scale: 100%
+
 
 |br|
 
@@ -162,7 +162,7 @@ Publisherは、自分が作成したトピック、または発行を許可さ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_45_approve_release.png
-   :scale: 100%
+
 
 |br|
 
@@ -177,7 +177,7 @@ Publisherは、自分が作成したトピック、または発行を許可さ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_46_approve_release.png
-   :scale: 100%
+
 
 |br|
 
@@ -186,7 +186,7 @@ Publisherは、自分が作成したトピック、または発行を許可さ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_47_approve_release.png
-   :scale: 100%
+
 
 |br|
 
@@ -195,7 +195,7 @@ Publisherは、自分が作成したトピック、または発行を許可さ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_48_approve_release.png
-   :scale: 100%
+
 
 |br|
 
@@ -204,7 +204,7 @@ Publisherは、自分が作成したトピック、または発行を許可さ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_49_approve_release.png
-   :scale: 100%
+
 
 |br|
 
@@ -218,7 +218,7 @@ Publisherは、自分が作成したトピック、または発行を許可さ�
 川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理
 
 .. figure:: img/automation_infra_devops_overview/pic_image01.jpg
-   :scale: 100%
+
 
 金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 

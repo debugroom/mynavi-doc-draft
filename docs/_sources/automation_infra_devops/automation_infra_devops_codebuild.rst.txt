@@ -20,7 +20,7 @@ AWS CodeBuildを用いた継続的インテグレーション自動化2
 本連載では、以下のイメージに沿って「CodeBuild」「SonarQube」を使った継続的インテグレーション(CI：Continuous integration)環境を実際に構築しています。|br|
 
 .. figure:: img/automation_infra_devops_actual_experience/sample-continuous-integration.png
-   :scale: 100%
+
 
 |br|
 
@@ -42,12 +42,12 @@ CodeBuild設定の事前準備として、CodeBuildが実行するビルド環�
 |br|
 
 .. figure:: img/automation_infra_devops_codebuild/management_console_vpc_create_security_group_1.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/automation_infra_devops_codebuild/management_console_vpc_create_security_group_2.png
-   :scale: 100%
+
 
 |br|
 
@@ -63,7 +63,7 @@ AWSコンソールメニューから、「CodeBuild」サービスを選択し�
 |br|
 
 .. figure:: img/automation_infra_devops_codebuild/management_console_codebuild_create_project_bff_1.png
-   :scale: 100%
+
 
 |br|
 
@@ -190,38 +190,38 @@ CodeBuildの主な設定項目は以下の通りです。説明に記載の要�
 |br|
 
 .. figure:: img/automation_infra_devops_codebuild/management_console_codebuild_create_project_bff_2.png
-   :scale: 100%
+
 
 |br|
 
 
 .. figure:: img/automation_infra_devops_codebuild/management_console_codebuild_create_project_bff_3.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/automation_infra_devops_codebuild/management_console_codebuild_create_project_bff_4.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/automation_infra_devops_codebuild/management_console_codebuild_create_project_bff_5.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/automation_infra_devops_codebuild/management_console_codebuild_create_project_bff_6.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/automation_infra_devops_codebuild/management_console_codebuild_create_project_bff_7.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/automation_infra_devops_codebuild/management_console_codebuild_create_project_bff_8.png
-   :scale: 100%
+
 
 |br|
 
@@ -244,7 +244,7 @@ AWSコンソールで、「IAM」サービスから「ロール」メニュー�
 |br|
 
 .. figure:: img/automation_infra_devops_codebuild/management_console_iam_attach_ssm_access.png
-   :scale: 100%
+
 
 |br|
 
@@ -260,12 +260,12 @@ Buildの実行とWebHook設定
 |br|
 
 .. figure:: img/automation_infra_devops_codebuild/management_console_codebuild_build_execution_1.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/automation_infra_devops_codebuild/management_console_codebuild_build_execution_2.png
-   :scale: 100%
+
 
 |br|
 
@@ -275,7 +275,7 @@ Scannerの結果も合わせて確認し、QualityGateをパスしているか�
 |br|
 
 .. figure:: img/automation_infra_devops_codebuild/sonarqube-scanner-result.png
-   :scale: 100%
+
 
 |br|
 
@@ -290,7 +290,7 @@ CodeBuildやGitHubのWebhookの設定を行います。今回は以下のよう�
 |br|
 
 .. figure:: img/automation_infra_devops_codebuild/branch_strategy.png
-   :scale: 100%
+
 
 |br|
 
@@ -304,7 +304,7 @@ Git Flowのブランチモデルに従って、機能開発を各々featureブ�
 |br|
 
 .. figure:: img/automation_infra_devops_codebuild/github_create_branches.png
-   :scale: 100%
+
 
 |br|
 
@@ -327,7 +327,7 @@ Git Flowのブランチモデルに従って、機能開発を各々featureブ�
 |br|
 
 .. figure:: img/automation_infra_devops_codebuild/management_console_codebuild_edit_webhook_backend_1.png
-   :scale: 100%
+
 
 |br|
 
@@ -340,12 +340,12 @@ Git Flowのブランチモデルに従って、機能開発を各々featureブ�
 |br|
 
 .. figure:: img/automation_infra_devops_codebuild/management_console_codebuild_edit_webhook_backend_2.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/automation_infra_devops_codebuild/management_console_codebuild_edit_webhook_backend_3.png
-   :scale: 100%
+
 
 |br|
 
@@ -357,12 +357,12 @@ Git Flowのブランチモデルに従って、機能開発を各々featureブ�
 |br|
 
 .. figure:: img/automation_infra_devops_codebuild/github_push_add_feature_address.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/automation_infra_devops_codebuild/management_console_codebuild_start_webhook_bff.png
-   :scale: 100%
+
 
 |br|
 
@@ -404,7 +404,7 @@ SonarQubeServerではALB、ECS、RDSを使用して環境構築することに�
 川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理
 
 .. figure:: img/automation_infra_devops_overview/pic_image01.jpg
-   :scale: 100%
+
 
 金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 

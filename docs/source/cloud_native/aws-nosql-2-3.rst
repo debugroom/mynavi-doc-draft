@@ -358,7 +358,7 @@ Serviceクラスでは、以下の通り、CRUD処理をRepositoryを通して�
 |br|
 
 .. figure:: img/aws-nosql/dynamodb-app.png
-   :scale: 100%
+
 
 |br|
 
@@ -367,7 +367,7 @@ Serviceクラスでは、以下の通り、CRUD処理をRepositoryを通して�
 |br|
 
 .. figure:: img/aws-nosql/dynamodb-app-add.png
-   :scale: 100%
+
 
 |br|
 
@@ -376,7 +376,7 @@ Serviceクラスでは、以下の通り、CRUD処理をRepositoryを通して�
 |br|
 
 .. figure:: img/aws-nosql/dynamodb-app-findAll.png
-   :scale: 100%
+
 
 |br|
 
@@ -385,7 +385,7 @@ Serviceクラスでは、以下の通り、CRUD処理をRepositoryを通して�
 |br|
 
 .. figure:: img/aws-nosql/dynamodb-app-findOne.png
-   :scale: 100%
+
 
 |br|
 
@@ -394,7 +394,7 @@ Serviceクラスでは、以下の通り、CRUD処理をRepositoryを通して�
 |br|
 
 .. figure:: img/aws-nosql/dynamodb-app-update.png
-   :scale: 100%
+
 
 |br|
 
@@ -403,7 +403,7 @@ Serviceクラスでは、以下の通り、CRUD処理をRepositoryを通して�
 |br|
 
 .. figure:: img/aws-nosql/dynamodb-app-delete.png
-   :scale: 100%
+
 
 |br|
 
@@ -419,7 +419,7 @@ Serviceクラスでは、以下の通り、CRUD処理をRepositoryを通して�
 川畑 光平(KAWABATA Kohei)
 
 .. figure:: img/aws-lambda-and-api-gateway/pic_image01.jpg
-   :scale: 100%
+
 
 某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 

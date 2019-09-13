@@ -46,7 +46,7 @@ S3へアクセスする方法と、AWS STS(SecurityTokenSerivce)を使って作�
 |br|
 
 .. figure:: img/aws-s3/S3Access.png
-   :scale: 100%
+
 
 |br|
 
@@ -57,7 +57,7 @@ S3へアクセスする方法と、AWS STS(SecurityTokenSerivce)を使って作�
 |br|
 
 .. figure:: img/aws-s3/S3DirectAccess.png
-   :scale: 100%
+
 
 |br|
 
@@ -164,11 +164,6 @@ Spring Cloud AWSを使用するには、まず、Mavenプロジェクトのpom.x
        <optional>true</optional>
      </dependency>
      <dependency>
-       <groupId>org.projectlombok</groupId>
-       <artifactId>lombok</artifactId>
-       <optional>true</optional>
-     </dependency>
-     <dependency>
        <groupId>commons-io</groupId>
        <artifactId>commons-io</artifactId>
        <version>2.6</version>
@@ -231,7 +226,7 @@ Spring Cloud AWSを使用するには、まず、Mavenプロジェクトのpom.x
 |br|
 
 .. figure:: img/aws-s3/management-console-iam-attach-policy-s3.png
-   :scale: 100%
+
 
 |br|
 
@@ -408,7 +403,7 @@ application.yml
 川畑 光平(KAWABATA Kohei)
 
 .. figure:: img/aws-lambda-and-api-gateway/pic_image01.jpg
-   :scale: 100%
+
 
 某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 

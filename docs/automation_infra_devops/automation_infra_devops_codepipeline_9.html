@@ -104,6 +104,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 </ul>
 </ul>
 </li>
@@ -186,7 +193,7 @@
 <p>本連載では、マイクロサービスアーキテクチャでの継続的デリバリ(Continuous Delivery:CD)を以下のようなパイプラインで実現していきます。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline.png"><img alt="../_images/pipeline.png" src="../_images/pipeline.png" style="width: 727.0px; height: 955.0px;" /></a>
+<img alt="../_images/pipeline.png" src="../_images/pipeline.png" />
 </div>
 <p><br/></p>
 <p>前回は(7)プロダクション環境向けのアプリケーションのコンテナイメージをビルドしてDockerHubへプッシュするパイプラインを構築しました。
@@ -202,7 +209,7 @@
 </ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pipeline-8.png"><img alt="../_images/pipeline-8.png" src="../_images/pipeline-8.png" style="width: 1141.0px; height: 816.0px;" /></a>
+<img alt="../_images/pipeline-8.png" src="../_images/pipeline-8.png" />
 </div>
 <p><br/></p>
 </div>
@@ -234,17 +241,17 @@
 </table>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_ecs_task_definition_bff_production_1.png"><img alt="../_images/management_console_ecs_task_definition_bff_production_1.png" src="../_images/management_console_ecs_task_definition_bff_production_1.png" style="width: 591.0px; height: 816.0px;" /></a>
+<img alt="../_images/management_console_ecs_task_definition_bff_production_1.png" src="../_images/management_console_ecs_task_definition_bff_production_1.png" />
 </div>
 <p><br/></p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_ecs_task_definition_bff_production_2.png"><img alt="../_images/management_console_ecs_task_definition_bff_production_2.png" src="../_images/management_console_ecs_task_definition_bff_production_2.png" style="width: 619.0px; height: 781.0px;" /></a>
+<img alt="../_images/management_console_ecs_task_definition_bff_production_2.png" src="../_images/management_console_ecs_task_definition_bff_production_2.png" />
 </div>
 <p><br/></p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_ecs_task_definition_bff_production_3.png"><img alt="../_images/management_console_ecs_task_definition_bff_production_3.png" src="../_images/management_console_ecs_task_definition_bff_production_3.png" style="width: 594.0px; height: 578.0px;" /></a>
+<img alt="../_images/management_console_ecs_task_definition_bff_production_3.png" src="../_images/management_console_ecs_task_definition_bff_production_3.png" />
 </div>
 <p><br/></p>
 </div>
@@ -264,18 +271,18 @@
 AWSコンソールの「CodePipeline」サービスを選択し、パイプラインを選択して、「編集する」ボタンを押下します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_31_build_bff_staging.png"><img alt="../_images/management_console_codepipeline_edit_project_31_build_bff_staging.png" src="../_images/management_console_codepipeline_edit_project_31_build_bff_staging.png" style="width: 1062.0px; height: 910.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_31_build_bff_staging.png" src="../_images/management_console_codepipeline_edit_project_31_build_bff_staging.png" />
 </div>
 <p><br/></p>
 <p>前回作成した、プロダクション環境のコンテナを作成したステージにデプロイアクションを追加します。「ステージを編集する」ボタンを押下し、新たな「アクショングループ」を追加します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_64_deploy_backend_production.png"><img alt="../_images/management_console_codepipeline_edit_project_64_deploy_backend_production.png" src="../_images/management_console_codepipeline_edit_project_64_deploy_backend_production.png" style="width: 980.0px; height: 315.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_64_deploy_backend_production.png" src="../_images/management_console_codepipeline_edit_project_64_deploy_backend_production.png" />
 </div>
 <p><br/>
 <br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_65_deploy_backend_production.png"><img alt="../_images/management_console_codepipeline_edit_project_65_deploy_backend_production.png" src="../_images/management_console_codepipeline_edit_project_65_deploy_backend_production.png" style="width: 966.0px; height: 375.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_65_deploy_backend_production.png" src="../_images/management_console_codepipeline_edit_project_65_deploy_backend_production.png" />
 </div>
 <p><br/></p>
 <p>まず、Backendのコンテナイメージをデプロイするための設定を追加します。以下の要領でアクションを設定し、「完了」ボタンを押下します。</p>
@@ -290,24 +297,24 @@ AWSコンソールの「CodePipeline」サービスを選択し、パイプラ�
 </ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_66_deploy_backend_production.png"><img alt="../_images/management_console_codepipeline_edit_project_66_deploy_backend_production.png" src="../_images/management_console_codepipeline_edit_project_66_deploy_backend_production.png" style="width: 815.0px; height: 765.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_66_deploy_backend_production.png" src="../_images/management_console_codepipeline_edit_project_66_deploy_backend_production.png" />
 </div>
 <p><br/></p>
 <p>同様に、BFFのコンテナイメージを並列実行してデプロイするための設定を追加します。上記で作成したアクションの横にある「アクションの追加」を選んだのち、同様の要領でアクションを設定します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_67_deploy_bff_production.png"><img alt="../_images/management_console_codepipeline_edit_project_67_deploy_bff_production.png" src="../_images/management_console_codepipeline_edit_project_67_deploy_bff_production.png" style="width: 789.0px; height: 535.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_67_deploy_bff_production.png" src="../_images/management_console_codepipeline_edit_project_67_deploy_bff_production.png" />
 </div>
 <p><br/></p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_68_deploy_bff_production.png"><img alt="../_images/management_console_codepipeline_edit_project_68_deploy_bff_production.png" src="../_images/management_console_codepipeline_edit_project_68_deploy_bff_production.png" style="width: 866.0px; height: 765.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_68_deploy_bff_production.png" src="../_images/management_console_codepipeline_edit_project_68_deploy_bff_production.png" />
 </div>
 <p><br/></p>
 <p>設定完了後、「変更をリリースする」ボタンを押下し、デプロイが問題なく完了するか確認します。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management_console_codepipeline_edit_project_69_deploy_bff_production.png"><img alt="../_images/management_console_codepipeline_edit_project_69_deploy_bff_production.png" src="../_images/management_console_codepipeline_edit_project_69_deploy_bff_production.png" style="width: 1082.0px; height: 747.0px;" /></a>
+<img alt="../_images/management_console_codepipeline_edit_project_69_deploy_bff_production.png" src="../_images/management_console_codepipeline_edit_project_69_deploy_bff_production.png" />
 </div>
 <p><br/></p>
 </div>
@@ -341,7 +348,7 @@ AWSコンソールの「CodePipeline」サービスを選択し、パイプラ�
 <h2>著者紹介<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pic_image01.jpg"><img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+<img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" />
 </div>
 <p>金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
 <p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>

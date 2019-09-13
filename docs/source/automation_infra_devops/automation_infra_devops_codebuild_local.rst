@@ -20,7 +20,7 @@ AWS CodeBuildを用いた継続的インテグレーション自動化1
 本連載では、以下のイメージに沿って「CodeBuild」「SonarQube」を使った継続的インテグレーション(CI：Continuous integration)環境を実際に構築しています。|br|
 
 .. figure:: img/automation_infra_devops_actual_experience/sample-continuous-integration.png
-   :scale: 100%
+
 
 |br|
 
@@ -29,7 +29,7 @@ AWS CodeBuildを用いた継続的インテグレーション自動化1
 |br|
 
 .. figure:: img/automation_infra_devops_overview/MicroServiceArchitecture.png
-   :scale: 100%
+
 
 |br|
 
@@ -147,14 +147,14 @@ Parameter Storeを利用するには、AWSコンソールで 「Systems Manager�
 |br|
 
 .. figure:: img/automation_infra_devops_codebuild/management_console_ssm_create_parameter_store_1.png
-   :scale: 100%
+
 
 |br|
 
 パラメータの名前と値をそれぞれ入力し、「パラメータの作成」ボタンを押下します。
 
 .. figure:: img/automation_infra_devops_codebuild/management_console_ssm_create_parameter_store_2.png
-   :scale: 100%
+
 
 |br|
 
@@ -382,7 +382,7 @@ CodeBuild Localを使用する事前準備ができたところで、buildspec.y
 川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理
 
 .. figure:: img/automation_infra_devops_overview/pic_image01.jpg
-   :scale: 100%
+
 
 金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 

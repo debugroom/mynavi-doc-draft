@@ -15,7 +15,7 @@
 |br|
 
 .. figure:: img/automation_infra_devops_actual_experience/sample-continuous-integration.png
-   :scale: 100%
+
 
 |br|
 
@@ -36,7 +36,7 @@ SonarQubeプロジェクトの作成
 |br|
 
 .. figure:: img/automation_infra_devops_sonarqube/sonarqube-create-project-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -45,7 +45,7 @@ SonarQubeプロジェクトの作成
 |br|
 
 .. figure:: img/automation_infra_devops_sonarqube/sonarqube-create-project-2.png
-   :scale: 100%
+
 
 |br|
 
@@ -54,7 +54,7 @@ SonarQubeプロジェクトの作成
 |br|
 
 .. figure:: img/automation_infra_devops_sonarqube/sonarqube-create-project-3.png
-   :scale: 100%
+
 
 |br|
 
@@ -75,7 +75,7 @@ SonarQubeは様々な言語のチェックルールがデフォルトで設定�
 |br|
 
 .. figure:: img/automation_infra_devops_sonarqube/sonarqube-install-findbugs-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -87,7 +87,7 @@ Javaの「Sonar way」プロファイルのカスタム用のためのボタン�
 |br|
 
 .. figure:: img/automation_infra_devops_sonarqube/sonarqube-customize-quality-profile-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -96,7 +96,7 @@ Javaの「Sonar way」プロファイルのカスタム用のためのボタン�
 |br|
 
 .. figure:: img/automation_infra_devops_sonarqube/sonarqube-customize-quality-profile-2.png
-   :scale: 100%
+
 
 |br|
 
@@ -106,7 +106,7 @@ Javaの「Sonar way」プロファイルのカスタム用のためのボタン�
 |br|
 
 .. figure:: img/automation_infra_devops_sonarqube/sonarqube-customize-quality-profile-3.png
-   :scale: 100%
+
 
 |br|
 
@@ -115,7 +115,7 @@ Javaの「Sonar way」プロファイルのカスタム用のためのボタン�
 |br|
 
 .. figure:: img/automation_infra_devops_sonarqube/sonarqube-customize-quality-profile-4.png
-   :scale: 100%
+
 
 |br|
 
@@ -125,7 +125,7 @@ Javaの「Sonar way」プロファイルのカスタム用のためのボタン�
 |br|
 
 .. figure:: img/automation_infra_devops_sonarqube/sonarqube-customize-quality-profile-6.png
-   :scale: 100%
+
 
 |br|
 
@@ -134,7 +134,7 @@ Javaの「Sonar way」プロファイルのカスタム用のためのボタン�
 |br|
 
 .. figure:: img/automation_infra_devops_sonarqube/sonarqube-setting-quality-profile-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -143,7 +143,7 @@ Javaの設定を先ほど作成したプロファイルに設定します。
 |br|
 
 .. figure:: img/automation_infra_devops_sonarqube/sonarqube-setting-quality-profile-2.png
-   :scale: 100%
+
 
 |br|
 
@@ -168,7 +168,7 @@ IntelliJ IDEAでは、「Preference」から、「Plugins」を選択し、「Br
 |br|
 
 .. figure:: img/automation_infra_devops_sonarqube/intellij-install-sonarlint-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -177,7 +177,7 @@ IntelliJ IDEAでは、「Preference」から、「Plugins」を選択し、「Br
 |br|
 
 .. figure:: img/automation_infra_devops_sonarqube/intellij-install-sonarlint-2.png
-   :scale: 100%
+
 
 |br|
 
@@ -188,7 +188,7 @@ IntelliJ IDEAでは、「Preference」から、「Plugins」を選択し、「Br
 |br|
 
 .. figure:: img/automation_infra_devops_sonarqube/intellij-sonarlint-general-settings-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -197,7 +197,7 @@ IntelliJ IDEAでは、「Preference」から、「Plugins」を選択し、「Br
 |br|
 
 .. figure:: img/automation_infra_devops_sonarqube/intellij-sonarlint-general-settings-2.png
-   :scale: 100%
+
 
 |br|
 
@@ -206,7 +206,7 @@ SonarQube serverが追加されるので、引き続き、「SonarLint Project S
 |br|
 
 .. figure:: img/automation_infra_devops_sonarqube/intellij-sonarlint-general-settings-3.png
-   :scale: 100%
+
 
 |br|
 
@@ -215,7 +215,7 @@ SonarQube serverが追加されるので、引き続き、「SonarLint Project S
 |br|
 
 .. figure:: img/automation_infra_devops_sonarqube/intellij-sonarlint-project-settings-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -224,7 +224,7 @@ SonarQube serverが追加されるので、引き続き、「SonarLint Project S
 |br|
 
 .. figure:: img/automation_infra_devops_sonarqube/intellij-sonarlint-check-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -239,7 +239,7 @@ SonarQube serverが追加されるので、引き続き、「SonarLint Project S
 川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理
 
 .. figure:: img/automation_infra_devops_overview/pic_image01.jpg
-   :scale: 100%
+
 
 金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 

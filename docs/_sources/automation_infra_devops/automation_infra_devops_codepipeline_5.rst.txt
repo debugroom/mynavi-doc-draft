@@ -20,7 +20,7 @@
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/pipeline.png
-   :scale: 100%
+
 
 |br|
 
@@ -36,7 +36,7 @@
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/pipeline-4.png
-   :scale: 100%
+
 
 |br|
 
@@ -182,7 +182,7 @@ AWSコンソールの「CodePipeline」サービスを選択し、パイプラ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_31_build_bff_staging.png
-   :scale: 100%
+
 
 |br|
 
@@ -191,7 +191,7 @@ AWSコンソールの「CodePipeline」サービスを選択し、パイプラ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_32_build_bff_staging.png
-   :scale: 100%
+
 
 |br|
 
@@ -207,7 +207,7 @@ AWSコンソールの「CodePipeline」サービスを選択し、パイプラ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_33_build_bff_staging.png
-   :scale: 100%
+
 
 |br|
 
@@ -238,24 +238,24 @@ AWSコンソールの「CodePipeline」サービスを選択し、パイプラ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_34_codebuild_bff_staging.png
-   :scale: 100%
+
 
 |br|
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_35_codebuild_bff_staging.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_36_codebuild_bff_staging.png
-   :scale: 100%
+
 
 |br|
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_37_codebuild_bff_staging.png
-   :scale: 100%
+
 
 |br|
 
@@ -264,7 +264,7 @@ AWSコンソールの「CodePipeline」サービスを選択し、パイプラ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_38_add_ssm.png
-   :scale: 100%
+
 
 |br|
 
@@ -273,7 +273,7 @@ AWSコンソールの「CodePipeline」サービスを選択し、パイプラ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/management_console_codepipeline_edit_project_39_codebuild_bff_staging.png
-   :scale: 100%
+
 
 |br|
 
@@ -282,7 +282,7 @@ DockerHub上にも、コンテナイメージがプッシュされているこ�
 |br|
 
 .. figure:: img/automation_infra_devops_codepipeline/dockerhub_bff_staging.png
-   :scale: 100%
+
 
 |br|
 
@@ -296,7 +296,7 @@ DockerHub上にも、コンテナイメージがプッシュされているこ�
 川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理
 
 .. figure:: img/automation_infra_devops_overview/pic_image01.jpg
-   :scale: 100%
+
 
 金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 

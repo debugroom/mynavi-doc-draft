@@ -27,7 +27,7 @@ AWSで作るクラウドネイティブアプリケーションの基本
 |br|
 
 .. figure:: img/aws-ecs/ecs-architecture.png
-   :scale: 100%
+
 
 |br|
 
@@ -78,7 +78,7 @@ VPCの環境では、パブリックとプライベートにサブネットを�
 「EC2」サービスから、「ロードバランサー」メニューを選択し、「ロードバランサーの作成」を押下します。ALBを選択し、「作成」ボタンを押下します。
 
 .. figure:: img/aws-ecs/management-console-ec2-create-alb-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -109,7 +109,7 @@ VPCの環境では、パブリックとプライベートにサブネットを�
      - ロードバランシングするアベイラビリティゾーンおよびそのサブネットを指定します。上記のスキームに合わせて設定してください。
 
 .. figure:: img/aws-ecs/management-console-ec2-create-alb-2.png
-   :scale: 100%
+
 
 |br|
 
@@ -123,7 +123,7 @@ VPCの環境では、パブリックとプライベートにサブネットを�
 * ソース：0.0.0.0/0
 
 .. figure:: img/aws-ecs/management-console-ec2-create-alb-3.png
-   :scale: 100%
+
 
 |br|
 
@@ -135,7 +135,7 @@ VPCの環境では、パブリックとプライベートにサブネットを�
    * ソース：172.0.0.0/16
 
    .. figure:: img/aws-ecs/management-console-ec2-create-alb-4.png
-      :scale: 100%
+
 
 |br|
 
@@ -157,14 +157,14 @@ VPCの環境では、パブリックとプライベートにサブネットを�
 .. note:: ヘルスチェックするアプリケーションのURLがhttp://localhost:8080/backend-for-frontend/index.htmlであれば、パス名はアプリケーションコンテキストパス以下となる/backend-for-frontend/index.htmlを指定します。
 
 .. figure:: img/aws-ecs/management-console-ec2-create-alb-5.png
-   :scale: 100%
+
 
 |br|
 
 ターゲットグループにはECSサービスの作成で改めて登録するので、ここでは特に何もターゲットの登録をせずALBを作成してください。
 
 .. figure:: img/aws-ecs/management-console-ec2-create-alb-7.png
-   :scale: 100%
+
 
 |br|
 
@@ -172,14 +172,14 @@ VPCの環境では、パブリックとプライベートにサブネットを�
 
 
 .. figure:: img/aws-ecs/management-console-ec2-setting-path-1.png
-   :scale: 100%
+
 
 |br|
 
 画面上部のプラスボタンを押下し、ルールを追加します。各ターゲットグループにどのパスで、どのターゲットグループへルーティングするかを設定します。条件を設定した後、「保存」ボタンを押して、パスベースのルーティングのルールを保存してください。
 
 .. figure:: img/aws-ecs/management-console-ec2-setting-path-2.png
-   :scale: 100%
+
 
 .. note:: パスとして指定する値は、アプリケーションのコンテキストルートに相当するだけを設定しておくと、次回(3)で作成するSpringアプリケーションで柔軟なサービス呼び出しができます。
 
@@ -193,7 +193,7 @@ VPCの環境では、パブリックとプライベートにサブネットを�
 川畑 光平(KAWABATA Kohei)
 
 .. figure:: img/aws-lambda-and-api-gateway/pic_image01.jpg
-   :scale: 100%
+
 
 某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 

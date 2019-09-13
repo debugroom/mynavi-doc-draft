@@ -78,7 +78,7 @@ Linuxサーバ環境でDockerコンテナを単純に運用する場合と比較
 以下のようなイメージでECSアプリケーションを構築する形式とします。
 
 .. figure:: img/aws-ecs/ecs-architecture.png
-   :scale: 100%
+
 
 ネットワーク環境の構築からアプリケーションの実装、コンテナイメージの作成、クラスタの実行など広範囲に及びますので、第二回は以降、
 
@@ -132,7 +132,7 @@ Linuxサーバ環境でDockerコンテナを単純に運用する場合と比較
 |br|
 
 .. figure:: img/aws-ecs/management-console-vpc-elastic-ipaddress-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -141,7 +141,7 @@ Linuxサーバ環境でDockerコンテナを単純に運用する場合と比較
 |br|
 
 .. figure:: img/aws-ecs/management-console-vpc-create-vpc-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -195,7 +195,7 @@ Linuxサーバ環境でDockerコンテナを単純に運用する場合と比較
 |br|
 
 .. figure:: img/aws-ecs/management-console-vpc-create-vpc-2.png
-   :scale: 100%
+
 
 |br|
 
@@ -210,7 +210,7 @@ Linuxサーバ環境でDockerコンテナを単純に運用する場合と比較
 |br|
 
 .. figure:: img/aws-ecs/management-console-vpc-create-subnet-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -218,7 +218,7 @@ Linuxサーバ環境でDockerコンテナを単純に運用する場合と比較
 パブリックサブネットを(インターネットゲートウェイのルーティングが設定されている)カスタムルートテーブルに関連づける必要があります。
 
 .. figure:: img/aws-ecs/management-console-vpc-edit-routetable-1.png
-   :scale: 100%
+
 
 .. note:: 正確にはサブネットは明示的にどれか一つのルートテーブルにも関連づけないと、デフォルトのメインルートテーブルに暗黙的に関連づけられるようになっています。
           ウィザードで作成したメインルートテーブルはプライベートサブネット用のNATゲートウェイのルーティングが設定されています。
@@ -229,7 +229,7 @@ Linuxサーバ環境でDockerコンテナを単純に運用する場合と比較
 新たに作成したパブリックサブネットを関連づけます。
 
 .. figure:: img/aws-ecs/management-console-vpc-edit-routetable-2.png
-   :scale: 100%
+
 
 |br|
 
@@ -243,7 +243,7 @@ Linuxサーバ環境でDockerコンテナを単純に運用する場合と比較
 川畑 光平(KAWABATA Kohei)
 
 .. figure:: img/aws-lambda-and-api-gateway/pic_image01.jpg
-   :scale: 100%
+
 
 某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 

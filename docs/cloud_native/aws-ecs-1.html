@@ -66,6 +66,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unittest.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_3.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_4.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_5.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_6.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_7.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_8.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_9.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -93,6 +104,13 @@
 <li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 </ul>
 </ul>
 </li>
@@ -230,7 +248,7 @@ Linuxサーバ環境でDockerコンテナを単純に運用する場合と比較
 実行するクラスタ自体をマネージドとしてAWSが自動で管理し、コンテナだけを意識するFargateに分類できます。本稿では理解を深めるために、EC2クラスタ型でECSアプリケーションを構築するものとし、
 以下のようなイメージでECSアプリケーションを構築する形式とします。</p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/ecs-architecture.png"><img alt="../_images/ecs-architecture.png" src="../_images/ecs-architecture.png" style="width: 786.0px; height: 723.0px;" /></a>
+<img alt="../_images/ecs-architecture.png" src="../_images/ecs-architecture.png" />
 </div>
 <p>ネットワーク環境の構築からアプリケーションの実装、コンテナイメージの作成、クラスタの実行など広範囲に及びますので、第二回は以降、</p>
 <ol class="arabic simple">
@@ -278,13 +296,13 @@ Linuxサーバ環境でDockerコンテナを単純に運用する場合と比較
 「VPC」サービスから「ElasticIP」メニューを選択し、「新しいアドレスの割り当て」ボタンから、IPアドレスを払い出しておきましょう。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-vpc-elastic-ipaddress-1.png"><img alt="../_images/management-console-vpc-elastic-ipaddress-1.png" src="../_images/management-console-vpc-elastic-ipaddress-1.png" style="width: 599.0px; height: 254.0px;" /></a>
+<img alt="../_images/management-console-vpc-elastic-ipaddress-1.png" src="../_images/management-console-vpc-elastic-ipaddress-1.png" />
 </div>
 <p><br/></p>
 <p>「VPC」サービスから、「VPCダッシュボード」メニューを選択し、「VPCの作成」ボタンを押下します。「パブリックとプライベートサブネットをもつVPC」を選択して、「選択」ボタンを押下してください。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-vpc-create-vpc-1.png"><img alt="../_images/management-console-vpc-create-vpc-1.png" src="../_images/management-console-vpc-create-vpc-1.png" style="width: 941.0px; height: 445.0px;" /></a>
+<img alt="../_images/management-console-vpc-create-vpc-1.png" src="../_images/management-console-vpc-create-vpc-1.png" />
 </div>
 <p><br/></p>
 <p>以下の要領に従って、VPC、サブネットのネットワーク構成や、NATゲートウェイに設定するIPアドレスを入力してください。</p>
@@ -341,7 +359,7 @@ Linuxサーバ環境でDockerコンテナを単純に運用する場合と比較
 </table>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-vpc-create-vpc-2.png"><img alt="../_images/management-console-vpc-create-vpc-2.png" src="../_images/management-console-vpc-create-vpc-2.png" style="width: 948.0px; height: 709.0px;" /></a>
+<img alt="../_images/management-console-vpc-create-vpc-2.png" src="../_images/management-console-vpc-create-vpc-2.png" />
 </div>
 <p><br/></p>
 <p>「VPCの作成」ボタンを押下すると、「VPC」が作成されます。続いて、追加で、別のアベイラビリティゾーンに設定するサブネットを作成します。
@@ -354,13 +372,13 @@ Linuxサーバ環境でDockerコンテナを単純に運用する場合と比較
 </ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-vpc-create-subnet-1.png"><img alt="../_images/management-console-vpc-create-subnet-1.png" src="../_images/management-console-vpc-create-subnet-1.png" style="width: 948.0px; height: 525.0px;" /></a>
+<img alt="../_images/management-console-vpc-create-subnet-1.png" src="../_images/management-console-vpc-create-subnet-1.png" />
 </div>
 <p><br/></p>
 <p>作成した2つのサブネットは、(NATゲートウェイのルーティングが有効になっているプライベートサブネット向けの)デフォルトのメインルートテーブルにしか関連づけられていないため、
 パブリックサブネットを(インターネットゲートウェイのルーティングが設定されている)カスタムルートテーブルに関連づける必要があります。</p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-vpc-edit-routetable-1.png"><img alt="../_images/management-console-vpc-edit-routetable-1.png" src="../_images/management-console-vpc-edit-routetable-1.png" style="width: 1349.0px; height: 806.0px;" /></a>
+<img alt="../_images/management-console-vpc-edit-routetable-1.png" src="../_images/management-console-vpc-edit-routetable-1.png" />
 </div>
 <div class="admonition note">
 <p class="first admonition-title">注釈</p>
@@ -371,7 +389,7 @@ Linuxサーバ環境でDockerコンテナを単純に運用する場合と比較
 <p>「ルートテーブル」メニューから、作成したVPCのカスタムルートテーブルを選択し、「Subnet Associations」タブにある、「Edit subnet associations」ボタンから
 新たに作成したパブリックサブネットを関連づけます。</p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-vpc-edit-routetable-2.png"><img alt="../_images/management-console-vpc-edit-routetable-2.png" src="../_images/management-console-vpc-edit-routetable-2.png" style="width: 1167.0px; height: 655.0px;" /></a>
+<img alt="../_images/management-console-vpc-edit-routetable-2.png" src="../_images/management-console-vpc-edit-routetable-2.png" />
 </div>
 <p><br/></p>
 <p>これで、VPCおよびサブネットが構築できました。次回はECSコンテナに負荷分散するアプリケーションロードバランサーを作成します。</p>
@@ -382,7 +400,7 @@ Linuxサーバ環境でDockerコンテナを単純に運用する場合と比較
 <h2>著者紹介<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei)</p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+<img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" />
 </div>
 <p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
 <p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>

@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AWSで作るクラウドネイティブアプリケーションの基本 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-sqs-4.html" />
+    <link rel="prev" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-sqs-2.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_sonarqube.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_sonarlint.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_architecture.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_unittest-1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_unittest-2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unittest.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_3.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_4.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_5.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_6.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_7.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_8.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_9.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
+<li><a class="reference internal" href="#amazon-sqsspring-3">Amazon SQSを使ったSpringアプリケーション(3)</a><ul>
+<li><a class="reference internal" href="#springbatch">SpringBatchを使用したサンプルアプリケーション</a></li>
+<li><a class="reference internal" href="#section-cloud-native-sqs-batch-using-spring-bacth-setting-implementation-label">SpringBatchの設定クラス実装</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id2">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="aws-sqs-2.html" title="Previous Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; AWSで作るクラウドネイテ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="aws-sqs-4.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/cloud_native/aws-sqs-3.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="aws">
+<span id="section-cloud-native-sqs-label-3"></span><h1>AWSで作るクラウドネイティブアプリケーションの基本<a class="headerlink" href="#aws" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="amazon-sqsspring-3">
+<span id="section-cloud-native-sqs-3rd-label"></span><h2>Amazon SQSを使ったSpringアプリケーション(3)<a class="headerlink" href="#amazon-sqsspring-3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>本連載では、以下のステップで解説を進めていきます。</p>
+<p><br/></p>
+<ol class="arabic simple">
+<li>Amazon SQSの概要とアプリケーション処理パターン、SQSキューの作成</li>
+<li>Spring Cloud AWSを用いたSQSProducerアプリケーション実装</li>
+<li><strong>Spring Batchを用いたバッチアプリケーション実装(1)</strong></li>
+<li>Spring Batchを用いたバッチアプリケーション実装(2)</li>
+<li>Spring Cloud AWSを用いたSQSConsumerアプリケーション実装</li>
+</ol>
+<p><br/></p>
+<p>前回はSQSへキューを送信するProducerアプリケーションを実装しました。今回から２回に渡り、SQSメッセージをポーリングして取得するConsumerアプリケーションから実行されるバッチ処理をSpring Batchを使って実装していきます。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/sqs-pattern.png" src="../_images/sqs-pattern.png" />
+</div>
+<p><br/></p>
+<div class="section" id="springbatch">
+<span id="section-cloud-native-sqs-batch-using-spring-bacth-implementation-label"></span><h3>SpringBatchを使用したサンプルアプリケーション<a class="headerlink" href="#springbatch" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>今回作成するSpringBatchを使ったアプリケーションは以下の図のようなイメージで構成します。</p>
+<div class="figure">
+<img alt="../_images/spring-batch-sample.png" src="../_images/spring-batch-sample.png" />
+</div>
+<p><br/></p>
+<p>SpringBatchの基礎的な内容については、ここでは詳細な説明は行いませんが、必要に応じて、<a class="reference external" href="https://terasoluna-batch.github.io/guideline/current/ja/single_index.html#Ch02_SpringBatchArch">TERASOLUNAガイドライン SpringBatchのアーキテクチャ</a> を参照してください。
+なお、上記のガイドラインで扱っているTERASOLUNA Batchでは、SpringBatchを使ったベストプラクティスな実装方法のガイドライン提供に加えて、SpringBatchで提供されていないDBポーリングによる
+ジョブの別プロセス非同期実行機能をライブラリとして提供していますが、本連載では、純粋にSpringBatchのみを使って実装します。
+また、上記のガイドラインの中では、SpringBootを使ってSpring Batchアプリケーションを実装する方法については述べられていませんが、本連載では、JavaのConfigクラスを使って、SpringBootをベースとした設定方法を扱います。
+SpringBatchの処理起動はメインクラスによる実行とSQSのポーリングでメッセージを取得後実行する2パターン作成します。本連載でのテーマであるSQSへのポーリングに関しては次回以降解説する、SpringCloudAWSを使ったConsumerアプリケーションの中で解説を行います。</p>
+<p>本連載で実際に作成するSpringBatchアプリケーションは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-aws-sqs/tree/master/spring-batch">GitHub</a> 上にコミットしています。
+以降に記載するソースコードでは、import文など本質的でない記述を省略している部分があるので、実行コードを作成する際は、必要に応じて適宜GitHubにあるソースコードも参照してください。</p>
+<p>SpringBootを使ってSpringBatchアプリケーションを作成するには、前回同様、Mavenプロジェクトのpom.xmlでspring-boot-starter-batchのライブラリを追加してください。
+また、モデルオブジェクトを簡素化する目的でLombokライブラリを、バッチジョブのリスタートや実行結果の管理のために作られるJobRepository向けのデータベースとしてH2を追加します。</p>
+<p><br/></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependencies&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-batch<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.projectlombok<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>lombok<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;optional&gt;</span>true<span class="nt">&lt;/optional&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.h2database<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>h2<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>それでは、SpringBatchアプリケーションの実装に進みます。今回作成するアプリケーションは上記イメージ通り以下のコンポーネント構成です。
+バッチ処理を構成する上でよく使用される処理で構成してみます。</p>
+<table border="1" class="colwidths-given docutils" id="id3">
+<caption><span class="caption-text">アプリケーション</span><a class="headerlink" href="#id3" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="30%" />
+<col width="60%" />
+<col width="10%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>コンポーネント</td>
+<td>説明</td>
+<td>必須</td>
+</tr>
+<tr class="row-even"><td>SpringBatchApplication</td>
+<td>SpringBootアプリケーションを実行する起動クラス。単体で実行するために作成</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BatchAppConfig</td>
+<td>バッチ処理の実行単位で作成するBean定義クラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-even"><td>BatchInfraConfig</td>
+<td>ジョブ管理テーブルへのデータアクセスを定義するクラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-odd"><td>SampleTasklet</td>
+<td>ジョブの最初のステップで前処理として実行するTaskletクラス</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>SampleProcessor</td>
+<td>ジョブのステップで実行するProcessorクラス</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>SampleWriter</td>
+<td>ジョブのステップで実行するWriterクラス</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>SamplePartitioner</td>
+<td>ProcessorやWriterをマルチスレッドで並列実行する場合の分割単位を定義するクラス</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>SampleListener</td>
+<td>ジョブの実行前後で呼び出されるListenerクラス</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+</div>
+<div class="section" id="section-cloud-native-sqs-batch-using-spring-bacth-setting-implementation-label">
+<span id="id1"></span><h3>SpringBatchの設定クラス実装<a class="headerlink" href="#section-cloud-native-sqs-batch-using-spring-bacth-setting-implementation-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>それでは、実装していくクラスを説明します。まず、最初にSpringBoot起動クラス及び、各種設定クラスです。
+&#64;SpringBootApplicaitonアノテーションが付与された起動クラスは、同一パッケージにある&#64;Configurationアノテーションが付与された設定クラス及び、
+設定クラス内で&#64;ComponentScanされたパッケージにあるクラスを読み取ります。ここでは、起動クラスと別パッケージにある設定クラスを読み取るために、
+&#64;Importをを使用します。読み取るクラスは以下の2つ作成します。</p>
+<ul class="simple">
+<li>Batch処理を定義する設定クラス：BatchAppConfigクラス</li>
+<li>ジョブ実行に必要なリソースを定義するクラス：BatchInfraConfigクラス</li>
+</ul>
+<p>設定クラスは必ずしも複数である必要はなく一つにまとめても動作上問題ありませんが、クラス名と役割を対応づけて作成していた方が、
+後々設定内容を混乱することなく、クラス名から識別できてベターです。なお、コンポーネントスキャンを使わずに直接設定クラスを読み込む理由として、
+通常バッチは単体の処理で完結するため、必要のないジョブコンポーネントの読み込みを回避して、パフォーマンスを向上させるためです。
+また、下記の実装はBatchアプリケーションをローカル単体でテスト実行できるような形で実装したものになります(次回以降解説するConsumerアプリケーションではこちらのクラスから起動しません)。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.sqs.app.batch.launcher</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.aws.sqs.config.BatchAppConfig</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.WebApplicationType</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.builder.SpringApplicationBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Import</span><span class="o">;</span>
+
+<span class="nd">@Import</span><span class="o">(</span><span class="n">BatchAppConfig</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringBatchApplication</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">inputParam</span> <span class="o">=</span> <span class="s">&quot;param=1&quot;</span><span class="o">;</span>
+        <span class="k">new</span> <span class="n">SpringApplicationBuilder</span><span class="o">(</span><span class="n">SpringBatchApplication</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">web</span><span class="o">(</span><span class="n">WebApplicationType</span><span class="o">.</span><span class="na">NONE</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">[]{</span><span class="n">inputParam</span><span class="o">});</span>
+     <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>起動クラスから読み込むBatchの処理定義を記載したBatchAppConfigクラスは以下の通りです。こうした設定クラスはバッチジョブ単位に作成し、起動クラスとジョブを1：1で組み合わせて、&#64;Importで読み込んで実行するとよいでしょう。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.sqs.config</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.batch.core.Job</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.batch.core.JobExecutionListener</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.batch.core.Step</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.batch.core.configuration.annotation.DefaultBatchConfigurer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.batch.core.configuration.annotation.EnableBatchProcessing</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.batch.core.configuration.annotation.JobBuilderFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.batch.core.configuration.annotation.StepBuilderFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.batch.core.configuration.annotation.StepScope</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.batch.core.partition.support.Partitioner</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.batch.core.step.tasklet.Tasklet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.batch.item.ItemProcessor</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.batch.item.ItemWriter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.batch.item.file.FlatFileItemReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.batch.item.file.mapping.DefaultLineMapper</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.batch.item.file.transform.DelimitedLineTokenizer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Qualifier</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Value</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Import</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.core.io.DefaultResourceLoader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.core.task.SimpleAsyncTaskExecutor</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.core.task.TaskExecutor</span><span class="o">;</span>
+
+<span class="nd">@Import</span><span class="o">(</span><span class="n">BatchInfraConfig</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>                                               <span class="c1">// …(A)</span>
+<span class="nd">@Configuration</span>
+<span class="nd">@EnableBatchProcessing</span>                                                        <span class="c1">// …(B)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BatchAppConfig</span> <span class="kd">extends</span> <span class="n">DefaultBatchConfigurer</span> <span class="o">{</span>                  <span class="c1">// …(C)</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">JobBuilderFactory</span> <span class="n">jobBuilderFactory</span><span class="o">;</span>                                      <span class="c1">// …(D)</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">StepBuilderFactory</span> <span class="n">stepBuilderFactory</span><span class="o">;</span>                                    <span class="c1">// …(E)</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">Job</span> <span class="nf">job</span><span class="o">(</span><span class="nd">@Qualifier</span><span class="o">(</span><span class="s">&quot;step1&quot;</span><span class="o">)</span> <span class="n">Step</span> <span class="n">step1</span><span class="o">,</span> <span class="nd">@Qualifier</span><span class="o">(</span><span class="s">&quot;step2&quot;</span><span class="o">)</span> <span class="n">Step</span> <span class="n">step2</span><span class="o">){</span>
+        <span class="k">return</span> <span class="n">jobBuilderFactory</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;job&quot;</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">listener</span><span class="o">(</span><span class="n">jobExecutionListener</span><span class="o">())</span>
+          <span class="o">.</span><span class="na">start</span><span class="o">(</span><span class="n">step1</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">next</span><span class="o">(</span><span class="n">partionStep</span><span class="o">())</span>
+          <span class="o">.</span><span class="na">build</span><span class="o">();</span>                                                           <span class="c1">// …(F)</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">Step</span> <span class="nf">step1</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">stepBuilderFactory</span>
+          <span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;step1&quot;</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">tasklet</span><span class="o">(</span><span class="n">sampleTasklet</span><span class="o">())</span>
+          <span class="o">.</span><span class="na">build</span><span class="o">();</span>                                                           <span class="c1">// …(G)</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">protected</span> <span class="n">Step</span> <span class="nf">step2</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">stepBuilderFactory</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;step2&quot;</span><span class="o">)</span>
+          <span class="o">.&lt;</span><span class="n">Sample</span><span class="o">,</span> <span class="n">Sample</span><span class="o">&gt;</span><span class="n">chunk</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">reader</span><span class="o">(</span><span class="n">sampleFlatFileItemReader</span><span class="o">(</span><span class="kc">null</span><span class="o">))</span>
+          <span class="o">.</span><span class="na">processor</span><span class="o">(</span><span class="n">sampleProcessor</span><span class="o">())</span>
+          <span class="o">.</span><span class="na">writer</span><span class="o">(</span><span class="n">sampleWriter</span><span class="o">())</span>
+          <span class="o">.</span><span class="na">build</span><span class="o">();</span>                                                           <span class="c1">// …(H)</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">protected</span> <span class="n">Step</span> <span class="nf">partionStep</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">stepBuilderFactory</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;partitionStep&quot;</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">partitioner</span><span class="o">(</span><span class="n">step2</span><span class="o">())</span>
+          <span class="o">.</span><span class="na">partitioner</span><span class="o">(</span><span class="s">&quot;step2&quot;</span><span class="o">,</span> <span class="n">partitioner</span><span class="o">(</span><span class="kc">null</span><span class="o">))</span>
+          <span class="o">.</span><span class="na">taskExecutor</span><span class="o">(</span><span class="n">taskExecutor</span><span class="o">())</span>
+          <span class="o">.</span><span class="na">build</span><span class="o">();</span>                                                           <span class="c1">// …(I)</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="nd">@StepScope</span>
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">&quot;#{jobExecutionContext[&#39;paramBySampleTasklet&#39;]}&quot;</span><span class="o">)</span>                  <span class="c1">// …(J)</span>
+    <span class="kd">public</span> <span class="n">FlatFileItemReader</span><span class="o">&lt;</span><span class="n">Sample</span><span class="o">&gt;</span> <span class="nf">sampleFlatFileItemReader</span><span class="o">(</span><span class="n">String</span> <span class="n">paramBySampleTasklet</span><span class="o">){</span>
+
+        <span class="n">FlatFileItemReader</span><span class="o">&lt;</span><span class="n">Sample</span><span class="o">&gt;</span> <span class="n">flatFileItemReader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FlatFileItemReader</span><span class="o">&lt;&gt;();</span>
+
+        <span class="n">flatFileItemReader</span><span class="o">.</span><span class="na">setResource</span><span class="o">(</span><span class="k">new</span> <span class="n">DefaultResourceLoader</span><span class="o">().</span><span class="na">getResource</span><span class="o">(</span><span class="n">paramBySampleTasklet</span><span class="o">));</span>
+
+        <span class="n">DefaultLineMapper</span><span class="o">&lt;</span><span class="n">Sample</span><span class="o">&gt;</span> <span class="n">defaultLineMapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultLineMapper</span><span class="o">&lt;&gt;();</span>
+        <span class="n">DelimitedLineTokenizer</span> <span class="n">delimitedLineTokenizer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DelimitedLineTokenizer</span><span class="o">();</span>
+        <span class="n">delimitedLineTokenizer</span><span class="o">.</span><span class="na">setNames</span><span class="o">(</span><span class="s">&quot;stepParam&quot;</span><span class="o">);</span>
+        <span class="n">defaultLineMapper</span><span class="o">.</span><span class="na">setLineTokenizer</span><span class="o">(</span><span class="n">delimitedLineTokenizer</span><span class="o">);</span>
+
+        <span class="n">BeanWrapperFieldSetMapper</span><span class="o">&lt;</span><span class="n">Sample</span><span class="o">&gt;</span> <span class="n">beanWrapperFieldSetMapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BeanWrapperFieldSetMapper</span><span class="o">&lt;&gt;();</span>
+        <span class="n">beanWrapperFieldSetMapper</span><span class="o">.</span><span class="na">setTargetType</span><span class="o">(</span><span class="n">Sample</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">defaultLineMapper</span><span class="o">.</span><span class="na">setFieldSetMapper</span><span class="o">(</span><span class="n">beanWrapperFieldSetMapper</span><span class="o">);</span>
+
+        <span class="n">flatFileItemReader</span><span class="o">.</span><span class="na">setLineMapper</span><span class="o">(</span><span class="n">defaultLineMapper</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">flatFileItemReader</span><span class="o">;</span>                                            <span class="c1">// …(K)</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="nd">@StepScope</span>
+    <span class="kd">protected</span> <span class="n">ItemProcessor</span><span class="o">&lt;</span><span class="n">Sample</span><span class="o">,</span> <span class="n">Sample</span><span class="o">&gt;</span> <span class="nf">sampleProcessor</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">SampleProcessor</span><span class="o">();</span>                                         <span class="c1">// …(L)</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="nd">@StepScope</span>
+    <span class="kd">protected</span> <span class="n">ItemWriter</span><span class="o">&lt;</span><span class="n">Sample</span><span class="o">&gt;</span> <span class="nf">sampleWriter</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">SampleWriter</span><span class="o">();</span>                                            <span class="c1">// …(M)</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">protected</span> <span class="n">Tasklet</span> <span class="nf">sampleTasklet</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">SampleTasklet</span><span class="o">();</span>                                           <span class="c1">// …(N)</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">protected</span> <span class="n">JobExecutionListener</span> <span class="nf">jobExecutionListener</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">SampleListener</span><span class="o">();</span>                                          <span class="c1">// …(O)</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">TaskExecutor</span> <span class="nf">taskExecutor</span><span class="o">(){</span>
+        <span class="n">SimpleAsyncTaskExecutor</span> <span class="n">simpleAsyncTaskExecutor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleAsyncTaskExecutor</span><span class="o">();</span>
+        <span class="n">simpleAsyncTaskExecutor</span><span class="o">.</span><span class="na">setConcurrencyLimit</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">simpleAsyncTaskExecutor</span><span class="o">;</span>                                       <span class="c1">// …(P)</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="nd">@StepScope</span>
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">&quot;#{jobExecutionContext[&#39;paramBySampleTasklet&#39;]}&quot;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">Partitioner</span> <span class="nf">partitioner</span><span class="o">(</span><span class="n">String</span> <span class="n">paramBySampleTasklet</span><span class="o">){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">SamplePartitioner</span><span class="o">(</span><span class="n">paramBySampleTasklet</span><span class="o">);</span>                   <span class="c1">// …(Q)</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="nd">@Autowired</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setDataSource</span><span class="o">(</span><span class="nd">@Qualifier</span><span class="o">(</span><span class="s">&quot;batchDataSource&quot;</span><span class="o">)</span> <span class="n">DataSource</span> <span class="n">dataSource</span><span class="o">){</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">setDataSource</span><span class="o">(</span><span class="n">dataSource</span><span class="o">);</span>                                      <span class="c1">// …(R)</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>設定クラスコードの説明は以下の通りです。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id4">
+<caption><span class="caption-text">SpringBatchのサンプル設定クラスコードの説明</span><a class="headerlink" href="#id4" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>項番</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple">
+<li></li>
+</ol>
+</td>
+<td>BatchInfraConfig設定クラスをインポートします。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="2">
+<li></li>
+</ol>
+</td>
+<td>&#64;EnableBatchProcessingを付与することで、Batch設定クラスとして扱われます。この設定によりJobRepositoryといったSpringBatchの主要なコンポーネントが自動で構築されていくようになります。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="3">
+<li></li>
+</ol>
+</td>
+<td>今回のサンプルではリスタートや実行結果の管理のために作られるJobRepository用のDataSourceをインメモリDBへ置き換えるために使用します。DefaultBatchConfigurerを継承することにより、当設定クラス内でデータソースを置き換えるようオーバーライドします(Rを参照)。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="4">
+<li></li>
+</ol>
+</td>
+<td>ジョブ内でステップ処理フローを定義するためにJobBuildFactoryをインジェクションします。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="5">
+<li></li>
+</ol>
+</td>
+<td>ステップ内で実行する処理を定義するためにStepBuildFactoryをインジェクションします。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="6">
+<li></li>
+</ol>
+</td>
+<td>ジョブのステップ処理フローを定義します。ここでは、&quot;job&quot;というジョブ名に、リスナーとタスクレットを実行する&quot;step1&quot;、Readerおよびパーティショナーを組み込んだProcessor、Writerを実行する&quot;step2&quot;を定義しています。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="7">
+<li></li>
+</ol>
+</td>
+<td>ステップ処理を定義します。ここでは、&quot;step1&quot;というstep名に、SampleTaskletクラスを定義しています。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="8">
+<li></li>
+</ol>
+</td>
+<td>ステップ処理を定義します。ここでは、&quot;step2&quot;というstep名に、IOモデルクラス、チャンクサイズ、Reader、Processor、Writerクラスを定義しています。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperroman simple">
+<li></li>
+</ol>
+</td>
+<td>&quot;step2&quot;をパーティション化して実行するステップを定義します。ここでは、Partitionerクラスおよび、各ステップを実行するTaskExecutorを定義しています。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="10">
+<li></li>
+</ol>
+</td>
+<td>Step間で共有するパラメータを設定します。ここではJobExcutionContext内に&quot;paramBySampleTasklet&quot;というパラメータをSampleTaskletクラスで設定し、FlatFileItemReaderの実行引数として受け取る形で実装しています。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="11">
+<li></li>
+</ol>
+</td>
+<td>(H)で設定した通り、SpringBatchから提供されているFlatFileItemReaderで型パラメータとして、モデルクラスとなるSampleクラスを指定してStepScopeで定義します。ここで実装している内容は次回改めて解説を行います。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="12">
+<li></li>
+</ol>
+</td>
+<td>(H)で設定した通り、ProcessorとしてSampleProcessorクラスをBean定義します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="13">
+<li></li>
+</ol>
+</td>
+<td>(H)で設定した通り、WriterとしてSampleWriterクラスをBean定義します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="14">
+<li></li>
+</ol>
+</td>
+<td>(G)で設定した通り、TaskletとしてSampleTaskletクラスをBean定義します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="15">
+<li></li>
+</ol>
+</td>
+<td>(F)で設定した通り、リスナーとしてSampleListenerクラスをBean定義します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="16">
+<li></li>
+</ol>
+</td>
+<td>(I)で設定した通り、パーティショナーを使って並列実行を行う場合のTaskExecutorクラスとして、SimpleAsyncTaskExecutorをBean定義します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="17">
+<li></li>
+</ol>
+</td>
+<td>(I)で設定した通り、Partitionerクラスとして、SamplePartitionerクラスをBean定義します。JobExcutionContext内に&quot;paramBySampleTasklet&quot;というパラメータ(パーティションキーの元となる読み込むファイルのパス)をコンストラクタインジェクションしてBean生成します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="18">
+<li></li>
+</ol>
+</td>
+<td>(C)で設定した通り、リスタートや実行結果の管理のために作られるJobRepository用のDataSourceをインメモリDBへ置き換える形で設定します。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>また、BatchInfraConfigクラスは複数のジョブ設定クラスから使用される内容を定義します。ここでは、JobRepositoryのためのデータソースをインメモリDBとしてH2を定義します。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.sqs.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.sql.DataSource</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BatchInfraConfig</span> <span class="o">{</span>
+
+    <span class="nd">@Bean</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;batchDataSource&quot;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">DataSource</span> <span class="nf">jobRepositoryEmbeddedDataSource</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">EmbeddedDatabaseBuilder</span><span class="o">()</span>
+          <span class="o">.</span><span class="na">setType</span><span class="o">(</span><span class="n">EmbeddedDatabaseType</span><span class="o">.</span><span class="na">H2</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">addScript</span><span class="o">(</span><span class="s">&quot;classpath:/org/springframework/batch/core/schema-h2.sql&quot;</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>これで、Batchアプリケーションの設定クラスが作成できました。次回は、TaskletやProcessorなどのバッチ処理クラスを実装してみます。</p>
+<p><br/></p>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>著者紹介<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei)</p>
+<div class="figure">
+<img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" />
+</div>
+<p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p><a class="reference external" href="https://aws.amazon.com/jp/blogs/psa/japan-apn-ambassador-2019/">2019 APN AWS Top Engineers &amp; Ambassadors</a> 選出。</p>
+<p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

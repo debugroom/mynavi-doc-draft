@@ -39,7 +39,7 @@ API Gatewayサービスメニューから、以下を入力して、「APIの作
 |br|
 
 .. figure:: img/aws-lambda-and-api-gateway/management-console-api-gateway-create-api-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -48,7 +48,7 @@ API作成後、「アクション」ボタンから「リソースの作成」�
 |br|
 
 .. figure:: img/aws-lambda-and-api-gateway/management-console-api-gateway-create-api-2.png
-   :scale: 100%
+
 
 |br|
 
@@ -57,7 +57,7 @@ API作成後、「アクション」ボタンから「リソースの作成」�
 |br|
 
 .. figure:: img/aws-lambda-and-api-gateway/management-console-api-gateway-create-api-3.png
-   :scale: 100%
+
 
 |br|
 
@@ -68,7 +68,7 @@ API作成後、「アクション」ボタンから「リソースの作成」�
 |br|
 
 .. figure:: img/aws-lambda-and-api-gateway/management-console-api-gateway-create-api-4.png
-   :scale: 100%
+
 
 |br|
 
@@ -88,7 +88,7 @@ API作成後、「アクション」ボタンから「リソースの作成」�
 |br|
 
 .. figure:: img/aws-lambda-and-api-gateway/management-console-api-gateway-create-api-5.png
-   :scale: 100%
+
 
 |br|
 
@@ -97,7 +97,7 @@ API作成後、「アクション」ボタンから「リソースの作成」�
 |br|
 
 .. figure:: img/aws-lambda-and-api-gateway/management-console-api-gateway-create-api-6.png
-   :scale: 100%
+
 
 |br|
 
@@ -108,7 +108,7 @@ API作成後、「アクション」ボタンから「リソースの作成」�
 |br|
 
 .. figure:: img/aws-lambda-and-api-gateway/management-console-api-gateway-create-api-7.png
-   :scale: 100%
+
 
 |br|
 
@@ -117,7 +117,7 @@ Lambda関数が正常に実行できることは確認できましたが、外�
 |br|
 
 .. figure:: img/aws-lambda-and-api-gateway/management-console-api-gateway-create-api-8.png
-   :scale: 100%
+
 
 |br|
 
@@ -126,7 +126,7 @@ Lambda関数が正常に実行できることは確認できましたが、外�
 |br|
 
 .. figure:: img/aws-lambda-and-api-gateway/management-console-api-gateway-create-api-9.png
-   :scale: 100%
+
 
 |br|
 
@@ -135,7 +135,7 @@ APIがデプロイされると、エンドポイントのURLが表示されま�
 |br|
 
 .. figure:: img/aws-lambda-and-api-gateway/management-console-api-gateway-create-api-10.png
-   :scale: 100%
+
 
 |br|
 
@@ -152,7 +152,7 @@ APIがデプロイされると、エンドポイントのURLが表示されま�
 |br|
 
 .. figure:: img/aws-lambda-and-api-gateway/management-console-api-gateway-create-api-11.png
-   :scale: 100%
+
 
 |br|
 
@@ -172,7 +172,7 @@ AWS LambdaやAmazon API Gateway、Spring Cloud Functionを利用することに�
 川畑 光平(KAWABATA Kohei)
 
 .. figure:: img/aws-lambda-and-api-gateway/pic_image01.jpg
-   :scale: 100%
+
 
 某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 

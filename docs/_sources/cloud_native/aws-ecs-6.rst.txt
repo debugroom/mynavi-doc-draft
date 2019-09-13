@@ -28,7 +28,7 @@ Dockerコンテナイメージを作成してレジストリにプッシュし�
 |br|
 
 .. figure:: img/aws-ecs/ecs-architecture.png
-   :scale: 100%
+
 
 |br|
 
@@ -50,7 +50,7 @@ ECSタスクが実際にサービスとして実行されるには、コンテ�
 |br|
 
 .. figure:: img/aws-ecs/management-console-iam-create-ecsrole-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -59,7 +59,7 @@ ECSタスクが実際にサービスとして実行されるには、コンテ�
 |br|
 
 .. figure:: img/aws-ecs/management-console-iam-create-ecsrole-2.png
-   :scale: 100%
+
 
 |br|
 
@@ -68,7 +68,7 @@ ECSタスクが実際にサービスとして実行されるには、コンテ�
 |br|
 
 .. figure:: img/aws-ecs/management-console-iam-create-ecsrole-3.png
-   :scale: 100%
+
 
 |br|
 
@@ -79,7 +79,7 @@ ECSタスクが実際にサービスとして実行されるには、コンテ�
 |br|
 
 .. figure:: img/aws-ecs/management-console-ecs-create-task-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -112,10 +112,10 @@ ECSタスクが実際にサービスとして実行されるには、コンテ�
 |br|
 
 .. figure:: img/aws-ecs/management-console-ecs-create-task-2.png
-   :scale: 100%
+
 
 .. figure:: img/aws-ecs/management-console-ecs-create-task-3.png
-   :scale: 100%
+
 
 |br|
 
@@ -145,7 +145,7 @@ ECSタスクが実際にサービスとして実行されるには、コンテ�
 |br|
 
 .. figure:: img/aws-ecs/management-console-ecs-create-task-4.png
-   :scale: 100%
+
 
 |br|
 
@@ -164,7 +164,7 @@ ECSタスクが実際にサービスとして実行されるには、コンテ�
 川畑 光平(KAWABATA Kohei)
 
 .. figure:: img/aws-lambda-and-api-gateway/pic_image01.jpg
-   :scale: 100%
+
 
 某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 

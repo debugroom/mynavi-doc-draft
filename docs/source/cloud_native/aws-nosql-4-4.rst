@@ -71,7 +71,7 @@ AWSで、ElastiCacheを構築するにあたり、下記のイメージ図のよ
 |br|
 
 .. figure:: img/aws-nosql/architecture-elasticache.png
-   :scale: 100%
+
 
 |br|
 
@@ -97,7 +97,7 @@ AWSコンソールの「EC2」サービスから、セキュリティグルー�
 |br|
 
 .. figure:: img/aws-nosql/management-console-ec2-create-security-group-for-elasticache-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -153,17 +153,17 @@ AWSコンソールの「EC2」サービスから、セキュリティグルー�
 |br|
 
 .. figure:: img/aws-nosql/management-console-elasticache-create-1.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/aws-nosql/management-console-elasticache-create-2.png
-   :scale: 100%
+
 
 |br|
 
 .. figure:: img/aws-nosql/management-console-elasticache-create-3.png
-   :scale: 100%
+
 
 |br|
 
@@ -176,7 +176,7 @@ AWSコンソールの「EC2」サービスから、セキュリティグルー�
 川畑 光平(KAWABATA Kohei)
 
 .. figure:: img/aws-lambda-and-api-gateway/pic_image01.jpg
-   :scale: 100%
+
 
 某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 

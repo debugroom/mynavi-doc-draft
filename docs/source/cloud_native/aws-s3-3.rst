@@ -26,7 +26,7 @@ Amazon S3にアクセスするSpringアプリケーション(2)
 
 |br|
 
-.. _section-cloud-native-spring-data-dynamodb-implementation-2-label:
+.. _section-cloud-native-spring-cloud-aws-for-s3-implementation-2-label:
 
 Spring Cloud AWSを使ったS3アクセスアプリケーション(2)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -266,7 +266,7 @@ WritableResourceとして取得し、OutputStreamにデータを保存します�
 |br|
 
 .. figure:: img/aws-s3/webapp-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -275,16 +275,16 @@ WritableResourceとして取得し、OutputStreamにデータを保存します�
 |br|
 
 .. figure:: img/aws-s3/management-console-s3-view-bucket.png
-   :scale: 100%
+
 
 |br|
 
-アップロードしたファイルを取得します。
+アップロードしたファイルの中身を取得し、表示します。
 
 |br|
 
 .. figure:: img/aws-s3/webapp-2.png
-   :scale: 100%
+
 
 |br|
 
@@ -306,7 +306,7 @@ AWS上に構築するクラウドネイティブなアプリケーションは�
 川畑 光平(KAWABATA Kohei)
 
 .. figure:: img/aws-lambda-and-api-gateway/pic_image01.jpg
-   :scale: 100%
+
 
 某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 

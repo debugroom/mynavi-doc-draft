@@ -126,7 +126,7 @@ Amazon DynamoDBの構築
 |br|
 
 .. figure:: img/aws-nosql/management-console-dynamodb-create-db-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -135,7 +135,7 @@ Amazon DynamoDBの構築
 |br|
 
 .. figure:: img/aws-nosql/management-console-dynamodb-add-data-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -144,7 +144,7 @@ Amazon DynamoDBの構築
 |br|
 
 .. figure:: img/aws-nosql/management-console-dynamodb-add-data-2.png
-   :scale: 100%
+
 
 |br|
 
@@ -164,7 +164,7 @@ Amazon DynamoDBの構築
 |br|
 
 .. figure:: img/aws-nosql/management-console-iam-create-user-1.png
-   :scale: 100%
+
 
 |br|
 
@@ -174,7 +174,7 @@ Amazon DynamoDBの構築
 |br|
 
 .. figure:: img/aws-nosql/management-console-iam-create-user-2.png
-   :scale: 100%
+
 
 |br|
 
@@ -183,7 +183,7 @@ Amazon DynamoDBの構築
 |br|
 
 .. figure:: img/aws-nosql/management-console-iam-create-user-3.png
-   :scale: 100%
+
 
 |br|
 
@@ -192,7 +192,7 @@ Amazon DynamoDBの構築
 |br|
 
 .. figure:: img/aws-nosql/management-console-iam-create-user-4.png
-   :scale: 100%
+
 
 |br|
 
@@ -201,7 +201,7 @@ Amazon DynamoDBの構築
 |br|
 
 .. figure:: img/aws-nosql/management-console-iam-create-user-5.png
-   :scale: 100%
+
 
 以上で、DynamoDBの作成は完了です。次回はこのテーブルにアクセスするSpringアプリケーションを作成します。
 
@@ -211,7 +211,7 @@ Amazon DynamoDBの構築
 川畑 光平(KAWABATA Kohei)
 
 .. figure:: img/aws-lambda-and-api-gateway/pic_image01.jpg
-   :scale: 100%
+
 
 某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 

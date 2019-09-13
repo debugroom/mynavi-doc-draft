@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AWSで作るクラウドネイティブアプリケーションの基本 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="prev" title="AWSで作るクラウドネイティブアプリケーションの基本" href="aws-sqs-4.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_sonarqube.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_sonarlint.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_architecture.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_unittest-1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_unittest-2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unittest.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_3.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_4.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_5.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_6.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_7.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_8.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_9.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
+<li><a class="reference internal" href="#amazon-sqsspring-5">Amazon SQSを使ったSpringアプリケーション(5)</a><ul>
+<li><a class="reference internal" href="#spring-cloud-awsconsumer">Spring Cloud AWSを使ったConsumerアプリケーション</a></li>
+<li><a class="reference internal" href="#section-cloud-native-conclusion-label">最後に</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="aws-sqs-4.html" title="Previous Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; AWSで作るクラウドネイテ...</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/cloud_native/aws-sqs-5.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="aws">
+<span id="section-cloud-native-sqs-label-5"></span><h1>AWSで作るクラウドネイティブアプリケーションの基本<a class="headerlink" href="#aws" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="amazon-sqsspring-5">
+<span id="section-cloud-native-sqs-5th-label"></span><h2>Amazon SQSを使ったSpringアプリケーション(5)<a class="headerlink" href="#amazon-sqsspring-5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>本連載では、以下のステップで解説を進めていきます。</p>
+<p><br/></p>
+<ol class="arabic simple">
+<li>Amazon SQSの概要とアプリケーション処理パターン、SQSキューの作成</li>
+<li>Spring Cloud AWSを用いたSQSProducerアプリケーション実装</li>
+<li>Spring Batchを用いたバッチアプリケーション実装(1)</li>
+<li>Spring Batchを用いたバッチアプリケーション実装(2)</li>
+<li><strong>Spring Cloud AWSを用いたSQSConsumerアプリケーション実装</strong></li>
+</ol>
+<p><br/></p>
+<p>前回はSpringBatchを使ってバッチアプリケーションを実装しました。今回はSQSメッセージをポーリングして取得するConsumerアプリケーションをSpring Cloud AWSを使って実装し、前回作成したバッチを実行してみます。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/sqs-pattern.png" src="../_images/sqs-pattern.png" />
+</div>
+<p><br/></p>
+<div class="section" id="spring-cloud-awsconsumer">
+<span id="section-cloud-native-sqs-consumer-using-spring-cloud-aws-implementation-1-label"></span><h3>Spring Cloud AWSを使ったConsumerアプリケーション<a class="headerlink" href="#spring-cloud-awsconsumer" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>Spring Cloud AWSでは、org.springframework.cloud.aws.messaging.listener.annotation.SqsListenerを使用したメッセージポーリング機能を提供しています。
+本連載で実際に作成するConsumerアプリケーションは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-aws-sqs/tree/master/sqs-consumer">GitHub</a> 上にコミットしています。
+以降に記載するソースコードでは、import文など本質的でない記述を省略している部分があるので、実行コードを作成する際は、必要に応じて適宜GitHubにあるソースコードも参照してください。</p>
+<p>Spring Cloud AWSを使用するには、前回同様、Mavenプロジェクトのpom.xmlでspring-cloud-starter-aws、spring-cloud-starter-aws-messagingのライブラリを追加してください。
+また、モデルオブジェクトを簡素化する目的でLombokライブラリと、前回作成したSpringBatchのプロジェクトを追加します。</p>
+<p><br/></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependencies&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-aws<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-aws-messaging<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.projectlombok<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>lombok<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;optional&gt;</span>true<span class="nt">&lt;/optional&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.debugroom<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-batch<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.0.1-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>それでは、Consumerアプリケーションの実装に進みます。今回作成するConsumerアプリケーションは以下の構成です。</p>
+<table border="1" class="colwidths-given docutils" id="id5">
+<caption><span class="caption-text">アプリケーション</span><a class="headerlink" href="#id5" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="30%" />
+<col width="60%" />
+<col width="10%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>コンポーネント</td>
+<td>説明</td>
+<td>必須</td>
+</tr>
+<tr class="row-even"><td>App</td>
+<td>SpringBootアプリケーションを実行する起動クラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-odd"><td>SqsConfig</td>
+<td>SQSへの接続に関する設定クラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-even"><td>MessageListener</td>
+<td>SQSへメッセージのポーリングを行い、メッセージがキューに蓄積されると、メッセージを取得してSpringBatchを実行するクラス</td>
+<td>◯</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>以降、各々のクラスについて解説を進めていきますが、事前にAWSコンソールでアプリケーション用のユーザを作成し、 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/cli-configure-files.html">AWS公式ページ「設定ファイルと認証情報ファイル」</a> を参考に
+ユーザホームフォルダに.awsディレクトリを作成し、credentialというファイル名で、CSV形式の認証キーに記載しているユーザ認証情報を、以下の形式で保存してください。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>default<span class="o">]</span>
+<span class="nv">aws_access_key_id</span><span class="o">=</span>XXXXXXXXXXXXXXXX
+<span class="nv">aws_secret_access_key</span><span class="o">=</span>YYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+</pre></div>
+</div>
+<p><br/></p>
+<p>また、上記のクレデンシャルをもつユーザはSQSへの接続権限を持つ必要があります。以下のように、AWSコンソールで「IAM」サービスメニューから、ユーザにSQSのアクセス権限を付与しておいてください。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/management-console-iam-attach-policy-sqs.png" src="../_images/management-console-iam-attach-policy-sqs.png" />
+</div>
+<p><br/></p>
+<p>それでは、実装していくクラスを説明します。まず、最初にSpringBoot起動クラス及び、各種設定クラスです。
+&#64;SpringBootApplicaitonアノテーションが付与された起動クラスは、同一パッケージにある&#64;Configurationアノテーションが付与された設定クラス及び、
+設定クラス内で&#64;ComponentScanされたパッケージにあるクラスを読み取ります。今回は以下の設定クラスを作成します。</p>
+<ul class="simple">
+<li>SQSの接続を行う設定クラス：SqsConfigクラス</li>
+</ul>
+<p>設定クラスはクラス名と役割を対応づけて作成していた方が、後々設定内容を混乱することなく、クラス名から識別できてベターです。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.sqs.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
+
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">App</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>次に、SQSへの接続情報を設定するSqsConfigですが、Producerアプリケーションの時と同様、AmazonSQSAsyncの内部で設定されるEndpointConfigurationには、SQSキューがあるリージョンとエンドポイントを設定してBean定義しておきます。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.sqs.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.amazonaws.client.builder.AwsClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.sqs.AmazonSQSAsync</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Value</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.ComponentScan</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+
+<span class="nd">@ComponentScan</span><span class="o">(</span><span class="s">&quot;org.debugroom.mynavi.sample.aws.sqs.app.listener&quot;</span><span class="o">)</span>
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SqsConfig</span> <span class="o">{</span>
+
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">&quot;${queue.endpoint}&quot;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">queueEndpoint</span><span class="o">;</span>
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">&quot;${cloud.aws.region.static}&quot;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">region</span><span class="o">;</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">AwsClientBuilder</span><span class="o">.</span><span class="na">EndpointConfiguration</span> <span class="nf">endpointConfiguration</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">AwsClientBuilder</span><span class="o">.</span><span class="na">EndpointConfiguration</span><span class="o">(</span><span class="n">queueEndpoint</span><span class="o">,</span> <span class="n">region</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>上記の設定では、 <a class="reference internal" href="aws-s3-2.html#section-cloud-native-s3-access-using-spring-cloud-aws-implementation-1-label"><span class="std std-ref">Spring Cloud AWSを使ったS3アクセスアプリケーション(1)</span></a> と同様、
+Spring Cloud AWSがcom.amazonaws.auth.DefaultAWSCredentialsProviderChainを利用して、AWSの認証情報を取得します。
+アクセスキーなどは設定せずに、開発端末下だけで有効されるapplication-dev.ymlで、cloud.aws.credentials.profileに空白を、instaceProfileをfalseにしておきましょう。
+また、リージョンの自動検出をOFFにするよう、cloud.aws.region.autoにfalseを、今回アプリケーションが実行されるリージョンをcloud.aws.region.staticに手動設定しておきます。</p>
+<p><br/></p>
+<p>applicaiton-dev.yml</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cloud:
+  aws:
+    credentials:
+      profileName:
+      instanceProfile: <span class="nb">false</span>
+    region:
+      auto: <span class="nb">false</span>
+      static: ap-northeast-1
+</pre></div>
+</div>
+<p><br/></p>
+<p>applicaiton.ymlでは、アプリケーションのスタック名自動検出の無効化とキューのエンドポイントを設定しておきます。また、アプリケーション起動時にバッチが実行されることがないよう、spring.batch.job.enabledプロパティをfalseに設定しておきます。</p>
+<p><br/></p>
+<p>application.yml</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>spring:
+  batch:
+    job:
+      enabled: <span class="nb">false</span>
+cloud:
+  aws:
+    stack:
+      auto: <span class="nb">false</span>
+queue:
+  endpoint: https://sqs.ap-northeast-1.amazonaws.com/
+</pre></div>
+</div>
+<p><br/></p>
+<p>続いて、SQSへポーリングを行うListenerの実装ですが、SQSへのメッセージを取得後に、前回作成したSpringBatchのジョブを実行するよう実装します。
+クラスにorg.springframework.cloud.aws.messaging.config.annotation.EnableSqsアノテーションを付与し、SQSからメッセージを取得した後、実行する処理メソッドに
+org.springframework.cloud.aws.messaging.listener.annotation.SqsListenerアノテーションを付与します。Value属性には <a class="reference internal" href="aws-sqs-1.html#section-cloud-native-sqs-create-queue-label"><span class="std std-ref">SQSキューの作成</span></a> で指定したキュー名を指定します。
+バッチ処理はorg.springframework.batch.core.launch.JobLauncherおよび、org.springframework.batch.core.Jobをインジェクションして、JobLauncherにパラメータとJobを引数で渡してrun()メソッドを実行します。
+SpringBatchではジョブパラメータが同じだと、同一ジョブと見なされ実行エラーになるため、パラメータにタイムスタンプを追加しておきます。なお、この実装はスレッドセーフを考慮してない実装なので、その点留意してください。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.sqs.app.listener</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.batch.core.Job</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.batch.core.JobExecution</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.batch.core.JobParameter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.batch.core.JobParameters</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.batch.core.JobParametersInvalidException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.batch.core.launch.JobLauncher</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.batch.core.repository.JobExecutionAlreadyRunningException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.batch.core.repository.JobRestartException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.batch.item.ExecutionContext</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.aws.messaging.config.annotation.EnableSqs</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.aws.messaging.listener.SqsMessageDeletionPolicy</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.aws.messaging.listener.annotation.SqsListener</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
+
+<span class="nd">@Component</span>
+<span class="nd">@EnableSqs</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MessageListener</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">JobLauncher</span> <span class="n">jobLauncher</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">Job</span> <span class="n">job</span><span class="o">;</span>
+
+    <span class="nd">@SqsListener</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&quot;MynaviSampleSqsQueue&quot;</span><span class="o">,</span> <span class="n">deletionPolicy</span> <span class="o">=</span> <span class="n">SqsMessageDeletionPolicy</span><span class="o">.</span><span class="na">ON_SUCCESS</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="kd">throws</span>
+      <span class="n">JobExecutionAlreadyRunningException</span><span class="o">,</span> <span class="n">JobRestartException</span><span class="o">,</span>
+      <span class="n">JobInstanceAlreadyCompleteException</span><span class="o">,</span> <span class="n">JobParametersInvalidException</span> <span class="o">{</span>
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">JobParameter</span><span class="o">&gt;</span> <span class="n">jobParameterMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="n">jobParameterMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;param&quot;</span><span class="o">,</span> <span class="k">new</span> <span class="n">JobParameter</span><span class="o">(</span><span class="n">message</span><span class="o">));</span>
+        <span class="n">jobParameterMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;time&quot;</span><span class="o">,</span> <span class="k">new</span> <span class="n">JobParameter</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()));</span>
+        <span class="n">JobParameters</span> <span class="n">jobParameters</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JobParameters</span><span class="o">(</span><span class="n">jobParameterMap</span><span class="o">);</span>
+        <span class="n">JobExecution</span> <span class="n">jobExecution</span> <span class="o">=</span> <span class="n">jobLauncher</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">job</span><span class="o">,</span> <span class="n">jobParameters</span><span class="o">);</span>
+        <span class="n">ExecutionContext</span> <span class="n">executionContext</span> <span class="o">=</span> <span class="n">jobExecution</span><span class="o">.</span><span class="na">getExecutionContext</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>起動クラスを実行してアプリケーションを起動すると、キューに蓄積されていたメッセージを取得し、バッチジョブが起動します。</p>
+<p><br/></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>2019-09-14 00:40:24.305  INFO 98462 --- [enerContainer-2] o.s.b.c.l.support.SimpleJobLauncher      : Job: [SimpleJob: [name=job]] launched with the following parameters: [{param=test, time=1568389224299}]
+2019-09-14 00:40:24.307  INFO 98462 --- [enerContainer-2] o.d.m.s.a.s.a.b.listener.SampleListener  : org.debugroom.mynavi.sample.aws.sqs.app.batch.listener.SampleListener#beforeJob started.
+2019-09-14 00:40:24.314  INFO 98462 --- [enerContainer-2] o.s.batch.core.job.SimpleStepHandler     : Executing step: [step1]
+2019-09-14 00:40:24.318  INFO 98462 --- [enerContainer-2] o.d.m.s.a.s.a.batch.step.SampleTasklet   : org.debugroom.mynavi.sample.aws.sqs.app.batch.step.SampleTasklet#execute() starteds. input param : test
+2019-09-14 00:40:24.333  INFO 98462 --- [enerContainer-2] o.s.batch.core.job.SimpleStepHandler     : Executing step: [partitionStep]
+2019-09-14 00:40:24.358  INFO 98462 --- [cTaskExecutor-7] o.d.m.s.a.s.a.b.step.SampleProcessor     : org.debugroom.mynavi.sample.aws.sqs.app.batch.step.SampleProcessor started. sample.stepParam:test1 stepExecution.partitionId:test1
+2019-09-14 00:40:24.358  INFO 98462 --- [cTaskExecutor-7] o.d.m.s.a.s.app.batch.step.SampleWriter  : org.debugroom.mynavi.sample.aws.sqs.app.batch.step.SampleWriter started.
+2019-09-14 00:40:24.359  INFO 98462 --- [cTaskExecutor-7] o.d.m.s.a.s.app.batch.step.SampleWriter  : org.debugroom.mynavi.sample.aws.sqs.app.batch.step.SampleWriter sample.stepParam:test1
+2019-09-14 00:40:24.360  INFO 98462 --- [cTaskExecutor-6] o.d.m.s.a.s.a.b.step.SampleProcessor     : org.debugroom.mynavi.sample.aws.sqs.app.batch.step.SampleProcessor started. sample.stepParam:test5 stepExecution.partitionId:test5
+2019-09-14 00:40:24.360  INFO 98462 --- [cTaskExecutor-6] o.d.m.s.a.s.app.batch.step.SampleWriter  : org.debugroom.mynavi.sample.aws.sqs.app.batch.step.SampleWriter started.
+2019-09-14 00:40:24.361  INFO 98462 --- [cTaskExecutor-6] o.d.m.s.a.s.app.batch.step.SampleWriter  : org.debugroom.mynavi.sample.aws.sqs.app.batch.step.SampleWriter sample.stepParam:test5
+2019-09-14 00:40:24.362  INFO 98462 --- [TaskExecutor-10] o.d.m.s.a.s.a.b.step.SampleProcessor     : org.debugroom.mynavi.sample.aws.sqs.app.batch.step.SampleProcessor started. sample.stepParam:test2 stepExecution.partitionId:test2
+2019-09-14 00:40:24.365  INFO 98462 --- [TaskExecutor-10] o.d.m.s.a.s.app.batch.step.SampleWriter  : org.debugroom.mynavi.sample.aws.sqs.app.batch.step.SampleWriter started.
+2019-09-14 00:40:24.365  INFO 98462 --- [TaskExecutor-10] o.d.m.s.a.s.app.batch.step.SampleWriter  : org.debugroom.mynavi.sample.aws.sqs.app.batch.step.SampleWriter sample.stepParam:test2
+2019-09-14 00:40:24.371  INFO 98462 --- [cTaskExecutor-8] o.d.m.s.a.s.a.b.step.SampleProcessor     : org.debugroom.mynavi.sample.aws.sqs.app.batch.step.SampleProcessor started. sample.stepParam:test3 stepExecution.partitionId:test3
+2019-09-14 00:40:24.373  INFO 98462 --- [cTaskExecutor-8] o.d.m.s.a.s.app.batch.step.SampleWriter  : org.debugroom.mynavi.sample.aws.sqs.app.batch.step.SampleWriter started.
+2019-09-14 00:40:24.373  INFO 98462 --- [cTaskExecutor-8] o.d.m.s.a.s.app.batch.step.SampleWriter  : org.debugroom.mynavi.sample.aws.sqs.app.batch.step.SampleWriter sample.stepParam:test3
+2019-09-14 00:40:24.374  INFO 98462 --- [cTaskExecutor-9] o.d.m.s.a.s.a.b.step.SampleProcessor     : org.debugroom.mynavi.sample.aws.sqs.app.batch.step.SampleProcessor started. sample.stepParam:test4 stepExecution.partitionId:test4
+2019-09-14 00:40:24.376  INFO 98462 --- [cTaskExecutor-9] o.d.m.s.a.s.app.batch.step.SampleWriter  : org.debugroom.mynavi.sample.aws.sqs.app.batch.step.SampleWriter started.
+2019-09-14 00:40:24.376  INFO 98462 --- [cTaskExecutor-9] o.d.m.s.a.s.app.batch.step.SampleWriter  : org.debugroom.mynavi.sample.aws.sqs.app.batch.step.SampleWriter sample.stepParam:test4
+2019-09-14 00:40:24.390  INFO 98462 --- [enerContainer-2] o.d.m.s.a.s.a.b.listener.SampleListener  : org.debugroom.mynavi.sample.aws.sqs.app.batch.listener.SampleListener#afterJob started.
+2019-09-14 00:40:24.395  INFO 98462 --- [enerContainer-2] o.s.b.c.l.support.SimpleJobLauncher      : Job: [SimpleJob: [name=job]] completed with the following parameters: [{param=test, time=1568389224299}] and the following status: [COMPLETED]
+</pre></div>
+</div>
+<p><br/></p>
+<p>これで、メッセージを取得するConsumerアプリケーションが実装できました。このようにSpringCloudAWSを使って、AmazonSQSのキューを使ったアプリケーション連携を簡単に実装できます。
+<a class="reference internal" href="aws-sqs-1.html#section-cloud-native-sqs-application-process-pattern-label"><span class="std std-ref">SQSを使ったアプリケーションの処理パターン</span></a> でも触れたように、S3へのイベントを契機にして実行したAWS Lambdaファンクションの中でキューを送信するといった、
+クラウド連携サービスもSpringCloudFucntionなどを組み合わせると簡単に実装できるようになります。今回は説明していませんが、Spring Cloud Functionを使って、
+<a class="reference external" href="https://github.com/debugroom/mynavi-sample-aws-sqs/tree/master/lambda-sqs-producer">Lambdaファンクションの実装例</a> も作成しています。
+なお、Spring Cloud Functionの説明は <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4316">第１回</a> で説明しているのでこちらも適宜参考にしてください。
+また、バッチ処理はECSタスクスケジューラと組み合わせることで、時刻起動するディレードバッチといった構成にすることも可能です。</p>
+<p><br/></p>
+</div>
+<div class="section" id="section-cloud-native-conclusion-label">
+<span id="id3"></span><h3>最後に<a class="headerlink" href="#section-cloud-native-conclusion-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>これまで、SpringCloudFucntionを使ったAWS Lambdaファンクションの実装、API Gatewayの設定、ECSを使ったSpringBootアプリケーションの実装、
+SpringCloudAWSを使ったRDS、DynamoDB、ElastiCache、S3、SQSといったAWSでよく使われるサービスと
+デファクトスタンダードなSpringアプリケーションの実装例を解説してきました。実プロジェクトでのアプリケーションは、
+これに認証や認可処理が入って来たり、そのままでは商用アプリケーションとしては成り立ちませんが、クラウドネイティブなアプリケーションの実装方法として、
+基本事項を解説してこれたと思います。AWSには本連載で説明したサービスの他にも、AmazonCognitoやEKS、AppMeshといった、やや難易度が高くなる数々のサービスがあります。
+近いうちに、「AWSで作るクラウドネイティブアプリケーション発展編」としてご紹介できればと思います。</p>
+<p><br/></p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>著者紹介<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei)</p>
+<div class="figure">
+<img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" />
+</div>
+<p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p><a class="reference external" href="https://aws.amazon.com/jp/blogs/psa/japan-apn-ambassador-2019/">2019 APN AWS Top Engineers &amp; Ambassadors</a> 選出。</p>
+<p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

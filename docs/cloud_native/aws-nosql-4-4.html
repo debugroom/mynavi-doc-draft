@@ -66,6 +66,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unittest.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_3.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_4.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_5.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_6.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_7.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_8.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_9.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -93,6 +104,13 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 </ul>
 </ul>
 </li>
@@ -214,7 +232,7 @@
 <p>AWSで、ElastiCacheを構築するにあたり、下記のイメージ図のように、事前にElastiCacheノードを配置するためのVPCを構築しておく必要があります。</p>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/architecture-elasticache.png"><img alt="../_images/architecture-elasticache.png" src="../_images/architecture-elasticache.png" style="width: 471.0px; height: 644.0px;" /></a>
+<img alt="../_images/architecture-elasticache.png" src="../_images/architecture-elasticache.png" />
 </div>
 <p><br/></p>
 <p>VPCの作成方法は、第２回 <a class="reference internal" href="aws-ecs-1.html#section-cloud-native-ecs-overview-label"><span class="std std-ref">AWS ECSの概要とアプリケーション環境構成</span></a> に詳細な構築手順・要領をまとめていますので、必要に応じてリンク先を確認し、VPCを作成しておいてください。
@@ -236,7 +254,7 @@
 </ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-ec2-create-security-group-for-elasticache-1.png"><img alt="../_images/management-console-ec2-create-security-group-for-elasticache-1.png" src="../_images/management-console-ec2-create-security-group-for-elasticache-1.png" style="width: 824.0px; height: 440.0px;" /></a>
+<img alt="../_images/management-console-ec2-create-security-group-for-elasticache-1.png" src="../_images/management-console-ec2-create-security-group-for-elasticache-1.png" />
 </div>
 <p><br/></p>
 <p>セキュリティグループを作成した後、AWSコンソールの「ElastiCache」サービスから、「テーブルの作成」ボタンを押下し、以下の要領に則って入力します。</p>
@@ -291,15 +309,15 @@
 </ul>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-elasticache-create-1.png"><img alt="../_images/management-console-elasticache-create-1.png" src="../_images/management-console-elasticache-create-1.png" style="width: 713.0px; height: 541.0px;" /></a>
+<img alt="../_images/management-console-elasticache-create-1.png" src="../_images/management-console-elasticache-create-1.png" />
 </div>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-elasticache-create-2.png"><img alt="../_images/management-console-elasticache-create-2.png" src="../_images/management-console-elasticache-create-2.png" style="width: 674.0px; height: 555.0px;" /></a>
+<img alt="../_images/management-console-elasticache-create-2.png" src="../_images/management-console-elasticache-create-2.png" />
 </div>
 <p><br/></p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/management-console-elasticache-create-3.png"><img alt="../_images/management-console-elasticache-create-3.png" src="../_images/management-console-elasticache-create-3.png" style="width: 644.0px; height: 654.0px;" /></a>
+<img alt="../_images/management-console-elasticache-create-3.png" src="../_images/management-console-elasticache-create-3.png" />
 </div>
 <p><br/></p>
 <p>以上で、ElastiCacheの作成は完了です。次回はアプリケーションロードバランサーを構築した後、アプリケーションをECSコンテナ化してデプロイし、セッション情報をRedisに共有するよう設定します。</p>
@@ -310,7 +328,7 @@
 <h2>著者紹介<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei)</p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/pic_image011.jpg"><img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" style="width: 100.0px; height: 110.0px;" /></a>
+<img alt="../_images/pic_image011.jpg" src="../_images/pic_image011.jpg" />
 </div>
 <p>某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
 <p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>

@@ -27,7 +27,7 @@ AWSで作るクラウドネイティブアプリケーションの基本
 |br|
 
 .. figure:: img/aws-ecs/ecs-architecture.png
-   :scale: 100%
+
 
 |br|
 
@@ -191,7 +191,7 @@ BackendアプリケーションのGET API(/backend/api/v1/users)を呼び出し�
 |br|
 
 .. figure:: img/aws-ecs/ecs-bff-application.png
-   :scale: 100%
+
 
 |br|
 
@@ -307,7 +307,7 @@ SpringBoot起動クラスの構成はBackendとほぼ同じですが、Controlle
 川畑 光平(KAWABATA Kohei)
 
 .. figure:: img/aws-lambda-and-api-gateway/pic_image01.jpg
-   :scale: 100%
+
 
 某システムインテグレータにて、金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 
