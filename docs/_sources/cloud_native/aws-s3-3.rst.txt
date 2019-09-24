@@ -42,6 +42,8 @@ Spring Cloud AWSを使ったS3アクセスアプリケーション(2)
 |br|
 
 ※今回は比較的小さいファイルサイズの画像を扱うことを想定して、Controllerから取得する例を実装しています。
+なお、リクエストマッピング実装の要領については `TERASOLUNAガイドライン リクエストとハンドラメソッドのマッピング方法 <http://terasolunaorg.github.io/guideline/5.5.1.RELEASE/ja/ImplementationAtEachLayer/ApplicationLayer.html#controller-mapping-label>`_
+も適宜参考にしてください。
 
 |br|
 
@@ -99,9 +101,10 @@ Spring Cloud AWSを使ったS3アクセスアプリケーション(2)
 
 |br|
 
-ControllerからS3でのダウンロード、アップロードを行う処理をHelperとして実装します。
+Controllerから呼び出すS3でダウンロード、アップロードを行う処理をHelperとして実装します。
 ダウンロード処理では、org.springframework.core.io.ResourceLoaderで、
 S3のバケットプレフィックスを指定してオブジェクトキーを指定し、InputStreamとして読み込みを行います。
+なお、画像ファイルの場合はデータ型としてjava.awt.image.BufferedImageを使用し、テキストデータなどの場合は、org.apache.commons.io.IOUtilsなどのユーティリティライブラリを使ってストリームデータをString型へ変換します。
 
 |br|
 
@@ -172,8 +175,9 @@ S3のバケットプレフィックスを指定してオブジェクトキーを
 |br|
 
 アップロード処理は同じくResourceLoaderを経由して、S3のバケットプレフィックスを保存したいオブジェクトキーと組み合わせ、
-WritableResourceとして取得し、OutputStreamにデータを保存します。その他、バケット上のディレクトリを含めた、
-オブジェクキーの有無はResourcePatternResolverを使って検索ができますが、ディレクトリの作成はSDKのAmazonS3を使って操作を行う必要があります。
+WritableResourceとして取得し、OutputStreamにデータを保存します。また、バケット上のディレクトリを含めた、
+オブジェクキーのデータが存在するかどうかResourcePatternResolverを使って検索ができますが、
+ディレクトリの作成やデータの削除などの処理はSDKのライブラリとして提供されているcom.amazonaws.services.s3.AmazonS3を使って直接操作を行う必要があります。
 
 |br|
 
