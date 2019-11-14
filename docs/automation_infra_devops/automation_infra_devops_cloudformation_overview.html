@@ -79,6 +79,7 @@
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_9.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_cli.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_lint.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -435,6 +436,7 @@ Outputs:
 <li>現状のリソースとの差分を検出するDrift Detection機能</li>
 <li>１つのテンプレートを複数のAWSアカウントおよび複数のリージョンに展開するStackSets機能</li>
 <li>AWSコンソールでドラッグアンドドロップでテンプレートを作成・編集できるCloudFormation Designer機能</li>
+<li>すでに構築済みのAWSリソースからCloudFormationテンプレートを作成するCloudFormer機能(2019年11月時点でベータ版)</li>
 </ul>
 <p><br/></p>
 </div>
@@ -446,10 +448,10 @@ CI/CD環境に対して、上述したテンプレート記述の要領に則り
 以下の目次に従って、解説を進めていく予定です。</p>
 <ol class="arabic simple">
 <li>CloudFormation開発環境の設定<ol class="arabic">
-<li>AmazonCLI(CommandLineInterface)の実行環境設定</li>
-<li>テンプレートのコード補完・文法チェック等を実行するcfn-python-lintプラグインインストール</li>
+<li>AmazonCLI(CommandLineInterface)の実行環境/AWS認証情報の設定</li>
+<li>テンプレートのコード補完・文法チェック等を実行する各種検証プラグインインストール</li>
 <li>統合開発環境(IntelliJ IDEA)の設定</li>
-<li>CloudFormation実行ヘルパースクリプトの作成/AWS認証情報の設定</li>
+<li>CloudFormation実行ヘルパースクリプトの作成</li>
 </ol>
 </li>
 <li>クラウドネイティブアプリケーション基盤構築自動化実践・解説<ol class="arabic">

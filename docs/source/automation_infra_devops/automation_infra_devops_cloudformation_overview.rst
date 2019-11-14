@@ -271,6 +271,7 @@ CloudFormationでは、テンプレート内で、パラメータの参照や文
 * 現状のリソースとの差分を検出するDrift Detection機能
 * １つのテンプレートを複数のAWSアカウントおよび複数のリージョンに展開するStackSets機能
 * AWSコンソールでドラッグアンドドロップでテンプレートを作成・編集できるCloudFormation Designer機能
+* すでに構築済みのAWSリソースからCloudFormationテンプレートを作成するCloudFormer機能(2019年11月時点でベータ版)
 
 |br|
 
@@ -287,10 +288,10 @@ CI/CD環境に対して、上述したテンプレート記述の要領に則り
 
 #. CloudFormation開発環境の設定
 
-   #. AmazonCLI(CommandLineInterface)の実行環境設定
-   #. テンプレートのコード補完・文法チェック等を実行するcfn-python-lintプラグインインストール
+   #. AmazonCLI(CommandLineInterface)の実行環境/AWS認証情報の設定
+   #. テンプレートのコード補完・文法チェック等を実行する各種検証プラグインインストール
    #. 統合開発環境(IntelliJ IDEA)の設定
-   #. CloudFormation実行ヘルパースクリプトの作成/AWS認証情報の設定
+   #. CloudFormation実行ヘルパースクリプトの作成
 
 #. クラウドネイティブアプリケーション基盤構築自動化実践・解説
 

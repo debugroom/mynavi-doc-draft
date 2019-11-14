@@ -34,6 +34,7 @@
    automation_infra_devops/automation_infra_devops_codepipeline_9.rst
    automation_infra_devops/automation_infra_devops_cloudformation_overview.rst
    automation_infra_devops/automation_infra_devops_cloudformation_cli.rst
+   automation_infra_devops/automation_infra_devops_cloudformation_lint.rst
    cloud_native/aws-lambda-and-api-gateway-1.rst
    cloud_native/aws-lambda-and-api-gateway-2.rst
    cloud_native/aws-lambda-and-api-gateway-3.rst

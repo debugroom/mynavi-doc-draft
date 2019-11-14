@@ -18,6 +18,8 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="../cloud_native/aws-lambda-and-api-gateway-1.html" />
+    <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_cloudformation_cli.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -52,7 +54,7 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
@@ -77,6 +79,7 @@
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_9.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_overview.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_cli.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -127,7 +130,7 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
 <li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li><a class="reference internal" href="#lint">Lintプラグインの導入</a></li>
+<li><a class="reference internal" href="#cfn-lintintellij-idea">cfn-lintのインストールとIntelliJ IDEAでのプラグイン設定</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#id3">著者紹介</a></li>
@@ -141,6 +144,14 @@
             
               
                 
+  <li>
+    <a href="automation_infra_devops_cloudformation_cli.html" title="Previous Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 基盤・デプロイ自動化実践</span>
+    </a>
+  </li>
+  <li>
+    <a href="../cloud_native/aws-lambda-and-api-gateway-1.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    </a>
+  </li>
               
             
             
@@ -183,72 +194,84 @@
 <img alt="../_images/MicroServiceArchitecture.png" src="../_images/MicroServiceArchitecture.png" />
 </div>
 <p><br/></p>
-<p>前回は、CloudFormationの概要やテンプレート記述の要領、様々な機能を概説しました。続く今回からは実際にCloudFormationテンプレートを作成していく上で必要な開発環境を構築していきます。
-前回も説明しましたが、CloudFormationでは、定められた形式に従って記述されたテンプレートファイルを、AWSコンソール上もしくはCLI(CommandLineInterface)を使って実行します。
-しかし、単純な正攻法で、テキストエディタを使って、一からテンプレートを作成し、コンソール上からテンプレートをアップロードして、動作を確認するといったステップを踏んでいると、
-文法誤りやタイプミス、論理的な矛盾、スタック構築順序誤りなど様々な人為的なエラーにより、期待通り動作するまで至るにはかなりの労力・時間を要します。</p>
-<p>そうした労力を少しでも軽減するために、以下のような開発環境でテンプレートを記述することを推奨します。</p>
-<ol class="arabic simple">
-<li>AmazonCLI(CommandLineInterface)の実行環境設定</li>
-<li>テンプレートのコード補完・文法チェック等を実行するcfn-python-lintプラグインインストール</li>
-<li>統合開発環境(IntelliJ IDEA)の設定</li>
-<li>CloudFormation実行ヘルパースクリプトの作成/AWS認証情報の設定</li>
-</ol>
-<p>1点目として、CLIを用いることにより、コンソール上でファイルをアップロードするやり方に比べて、格段に迅速にCloudFormationを繰り返し実行できるようになります。
-(2)のプラグインはソースコードを記述している際の、記法の誤りや、プロパティ名の妥当性、階層構造チェックなどを実行するため、テンプレート記述の正確性が向上します。
-これらのプラグインはIntelliJ IDEAでサポートされており、他のアプリケーション開発言語と同様の統合開発環境で行うことができるので、不要なエディタの切り替えなど発生せず作業生産性が向上します(3)。
-また、CLIによるCloudFormationの実行ですが、コマンド自体は単純であるものの、入力パラメータも多く、長くなりがちなため、最後に(4)手軽に実行できるヘルパー用のシェルスクリプト等を作成し、
-統合開発環境上で実行できるようにしておいた方がよいでしょう。なお、CLIからのCloudFormation実行は、これまでのAWSサービスをローカルで実行してきた手法と同様、
-認証情報が必要になります。加えて、CloudFormationでスタックとして構築する全てのAWSリソースで必要な権限を設定しておく必要があります。</p>
+<p>前回は、CloudFormationでのテンプレート作成を効率化するための環境構築のポイントやCLIのインストール方法を概説しました。
+引き続き、テンプレートのコード補完・文法チェック等を実行する検証プラグインインストールや、統合開発環境(IntelliJ IDEA)の設定を行います。</p>
+<p>CloudFormationのテンプレート記法のチェックを行うツールは2019年11月現在、いくつか種類がありますが、代表的なものの特徴は以下の通りです。</p>
+<table border="1" class="colwidths-given docutils" id="id4">
+<caption><span class="caption-text">CloudFormationのテンプレート検証機能をもつ代表的なツール</span><a class="headerlink" href="#id4" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="40%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>名称</td>
+<td>提供元</td>
+<td>実行環境</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/using-cfn-validate-template.html">validate-templateコマンド</a></td>
+<td>AWS</td>
+<td>Amazon CLIコマンド</td>
+<td>CLIが提供するテンプレートの検証コマンドです。公式ページにも記述がある通り、テンプレートの構文を確認するためのもので、リソースに対して指定したプロパティの値等が有効であることを確認するためのものではありません。</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://plugins.jetbrains.com/plugin/7371-aws-cloudformation">IntelliJ CloudFormationプラグイン</a></td>
+<td>IntelliJ ThirdParty</td>
+<td>IntelliJ IDEA</td>
+<td>IntelliJ IDEAで動作するテンプレート検証プラグインです。ResourceTypeとPropertiesの定義・参照検証などを実行してくれます。ただし、当プラグインでは、簡単な構文チェックなどは行えるが、必須・任意パラメータの有無などの検証はできません。IDEAのみならずJetBrains社で提供されているIDEであれば動作します。</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://github.com/aws-cloudformation/cfn-python-lint">cfn-python-lint</a></td>
+<td>AWS</td>
+<td>Pythonがインストールされた実行環境/各種エディタ</td>
+<td>Python環境で実行可能なテンプレート検証Linterです。必須・任意パラメータの有無などのテンプレートの検証機能に加え、エディタ上でコード補完・サジェスト機能があります。サポートするエディタとして、Atom、Emacs、NeoVim、SublimeText、IntelliJ IDEA、VisualStduioがあり、各々プラグインが提供されています。</td>
+</tr>
+</tbody>
+</table>
 <p><br/></p>
-<div class="section" id="lint">
-<span id="section-amazon-lint-plugin-setting-label"></span><h3>Lintプラグインの導入<a class="headerlink" href="#lint" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>テンプレート記述を行う上で、特に利用を薦めたいのがcfn-python-lintとIntelliJ CloudFormationプラグインです。これらのIntelliJ IDEAでの環境設定方法について以降解説します。</p>
 <p><br/></p>
-<p>AWS環境・サービスを使用するには大きく3つの方法があります。AWSコンソールによる操作、SDK(SoftwareDevelopmentKit：AWSにより提供される各プログラム言語ごとにあるライブラリ)を介したアクセス、
-そして、AmazonCLIを介したコマンドラインの実行です。ローカル端末等にCLIのインストールを行い、ターミナルなどのコマンド操作ツールを通して、awsコマンドに実行サービス名やパラメータを与えて実行します。
-GUIと比べ、シェルスクリプトなどと組み合わせることにより、作業の迅速化、自動実行、作業ミスの防止が図れるのがメリットです。</p>
-<p>CLIをインストールするには、インストール対象のマシンがPython2.6.5以上、もしくはPython3.3以上をインストール済みである必要があります。
-ここでは、ローカルマシンとしてMacOSにCLIをインストールする手順を紹介します。<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/cli-chap-install.html">公式サイト AWS CLIのインストール</a> では、
-CLIのインストールはpipコマンドを用いてインストールを行なっているため、事前にpythonを実行できる環境を構築しておきましょう。</p>
+<div class="section" id="cfn-lintintellij-idea">
+<span id="section-amazon-lint-plugin-setting-label"></span><h3>cfn-lintのインストールとIntelliJ IDEAでのプラグイン設定<a class="headerlink" href="#cfn-lintintellij-idea" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
-<div class="admonition note">
-<p class="first admonition-title">注釈</p>
-<p>MacOS Sierra以降はHomebrewからpythonをインストールする手段が簡易です。以下のコマンドにより、標準インストールされているpython(/usr/bin/python)ではなく、/usr/local/bin/pythonが使用されるようになります。</p>
-<div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span>brew update
-brew install python
-</pre></div>
-</div>
-</div>
+<p>cfn-python-lintは、AmazonCLIコマンド同様、pipコマンドにて、cfn-lintをインストールが可能です。</p>
 <p><br/></p>
-<p>pipを利用してCLIをインストールするには以下のコマンドを実行します。</p>
-<p><br/></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3 install awscli --upgrade --user
-</pre></div>
-</div>
-<p><br/></p>
-<p>インストール後に.bash_profileや.bashrcにインストールしたawsコマンドがあるパスを通しておきましょう。</p>
-<p><br/></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/Users/XXXXXXXX/Library/Python/3.6/bin/:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip intall cfn-lint
 </pre></div>
 </div>
 <p><br/></p>
-<p>sourceコマンドによる.bash_profileの再読み込みやターミナルの再起動後、以下のコマンドが正常実行できることを確認します。</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>aws --version
-aws-cli/1.16.241 Python/3.6.5 Darwin/18.7.0 botocore/1.12.231
-</pre></div>
+<p>インストール後、コマンドラインからcfn-lintコマンドで対象のテンプレートをパラメータに指定して実行できます。詳細は上記の表のcfn-python-lint公式ページのリンクにあるBasicUsageを参考にしてください。
+コマンドラインからも実行は可能ですが、IntelliJ IDEAのエディタ上でcfn-lintコマンドが動作するよう、IntelliJでプラグインのインストールを行います。</p>
+<p><br/></p>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">2019年9月現在、IntelliJ IDEAの最新バージョンは2019.2ですが、<a class="reference external" href="https://github.com/binxio/cfn-lint-plugin/issues/7">cfn-lintの最新版v0.1.6では正常に動作しない状況</a> が続いているようです。筆者の手元の環境ではIntelliJ 2019.1では正常動作していますので、最新のFIX状況を確認しながら環境構築を実施してください。</p>
 </div>
 <p><br/></p>
-<p>また、CLIのコマンド実行により、AWSへアクセスするにはアクセスしたいサービスの権限を付与したユーザの作成および、認証情報の設定が必要になります。
-今回のようにCloudFormationをローカル端末から使用する場合は、CloudFormationアクセス許可ポリシーをアタッチして権限をしたユーザの認証情報をローカル端末のホームフォルダ配下の.aws/credentialsに置いておきます。
-ユーザや認証情報をIAMを使って作成する実際の手順は <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4422">Amazon RDSにアクセスするSpringアプリケーション(1) ユーザ／認証情報の作成</a> に記載していますが、
-これ同様の要領で、ユーザに「AmazonCloudFormationFullAccess」ポリシーを付与して、認証情報をローカル端末へ設定しておきましょう。
-また、CloudFormationで構築するスタックのAWSリソースに対してもアクセス権限を付与しておく必要があるので注意が必要です。</p>
+<p>IntelliJ IDEAのPreferenceメニュー &gt; Plugins &gt; Marketplaceタブでcfnーlintプラグインを検索し、インストールします。</p>
 <p><br/></p>
 <div class="figure">
-<img alt="../_images/management_console_iam_attach_cloudformation_access.png" src="../_images/management_console_iam_attach_cloudformation_access.png" />
+<img alt="../_images/intellij-install-cfn-lint-plugin-1.png" src="../_images/intellij-install-cfn-lint-plugin-1.png" />
 </div>
 <p><br/></p>
-<p>以上で、CLIおよびCloudFormationをローカル端末上から実行できる準備が整いました。次回はテンプレートを効率的に実装するためのcfn-python-lintプラグインや統合開発環境として利用するIntelliJ IDEAの設定を行います。</p>
+<p>インストール後、IntelliJ IDEAの再起動を行い、同じくPreferenceメニュー &gt; Other Settings &gt; CFNLintで、Enableをチェックし、上記でインストールしたcfn-lintコマンドのパスを指定します。
+<br/></p>
+<div class="figure">
+<img alt="../_images/intellij-install-cfn-lint-plugin-2.png" src="../_images/intellij-install-cfn-lint-plugin-2.png" />
+</div>
+<p><br/></p>
+<p>同様に、CloudFormation Pluginもインストールします。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/intellij-install-cloudformation-plugin-2.png" src="../_images/intellij-install-cloudformation-plugin-2.png" />
+</div>
+<p><br/></p>
+<p>インストール後、再起動した後、エディタ上でテンプレートを作成していくと、コード補完やテンプレートのバリデーションが有効になるようになります。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/intellij-editor-with-lint-check.png" src="../_images/intellij-editor-with-lint-check.png" />
+</div>
+<p>以上で、IntelliJ IDEAでテンプレートを検証しながら、効率的に実装できる環境が整いました。次回は作成したテンプレートをIntelliJ上から実行するヘルパースクリプトや、エラー発生時のデバッグの方法について概説します。</p>
 <p><br/></p>
 </div>
 </div>

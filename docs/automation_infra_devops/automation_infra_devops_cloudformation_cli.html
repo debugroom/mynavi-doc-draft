@@ -18,7 +18,7 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="../cloud_native/aws-lambda-and-api-gateway-1.html" />
+    <link rel="next" title="基盤・デプロイ自動化実践" href="automation_infra_devops_cloudformation_lint.html" />
     <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_cloudformation_overview.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -79,6 +79,7 @@
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_9.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_overview.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_lint.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -148,7 +149,7 @@
     </a>
   </li>
   <li>
-    <a href="../cloud_native/aws-lambda-and-api-gateway-1.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    <a href="automation_infra_devops_cloudformation_lint.html" title="Next Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">基盤・デプロイ自動化実践 &raquo;</span>
     </a>
   </li>
               
@@ -199,14 +200,14 @@
 文法誤りやタイプミス、論理的な矛盾、スタック構築順序誤りなど様々な人為的なエラーにより、期待通り動作するまで至るにはかなりの労力・時間を要します。</p>
 <p>そうした労力を少しでも軽減するために、以下のような開発環境でテンプレートを記述することを推奨します。</p>
 <ol class="arabic simple">
-<li>AmazonCLI(CommandLineInterface)の実行環境設定</li>
-<li>テンプレートのコード補完・文法チェック等を実行するcfn-python-lintプラグインインストール</li>
+<li>AmazonCLI(CommandLineInterface)の実行環境/AWS認証情報の設定</li>
+<li>テンプレートのコード補完・文法チェック等を実行する各種プラグインインストール</li>
 <li>統合開発環境(IntelliJ IDEA)の設定</li>
-<li>CloudFormation実行ヘルパースクリプトの作成/AWS認証情報の設定</li>
+<li>CloudFormation実行ヘルパースクリプトの作成</li>
 </ol>
 <p>1点目として、CLIを用いることにより、コンソール上でファイルをアップロードするやり方に比べて、格段に迅速にCloudFormationを繰り返し実行できるようになります。
 (2)のプラグインはソースコードを記述している際の、記法の誤りや、プロパティ名の妥当性、階層構造チェックなどを実行するため、テンプレート記述の正確性が向上します。
-これらのプラグインはIntelliJ IDEAでサポートされており、他のアプリケーション開発言語と同様の統合開発環境で行うことができるので、不要なエディタの切り替えなど発生せず作業生産性が向上します(3)。
+これらのプラグインはIntelliJ IDEAで多くサポートされており、他のアプリケーション開発言語と同様の統合開発環境で行うことができるので、不要なエディタの切り替えなど発生せず作業生産性が向上します(3)。
 また、CLIによるCloudFormationの実行ですが、コマンド自体は単純であるものの、入力パラメータも多く、長くなりがちなため、最後に(4)手軽に実行できるヘルパー用のシェルスクリプト等を作成し、
 統合開発環境上で実行できるようにしておいた方がよいでしょう。なお、CLIからのCloudFormation実行は、これまでのAWSサービスをローカルで実行してきた手法と同様、
 認証情報が必要になります。加えて、CloudFormationでスタックとして構築する全てのAWSリソースで必要な権限を設定しておく必要があります。</p>
@@ -258,6 +259,10 @@ aws-cli/1.16.241 Python/3.6.5 Darwin/18.7.0 botocore/1.12.231
 <img alt="../_images/management_console_iam_attach_cloudformation_access.png" src="../_images/management_console_iam_attach_cloudformation_access.png" />
 </div>
 <p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">aws configureコマンドを使うと、.aws/配下にある認証情報や設定を行うこともできます。コマンド実行後認証キーやリージョンなど対話形式で設定を行えます。</p>
+</div>
 <p>以上で、CLIおよびCloudFormationをローカル端末上から実行できる準備が整いました。次回はテンプレートを効率的に実装するためのcfn-python-lintプラグインや統合開発環境として利用するIntelliJ IDEAの設定を行います。</p>
 <p><br/></p>
 </div>
