@@ -57,7 +57,7 @@ CloudFormationのテンプレート記法のチェックを行うツールは201
 
 |br|
 
-.. _section-amazon-lint-plugin-setting-label:
+.. _section-cloudformation-lint-plugin-setting-label:
 
 cfn-lintのインストールとIntelliJ IDEAでのプラグイン設定
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -114,7 +114,15 @@ IntelliJ IDEAのPreferenceメニュー > Plugins > Marketplaceタブでcfnーlin
 
 |br|
 
-以上で、IntelliJ IDEAでテンプレートをチェックツールで検証しながら、効率的に実装できる環境が整いました。次回は作成したテンプレートをIntelliJ上から実行するヘルパースクリプトや、エラー発生時のデバッグの方法について概説します。
+記載が誤っていると、下記の通り自動でエラー検出され、該当箇所がハイライトされます。
+
+|br|
+
+.. figure:: img/automation_infra_devops_cloudformation/intellij-editor-with-lint-check-error.png
+
+|br|
+
+以上で、IntelliJ IDEAでテンプレートをチェックツールで検証しながら、効率的に実装できる環境が整いました。次回は、テンプレートの基本的な記述要領や、作成したテンプレートをIntelliJ上から実行するヘルパースクリプト、エラー発生時のデバッグの方法について概説します。
 
 |br|
 
@@ -129,3 +137,5 @@ IntelliJ IDEAのPreferenceメニュー > Plugins > Marketplaceタブでcfnーlin
 金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 
 Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。
+
+`2019 APN AWS Top Engineers & Ambassadors <https://aws.amazon.com/jp/blogs/psa/japan-apn-ambassador-2019/>`_ 選出。

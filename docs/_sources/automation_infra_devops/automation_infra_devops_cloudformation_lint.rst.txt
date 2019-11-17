@@ -17,12 +17,16 @@
 .. figure:: img/automation_infra_devops_overview/MicroServiceArchitecture.png
 
 
-|br|
+|br|　
 
 前回は、CloudFormationでのテンプレート作成を効率化するための環境構築のポイントやCLIのインストール方法を概説しました。
 引き続き、テンプレートのコード補完・文法チェック等を実行する検証プラグインインストールや、統合開発環境(IntelliJ IDEA)の設定を行います。
 
+|br|　
+
 CloudFormationのテンプレート記法のチェックを行うツールは2019年11月現在、いくつか種類がありますが、代表的なものの特徴は以下の通りです。
+
+|br|　
 
 .. list-table:: CloudFormationのテンプレート検証機能をもつ代表的なツール
    :widths: 5, 5, 5, 10
@@ -40,12 +44,12 @@ CloudFormationのテンプレート記法のチェックを行うツールは201
    * - `IntelliJ CloudFormationプラグイン <https://plugins.jetbrains.com/plugin/7371-aws-cloudformation>`_
      - IntelliJ ThirdParty
      - IntelliJ IDEA
-     - IntelliJ IDEAで動作するテンプレート検証プラグインです。ResourceTypeとPropertiesの定義・参照検証などを実行してくれます。ただし、当プラグインでは、簡単な構文チェックなどは行えるが、必須・任意パラメータの有無などの検証はできません。IDEAのみならずJetBrains社で提供されているIDEであれば動作します。
+     - IntelliJ IDEAで動作するテンプレート検証プラグインです。IDEAのみならずJetBrains社で提供されているIDEであれば動作します。ResourceTypeとPropertiesの定義・参照検証などを実行してくれますが、ただし、当プラグインでは、簡単な構文チェックなどは行えますが、必須・任意パラメータの有無などの検証はできません。
 
    * - `cfn-python-lint <https://github.com/aws-cloudformation/cfn-python-lint>`_
      - AWS
      - Pythonがインストールされた実行環境/各種エディタ
-     - Python環境で実行可能なテンプレート検証Linterです。必須・任意パラメータの有無などのテンプレートの検証機能に加え、エディタ上でコード補完・サジェスト機能があります。サポートするエディタとして、Atom、Emacs、NeoVim、SublimeText、IntelliJ IDEA、VisualStduioがあり、各々プラグインが提供されています。
+     - Pythonがインストールされた環境で実行可能なテンプレート検証Linterです。必須・任意パラメータの有無などのテンプレートの検証機能に加え、エディタ上でコード補完・サジェスト機能があります。サポートするエディタとして、Atom、Emacs、NeoVim、SublimeText、IntelliJ IDEA、VisualStduioがあり、各々プラグインが提供されています。
 
 |br|
 
@@ -53,7 +57,7 @@ CloudFormationのテンプレート記法のチェックを行うツールは201
 
 |br|
 
-.. _section-amazon-lint-plugin-setting-label:
+.. _section-cloudformation-lint-plugin-setting-label:
 
 cfn-lintのインストールとIntelliJ IDEAでのプラグイン設定
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -102,15 +106,23 @@ IntelliJ IDEAのPreferenceメニュー > Plugins > Marketplaceタブでcfnーlin
 
 |br|
 
-インストール後、再起動した後、エディタ上でテンプレートを作成していくと、コード補完やテンプレートのバリデーションが有効になるようになります。
+インストール後、再起動した後、エディタ上でテンプレートを作成していくと、コード補完・サジェストやテンプレートのバリデーションが有効になります。
 
 |br|
 
 .. figure:: img/automation_infra_devops_cloudformation/intellij-editor-with-lint-check.png
 
+|br|
 
+記載が誤っていると、下記の通り自動でエラー検出され、該当箇所がハイライトされます。
 
-以上で、IntelliJ IDEAでテンプレートを検証しながら、効率的に実装できる環境が整いました。次回は作成したテンプレートをIntelliJ上から実行するヘルパースクリプトや、エラー発生時のデバッグの方法について概説します。
+|br|
+
+.. figure:: img/automation_infra_devops_cloudformation/intellij-editor-with-lint-check-error.png
+
+|br|
+
+以上で、IntelliJ IDEAでテンプレートをチェックツールで検証しながら、効率的に実装できる環境が整いました。次回は、テンプレートの基本的な記述要領や、作成したテンプレートをIntelliJ上から実行するヘルパースクリプト、エラー発生時のデバッグの方法について概説します。
 
 |br|
 
@@ -125,3 +137,5 @@ IntelliJ IDEAのPreferenceメニュー > Plugins > Marketplaceタブでcfnーlin
 金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
 
 Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。
+
+`2019 APN AWS Top Engineers & Ambassadors <https://aws.amazon.com/jp/blogs/psa/japan-apn-ambassador-2019/>`_ 選出。

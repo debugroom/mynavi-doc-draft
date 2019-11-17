@@ -80,6 +80,8 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_cli.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_lint.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_script.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_vpc.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -447,16 +449,16 @@ Outputs:
 CI/CD環境に対して、上述したテンプレート記述の要領に則り、また、様々な上記の機能を活用しながら、実践的に基盤自動化環境の構築を解説していきます。
 以下の目次に従って、解説を進めていく予定です。</p>
 <ol class="arabic simple">
-<li>CloudFormation開発環境の設定<ol class="arabic">
+<li>CloudFormation開発環境の設定とテンプレート記述の基本<ol class="arabic">
 <li>AmazonCLI(CommandLineInterface)の実行環境/AWS認証情報の設定</li>
 <li>テンプレートのコード補完・文法チェック等を実行する各種検証プラグインインストール</li>
 <li>統合開発環境(IntelliJ IDEA)の設定</li>
-<li>CloudFormation実行ヘルパースクリプトの作成</li>
+<li>テンプレート記述の基本とCloudFormation実行ヘルパースクリプトの作成</li>
 </ol>
 </li>
 <li>クラウドネイティブアプリケーション基盤構築自動化実践・解説<ol class="arabic">
-<li>VPC/Subnet/RouteTable/InternetGateway/SecurityGroup構築自動化テンプレート</li>
-<li>NATGateway/ApplicationLoadBalancer構築自動化テンプレート</li>
+<li>VPC/Subnet/RouteTable/InternetGateway構築自動化テンプレート</li>
+<li>SecurityGroup/NATGateway/ApplicationLoadBalancer構築自動化テンプレート</li>
 <li>ECSクラスタ/タスク定義/サービス構築自動化テンプレート</li>
 <li>RDS構築自動化テンプレート</li>
 <li>DynamoDB構築自動化テンプート</li>

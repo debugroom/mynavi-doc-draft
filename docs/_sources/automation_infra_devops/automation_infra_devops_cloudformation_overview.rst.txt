@@ -286,17 +286,17 @@ CloudFormationを使った基盤自動化環境構築
 CI/CD環境に対して、上述したテンプレート記述の要領に則り、また、様々な上記の機能を活用しながら、実践的に基盤自動化環境の構築を解説していきます。
 以下の目次に従って、解説を進めていく予定です。
 
-#. CloudFormation開発環境の設定
+#. CloudFormation開発環境の設定とテンプレート記述の基本
 
    #. AmazonCLI(CommandLineInterface)の実行環境/AWS認証情報の設定
    #. テンプレートのコード補完・文法チェック等を実行する各種検証プラグインインストール
    #. 統合開発環境(IntelliJ IDEA)の設定
-   #. CloudFormation実行ヘルパースクリプトの作成
+   #. テンプレート記述の基本とCloudFormation実行ヘルパースクリプトの作成
 
 #. クラウドネイティブアプリケーション基盤構築自動化実践・解説
 
-   #. VPC/Subnet/RouteTable/InternetGateway/SecurityGroup構築自動化テンプレート
-   #. NATGateway/ApplicationLoadBalancer構築自動化テンプレート
+   #. VPC/Subnet/RouteTable/InternetGateway構築自動化テンプレート
+   #. SecurityGroup/NATGateway/ApplicationLoadBalancer構築自動化テンプレート
    #. ECSクラスタ/タスク定義/サービス構築自動化テンプレート
    #. RDS構築自動化テンプレート
    #. DynamoDB構築自動化テンプート
