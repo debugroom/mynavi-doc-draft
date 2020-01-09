@@ -1,6 +1,6 @@
 .. include:: ../module.txt
 
-.. _section-automation-infra-devops-cloudformation-5-label:
+.. _section-automation-infra-devops-cloudformation-6-label:
 
 基盤・デプロイ自動化実践
 ==================================================================

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>基盤・デプロイ自動化実践 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="基盤・デプロイ自動化実践" href="automation_infra_devops_cloudformation_vpc.html" />
+    <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_cloudformation_script.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarqube.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarlint.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_architecture.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_integrationtest.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unittest.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unit_e2e_test.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codebuild.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_3.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_4.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_5.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_6.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_7.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_8.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_9.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_overview.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_cli.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_lint.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_script.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_vpc.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
+<li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li><a class="reference internal" href="#taskcat">taskcatの概要</a></li>
+<li><a class="reference internal" href="#section-cloudformation-taskcat-install-label">事前準備：taskcatのインストールと認証情報の設定</a></li>
+<li><a class="reference internal" href="#section-cloudformation-taskcat-execution-label">taskcatの設定とテスト実行</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="automation_infra_devops_cloudformation_script.html" title="Previous Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 基盤・デプロイ自動化実践</span>
+    </a>
+  </li>
+  <li>
+    <a href="automation_infra_devops_cloudformation_vpc.html" title="Next Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">基盤・デプロイ自動化実践 &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/automation_infra_devops/automation_infra_devops_cloudformation_taskcat.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="section-automation-infra-devops-cloudformation-5-label">
+<span id="id1"></span><h1>基盤・デプロイ自動化実践<a class="headerlink" href="#section-automation-infra-devops-cloudformation-5-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id2">
+<h2>マイクロサービスアーキテクチャの基盤・デプロイ自動化<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>本連載では、以下のイメージの構成のようなマイクロサービスアーキテクチャにおける、基盤自動化環境の構築を実践していきます。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/MicroServiceArchitecture.png" src="../_images/MicroServiceArchitecture.png" />
+</div>
+<p><br/></p>
+<p>前回は、CloudFormationテンプレートの簡単なサンプルを作成し、テンプレート記述の基本を解説した上で、実行するためのヘルパースクリプトや実行エラーの確認方法等を説明しました。
+今回は、AWSから提供されているマルチリージョンで複数のテンプレートのテスト実行が同時に可能なオープンソースツール「taskcat」を使って、作成したテンプレートをテストする環境を構築し、結果を出力する方法の解説を進めていきます。
+なお、実際のソースコードは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-cloudformation">GitHub</a> 上にコミットしています。
+ソースコード中で本質的でない記述を一部省略しているので、実行コードを作成する場合は、必要に応じて適宜GitHub上のソースコードも参照してください。</p>
+<p>また、「taskcat」実行環境は以下のバージョンで実施しています。バージョンの差異により実行するコマンドが異なる場合がありますのでご留意ください。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>動作対象</td>
+<td>バージョン</td>
+</tr>
+<tr class="row-even"><td>MacOS Mojave</td>
+<td>10.14.16</td>
+</tr>
+<tr class="row-odd"><td>Python</td>
+<td>3.6.5</td>
+</tr>
+<tr class="row-even"><td>pip</td>
+<td>10.0.1</td>
+</tr>
+<tr class="row-odd"><td>taskcat</td>
+<td>0.9.8</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<div class="section" id="taskcat">
+<span id="section-cloudformation-taskcat-overview-label"></span><h3>taskcatの概要<a class="headerlink" href="#taskcat" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>taskcatはAWS Quickstart Teamが提供しているCloudFormationテンプレートをテストするオープンソースのツールです。
+複数のリージョンで複数のテンプレートを任意にテスト実行でき、テストパラメータ等も細かく設定しながら、正常/失敗終了したかどうかレポートを証跡としてHTML出力することができます。
+taskcatでは、指定したリージョンのAWS環境で実際にスタックを構築し、テスト実行しますが、終了後は自動的にスタックは削除される形になります。</p>
+<p>taskcat自体はPythonを使って実装されたツールですが、2020年1月現在でサポートされているのは、Pythonおよびパッケージ管理ツールであるpipがインストールされたMacOSXもしくはLinuxOSが対象です。
+Windowsはサポートされていませんが、<a class="reference external" href="https://docs.microsoft.com/en-us/windows/wsl/about">Windows Subsystem for Linux(WSL)</a> がインストールされたWindows10環境であれば、LinuxOSと同様の手順で実行が可能です。
+また、将来的にはdockerを使った実行環境の提供も予定されているようです。</p>
+<p><br/></p>
+</div>
+<div class="section" id="section-cloudformation-taskcat-install-label">
+<span id="id3"></span><h3>事前準備：taskcatのインストールと認証情報の設定<a class="headerlink" href="#section-cloudformation-taskcat-install-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p><a class="reference external" href="https://github.com/aws-quickstart/taskcat">taskcatの公式手順</a> と全く同じになりますが、ここでは、MacOSXにPython3およびpip3がインストールされていることを前提にtaskcatをインストールしてみましょう。
+taskcatのインストールはpip3を使って実行でき、非常に簡単です。</p>
+<p><br/></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># pip3 install taskcat --user
+
+Collecting taskcat
+Downloading https://files.pythonhosted.org/packages/fe/a7/cc58c276c77b0e15529fcf5d67d2f3004deed8003667b6dec50e76d6138f/taskcat-0.9.8-py3-none-any.whl (73kB)
+100% |████████████████████████████████| 81kB 2.4MB/s
+
+// omit
+
+Successfully installed backports.shutil-get-terminal-size-1.0.0 dataclasses-0.7 dataclasses-jsonschema-2.12.0 docker-3.7.3 dulwich-0.19.14 mock-2.0.0 mypy-extensions-0.4.3 pbr-5.4.4 reprint-0.5.2 requests-2.22.0 tabulate-0.8.6 taskcat-0.9.8 typing-extensions-3.7.4.1
+</pre></div>
+</div>
+<p><br/></p>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">公式の手順では--userオプションがない手順も紹介されていますが、これはAdministrator権限を持つrootユーザがインストールする場合です。MacOSXではユーザディレクトリ側にインストールするよう--userオプションを使用しましょう。</p>
+</div>
+<p><br/></p>
+<p>インストールが完了したらtaskcat --verisonコマンドを実行してみます。バナーのアスキーアートとバージョンが表示されれば無事インストールされています。</p>
+<p><br/></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># taskcat --version
+ _            _             _
+| |_ __ _ ___| | _____ __ _| |_
+| __/ _` / __| |/ / __/ _` | __|
+| || (_| \__ \   &lt; (_| (_| | |_
+\__\__,_|___/_|\_\___\__,_|\__|
+
+version 0.9.8
+0.9.8
+</pre></div>
+</div>
+<p><br/></p>
+<p>なお、taskcatではCloudFormationを実行する中でAWS認証情報を使用するので、<a class="reference internal" href="automation_infra_devops_cloudformation_cli.html#section-amazon-cli-overview-label"><span class="std std-ref">AmazonCLI(CommandLineInterface)の概要と実行環境設定</span></a> の時と同様、認証情報を~/.aws/Credential配下に保存しておいてください。</p>
+<p><br/></p>
+</div>
+<div class="section" id="section-cloudformation-taskcat-execution-label">
+<span id="id5"></span><h3>taskcatの設定とテスト実行<a class="headerlink" href="#section-cloudformation-taskcat-execution-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>環境構築が終わったところで、　前回「 <a class="reference internal" href="automation_infra_devops_cloudformation_script.html#section-cloudformation-basic-sample-label"><span class="std std-ref">CloudFormationテンプレート記述の基本</span></a> 」で、サンプルとして作成した、下記のようなVPCを構築するテンプレートをテストしてみましょう。</p>
+<p><br/></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>AWSTemplateFormatVersion: &#39;2010-09-09&#39;
+
+Description: Sample CloudFormation template with YAML - VPC
+
+Parameters:
+  VPCName:
+    Description: Target VPC Stack Name
+    Type: String
+    MinLength: 1
+    MaxLength: 255
+    AllowedPattern: ^[a-zA-Z][-a-zA-Z0-9]*$
+    Default: mynavi-sample-cloudformation-vpc
+  VPCCiderBlock:
+    Description: CiderBlock paramater for VPC
+    Type: String
+    MinLength: 9
+    MaxLength: 18
+    AllowedPattern: (\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/(\d{1,2})
+    Default: 172.0.0.0/16
+
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Sub ${VPCCiderBlock}
+      InstanceTenancy: default
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: !Sub ${VPCName}
+
+Outputs:
+  VPCID:
+    Description: VPC ID
+    Value: !Ref VPC
+    Export:
+      Name: !Sub ${AWS::StackName}-VPCID
+</pre></div>
+</div>
+<p><br/></p>
+<p>テンプレートを作成したプロジェクトのルートと同じディレクトリに「 .taskcat.yml 」という名前の設定ファイルを作成します。以下のサンプルでは最低限実行に必要なシンプルな設定で構成します。</p>
+<p><br/></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>project:                                   #(1)
+  name: sample-aws-cloudformation          #(2)
+  regions:
+    - us-west-1                            #(3)
+tests:                                     #(4)
+  vpc-test:                                #(5)
+    template: ./test-cfn.yaml              #(6)
+</pre></div>
+</div>
+<p><br/></p>
+<p>なお、設定ファイルはユーザルートディレクトリに配置するグローバルな設定ファイルと、プロジェクトごとに作成する設定ファイル２種類同じ名前で存在し、各々設定が異なります。
+指定可能なパラメータは <a class="reference external" href="https://github.com/aws-quickstart/taskcat#config-files">taskcat GitHubページのConfigFiles</a> を参照してください。最小限の設定ファイルのポイントは(1)〜(6)の通りです。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id7">
+<caption><span class="caption-text">.taskcat.yml設定ファイル記述のポイント</span><a class="headerlink" href="#id7" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>記述</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple">
+<li></li>
+</ol>
+</td>
+<td>Project要素配下にはプロジェクトに関する固有の設定を行います。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="2">
+<li></li>
+</ol>
+</td>
+<td>Project/Name要素にはプロジェクト名称を設定します。アウトプットをS3にアップロードするときはキープレフィクスとして使用されます。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="3">
+<li></li>
+</ol>
+</td>
+<td>Project/regions要素には、テストを実行するAWSリージョン識別子を配列で指定します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="4">
+<li></li>
+</ol>
+</td>
+<td>tests要素配下には実行する各テストに関する固有の設定を行います。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="5">
+<li></li>
+</ol>
+</td>
+<td>テストの論理名を任意に設定します。論理名を複数設定することで異なるテストを実行することができます。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="6">
+<li></li>
+</ol>
+</td>
+<td>tests/論理名/template要素には、テスト対象のCloudFormationテンプレートを指定します。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>設定ファイルを作成したのち、プロジェクトのルートディレクトリで下記のコマンドを実行します。</p>
+<p><br/></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># taskcat test run
+
+ _            _             _
+| |_ __ _ ___| | _____ __ _| |_
+| __/ _` / __| |/ / __/ _` | __|
+| || (_| \__ \   &lt; (_| (_| | |_
+\__\__,_|___/_|\_\___\__,_|\__|
+
+version 0.9.8
+[INFO   ] : Lint passed for test vpc-test on template /Users/xxxxxx/mynavi-sample-aws-cloudformation/test-cfn.yml
+[S3: -&gt; ] s3://tcat-mynavi-sample-aws-cloudforma4u25doz5/mynavi-sample-aws-cloudformation/sample-vpc-cfn.yml
+[S3: -&gt; ] s3://tcat-mynavi-sample-aws-cloudforma4u25doz5/mynavi-sample-aws-cloudformation/taskcat-test.sh
+[S3: -&gt; ] s3://tcat-mynavi-sample-aws-cloudforma4u25doz5/mynavi-sample-aws-cloudformation/sample-sg-cfn.yml
+[S3: -&gt; ] s3://tcat-mynavi-sample-aws-cloudforma4u25doz5/mynavi-sample-aws-cloudformation/test-cfn.yml
+[S3: -&gt; ] s3://tcat-mynavi-sample-aws-cloudforma4u25doz5/mynavi-sample-aws-cloudformation/create-stack.sh
+[S3: -&gt; ] s3://tcat-mynavi-sample-aws-cloudforma4u25doz5/mynavi-sample-aws-cloudformation/delete-stack.sh
+[INFO   ] : ┏ stack Ⓜ tCaT-mynavi-sample-aws-cloudformation-vpc-test-22c967cf61da417db274b1d091a4b0e9
+[INFO   ] : ┣ region: us-west-1
+[INFO   ] : ┗ status: CREATE_COMPLETE
+[INFO   ] : Collecting CloudFormation Logs
+[INFO   ] : Collecting logs for tCaT-mynavi-sample-aws-cloudformation-vpc-test-22c967cf61da417db274b1d091a4b0e9
+[INFO   ] :   |StackName: tCaT-mynavi-sample-aws-cloudformation-vpc-test-22c967cf61da417db274b1d091a4b0e9
+[INFO   ] :   |Region: us-west-1
+[INFO   ] :   |Logging to: /Users/xxxxxx/mynavi-sample-aws-cloudformation/taskcat_outputs/tCaT-mynavi-sample-aws-cloudformation-vpc-test-22c967cf61da417db274b1d091a4b0e9-us-west-1-cfnlogs.txt
+[INFO   ] :   |Tested on: Thursday, 09. January 2020 09:54PM
+[INFO   ] : ------------------------------------------------------------------------------------------
+[INFO   ] : ResourceStatusReason:
+[INFO   ] : Stack launch was successful
+[INFO   ] : ==========================================================================================
+[INFO   ] : Reporting on arn:aws:cloudformation:us-west-1:YYYYYYYYY:stack/tCaT-mynavi-sample-aws-cloudformation-vpc-test-22c967cf61da417db274b1d091a4b0e9/f20ba780-32de-11ea-966b-06aba12266cd
+[INFO   ] : Deleting stack: arn:aws:cloudformation:us-west-1:YYYYYYYYY:stack/tCaT-mynavi-sample-aws-cloudformation-vpc-test-22c967cf61da417db274b1d091a4b0e9/f20ba780-32de-11ea-966b-06aba12266cd
+[INFO   ] : ┏ stack Ⓜ tCaT-mynavi-sample-aws-cloudformation-vpc-test-22c967cf61da417db274b1d091a4b0e9
+[INFO   ] : ┣ region: us-west-1
+[INFO   ] : ┗ status: DELETE_COMPLETE
+Not in terminal, reprint now using normal build-in print function.
+
+      ┏ stack Ⓜ tCaT-mynavi-sample-aws-cloudformation-vpc-test-22c967cf61da417db274b1d091a4b0e9
+      ┣ region: us-west-1
+      ┗ status: CREATE_IN_PROGRESS
+      ┏ stack Ⓜ tCaT-mynavi-sample-aws-cloudformation-vpc-test-22c967cf61da417db274b1d091a4b0e9
+      ┣ region: us-west-1
+      ┗ status: CREATE_IN_PROGRESS
+      ┏ stack Ⓜ tCaT-mynavi-sample-aws-cloudformation-vpc-test-22c967cf61da417db274b1d091a4b0e9
+      ┣ region: us-west-1
+      ┗ status: CREATE_IN_PROGRESS
+      ┏ stack Ⓜ tCaT-mynavi-sample-aws-cloudformation-vpc-test-22c967cf61da417db274b1d091a4b0e9
+      ┣ region: us-west-1
+      ┗ status: CREATE_IN_PROGRESS
+      ┏ stack Ⓜ tCaT-mynavi-sample-aws-cloudformation-vpc-test-22c967cf61da417db274b1d091a4b0e9
+      ┣ region: us-west-1
+      ┗ status: CREATE_IN_PROGRESS
+      ┏ stack Ⓜ tCaT-mynavi-sample-aws-cloudformation-vpc-test-22c967cf61da417db274b1d091a4b0e9
+      ┣ region: us-west-1
+      ┗ status: CREATE_IN_PROGRESS
+      ┏ stack Ⓜ tCaT-mynavi-sample-aws-cloudformation-vpc-test-22c967cf61da417db274b1d091a4b0e9
+      ┣ region: us-west-1
+      ┗ status: DELETE_IN_PROGRESS
+      ┏ stack Ⓜ tCaT-mynavi-sample-aws-cloudformation-vpc-test-22c967cf61da417db274b1d091a4b0e9
+      ┣ region: us-west-1
+      ┗ status: DELETE_IN_PROGRESS
+      ┏ stack Ⓜ tCaT-mynavi-sample-aws-cloudformation-vpc-test-22c967cf61da417db274b1d091a4b0e9
+      ┣ region: us-west-1
+      ┗ status: DELETE_IN_PROGRESS
+      ┏ stack Ⓜ tCaT-mynavi-sample-aws-cloudformation-vpc-test-22c967cf61da417db274b1d091a4b0e9
+      ┣ region: us-west-1
+      ┗ status: DELETE_IN_PROGRESS
+      ┏ stack Ⓜ tCaT-mynavi-sample-aws-cloudformation-vpc-test-22c967cf61da417db274b1d091a4b0e9
+      ┣ region: us-west-1
+      ┗ status: DELETE_IN_PROGRESS
+      ┏ stack Ⓜ tCaT-mynavi-sample-aws-cloudformation-vpc-test-22c967cf61da417db274b1d091a4b0e9
+      ┣ region: us-west-1
+      ┗ status: DELETE_IN_PROGRESS
+</pre></div>
+</div>
+<p><br/></p>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">2020年1月現在のtaskcatの最新バージョンは0.9.8ですが、バージョン0.8.x以前とは実行コマンドも設定ファイルの記述要領も異なります。詳細は <a class="reference external" href="https://github.com/aws-quickstart/taskcat#migrating-from-08x">taskcat GitHub Migrating from 0.8</a> も参照してください。</p>
+</div>
+<p><br/></p>
+<p>実行結果ログを見ると、指定したリージョンでスタックが正常に作成された後、レポートが作成され、プロジェクトルートにtaskcat_outputsディレクトリができて証跡が格納されたことが分かります。その後、スタックは削除されています。
+HTML形式で出力される証跡は以下のようなイメージです。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/taskcat-evidence-html-1.png" src="../_images/taskcat-evidence-html-1.png" />
+</div>
+<div class="figure">
+<img alt="../_images/taskcat-evidence-html-2.png" src="../_images/taskcat-evidence-html-2.png" />
+</div>
+<p><br/></p>
+<p>続いて、パラメータを変更してテスト実行してみましょう。tests/vpc-test要素配下にparameters要素を作り、パラメータをハッシュ形式で指定します。</p>
+<p><br/></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>project:                                   #(1)
+  name: sample-aws-cloudformation          #(2)
+  regions:
+    - us-west-1                            #(3)
+tests:                                     #(4)
+  vpc-test:                                #(5)
+    parameters:
+      VPCCiderBlock: 172.255.0.0/16        # New!
+    template: ./test-cfn.yaml              #(6)
+</pre></div>
+</div>
+<p><br/></p>
+<p>再びコマンドを実行すると、パラメータが変更されてスタックが構築されていることがわかります。下記はテスト実行中に作成されたVPCをマネジメントコンソールから確認した際のイメージです。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/management_console_vpc_confirm_taskcat_test.png" src="../_images/management_console_vpc_confirm_taskcat_test.png" />
+</div>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p>テストが完了するとスタックは削除されてしまうため、どのようなパラメータでリソースが作成されたのか後から確認したい場合は、CloudTrailで、スタック構築の中で発生したイベントを取得して確認すると良いでしょう。</p>
+<div class="figure">
+<img alt="../_images/management_console_cloudtrail_confirm_taskcat_test-1.png" src="../_images/management_console_cloudtrail_confirm_taskcat_test-1.png" />
+</div>
+<div class="last figure">
+<img alt="../_images/management_console_cloudtrail_confirm_taskcat_test-2.png" src="../_images/management_console_cloudtrail_confirm_taskcat_test-2.png" />
+</div>
+</div>
+<p><br/></p>
+<p>このように、taskcatを使用すると、本番と同様に、複数の別のリージョンで、複数のテンプレートの、複数のテストケースを任意に実行し、結果をエビデンスとして残すことが可能です。
+加えて、taskcatのようにCloudFormationテンプレートの自動テストが可能なツールがあることは、テンプレートコード自体をCI/CDの対象として管理し、運用することを可能にします。
+CodeBuildやCodePipelineを使ったCloudFormationテンプレートのCI/CD環境の構築方法については、以降の連載の中で扱います。</p>
+<p><br/></p>
+<p>さて、次回以降は、いよいよ「クラウドネイティブアプリケーションの基本」などこれまでの連載でコンソール上から手動で構築してきた、以下のようなAWSリソースを、実際にCloudFormationを使って構築するテンプレートの解説を進めていきます。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/cloudformation-scope.png" src="../_images/cloudformation-scope.png" />
+</div>
+<p><br/></p>
+<p>次回は、前回作成したVPCに加え、パブリック・プライベートサブネット、ルートテーブルおよびインターネットゲートウェイを構築するスタックテンプレートの解説です。</p>
+<p><br/></p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>著者紹介<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
+<div class="figure">
+<img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" />
+</div>
+<p>金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p><a class="reference external" href="https://aws.amazon.com/jp/blogs/psa/japan-apn-ambassador-2019/">2019 APN AWS Top Engineers &amp; Ambassadors</a> 選出。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

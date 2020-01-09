@@ -18,8 +18,6 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="基盤・デプロイ自動化実践" href="automation_infra_devops_cloudformation_taskcat.html" />
-    <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_cloudformation_lint.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -54,7 +52,7 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
@@ -80,7 +78,7 @@
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_overview.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_cli.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_lint.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_script.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_taskcat.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_vpc.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -133,7 +131,7 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
 <li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li><a class="reference internal" href="#cloudformation">CloudFormationテンプレート記述の基本</a></li>
+<li><a class="reference internal" href="#section-cloudformation-security-group-sample-label">セキュリティグループスタック構築テンプレート</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#id4">著者紹介</a></li>
@@ -147,14 +145,6 @@
             
               
                 
-  <li>
-    <a href="automation_infra_devops_cloudformation_lint.html" title="Previous Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 基盤・デプロイ自動化実践</span>
-    </a>
-  </li>
-  <li>
-    <a href="automation_infra_devops_cloudformation_taskcat.html" title="Next Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">基盤・デプロイ自動化実践 &raquo;</span>
-    </a>
-  </li>
               
             
             
@@ -162,7 +152,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/automation_infra_devops/automation_infra_devops_cloudformation_script.rst.txt"
+  <a href="../_sources/automation_infra_devops/automation_infra_devops_cloudformation_sg_nat.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -186,53 +176,125 @@
   <div class="row">
     <div class="col-md-12 content">
       
-  <div class="section" id="section-automation-infra-devops-cloudformation-4-label">
-<span id="id1"></span><h1>基盤・デプロイ自動化実践<a class="headerlink" href="#section-automation-infra-devops-cloudformation-4-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
+  <div class="section" id="section-automation-infra-devops-cloudformation-7-label">
+<span id="id1"></span><h1>基盤・デプロイ自動化実践<a class="headerlink" href="#section-automation-infra-devops-cloudformation-7-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <div class="section" id="id2">
 <h2>マイクロサービスアーキテクチャの基盤・デプロイ自動化<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
-<p>本連載では、以下のイメージの構成のようなマイクロサービスアーキテクチャにおける、基盤自動化環境の構築を実践していきます。</p>
+<p>本連載では、以下のイメージの構成にあるAWSリソース基盤自動化環境の構築を実践しています。</p>
 <p><br/></p>
 <div class="figure">
-<img alt="../_images/MicroServiceArchitecture.png" src="../_images/MicroServiceArchitecture.png" />
+<img alt="../_images/cloudformation-scope.png" src="../_images/cloudformation-scope.png" />
 </div>
 <p><br/></p>
-<p>前回は、テンプレートのコード補完・文法チェック等を実行する検証プラグインのインストール方法や、統合開発環境(IntelliJ IDEA)の設定方法を概説しました。
-続く今回は、CloudFormationの簡単なサンプルを作成し、テンプレート記述の基本を解説した上で、実行するためのヘルパースクリプトや実行エラーの確認方法等を説明します。
-なお、実際のソースコードは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-cloudformation">GitHub</a> 上にコミットしています。
+<p>前回は、VPCおよびパブリック、プライベートサブネット、ルートテーブルおよび、インターネットゲートウェイを作成するCloudFormationテンプレートを作成しました。
+今回は今後作成するAWSサービスへ設定するセキュリティグループ、プライベートサブネットにアタッチするNATGatewayを構築するテンプレートを実装します。
+なお、セキュリティグループを作成するスタック構成は基本AWS無料枠で構成されるサービスですが、NATGatewayはスタック構築後に料金が発生するようになります。
+NATGatewayはECSを実行する際に必要になってくる(NATGatewayがないと、外からコンテナイメージを取得できなくなり起動が失敗する)ので、注意が必要ですが、
+不必要に費用が発生しないよう、NATGatewayの構築は別のスタックに切り出しておきましょう。
+実際のソースコードは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-cloudformation">GitHub</a> 上にコミットしています。
 ソースコード中で本質的でない記述を一部省略しているので、実行コードを作成する場合は、必要に応じて適宜GitHub上のソースコードも参照してください。</p>
 <p><br/></p>
-<div class="section" id="cloudformation">
-<span id="section-cloudformation-basic-sample-label"></span><h3>CloudFormationテンプレート記述の基本<a class="headerlink" href="#cloudformation" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="section-cloudformation-security-group-sample-label">
+<span id="id3"></span><h3>セキュリティグループスタック構築テンプレート<a class="headerlink" href="#section-cloudformation-security-group-sample-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
-<p><a class="reference internal" href="automation_infra_devops_cloudformation_overview.html#section-cloudformation-template-overview-label"><span class="std std-ref">テンプレートの基本要素と記述ルールの概要</span></a> で説明した通り、テンプレートファイルではResources要素が必須となります。
-加えて、Template VersionやDescritpion、Parameters、Outputs等が一般的によく使用される要素になります。ここではシンプルにVPCを構築するテンプレート(test-cfn.yml)を作成してみましょう。</p>
+<p>本連載はこれまで、以下のようなリソースに対するセキュリティグループを作成してきました。</p>
 <p><br/></p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>AWSTemplateFormatVersion: &#39;2010-09-09&#39;                                    #(A)
+<table border="1" class="colwidths-given docutils" id="id5">
+<caption><span class="caption-text">これまで作成したセキュリティグループ</span><a class="headerlink" href="#id5" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="30%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>連載</td>
+<td>対象</td>
+<td>タイプ</td>
+<td>設定</td>
+</tr>
+<tr class="row-even"><td>第N回</td>
+<td>PublicALB</td>
+<td>インバウンド接続</td>
+<td>任意のアドレスからの80番ポートの接続許可</td>
+</tr>
+<tr class="row-odd"><td>第N回</td>
+<td>PrivateALB</td>
+<td>インバウンド接続</td>
+<td>パブリックサブネットからの80番ポートの接続許可</td>
+</tr>
+<tr class="row-even"><td>第N回</td>
+<td>パブリックサブネットに配置するECSクラスタ</td>
+<td>インバウンド接続</td>
+<td>PublicALBから32768-61000ポートの接続許可</td>
+</tr>
+<tr class="row-odd"><td>第N回</td>
+<td>パブリックサブネットに配置するECSクラスタ</td>
+<td>インバウンド接続</td>
+<td>任意のアドレスからのSSH接続</td>
+</tr>
+<tr class="row-even"><td>第N回</td>
+<td>ブライベートサブネットに配置するECSクラスタ</td>
+<td>インバウンド接続</td>
+<td>PrivateALBから32768-61000ポートの接続許可</td>
+</tr>
+<tr class="row-odd"><td>第N回</td>
+<td>プライベートサブネットからアクセスされるRDS</td>
+<td>インバウンド接続</td>
+<td>プライベートサブネットからの5432番ポートへの接続許可</td>
+</tr>
+<tr class="row-even"><td>第N回</td>
+<td>パブリックサブネットからアクセスされるElastiCache</td>
+<td>インバウンド接続</td>
+<td>パブリックサブネットに配置されたECSクラスタからの6379番ポートへの接続許可</td>
+</tr>
+<tr class="row-odd"><td>第N回</td>
+<td>CodeBuildでビルド実行するコンテナ</td>
+<td>アウトバウンド接続</td>
+<td>任意のアドレスへのアウトバウンド許可</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>上記のセキュリティグループをCloudFormationで構築する場合、リソースタイプが、
+AWS::EC2::SecurityGroupとなるセキュリティグループ自体の定義と、接続可能な条件を設定するAWS::EC2::SecurityGroupIngress(インバウンド)もしくはAWS::EC2::SecurityGroupEgress(アウトバウンド接続)が必要になります。
+サンプルとして作成するsample-sg-cfn.ymlは以下の通りです。</p>
+<p><br/></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>AWSTemplateFormatVersion: &#39;2010-09-09&#39;
 
-Description: Sample CloudFormation template with YAML - VPC               #(B)
+// omit
 
-Parameters:                                                               #(C)
-  VPCName:                                                                #(D)
-    Description: Target VPC Stack Name                                    #(E)
+Parameters:
+  VPCName:                                                                   #(A)
+    Description: Target VPC Stack Name
     Type: String
     MinLength: 1
     MaxLength: 255
     AllowedPattern: ^[a-zA-Z][-a-zA-Z0-9]*$
     Default: mynavi-sample-cloudformation-vpc
-  VPCCiderBlock:
+  VPCCiderBlock:                                                             #(B)
     Description: CiderBlock paramater for VPC
     Type: String
     MinLength: 9
     MaxLength: 18
     AllowedPattern: (\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/(\d{1,2})
-    Default: 172.0.0.0/16
+    Default: 172.200.0.0/16
+  PublicSubnet1CiderBlock:                                                   #(C)
+    Description: CiderBlock paramater for VPC
+    Type: String
+    MinLength: 9
+    MaxLength: 18
+    AllowedPattern: (\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/(\d{1,2})
+    Default: 172.200.1.0/24
 
-Resources:                                                                #(F)
-  VPC:                                                                    #(G)
-    Type: AWS::EC2::VPC                                                   #(H)
-    Properties:                                                           #(I)
-      CidrBlock: !Sub ${VPCCiderBlock}                                    #(J)
+ // omit
+
+Resources:
+  VPC:                                                                       #(D)
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Sub ${VPCCiderBlock}
       InstanceTenancy: default
       EnableDnsSupport: true
       EnableDnsHostnames: true
@@ -240,19 +302,83 @@ Resources:                                                                #(F)
         - Key: Name
           Value: !Sub ${VPCName}
 
-Outputs:                                                                  #(K)
-  VPCID:                                                                  #(L)
-    Description: VPC ID                                                   #(M)
+  PublicSubnet1:                                                             #(E)
+     Type: AWS::EC2::Subnet
+     Properties:
+       CidrBlock: !Sub ${PublicSubnet1CiderBlock}
+       VpcId: !Ref VPC
+       AvailabilityZone: !Select [ 0, !GetAZs &#39;&#39; ]                           #(F)
+       Tags:
+         - Key: Name
+           Value: !Sub ${VPCName}-PublicSubnet1
+
+// omit
+
+  IGW:                                                                       #(G)
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Sub ${VPCName}-IGW
+
+  IGWAttach:                                                                 #(H)
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref IGW
+      VpcId: !Ref VPC
+
+  CustomRouteTable:                                                          #(I)
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: !Sub ${VPCName}-PublicRoute
+
+  CustomRoute:                                                               #(J)
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref CustomRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref IGW
+
+  PublicSubnet1Association:                                                  #(K)
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnet1
+      RouteTableId: !Ref CustomRouteTable
+
+// omit
+
+Outputs:
+  VPC:                                                                       #(L)
+    Description: VPC ID
     Value: !Ref VPC
     Export:
       Name: !Sub ${AWS::StackName}-VPCID
+
+  PublicSubnet1:                                                             #(M)
+    Description: PublicSubnet1
+    Value: !Ref PublicSubnet1
+    Export:
+      Name: !Sub ${AWS::StackName}-PublicSubnet1
+
+  PublicSubnet1Arn:                                                          #(N)
+    Description: PublicSubnet1Arn
+    Value: !Sub                                                              #(O)
+      - arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:subnet/${PublicSubnet1}
+      - PublicSubnet1: !Ref PublicSubnet1
+    Export:
+      Name: !Sub ${AWS::StackName}-PublicSubnet1Arn
+
+ // omit
 </pre></div>
 </div>
 <p><br/></p>
-<p>テンプレートの記述の基本となるポイントは(A)〜(M)の通りです。</p>
+<p>テンプレートの記述の基本となるポイントは(A)〜(O)の通りです。</p>
 <p><br/></p>
-<table border="1" class="colwidths-given docutils" id="id5">
-<caption><span class="caption-text">CloudFormationテンプレート記述のポイント</span><a class="headerlink" href="#id5" title="このテーブルへのパーマリンク">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id6">
+<caption><span class="caption-text">VPC関連CloudFormationテンプレート記述のポイント</span><a class="headerlink" href="#id6" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col width="10%" />
 <col width="90%" />
@@ -265,186 +391,102 @@ Outputs:                                                                  #(K)
 <li></li>
 </ol>
 </td>
-<td>テンプレートバージョンを指定します。2019年11月現時点でもバージョンは&quot;2010-09-09&quot;が唯一のバージョンになります。</td>
+<td>ステージング環境・プロダクション環境など別のVPCを作る場合の再利用に備えて、VPC名をパラメータ化します。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="2">
 <li></li>
 </ol>
 </td>
-<td>Description要素にはテンプレートの概要を記述します。</td>
+<td>異なるVPCでIPアドレス帯を変更できるようにパラメータ化しておきます。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="3">
 <li></li>
 </ol>
 </td>
-<td>Parameter要素では、Stack構築時にパラメータとして動的に設定する値を記述します。パラメータ化する対象は、テンプレートの再利用性を踏まえ決定します。</td>
+<td>Bと同様、VPC内に構築するサブネットアドレス帯を変更できるようにパラメータ化します。なおここでは、１つのパブリックサブネットしか記載していませんが、パブリック・サブネット各2つずつ定義します。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="4">
 <li></li>
 </ol>
 </td>
-<td>Parameter要素の直下では、パラメータ論理名を任意に定義します。これはユニークな値でなければなりません。なお、テンプートに指定できるパラメータの数は最大60個です。</td>
+<td>構築するVPCリソースを定義します。設定可能なパラメータや必須項目は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpc.html">公式ページ AWS::EC2::VPC</a> を参照してください。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="5">
 <li></li>
 </ol>
 </td>
-<td>Parameter要素でパラメータの属性などを定義していきます。こちらに記載する内容は下記別表「Parametersの主なプロパティ」を参照してください。</td>
+<td>VPC内に構築するパブリック・プライベートサブネットリソースを定義します。設定可能なパラメータや必須項目は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet.html">公式ページ AWS::EC2::Subnet</a> を参照してください。なおここでは、１つのパブリックサブネットしか記載していませんが、パブリック・サブネット各2つずつ定義します。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="6">
 <li></li>
 </ol>
 </td>
-<td>記述が必須となるResources要素です。Stackとして構築するAWSリソースを定義していきます。</td>
+<td>サブネットのAvailabilityZoneプロパティでは、組み込みファンクション「!GetAZs」や「!Select」を組み合わせて、リージョンで使用可能なアベイラビリティゾーンを取得します。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="7">
 <li></li>
 </ol>
 </td>
-<td>Resources要素の直下では、リソース論理名を任意に定義します。これはユニークな値でなければなりません。</td>
+<td>VPCに設定するインターネットゲートウェイリソースを定義します。設定可能なパラメータや必須項目は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-internetgateway.html">公式ページ AWS::EC2::InternetGateway</a> を参照してください。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="8">
 <li></li>
 </ol>
 </td>
-<td>AWSリソースのタイプを定義します。AWS::(ServiceName)::(Resource)の形で指定されます。</td>
+<td>Gで作成したインターネットゲートウェイリソースをアタッチするVPCを定義するゲートウェイアタッチメントリソースを定義します。設定可能なパラメータや必須項目は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpc-gateway-attachment.html">公式ページ AWS::EC2::VPCGatewayAttachment</a> を参照してください。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperroman simple">
 <li></li>
 </ol>
 </td>
-<td>AWSリソースは必ず必須となる幾つかのプロパティと、オプションで設定するプロパティが存在します。各リソースタイプによりプロパティ定義は異なります。</td>
+<td>インターネットゲートウェイへ到達するルートテーブルを作成します。設定可能なパラメータや必須項目は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route-table.html">公式ページ AWS::EC2::RouteTable</a> を参照してください。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="10">
 <li></li>
 </ol>
 </td>
-<td>プロパティ内で、パラメータ値を設定する場合、組み込みファンクション「!Sub」で変数を含む文字列を指定した変数値で置き換えます.</td>
+<td>インターネットゲートウェイへ到達するルートを作成します。設定可能なパラメータや必須項目は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route.html">公式ページ AWS::EC2::Route</a> を参照してください。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="11">
 <li></li>
 </ol>
 </td>
-<td>スタック構築後、コンソール上から表示させたいプロパティや、他のテンプレートに渡したいパラメータがある場合(クロススタックリファレンス)、Outputs要素を指定します。</td>
+<td>Jで作成したルートとパブリックサブネットを関連づけます。設定可能なパラメータや必須項目は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet-route-table-assoc.html">公式ページ AWS::EC2::SubnetRouteTableAssociation</a> を参照してください。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="12">
 <li></li>
 </ol>
 </td>
-<td>Outputs要素の直下では、アウトプット論理名を任意に定義します。これはユニークな値でなければなりません。</td>
+<td>VPCの物理IDをOutputsとして出力します。この値は次回以降別のテンプレートで使用します(クロススタックリファレンス)。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="13">
 <li></li>
 </ol>
 </td>
-<td>Outputs要素では、論理名の配下に、出力値の説明であるDescription、実際の出力値となるValue(必須)、出力後の物理名となるExport:Name属性を指定します。詳細は、<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/outputs-section-structure.html">AWS公式ページ 出力</a> を参照してください。</td>
+<td>VPC内に構築したパブリックサブネットの物理IDをOutputsとして出力します。なおここでは、１つのパブリックサブネットしか記載していませんが、パブリック・サブネット各2つずつ定義します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="14">
+<li></li>
+</ol>
+</td>
+<td>VPC内に構築したパブリックサブネットのARN(AmazonResourceName)をOutputsとして出力します。なおここでは、１つのパブリックサブネットしか記載していませんが、パブリック・サブネット各2つずつ定義します。この値は次回以降別のテンプレートで使用します(クロススタックリファレンス)。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="15">
+<li></li>
+</ol>
+</td>
+<td>組み込み関数「!Sub」やAWSデフォルトの擬似パラメータを用いて、サブネットのARNを組み立てます。!Subを配列で構成し、配列の第一要素で変換文字列、第二要素で変換パラメータを指定してARNを出力しています。この記法の詳細については、 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-sub.html">AWS公式ページ Fn::Sub</a> を参照してください。</td>
 </tr>
 </tbody>
 </table>
 <p><br/></p>
-<table border="1" class="colwidths-given docutils" id="id6">
-<caption><span class="caption-text">Parametersの主なプロパティ</span><a class="headerlink" href="#id6" title="このテーブルへのパーマリンク">¶</a></caption>
-<colgroup>
-<col width="27%" />
-<col width="64%" />
-<col width="9%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>プロパティ</td>
-<td>説明</td>
-<td>必須</td>
-</tr>
-<tr class="row-even"><td>Description</td>
-<td>プロパティの詳細な説明を記載します。</td>
-<td>&#160;</td>
-</tr>
-<tr class="row-odd"><td>Type</td>
-<td>パラメータのデータ型を指定します。String、Numner、List&lt;Number&gt;、CommaDelimitedList、AWS固有パラメータ、SSMパラメータが指定可能です。詳細は、<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html">AWS公式ページ パラメータ</a> を参照してください。</td>
-<td>◯</td>
-</tr>
-<tr class="row-even"><td>MinLength</td>
-<td>文字列型プロパティの最小文字数を設定します。</td>
-<td>&#160;</td>
-</tr>
-<tr class="row-odd"><td>MaxLength</td>
-<td>文字列型プロパティの最大文字数を設定します。</td>
-<td>&#160;</td>
-</tr>
-<tr class="row-even"><td>MinValue</td>
-<td>数字型プロパティの最小値を設定します。</td>
-<td>&#160;</td>
-</tr>
-<tr class="row-odd"><td>MaxValue</td>
-<td>数字型プロパティの最大値を設定します。</td>
-<td>&#160;</td>
-</tr>
-<tr class="row-even"><td>AllowedPattern</td>
-<td>入力可能な文字列のパターンを正規表現で設定します。</td>
-<td>&#160;</td>
-</tr>
-<tr class="row-odd"><td>AllowedValues</td>
-<td>入力可能な文字列を一覧で指定します。</td>
-<td>&#160;</td>
-</tr>
-<tr class="row-even"><td>NoEcho</td>
-<td>(AWSコンソールでの)入力時にマスク表示(<strong>*</strong>)する場合設定します。</td>
-<td>&#160;</td>
-</tr>
-<tr class="row-odd"><td>ConstraintDescription</td>
-<td>入力値が制約に引っかかった時に表示する説明を記述します。</td>
-<td>&#160;</td>
-</tr>
-</tbody>
-</table>
-<p><br/></p>
-<p>テンプレート作成後、AmazonCLIを使ってコマンド実行します。スタックを作成するには、<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/using-cfn-cli-creating-stack.html">aws cloudformation create-stack コマンド</a> を実行するのが基本ですが、
-このコマンドでは、一度Stackを作成するとアップデートなどを行う際も、一度 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/using-cfn-cli-deleting-stack.html">aws cloudformation delete-stack コマンド</a> などでスタックを削除してから再実行する必要があるので、
-ChangeSetを同時に作成し、初回作成後もテンプレートを更新した場合もそのまま使用可能な <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/using-cfn-cli-deploy.html">aws cloudformation deploy コマンド</a> を使用して、スタックを作成しましょう。</p>
-<p><br/></p>
-<p>コマンド実行の引数として、テンプレートのファイルパスや、入力パラメータなど毎回長いコマンドを実行するのも大変なため、実行のヘルパースクリプトを以下の通り作成します。
-引数は、作成時のスタック名とテンプレートファイルのパス、今回は関係ありませんが、IAMロールを作成する際に必要なcapabilitiesオプションを指定して実行してみます。</p>
+<p>作成したテンプレートに対して、ヘルパースクリプトを以下のように、スタック名とテンプレートパスを変更して実行します。パラメータはデフォルト値を利用するので省略します。</p>
 <p><br/></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
 
-<span class="nv">stack_name</span><span class="o">=</span><span class="s2">&quot;mynavi-sample-test&quot;</span>
-<span class="nv">template_path</span><span class="o">=</span><span class="s2">&quot;test-cfn.yml&quot;</span>
-
-<span class="c1">#aws cloudformation create-stack --stack-name ${stack_name} --template-body file://${template_path} --capabilities CAPABILITY_IAM</span>
-<span class="c1"># It is better cloudformation deploy option because command can execute even if stack existing(no need to delete existing stack).</span>
-aws cloudformation deploy --stack-name <span class="si">${</span><span class="nv">stack_name</span><span class="si">}</span> --template-file <span class="si">${</span><span class="nv">template_path</span><span class="si">}</span> --capabilities CAPABILITY_IAM
-</pre></div>
-</div>
-<p><br/></p>
-<p>ターミナルなどから実行できますが、テンプレート作成エディタで使っているIntelliJ IDEA上から作成したスクリプトを実行します。</p>
-<p><br/></p>
-<div class="figure">
-<img alt="../_images/intellij-execute-create-stack-script.png" src="../_images/intellij-execute-create-stack-script.png" />
-</div>
-<p><br/></p>
-<p>コマンドが無事正常実行されると、下記の通り、AWSコンソール上のCloudFormationサービスからもスタックが作成されたことを確認できます。</p>
-<p><br/></p>
-<div class="figure">
-<img alt="../_images/management_console_cloudformation_stack_event.png" src="../_images/management_console_cloudformation_stack_event.png" />
-</div>
-<p><br/></p>
-<p>一方、テンプレートに記述誤りがあり、CloudFormation実行中に誤ってエラーが発生した場合はどうなるのでしょうか？
-単純な記法誤りなどは、前回のイメージにもあった通り、IntelliJ IDEAでコーディングしている段階でエラー検出されます。
-エラーが検出されている中で強引に実行しても、下記の通り、スクリプト実行時にエラーで終了してしまいます。</p>
-<p><br/></p>
-<div class="figure">
-<img alt="../_images/intellij-execute-create-stack-error.png" src="../_images/intellij-execute-create-stack-error.png" />
-</div>
-<p><br/></p>
-<p>しかし、記法上問題なくても論理的にありえないエラーの場合などは実行中にエラーが発生します。以下は、VPC上のCIDRを論理的にありえないアドレス(172.256.0.0/16)になるように入力パラメータを変更して実行した場合の例です。</p>
-<p><br/></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
-
-<span class="nv">stack_name</span><span class="o">=</span><span class="s2">&quot;mynavi-sample-test&quot;</span>
-<span class="nv">template_path</span><span class="o">=</span><span class="s2">&quot;test-cfn.yml&quot;</span>
-<span class="nv">parameters</span><span class="o">=</span><span class="s2">&quot;VPCCiderBlock=172.256.0.0/16&quot;</span>
-
-<span class="c1">#aws cloudformation create-stack --stack-name ${stack_name} --template-body file://${template_path} --capabilities CAPABILITY_IAM</span>
-<span class="c1"># It is better cloudformation deploy option because command can execute even if stack existing(no need to delete existing stack).</span>
+<span class="nv">stack_name</span><span class="o">=</span><span class="s2">&quot;mynavi-sample-vpc&quot;</span>
+<span class="nv">template_path</span><span class="o">=</span><span class="s2">&quot;sample-vpc-cfn.yml&quot;</span>
+<span class="c1">#parameters=&quot;VPCCiderBlock=172.200.0.0/16&quot;</span>
 
 <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$parameters</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
     aws cloudformation deploy --stack-name <span class="si">${</span><span class="nv">stack_name</span><span class="si">}</span> --template-file <span class="si">${</span><span class="nv">template_path</span><span class="si">}</span> --capabilities CAPABILITY_IAM
@@ -454,17 +496,13 @@ aws cloudformation deploy --stack-name <span class="si">${</span><span class="nv
 </pre></div>
 </div>
 <p><br/></p>
-<p>この場合、コマンド実行中にエラーとなり、それまでの処理はロールバックされます。AWSコンソール上で、CloudFormationサービスの対象のスタックで、イベントタブからエラーとなった原因を確認できます。</p>
+<p>実行が正常に終了すると、VPCやサブネット、インターネットゲートウェイが作成されます。</p>
 <p><br/></p>
 <div class="figure">
-<img alt="../_images/management_console_cloudformation_stack_error.png" src="../_images/management_console_cloudformation_stack_error.png" />
+<img alt="../_images/management_console_cloudformation_stack_vpc.png" src="../_images/management_console_cloudformation_stack_vpc.png" />
 </div>
 <p><br/></p>
-<p>上記は単純な論理的エラーの例ですが、作成対象のリソースによっては、IAM権限不足や設定誤りなど、テンプレートの初回作成時は実行エラーになるケースがしばしば発生します。
-都度ロールバックやテンプレートの修正、再実行の繰り返しになるため、上記のように記法誤りの早期検出や、ヘルパースクリプトの作成など繰り返し再実行がしやすい環境を用意して、テンプレートの実装を進めていくことを推奨します。</p>
-<p><br/></p>
-<p>また、ある程度実装が進んだ段階になると、本番と同等相当のパラメータを使って、複数で構成されるテンプレートの挙動をまとめて確認し、結果を証跡として残したい等のニーズが出てくるかと思います。
-そこで、次回はAWSから提供されているマルチリージョンで複数のテンプレートのテスト実行が同時に可能なオープンソースツール「taskcat」を使って、作成したテンプレートをテストする環境を構築し、結果を出力する方法の解説を進めていきます。</p>
+<p>次回は、セキュリティグループおよび、NATゲートウェイ、アプリケーションロードバランサーを構築するスタックテンプレートの解説です。</p>
 <p><br/></p>
 </div>
 </div>

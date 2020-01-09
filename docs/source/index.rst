@@ -36,6 +36,7 @@
    automation_infra_devops/automation_infra_devops_cloudformation_cli.rst
    automation_infra_devops/automation_infra_devops_cloudformation_lint.rst
    automation_infra_devops/automation_infra_devops_cloudformation_script.rst
+   automation_infra_devops/automation_infra_devops_cloudformation_taskcat.rst
    automation_infra_devops/automation_infra_devops_cloudformation_vpc.rst
    cloud_native/aws-lambda-and-api-gateway-1.rst
    cloud_native/aws-lambda-and-api-gateway-2.rst
