@@ -18,7 +18,7 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="../cloud_native/aws-lambda-and-api-gateway-1.html" />
+    <link rel="next" title="基盤・デプロイ自動化実践" href="automation_infra_devops_cloudformation_sg_nat.html" />
     <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_cloudformation_taskcat.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -83,6 +83,7 @@
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_script.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_taskcat.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_sg_nat.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -152,7 +153,7 @@
     </a>
   </li>
   <li>
-    <a href="../cloud_native/aws-lambda-and-api-gateway-1.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    <a href="automation_infra_devops_cloudformation_sg_nat.html" title="Next Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">基盤・デプロイ自動化実践 &raquo;</span>
     </a>
   </li>
               
@@ -197,8 +198,8 @@
 <img alt="../_images/cloudformation-scope.png" src="../_images/cloudformation-scope.png" />
 </div>
 <p><br/></p>
-<p>前回は、CloudFormationの簡単なサンプルを作成し、テンプレート記述の基本を解説した上で、実行するためのヘルパースクリプトや実行エラーの確認方法等を説明しました。
-今回は、VPCおよびパブリック、プライベートサブネット、ルートテーブルおよび、インターネットゲートウェイを作成します。
+<p>前回は、AWSが提供するオープンソースツール「taskcat」を使って、作成したテンプレートをテストする環境を構築し、結果を出力する方法を解説しました。
+今回から、実際にテンプレートを実装していきます。初回は、サンプルで作成していていたVPCに加えて、パブリック、プライベートサブネット、ルートテーブルおよび、インターネットゲートウェイを作成します。
 なお、このスタック構成は基本AWS無料枠で構成されるサービスです。スタック構築後も特に費用は発生しません。
 実際のソースコードは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-cloudformation">GitHub</a> 上にコミットしています。
 ソースコード中で本質的でない記述を一部省略しているので、実行コードを作成する場合は、必要に応じて適宜GitHub上のソースコードも参照してください。</p>
@@ -304,13 +305,13 @@ Outputs:
     Description: VPC ID
     Value: !Ref VPC
     Export:
-      Name: !Sub ${AWS::StackName}-VPCID
+      Name: !Sub ${VPCName}-VPCID
 
   PublicSubnet1:                                                             #(M)
     Description: PublicSubnet1
     Value: !Ref PublicSubnet1
     Export:
-      Name: !Sub ${AWS::StackName}-PublicSubnet1
+      Name: !Sub ${VPCName}-PublicSubnet1
 
   PublicSubnet1Arn:                                                          #(N)
     Description: PublicSubnet1Arn
@@ -318,7 +319,7 @@ Outputs:
       - arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:subnet/${PublicSubnet1}
       - PublicSubnet1: !Ref PublicSubnet1
     Export:
-      Name: !Sub ${AWS::StackName}-PublicSubnet1Arn
+      Name: !Sub ${VPCName}-PublicSubnet1Arn
 
  // omit
 </pre></div>

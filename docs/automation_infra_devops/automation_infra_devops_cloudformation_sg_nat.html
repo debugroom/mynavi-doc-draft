@@ -18,6 +18,8 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="基盤・デプロイ自動化実践" href="automation_infra_devops_cloudformation_alb.html" />
+    <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_cloudformation_vpc.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -52,7 +54,7 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
@@ -81,6 +83,8 @@
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_script.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_taskcat.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_vpc.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_alb.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -132,9 +136,10 @@
 <li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
 <li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
 <li><a class="reference internal" href="#section-cloudformation-security-group-sample-label">セキュリティグループスタック構築テンプレート</a></li>
+<li><a class="reference internal" href="#natgateway">NATGatewayスタック構築テンプレート</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id4">著者紹介</a></li>
+<li><a class="reference internal" href="#id13">著者紹介</a></li>
 </ul>
 </li>
 </ul>
@@ -145,6 +150,14 @@
             
               
                 
+  <li>
+    <a href="automation_infra_devops_cloudformation_vpc.html" title="Previous Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 基盤・デプロイ自動化実践</span>
+    </a>
+  </li>
+  <li>
+    <a href="automation_infra_devops_cloudformation_alb.html" title="Next Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">基盤・デプロイ自動化実践 &raquo;</span>
+    </a>
+  </li>
               
             
             
@@ -188,7 +201,7 @@
 </div>
 <p><br/></p>
 <p>前回は、VPCおよびパブリック、プライベートサブネット、ルートテーブルおよび、インターネットゲートウェイを作成するCloudFormationテンプレートを作成しました。
-今回は今後作成するAWSサービスへ設定するセキュリティグループ、プライベートサブネットにアタッチするNATGatewayを構築するテンプレートを実装します。
+今回は、作成した各パブリック・プライベートサブネットをFrontend、Backendサブネットとして位置付け、各AWSリソースへ設定するセキュリティグループ、FrontendサブネットにアタッチするNATGatewayを構築するテンプレートを実装します。
 なお、セキュリティグループを作成するスタック構成は基本AWS無料枠で構成されるサービスですが、NATGatewayはスタック構築後に料金が発生するようになります。
 NATGatewayはECSを実行する際に必要になってくる(NATGatewayがないと、外からコンテナイメージを取得できなくなり起動が失敗する)ので、注意が必要ですが、
 不必要に費用が発生しないよう、NATGatewayの構築は別のスタックに切り出しておきましょう。
@@ -198,15 +211,15 @@ NATGatewayはECSを実行する際に必要になってくる(NATGatewayがな�
 <div class="section" id="section-cloudformation-security-group-sample-label">
 <span id="id3"></span><h3>セキュリティグループスタック構築テンプレート<a class="headerlink" href="#section-cloudformation-security-group-sample-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
-<p>本連載はこれまで、以下のようなリソースに対するセキュリティグループを作成してきました。</p>
+<p>クラウドネイティブ連載や本連載ではこれまで、以下のようなリソースに対するセキュリティグループを作成してきました。</p>
 <p><br/></p>
-<table border="1" class="colwidths-given docutils" id="id5">
-<caption><span class="caption-text">これまで作成したセキュリティグループ</span><a class="headerlink" href="#id5" title="このテーブルへのパーマリンク">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id14">
+<caption><span class="caption-text">これまで作成したセキュリティグループ</span><a class="headerlink" href="#id14" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
-<col width="10%" />
-<col width="10%" />
-<col width="30%" />
-<col width="50%" />
+<col width="23%" />
+<col width="23%" />
+<col width="15%" />
+<col width="38%" />
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td>連載</td>
@@ -214,42 +227,42 @@ NATGatewayはECSを実行する際に必要になってくる(NATGatewayがな�
 <td>タイプ</td>
 <td>設定</td>
 </tr>
-<tr class="row-even"><td>第N回</td>
-<td>PublicALB</td>
+<tr class="row-even"><td><a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4359">クラウドネイティブ第5回</a></td>
+<td>FrontendALB</td>
 <td>インバウンド接続</td>
 <td>任意のアドレスからの80番ポートの接続許可</td>
 </tr>
-<tr class="row-odd"><td>第N回</td>
-<td>PrivateALB</td>
+<tr class="row-odd"><td><a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4359">クラウドネイティブ第5回</a></td>
+<td>BackendALB</td>
 <td>インバウンド接続</td>
-<td>パブリックサブネットからの80番ポートの接続許可</td>
+<td>VPC内からの80番ポートの接続許可</td>
 </tr>
-<tr class="row-even"><td>第N回</td>
-<td>パブリックサブネットに配置するECSクラスタ</td>
+<tr class="row-even"><td><a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4405">クラウドネイティブ第8回</a></td>
+<td>Frontendサブネットに配置するECSクラスタ</td>
 <td>インバウンド接続</td>
-<td>PublicALBから32768-61000ポートの接続許可</td>
+<td>FrontendALBから32768-61000ポートの接続許可</td>
 </tr>
-<tr class="row-odd"><td>第N回</td>
-<td>パブリックサブネットに配置するECSクラスタ</td>
+<tr class="row-odd"><td><a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4405">クラウドネイティブ第8回</a></td>
+<td>Frontendサブネットに配置するECSクラスタ</td>
 <td>インバウンド接続</td>
 <td>任意のアドレスからのSSH接続</td>
 </tr>
-<tr class="row-even"><td>第N回</td>
-<td>ブライベートサブネットに配置するECSクラスタ</td>
+<tr class="row-even"><td><a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4405">クラウドネイティブ第8回</a></td>
+<td>Backendサブネットに配置するECSクラスタ</td>
 <td>インバウンド接続</td>
-<td>PrivateALBから32768-61000ポートの接続許可</td>
+<td>BackendALBから32768-61000ポートの接続許可</td>
 </tr>
-<tr class="row-odd"><td>第N回</td>
-<td>プライベートサブネットからアクセスされるRDS</td>
+<tr class="row-odd"><td><a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4422">クラウドネイティブ第11回</a></td>
+<td>BackendサブネットからアクセスされるRDS</td>
 <td>インバウンド接続</td>
-<td>プライベートサブネットからの5432番ポートへの接続許可</td>
+<td>Backendサブネットからの5432番ポートへの接続許可</td>
 </tr>
-<tr class="row-even"><td>第N回</td>
-<td>パブリックサブネットからアクセスされるElastiCache</td>
+<tr class="row-even"><td><a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4543">クラウドネイティブ第22回</a></td>
+<td>FrontendサブネットからアクセスされるElastiCache</td>
 <td>インバウンド接続</td>
-<td>パブリックサブネットに配置されたECSクラスタからの6379番ポートへの接続許可</td>
+<td>Frontendサブネットに配置されたECSクラスタからの6379番ポートへの接続許可</td>
 </tr>
-<tr class="row-odd"><td>第N回</td>
+<tr class="row-odd"><td><a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4595">基盤構築・デプロイ自動化第11回</a></td>
 <td>CodeBuildでビルド実行するコンテナ</td>
 <td>アウトバウンド接続</td>
 <td>任意のアドレスへのアウトバウンド許可</td>
@@ -257,128 +270,164 @@ NATGatewayはECSを実行する際に必要になってくる(NATGatewayがな�
 </tbody>
 </table>
 <p><br/></p>
-<p>上記のセキュリティグループをCloudFormationで構築する場合、リソースタイプが、
-AWS::EC2::SecurityGroupとなるセキュリティグループ自体の定義と、接続可能な条件を設定するAWS::EC2::SecurityGroupIngress(インバウンド)もしくはAWS::EC2::SecurityGroupEgress(アウトバウンド接続)が必要になります。
-サンプルとして作成するsample-sg-cfn.ymlは以下の通りです。</p>
+<p>上記のセキュリティグループをCloudFormationで構築する場合、リソースタイプが、<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html">AWS::EC2::SecurityGroup</a>
+となるセキュリティグループ自体の定義と、接続可能な条件を設定する <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group-ingress.html">AWS::EC2::SecurityGroupIngress(インバウンド)</a>
+もしくは <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-security-group-egress.html">AWS::EC2::SecurityGroupEgress(アウトバウンド接続)</a> が必要になります。
+プロパティとして設定可能な属性は、各リンク先の通りですが、上記の表のセキュリティグループを作成するsample-sg-cfn.ymlは以下の通りです。</p>
 <p><br/></p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>AWSTemplateFormatVersion: &#39;2010-09-09&#39;
 
 // omit
 
-Parameters:
-  VPCName:                                                                   #(A)
-    Description: Target VPC Stack Name
-    Type: String
-    MinLength: 1
-    MaxLength: 255
-    AllowedPattern: ^[a-zA-Z][-a-zA-Z0-9]*$
-    Default: mynavi-sample-cloudformation-vpc
-  VPCCiderBlock:                                                             #(B)
-    Description: CiderBlock paramater for VPC
-    Type: String
-    MinLength: 9
-    MaxLength: 18
-    AllowedPattern: (\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/(\d{1,2})
-    Default: 172.200.0.0/16
-  PublicSubnet1CiderBlock:                                                   #(C)
-    Description: CiderBlock paramater for VPC
-    Type: String
-    MinLength: 9
-    MaxLength: 18
-    AllowedPattern: (\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/(\d{1,2})
-    Default: 172.200.1.0/24
-
- // omit
-
 Resources:
-  VPC:                                                                       #(D)
-    Type: AWS::EC2::VPC
+  SecurityGroupFrontendALB:                                       #(A)
+    Type: AWS::EC2::SecurityGroup
     Properties:
-      CidrBlock: !Sub ${VPCCiderBlock}
-      InstanceTenancy: default
-      EnableDnsSupport: true
-      EnableDnsHostnames: true
+      GroupName: SecurityGroupFrontendALB
+      GroupDescription: http access
+      VpcId:
+        Fn::ImportValue: !Sub ${VPCName}-VPCID                    #(B)
+      Tags:
+        - Key : Name
+          Value: !Sub ${VPCName}-SecurityGroupFrontendALB
+
+  SecurityGroupInggressFrontendALB:                               #(C)
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !Ref SecurityGroupFrontendALB                      #(D)
+      IpProtocol: tcp
+      FromPort: 80
+      ToPort: 80
+      CidrIp: 0.0.0.0/0                                           #(E)
+
+  SecurityGroupBackendALB:                                        #(F)
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: SecurityGroupBackendALB
+      GroupDescription: http access
+      VpcId:
+        Fn::ImportValue: !Sub ${VPCName}-VPCID
+      Tags:
+        - Key : Name
+          Value: !Sub ${VPCName}-SecurityGroupBackendALB
+
+  SecurityGroupIngressBackendALB:                                 #(G)
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !Ref SecurityGroupBackendALB
+      IpProtocol: tcp
+      FromPort: 80
+      ToPort: 80
+      CidrIp: !Ref VPCCiderBlock                                  #(H)
+
+  SecurityGroupFrontendEcsCluster:                                #(I)
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: SecurityGroupFrontendEcsCluster
+      GroupDescription: http access only alb
+      VpcId:
+        Fn::ImportValue: !Sub ${VPCName}-VPCID
+      Tags:
+        - Key : Name
+          Value: !Sub ${VPCName}-SecurityGroupFrontendEcsCluster
+
+  SecurityGroupIngressFrontendEcsCluster:                         #(J)
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !Ref SecurityGroupFrontendEcsCluster
+      IpProtocol: tcp
+      FromPort: 32768
+      ToPort: 61000
+      SourceSecurityGroupId: !Ref SecurityGroupFrontendALB        #(K)
+
+  SecurityGroupIngressForSSHFrontendEcsCluster:                   #(L)
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !Ref SecurityGroupFrontendEcsCluster
+      IpProtocol: tcp
+      FromPort: 22
+      ToPort: 22
+      CidrIp: 0.0.0.0/0
+
+  SecurityGroupBackendEcsCluster:                                 #(M)
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: SecurityGroupBackendEcsCluster
+      GroupDescription: http access only alb
+      VpcId:
+        Fn::ImportValue: !Sub ${VPCName}-VPCID
+      Tags:
+        - Key : Name
+          Value: !Sub ${VPCName}-SecurityGroupBackendEcsCluster
+
+  SecurityGroupIngressBackendEcsCluster:                          #(N)
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !Ref SecurityGroupBackendEcsCluster
+      IpProtocol: tcp
+      FromPort: 32768
+      ToPort: 61000
+      SourceSecurityGroupId: !Ref SecurityGroupBackendALB         #(O)
+
+  SecurityGroupRdsPostgres:                                       #(P)
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: SecurityGroupRdsPostgres
+      GroupDescription: db access only backend subnet
+      VpcId:
+        Fn::ImportValue: !Sub ${VPCName}-VPCID
       Tags:
         - Key: Name
-          Value: !Sub ${VPCName}
+          Value: !Sub ${VPCName}-SecurityGroupRdsPostgres
 
-  PublicSubnet1:                                                             #(E)
-     Type: AWS::EC2::Subnet
-     Properties:
-       CidrBlock: !Sub ${PublicSubnet1CiderBlock}
-       VpcId: !Ref VPC
-       AvailabilityZone: !Select [ 0, !GetAZs &#39;&#39; ]                           #(F)
-       Tags:
-         - Key: Name
-           Value: !Sub ${VPCName}-PublicSubnet1
-
-// omit
-
-  IGW:                                                                       #(G)
-    Type: AWS::EC2::InternetGateway
+  SecurityGroupIngressRdsPostgres:                                #(Q)
+    Type: AWS::EC2::SecurityGroupIngress
     Properties:
+      GroupId: !Ref SecurityGroupRdsPostgres
+      IpProtocol: tcp
+      FromPort: 5432
+      ToPort: 5432
+      SourceSecurityGroupId: !Ref SecurityGroupBackendEcsCluster  #(R)
+
+  SecurityGroupElastiCacheRedis:                                  #(S)
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: SecurityGroupElastiCacheRedis
+      GroupDescription: redis access only frontend ecs cluster
+      VpcId:
+        Fn::ImportValue: !Sub ${VPCName}-VPCID
       Tags:
         - Key: Name
-          Value: !Sub ${VPCName}-IGW
+          Value: !Sub ${VPCName}-SecurityGroupElastiCacheRedis
 
-  IGWAttach:                                                                 #(H)
-    Type: AWS::EC2::VPCGatewayAttachment
+  SecurityGroupIngressElastiCacheRedis:                           #(T)
+    Type: AWS::EC2::SecurityGroupIngress
     Properties:
-      InternetGatewayId: !Ref IGW
-      VpcId: !Ref VPC
+      GroupId: !Ref SecurityGroupElastiCacheRedis
+      IpProtocol: tcp
+      FromPort: 6379
+      ToPort: 6379
+      SourceSecurityGroupId: !Ref SecurityGroupFrontendEcsCluster #(U)
 
-  CustomRouteTable:                                                          #(I)
-    Type: AWS::EC2::RouteTable
+  SecurityGroupCodeBuild:                                         #(V)
+    Type: AWS::EC2::SecurityGroup
     Properties:
-      VpcId: !Ref VPC
+      GroupName: SecurityGroupCodeBuild
+      GroupDescription: CodeBuild environments
+      VpcId:
+        Fn::ImportValue: !Sub ${VPCName}-VPCID
       Tags:
         - Key: Name
-          Value: !Sub ${VPCName}-PublicRoute
-
-  CustomRoute:                                                               #(J)
-    Type: AWS::EC2::Route
-    Properties:
-      RouteTableId: !Ref CustomRouteTable
-      DestinationCidrBlock: 0.0.0.0/0
-      GatewayId: !Ref IGW
-
-  PublicSubnet1Association:                                                  #(K)
-    Type: AWS::EC2::SubnetRouteTableAssociation
-    Properties:
-      SubnetId: !Ref PublicSubnet1
-      RouteTableId: !Ref CustomRouteTable
-
-// omit
-
-Outputs:
-  VPC:                                                                       #(L)
-    Description: VPC ID
-    Value: !Ref VPC
-    Export:
-      Name: !Sub ${AWS::StackName}-VPCID
-
-  PublicSubnet1:                                                             #(M)
-    Description: PublicSubnet1
-    Value: !Ref PublicSubnet1
-    Export:
-      Name: !Sub ${AWS::StackName}-PublicSubnet1
-
-  PublicSubnet1Arn:                                                          #(N)
-    Description: PublicSubnet1Arn
-    Value: !Sub                                                              #(O)
-      - arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:subnet/${PublicSubnet1}
-      - PublicSubnet1: !Ref PublicSubnet1
-    Export:
-      Name: !Sub ${AWS::StackName}-PublicSubnet1Arn
+          Value: !Sub ${VPCName}-SecurityGroupCodeBuild
 
  // omit
 </pre></div>
 </div>
 <p><br/></p>
-<p>テンプレートの記述の基本となるポイントは(A)〜(O)の通りです。</p>
+<p>セキュリティグループのテンプレートの記述の基本となるポイントは(A)〜(V)の通りです。</p>
 <p><br/></p>
-<table border="1" class="colwidths-given docutils" id="id6">
-<caption><span class="caption-text">VPC関連CloudFormationテンプレート記述のポイント</span><a class="headerlink" href="#id6" title="このテーブルへのパーマリンク">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id15">
+<caption><span class="caption-text">セキュリティグループCloudFormationテンプレート記述のポイント</span><a class="headerlink" href="#id15" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col width="10%" />
 <col width="90%" />
@@ -391,91 +440,133 @@ Outputs:
 <li></li>
 </ol>
 </td>
-<td>ステージング環境・プロダクション環境など別のVPCを作る場合の再利用に備えて、VPC名をパラメータ化します。</td>
+<td>Frontendサブネットに配置するALBのセキュリティグループを定義します。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="2">
 <li></li>
 </ol>
 </td>
-<td>異なるVPCでIPアドレス帯を変更できるようにパラメータ化しておきます。</td>
+<td>セキュリティグループを使用するVPCのIDを設定します。ここでは、Fn::ImportValue関数を使って、前回作成したVPCテンプレートでOutputsとして出力したVPCの物理IDを取得します(クロススタックリファレンス)。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="3">
 <li></li>
 </ol>
 </td>
-<td>Bと同様、VPC内に構築するサブネットアドレス帯を変更できるようにパラメータ化します。なおここでは、１つのパブリックサブネットしか記載していませんが、パブリック・サブネット各2つずつ定義します。</td>
+<td>(A)で定義したセキュリティグループに割り当てるインバウンド接続ルールを定義します。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="4">
 <li></li>
 </ol>
 </td>
-<td>構築するVPCリソースを定義します。設定可能なパラメータや必須項目は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpc.html">公式ページ AWS::EC2::VPC</a> を参照してください。</td>
+<td>インバウンド接続ルールをどのセキュリティグループにあてるか定義します。複数の接続ルールを一つのセキュリティグループに割り当てることもできます。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="5">
 <li></li>
 </ol>
 </td>
-<td>VPC内に構築するパブリック・プライベートサブネットリソースを定義します。設定可能なパラメータや必須項目は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet.html">公式ページ AWS::EC2::Subnet</a> を参照してください。なおここでは、１つのパブリックサブネットしか記載していませんが、パブリック・サブネット各2つずつ定義します。</td>
+<td>接続許可されるプロトコル、ポート、送信元を定義します。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="6">
 <li></li>
 </ol>
 </td>
-<td>サブネットのAvailabilityZoneプロパティでは、組み込みファンクション「!GetAZs」や「!Select」を組み合わせて、リージョンで使用可能なアベイラビリティゾーンを取得します。</td>
+<td>BackendServiceサブネットに配置するALBのセキュリティグループを定義します。設定内容は(A)と同様です。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="7">
 <li></li>
 </ol>
 </td>
-<td>VPCに設定するインターネットゲートウェイリソースを定義します。設定可能なパラメータや必須項目は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-internetgateway.html">公式ページ AWS::EC2::InternetGateway</a> を参照してください。</td>
+<td>(F)で定義したセキュリティグループに割り当てるインバウンド接続ルールを定義します。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="8">
 <li></li>
 </ol>
 </td>
-<td>Gで作成したインターネットゲートウェイリソースをアタッチするVPCを定義するゲートウェイアタッチメントリソースを定義します。設定可能なパラメータや必須項目は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpc-gateway-attachment.html">公式ページ AWS::EC2::VPCGatewayAttachment</a> を参照してください。</td>
+<td>送信元のCIDRを設定します。接続可能な範囲はVPC内からのアクセスですが、前回CIDRはパラメータ要素として設定しているので、今回も同様にParametersから取得するものとします。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperroman simple">
 <li></li>
 </ol>
 </td>
-<td>インターネットゲートウェイへ到達するルートテーブルを作成します。設定可能なパラメータや必須項目は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route-table.html">公式ページ AWS::EC2::RouteTable</a> を参照してください。</td>
+<td>Frontendサブネットに配置するECSクラスタのセキュリティグループを定義します。設定内容は(A)と同様です。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="10">
 <li></li>
 </ol>
 </td>
-<td>インターネットゲートウェイへ到達するルートを作成します。設定可能なパラメータや必須項目は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route.html">公式ページ AWS::EC2::Route</a> を参照してください。</td>
+<td>(I)で定義したセキュリティグループに割り当てるインバウンド接続ルールを定義します。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="11">
 <li></li>
 </ol>
 </td>
-<td>Jで作成したルートとパブリックサブネットを関連づけます。設定可能なパラメータや必須項目は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet-route-table-assoc.html">公式ページ AWS::EC2::SubnetRouteTableAssociation</a> を参照してください。</td>
+<td>送信元をFrontendサブネットに配置したALBに設定するため、SourceSecurityGroupIdにFrontendALBのセキュリティグループ(A)を設定します。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="12">
 <li></li>
 </ol>
 </td>
-<td>VPCの物理IDをOutputsとして出力します。この値は次回以降別のテンプレートで使用します(クロススタックリファレンス)。</td>
+<td>(I)で定義したセキュリティグループにSSHの接続を２つ目のルールとして作成し割り当てます。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="13">
 <li></li>
 </ol>
 </td>
-<td>VPC内に構築したパブリックサブネットの物理IDをOutputsとして出力します。なおここでは、１つのパブリックサブネットしか記載していませんが、パブリック・サブネット各2つずつ定義します。</td>
+<td>Backendサブネットに配置するECSクラスタのセキュリティグループを定義します。設定内容は(A)と同様です。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="14">
 <li></li>
 </ol>
 </td>
-<td>VPC内に構築したパブリックサブネットのARN(AmazonResourceName)をOutputsとして出力します。なおここでは、１つのパブリックサブネットしか記載していませんが、パブリック・サブネット各2つずつ定義します。この値は次回以降別のテンプレートで使用します(クロススタックリファレンス)。</td>
+<td>(M)で定義したセキュリティグループに割り当てるインバウンド接続ルールを定義します。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="15">
 <li></li>
 </ol>
 </td>
-<td>組み込み関数「!Sub」やAWSデフォルトの擬似パラメータを用いて、サブネットのARNを組み立てます。!Subを配列で構成し、配列の第一要素で変換文字列、第二要素で変換パラメータを指定してARNを出力しています。この記法の詳細については、 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-sub.html">AWS公式ページ Fn::Sub</a> を参照してください。</td>
+<td>送信元をBackendサブネットに配置したALBに設定するため、SourceSecurityGroupIdにBackendALBのセキュリティグループ(F)を設定します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="16">
+<li></li>
+</ol>
+</td>
+<td>RDSに設定するセキュリティグループを定義します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="17">
+<li></li>
+</ol>
+</td>
+<td>(P)で定義したセキュリティグループに割り当てるインバウンド接続ルールを定義します。設定内容は(A)と同様です。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="18">
+<li></li>
+</ol>
+</td>
+<td>送信元をBackendサブネットに配置したECSクラスタに設定するため、SourceSecurityGroupIdにBackendECSクラスタのセキュリティグループ(M)を設定します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="19">
+<li></li>
+</ol>
+</td>
+<td>ElastiCacheに設定するセキュリティグループを定義します。設定内容は(A)と同様です。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="20">
+<li></li>
+</ol>
+</td>
+<td>(S)で定義したセキュリティグループに割り当てるインバウンド接続ルールを定義します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="21">
+<li></li>
+</ol>
+</td>
+<td>送信元をFrontendサブネットに配置したECSクラスタに設定するため、SourceSecurityGroupIdにFrontendECSクラスタのセキュリティグループ(I)を設定します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="22">
+<li></li>
+</ol>
+</td>
+<td>CodeBuildに設定するセキュリティグループを定義します。アウトバウンド接続はデフォルトで全ての通信が許可されるため、SecurityGroupEgressの設定は必要ありません。</td>
 </tr>
 </tbody>
 </table>
@@ -484,30 +575,155 @@ Outputs:
 <p><br/></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
 
-<span class="nv">stack_name</span><span class="o">=</span><span class="s2">&quot;mynavi-sample-vpc&quot;</span>
-<span class="nv">template_path</span><span class="o">=</span><span class="s2">&quot;sample-vpc-cfn.yml&quot;</span>
-<span class="c1">#parameters=&quot;VPCCiderBlock=172.200.0.0/16&quot;</span>
+<span class="nv">stack_name</span><span class="o">=</span><span class="s2">&quot;mynavi-sample-sg&quot;</span>
+<span class="nv">template_path</span><span class="o">=</span><span class="s2">&quot;sample-sg-cfn.yml&quot;</span>
 
-<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$parameters</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-    aws cloudformation deploy --stack-name <span class="si">${</span><span class="nv">stack_name</span><span class="si">}</span> --template-file <span class="si">${</span><span class="nv">template_path</span><span class="si">}</span> --capabilities CAPABILITY_IAM
-<span class="k">else</span>
-    aws cloudformation deploy --stack-name <span class="si">${</span><span class="nv">stack_name</span><span class="si">}</span> --template-file <span class="si">${</span><span class="nv">template_path</span><span class="si">}</span> --parameter-overrides <span class="si">${</span><span class="nv">parameters</span><span class="si">}</span> --capabilities CAPABILITY_IAM
-<span class="k">fi</span>
+aws cloudformation deploy --stack-name <span class="si">${</span><span class="nv">stack_name</span><span class="si">}</span> --template-file <span class="si">${</span><span class="nv">template_path</span><span class="si">}</span> --capabilities CAPABILITY_IAM
 </pre></div>
 </div>
 <p><br/></p>
-<p>実行が正常に終了すると、VPCやサブネット、インターネットゲートウェイが作成されます。</p>
+<p>実行が正常に終了すると、セキュリティグループが作成されます。</p>
 <p><br/></p>
 <div class="figure">
-<img alt="../_images/management_console_cloudformation_stack_vpc.png" src="../_images/management_console_cloudformation_stack_vpc.png" />
+<img alt="../_images/management_console_cloudformation_stack_sg.png" src="../_images/management_console_cloudformation_stack_sg.png" />
 </div>
 <p><br/></p>
-<p>次回は、セキュリティグループおよび、NATゲートウェイ、アプリケーションロードバランサーを構築するスタックテンプレートの解説です。</p>
+</div>
+<div class="section" id="natgateway">
+<span id="section-cloudformation-natgateway-sample-label"></span><h3>NATGatewayスタック構築テンプレート<a class="headerlink" href="#natgateway" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>続いて、FrontendサブネットにNATGatewayを配置するCloudFormationテンプレートを作成します。
+NATGatewayは <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4354">クラウドネイティブ連載第4回</a> のVPC構築の中で同時に作成したものですが、
+時間単位で費用が発生するのでNATGatwayだけ切り出していつでも配置を外せるようにしておきます。テンプレートではNATGatewayのリソース定義に加えて、ElasticIPアドレスやメインルートテーブル、パブリックサブネットのアタッチ定義なども必要です。</p>
+<p><br/></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>AWSTemplateFormatVersion: &#39;2010-09-09&#39;
+
+// omit
+
+Resources:
+  NatGWEIP:                                               #(A)
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain:
+        Fn::ImportValue: !Sub ${VPCName}-VPCID
+
+  NatGW:                                                  #(B)
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId: !GetAtt NatGWEIP.AllocationId         #(C)
+      SubnetId:
+        Fn::ImportValue: !Sub ${VPCName}-PublicSubnet1    #(D)
+      Tags:
+        - Key: Name
+          Value: !Sub ${VPCName}-NatGW
+
+  MainRouteTable:                                         #(E)
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Fn::ImportValue: !Sub ${VPCName}-VPCID
+      Tags:
+        - Key: Name
+          Value: !Sub ${VPCName}-PrivateRoute
+
+  MainRoute:                                              #(F)
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref MainRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref NatGW
+
+  PrivateSubnet1Association:                              #(G)
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Fn::ImportValue: !Sub ${VPCName}-PrivateSubnet1
+      RouteTableId: !Ref MainRouteTable
+
+  // omit
+</pre></div>
+</div>
+<p><br/></p>
+<p>NatGatewayのテンプレートの記述の基本となるポイントは(A)〜(G)の通りです。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id16">
+<caption><span class="caption-text">NATGateway CloudFormationテンプレート記述のポイント</span><a class="headerlink" href="#id16" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>記述</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple">
+<li></li>
+</ol>
+</td>
+<td>NatGatewayに割り当てるElasticIPアドレスを定義します。設定するプロパティは <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-eip.html">AWS::EC2::EIP</a> を参照してください。Domainプロパティにはクロススタックリファレンスにより前回定義したVPCを指定します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="2">
+<li></li>
+</ol>
+</td>
+<td>NatGatewayリソースを定義します。設定するプロパティは <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-natgateway.html">AWS::EC2::NatGateway</a> を参照して下さい。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="3">
+<li></li>
+</ol>
+</td>
+<td>AllocationIdプロパティには、GetAtt関数を用いて、(A)で定義したElasticIPアドレスのものを設定します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="4">
+<li></li>
+</ol>
+</td>
+<td>SubnetIdプロパティには、前回作成したパブリックサブネットをクロススタックリファレンスを使って指定します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="5">
+<li></li>
+</ol>
+</td>
+<td>メインとして設定するルートテーブルを定義します。設定するプロパティは <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route-table.html">AWS::EC2::RouteTable</a> を参照してください。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="6">
+<li></li>
+</ol>
+</td>
+<td>メインとして設定するルートを定義します。設定するプロパティは <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route.html">AWS::EC2::Route</a> を参照してください。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="7">
+<li></li>
+</ol>
+</td>
+<td>(E)で設定したルートテーブルのプライベートサブネットへの関連づけを定義します。設定するプロパティは <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet-route-table-assoc.html">AWS::EC2::SubnetRouteTableAssociation</a> を参照してください。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>作成したテンプレートに対して、ヘルパースクリプトを以下のように、スタック名とテンプレートパスを変更して実行します。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+
+<span class="nv">stack_name</span><span class="o">=</span><span class="s2">&quot;mynavi-sample-ng&quot;</span>
+<span class="nv">template_path</span><span class="o">=</span><span class="s2">&quot;sample-ng-cfn.yml&quot;</span>
+
+aws cloudformation deploy --stack-name <span class="si">${</span><span class="nv">stack_name</span><span class="si">}</span> --template-file <span class="si">${</span><span class="nv">template_path</span><span class="si">}</span> --capabilities CAPABILITY_IAM
+</pre></div>
+</div>
+<p><br/></p>
+<p>実行が正常に終了すると、NATGatewayが作成され、アタッチされます。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/management_console_cloudformation_stack_ng.png" src="../_images/management_console_cloudformation_stack_ng.png" />
+</div>
+<p><br/></p>
+<p>今回はセキュリティグループおよびNATGatewayをCloudFormationテンプレートで構築しました。次回は、アプリケーションロードバランサーを構築するスタックテンプレートを作成します。</p>
 <p><br/></p>
 </div>
 </div>
-<div class="section" id="id4">
-<h2>著者紹介<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id13">
+<h2>著者紹介<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
 <div class="figure">
 <img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" />

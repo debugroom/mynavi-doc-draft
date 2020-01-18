@@ -18,8 +18,8 @@
 
 |br|
 
-前回は、CloudFormationの簡単なサンプルを作成し、テンプレート記述の基本を解説した上で、実行するためのヘルパースクリプトや実行エラーの確認方法等を説明しました。
-今回は、VPCおよびパブリック、プライベートサブネット、ルートテーブルおよび、インターネットゲートウェイを作成します。
+前回は、AWSが提供するオープンソースツール「taskcat」を使って、作成したテンプレートをテストする環境を構築し、結果を出力する方法を解説しました。
+今回から、実際にテンプレートを実装していきます。初回は、サンプルで作成していていたVPCに加えて、パブリック、プライベートサブネット、ルートテーブルおよび、インターネットゲートウェイを作成します。
 なお、このスタック構成は基本AWS無料枠で構成されるサービスです。スタック構築後も特に費用は発生しません。
 実際のソースコードは `GitHub <https://github.com/debugroom/mynavi-sample-cloudformation>`_ 上にコミットしています。
 ソースコード中で本質的でない記述を一部省略しているので、実行コードを作成する場合は、必要に応じて適宜GitHub上のソースコードも参照してください。
@@ -136,13 +136,13 @@ VPC/Subnet/RouteTable/InternetGatewayスタック構築テンプレート
        Description: VPC ID
        Value: !Ref VPC
        Export:
-         Name: !Sub ${AWS::StackName}-VPCID
+         Name: !Sub ${VPCName}-VPCID
 
      PublicSubnet1:                                                             #(M)
        Description: PublicSubnet1
        Value: !Ref PublicSubnet1
        Export:
-         Name: !Sub ${AWS::StackName}-PublicSubnet1
+         Name: !Sub ${VPCName}-PublicSubnet1
 
      PublicSubnet1Arn:                                                          #(N)
        Description: PublicSubnet1Arn
@@ -150,7 +150,7 @@ VPC/Subnet/RouteTable/InternetGatewayスタック構築テンプレート
          - arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:subnet/${PublicSubnet1}
          - PublicSubnet1: !Ref PublicSubnet1
        Export:
-         Name: !Sub ${AWS::StackName}-PublicSubnet1Arn
+         Name: !Sub ${VPCName}-PublicSubnet1Arn
 
     // omit
 
