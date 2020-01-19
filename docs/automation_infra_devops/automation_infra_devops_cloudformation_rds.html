@@ -227,16 +227,16 @@ Parameters:
     Description: Database Master User Name
     Type: String
     Default: postgresql
-  DeployType:                                                                                   #(B)
+  EnvType:                                                                                      #(B)
     Description: Which environments to deploy your service.
     Type: String
     AllowedValues: [&quot;Dev&quot;, &quot;Staging&quot;, &quot;Production&quot;]
     Default: Dev
 
 Conditions:                                                                                     #(C)
-  ProductionResources: {&quot;Fn::Equals&quot; : [{&quot;Ref&quot;:&quot;DeployType&quot;}, &quot;Production&quot;]}
-  StagingResources: !Equals [ !Ref DeployType, &quot;Staging&quot;]
-  DevResources: {&quot;Fn::Equals&quot; : [{&quot;Ref&quot;:&quot;DeployType&quot;}, &quot;Dev&quot;]}
+  ProductionResources: {&quot;Fn::Equals&quot; : [{&quot;Ref&quot;:&quot;EnvType&quot;}, &quot;Production&quot;]}
+  StagingResources: !Equals [ !Ref EnvType, &quot;Staging&quot;]
+  DevResources: {&quot;Fn::Equals&quot; : [{&quot;Ref&quot;:&quot;EnvType&quot;}, &quot;Dev&quot;]}
 
 Resources:
   RDSProductionInstance:                                                                        #(D)
@@ -357,13 +357,13 @@ Outputs:
 <li></li>
 </ol>
 </td>
-<td>RDSを構築する環境をDeployTypeパラメータとして指定可能にします。このパラメータに応じて、Conditionsを設定し、作成するリソースを切り替えます。</td>
+<td>RDSを構築する環境をEnvTypeパラメータとして指定可能にします。このパラメータに応じて、Conditionsを設定し、作成するリソースを切り替えます。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="3">
 <li></li>
 </ol>
 </td>
-<td>Condtionsとして、DeployTypeパラメータの値に応じて、３つの論理名を定義します※。</td>
+<td>Condtionsとして、EnvTypeパラメータの値に応じて、３つの論理名を定義します※。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="4">
 <li></li>
@@ -425,19 +425,19 @@ Outputs:
 <div class="admonition note">
 <p class="first admonition-title">注釈</p>
 <p>※Conditionsについて</p>
-<p>Conditionsは条件によって有効な論理名を決定し、ResourcesやOutputs要素などで、Condition要素で条件に一致する論理名が適用された際に定義が有効化されます。以下では、DeployTypeのデフォルトパラメータ&quot;Dev&quot;の場合、Conditionsに定義した論理名&quot;DevResources&quot;が有効化されます。Resources要素で各リソース定義にCondition要素を定義すると、&quot;DevResources&quot;の定義のみリソースが作成されます。</p>
+<p>Conditionsは条件によって有効な論理名を決定し、ResourcesやOutputs要素などで、Condition要素で条件に一致する論理名が適用された際に定義が有効化されます。以下では、EnvTypeのデフォルトパラメータ&quot;Dev&quot;の場合、Conditionsに定義した論理名&quot;DevResources&quot;が有効化されます。Resources要素で各リソース定義にCondition要素を定義すると、&quot;DevResources&quot;の定義のみリソースが作成されます。</p>
 <p><br/></p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Parameters:
-  DeployType:
+  EnvType:
     Description: Which environments to deploy your service.
     Type: String
     AllowedValues: [&quot;Dev&quot;, &quot;Staging&quot;, &quot;Production&quot;]
     Default: Dev
 
 Conditions:
-  ProductionResources: {&quot;Fn::Equals&quot; : [{&quot;Ref&quot;:&quot;DeployType&quot;}, &quot;Production&quot;]} #完全修飾形表記
-  StagingResources: !Equals [ !Ref DeployType, &quot;Staging&quot;] #簡略化表記
-  DevResources: {&quot;Fn::Equals&quot; : [{&quot;Ref&quot;:&quot;DeployType&quot;}, &quot;Dev&quot;]}
+  ProductionResources: {&quot;Fn::Equals&quot; : [{&quot;Ref&quot;:&quot;EnvType&quot;}, &quot;Production&quot;]} #完全修飾形表記
+  StagingResources: !Equals [ !Ref EnvType, &quot;Staging&quot;] #簡略化表記
+  DevResources: {&quot;Fn::Equals&quot; : [{&quot;Ref&quot;:&quot;EnvType&quot;}, &quot;Dev&quot;]}
 
 Resources:
   RDSDevInstance:
@@ -477,7 +477,7 @@ Resources:
 <span class="nv">stack_name</span><span class="o">=</span><span class="s2">&quot;mynavi-sample-rds&quot;</span>
 <span class="nv">template_path</span><span class="o">=</span><span class="s2">&quot;sample-alb-rds.yml&quot;</span>
 
-<span class="nv">parameters</span><span class="o">=</span><span class="s2">&quot;DeployType=Production&quot;</span>
+<span class="nv">parameters</span><span class="o">=</span><span class="s2">&quot;EnvType=Production&quot;</span>
 
 aws cloudformation deploy --stack-name <span class="si">${</span><span class="nv">stack_name</span><span class="si">}</span> --template-file <span class="si">${</span><span class="nv">template_path</span><span class="si">}</span> --parameter-overrides <span class="si">${</span><span class="nv">parameters</span><span class="si">}</span> --capabilities CAPABILITY_IAM
 </pre></div>

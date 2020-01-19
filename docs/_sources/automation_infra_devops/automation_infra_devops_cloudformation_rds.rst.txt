@@ -56,16 +56,16 @@ RDSにはユーザとパスワードの設定が必要になりますが、秘�
        Description: Database Master User Name
        Type: String
        Default: postgresql
-     DeployType:                                                                                   #(B)
+     EnvType:                                                                                      #(B)
        Description: Which environments to deploy your service.
        Type: String
        AllowedValues: ["Dev", "Staging", "Production"]
        Default: Dev
 
    Conditions:                                                                                     #(C)
-     ProductionResources: {"Fn::Equals" : [{"Ref":"DeployType"}, "Production"]}
-     StagingResources: !Equals [ !Ref DeployType, "Staging"]
-     DevResources: {"Fn::Equals" : [{"Ref":"DeployType"}, "Dev"]}
+     ProductionResources: {"Fn::Equals" : [{"Ref":"EnvType"}, "Production"]}
+     StagingResources: !Equals [ !Ref EnvType, "Staging"]
+     DevResources: {"Fn::Equals" : [{"Ref":"EnvType"}, "Dev"]}
 
    Resources:
      RDSProductionInstance:                                                                        #(D)
@@ -178,10 +178,10 @@ ALBのテンプレートの記述の基本となるポイントは(A)〜(L)の�
      - パラメータ要素として、RDSのユーザを作成します。
 
    * - (B)
-     - RDSを構築する環境をDeployTypeパラメータとして指定可能にします。このパラメータに応じて、Conditionsを設定し、作成するリソースを切り替えます。
+     - RDSを構築する環境をEnvTypeパラメータとして指定可能にします。このパラメータに応じて、Conditionsを設定し、作成するリソースを切り替えます。
 
    * - (C)
-     - Condtionsとして、DeployTypeパラメータの値に応じて、３つの論理名を定義します※。
+     - Condtionsとして、EnvTypeパラメータの値に応じて、３つの論理名を定義します※。
 
    * - (D)
      - 商用環境向けのDBインスタンスのリソース定義を行います。詳細は `AWS::RDS::DBInstance <https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html>`_ を参照してください。なお、サブネットグループやモニタリングロールは(I)、(J)の定義を、適用するセキュリティグループは :ref:`section-cloudformation-security-group-sample-label` で作成したものを、クロススタックリファレンスを使って参照します。
@@ -214,23 +214,23 @@ ALBのテンプレートの記述の基本となるポイントは(A)〜(L)の�
 
 .. note:: ※Conditionsについて
 
-   Conditionsは条件によって有効な論理名を決定し、ResourcesやOutputs要素などで、Condition要素で条件に一致する論理名が適用された際に定義が有効化されます。以下では、DeployTypeのデフォルトパラメータ"Dev"の場合、Conditionsに定義した論理名"DevResources"が有効化されます。Resources要素で各リソース定義にCondition要素を定義すると、"DevResources"の定義のみリソースが作成されます。
+   Conditionsは条件によって有効な論理名を決定し、ResourcesやOutputs要素などで、Condition要素で条件に一致する論理名が適用された際に定義が有効化されます。以下では、EnvTypeのデフォルトパラメータ"Dev"の場合、Conditionsに定義した論理名"DevResources"が有効化されます。Resources要素で各リソース定義にCondition要素を定義すると、"DevResources"の定義のみリソースが作成されます。
 
    |br|
 
    .. sourcecode:: none
 
       Parameters:
-        DeployType:
+        EnvType:
           Description: Which environments to deploy your service.
           Type: String
           AllowedValues: ["Dev", "Staging", "Production"]
           Default: Dev
 
       Conditions:
-        ProductionResources: {"Fn::Equals" : [{"Ref":"DeployType"}, "Production"]} #完全修飾形表記
-        StagingResources: !Equals [ !Ref DeployType, "Staging"] #簡略化表記
-        DevResources: {"Fn::Equals" : [{"Ref":"DeployType"}, "Dev"]}
+        ProductionResources: {"Fn::Equals" : [{"Ref":"EnvType"}, "Production"]} #完全修飾形表記
+        StagingResources: !Equals [ !Ref EnvType, "Staging"] #簡略化表記
+        DevResources: {"Fn::Equals" : [{"Ref":"EnvType"}, "Dev"]}
 
       Resources:
         RDSDevInstance:
@@ -281,7 +281,7 @@ ALBのテンプレートの記述の基本となるポイントは(A)〜(L)の�
    stack_name="mynavi-sample-rds"
    template_path="sample-alb-rds.yml"
 
-   parameters="DeployType=Production"
+   parameters="EnvType=Production"
 
    aws cloudformation deploy --stack-name ${stack_name} --template-file ${template_path} --parameter-overrides ${parameters} --capabilities CAPABILITY_IAM
 

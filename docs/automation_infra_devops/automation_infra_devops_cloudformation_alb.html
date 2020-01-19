@@ -239,7 +239,7 @@ Parameters:
 
   // omit
 
-  DeployType:                                                            #(B)
+  EnvType:                                                               #(B)
     Description: Which environments to deploy your service.
     Type: String
     AllowedValues: [&quot;Dev&quot;, &quot;Staging&quot;, &quot;Production&quot;]
@@ -278,8 +278,8 @@ Resources:
       Name: FrontendALBTargetGroup
       VpcId:
         Fn::ImportValue: !Sub ${VPCName}-VPCID
-      Port: !FindInMap [DeployEnvironmentMap, !Ref DeployType, Port]     #(G)
-      Protocol: !FindInMap [DeployEnvironmentMap, !Ref DeployType, Protocol]
+      Port: !FindInMap [DeployEnvironmentMap, !Ref EnvType, Port]        #(G)
+      Protocol: !FindInMap [DeployEnvironmentMap, !Ref EnvType, Protocol]
       HealthCheckPath: !Ref FrontendHealthCheckPath
       HealthyThresholdCount: 2
       TargetGroupAttributes:
@@ -290,8 +290,8 @@ Resources:
     Type: AWS::ElasticLoadBalancingV2::Listener
     Properties:
       LoadBalancerArn: !Ref FrontendALB
-      Port: !FindInMap [DeployEnvironmentMap, !Ref DeployType, Port]
-      Protocol: !FindInMap [DeployEnvironmentMap, !Ref DeployType, Protocol]
+      Port: !FindInMap [DeployEnvironmentMap, !Ref EnvType, Port]
+      Protocol: !FindInMap [DeployEnvironmentMap, !Ref EnvType, Protocol]
       DefaultActions:
         - Type: forward
           TargetGroupArn: !Ref FrontendALBDefaultTargetGroup
@@ -312,8 +312,8 @@ Resources:
       Name: BackendALBDefaultTargetGroup
       VpcId:
         Fn::ImportValue: !Sub ${VPCName}-VPCID
-      Port: !FindInMap [DeployEnvironmentMap, !Ref DeployType, Port]
-      Protocol: !FindInMap [DeployEnvironmentMap, !Ref DeployType, Protocol]
+      Port: !FindInMap [DeployEnvironmentMap, !Ref EnvType, Port]
+      Protocol: !FindInMap [DeployEnvironmentMap, !Ref EnvType, Protocol]
       HealthCheckPath: !Ref BackendDefaultHealthCheckPath
       HealthyThresholdCount: 2
       TargetGroupAttributes:
@@ -324,8 +324,8 @@ Resources:
     Type: AWS::ElasticLoadBalancingV2::Listener
     Properties:
       LoadBalancerArn: !Ref BackendALB
-      Port: !FindInMap [DeployEnvironmentMap, !Ref DeployType, Port]
-      Protocol: !FindInMap [DeployEnvironmentMap, !Ref DeployType, Protocol]
+      Port: !FindInMap [DeployEnvironmentMap, !Ref EnvType, Port]
+      Protocol: !FindInMap [DeployEnvironmentMap, !Ref EnvType, Protocol]
       DefaultActions:
         - Type: forward
           TargetGroupArn: !Ref BackendALBDefaultTargetGroup
@@ -383,7 +383,7 @@ Outputs:
 <li></li>
 </ol>
 </td>
-<td>(A)で定義したMappingsで使用するパラメータを引数で切り替えるためのパラメータをDeployTypeとして定義しておきます。ここではAllowedValuesで、Mappingsのキーとしていた要素の入力のみを許可するパラメータ定義にしておきます。</td>
+<td>(A)で定義したMappingsで使用するパラメータを引数で切り替えるためのパラメータをEnvTypeとして定義しておきます。ここではAllowedValuesで、Mappingsのキーとしていた要素の入力のみを許可するパラメータ定義にしておきます。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="3">
 <li></li>
@@ -481,7 +481,7 @@ Outputs:
       &quot;Port&quot;: 80
 
 Parameters:
-  DeployType:
+  EnvType:
     Description: Which environments to deploy your service.
     Type: String
     AllowedValues: [&quot;Dev&quot;, &quot;Staging&quot;, &quot;Production&quot;]
@@ -491,11 +491,11 @@ Parameters:
 <p><br/></p>
 <p>上記のデータを取得する際は、以下のようなFindInMap関数を使用します。ここで、ポイントとなるのは第2引数で、パラメータなどテンプレートの外から外部入力値に応じて、設定値を切り替えたい場合に効果を発揮します。</p>
 <p><br/></p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Port: !FindInMap [DeployEnvironmentMap, !Ref DeployType, Port]
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Port: !FindInMap [DeployEnvironmentMap, !Ref EnvType, Port]
 </pre></div>
 </div>
 <p><br/></p>
-<p class="last">上記の例では、第1引数で参照するマッピング定義を選択し、第2引数はパラメータDeployTypeを参照しています。DeployTypeはパラメータ要素に定義されている項目でデフォルトは&quot;Dev&quot;ですが、実行時に他の&quot;Staging&quot;などの値を引数にしてテンプレート実行することで、第3引数として設定する値を容易に切り替えられる仕組みです。</p>
+<p class="last">上記の例では、第1引数で参照するマッピング定義を選択し、第2引数はパラメータEnvTypeを参照しています。EnvTypeはパラメータ要素に定義されている項目でデフォルトは&quot;Dev&quot;ですが、実行時に他の&quot;Staging&quot;などの値を引数にしてテンプレート実行することで、第3引数として設定する値を容易に切り替えられる仕組みです。</p>
 </div>
 <p><br/></p>
 <p>作成したテンプレートに対して、ヘルパースクリプトを以下のように、スタック名とテンプレートパスを変更して実行します。パラメータはデフォルト値を利用するので省略します。</p>
@@ -553,7 +553,7 @@ Parameters:
     Type: String
     AllowedValues: [&quot;Frontend&quot;, &quot;Backend&quot;]
     Default: Backend
-  DeployType:                                                            #(D)
+  EnvType:                                                               #(D)
     Description: Which environments to deploy your service.
     Type: String
     AllowedValues: [&quot;Dev&quot;, &quot;Staging&quot;, &quot;Production&quot;]
@@ -570,11 +570,11 @@ Resources:
   TargetGroup:                                                           #(F)
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
-      Name: !Sub ${DeployType}-${ServiceName}-tg
+      Name: !Sub ${EnvType}-${ServiceName}-tg
       VpcId:
         Fn::ImportValue: !Sub ${VPCName}-VPCID
-      Port: !FindInMap [DeployEnvironmentMap, !Ref DeployType, Port]
-      Protocol: !FindInMap [DeployEnvironmentMap, !Ref DeployType, Protocol]
+      Port: !FindInMap [DeployEnvironmentMap, !Ref EnvType, Port]
+      Protocol: !FindInMap [DeployEnvironmentMap, !Ref EnvType, Protocol]
       HealthCheckPath: !FindInMap [TargetGroupDefinitionMap, !Ref ServiceName, HealthCheckPath]
       HealthyThresholdCount: 2
       TargetGroupAttributes:
@@ -659,7 +659,7 @@ Resources:
 
 <span class="nv">stack_name</span><span class="o">=</span><span class="s2">&quot;mynavi-sample-tg-serviceB&quot;</span>
 <span class="nv">template_path</span><span class="o">=</span><span class="s2">&quot;sample-tg-cfn.yml&quot;</span>
-<span class="nv">parameters</span><span class="o">=</span><span class="s2">&quot;SubnetType=Backend DeployType=Dev ServiceName=BackendServiceB&quot;</span>
+<span class="nv">parameters</span><span class="o">=</span><span class="s2">&quot;SubnetType=Backend EnvType=Dev ServiceName=BackendServiceB&quot;</span>
 
 aws cloudformation deploy --stack-name <span class="si">${</span><span class="nv">stack_name</span><span class="si">}</span> --template-file <span class="si">${</span><span class="nv">template_path</span><span class="si">}</span> --parameter-overrides <span class="si">${</span><span class="nv">parameters</span><span class="si">}</span> --capabilities CAPABILITY_IAM
 </pre></div>

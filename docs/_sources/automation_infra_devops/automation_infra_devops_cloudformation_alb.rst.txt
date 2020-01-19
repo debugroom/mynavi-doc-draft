@@ -68,7 +68,7 @@ URLパスパターンに応じたルーティング定義などを行うルー�
 
      // omit
 
-     DeployType:                                                            #(B)
+     EnvType:                                                               #(B)
        Description: Which environments to deploy your service.
        Type: String
        AllowedValues: ["Dev", "Staging", "Production"]
@@ -107,8 +107,8 @@ URLパスパターンに応じたルーティング定義などを行うルー�
          Name: FrontendALBTargetGroup
          VpcId:
            Fn::ImportValue: !Sub ${VPCName}-VPCID
-         Port: !FindInMap [DeployEnvironmentMap, !Ref DeployType, Port]     #(G)
-         Protocol: !FindInMap [DeployEnvironmentMap, !Ref DeployType, Protocol]
+         Port: !FindInMap [DeployEnvironmentMap, !Ref EnvType, Port]        #(G)
+         Protocol: !FindInMap [DeployEnvironmentMap, !Ref EnvType, Protocol]
          HealthCheckPath: !Ref FrontendHealthCheckPath
          HealthyThresholdCount: 2
          TargetGroupAttributes:
@@ -119,8 +119,8 @@ URLパスパターンに応じたルーティング定義などを行うルー�
        Type: AWS::ElasticLoadBalancingV2::Listener
        Properties:
          LoadBalancerArn: !Ref FrontendALB
-         Port: !FindInMap [DeployEnvironmentMap, !Ref DeployType, Port]
-         Protocol: !FindInMap [DeployEnvironmentMap, !Ref DeployType, Protocol]
+         Port: !FindInMap [DeployEnvironmentMap, !Ref EnvType, Port]
+         Protocol: !FindInMap [DeployEnvironmentMap, !Ref EnvType, Protocol]
          DefaultActions:
            - Type: forward
              TargetGroupArn: !Ref FrontendALBDefaultTargetGroup
@@ -141,8 +141,8 @@ URLパスパターンに応じたルーティング定義などを行うルー�
          Name: BackendALBDefaultTargetGroup
          VpcId:
            Fn::ImportValue: !Sub ${VPCName}-VPCID
-         Port: !FindInMap [DeployEnvironmentMap, !Ref DeployType, Port]
-         Protocol: !FindInMap [DeployEnvironmentMap, !Ref DeployType, Protocol]
+         Port: !FindInMap [DeployEnvironmentMap, !Ref EnvType, Port]
+         Protocol: !FindInMap [DeployEnvironmentMap, !Ref EnvType, Protocol]
          HealthCheckPath: !Ref BackendDefaultHealthCheckPath
          HealthyThresholdCount: 2
          TargetGroupAttributes:
@@ -153,8 +153,8 @@ URLパスパターンに応じたルーティング定義などを行うルー�
        Type: AWS::ElasticLoadBalancingV2::Listener
        Properties:
          LoadBalancerArn: !Ref BackendALB
-         Port: !FindInMap [DeployEnvironmentMap, !Ref DeployType, Port]
-         Protocol: !FindInMap [DeployEnvironmentMap, !Ref DeployType, Protocol]
+         Port: !FindInMap [DeployEnvironmentMap, !Ref EnvType, Port]
+         Protocol: !FindInMap [DeployEnvironmentMap, !Ref EnvType, Protocol]
          DefaultActions:
            - Type: forward
              TargetGroupArn: !Ref BackendALBDefaultTargetGroup
@@ -204,7 +204,7 @@ ALBのテンプレートの記述の基本となるポイントは(A)〜(O)の�
      - ALBでは通信で使うプロトコルを指定しますが、開発環境や商用環境でHTTP/HTTPSで分けて構成します。Mappings要素でそうした場合分けに応じてパラメータをまとめて定義しておくことで、見通しの良いテンプレート実装が可能です。なお、Mappingsの使用方法については下記の※で後述します。
 
    * - (B)
-     - (A)で定義したMappingsで使用するパラメータを引数で切り替えるためのパラメータをDeployTypeとして定義しておきます。ここではAllowedValuesで、Mappingsのキーとしていた要素の入力のみを許可するパラメータ定義にしておきます。
+     - (A)で定義したMappingsで使用するパラメータを引数で切り替えるためのパラメータをEnvTypeとして定義しておきます。ここではAllowedValuesで、Mappingsのキーとしていた要素の入力のみを許可するパラメータ定義にしておきます。
 
    * - (C)
      - フロントエンドサブネットに配置するALBのデフォルトターゲットグループに設定するヘルスチェックパスをパラメータ定義します。AllowedPatternの正規表現で英数文字と記号「-(ハイフン)」、「.(ドット)」、「/(スラッシュ)」を含めた任意の文字列を許可するよう定義します。
@@ -266,7 +266,7 @@ ALBのテンプレートの記述の基本となるポイントは(A)〜(O)の�
             "Port": 80
 
       Parameters:
-        DeployType:
+        EnvType:
           Description: Which environments to deploy your service.
           Type: String
           AllowedValues: ["Dev", "Staging", "Production"]
@@ -280,11 +280,11 @@ ALBのテンプレートの記述の基本となるポイントは(A)〜(O)の�
 
    .. sourcecode:: none
 
-      Port: !FindInMap [DeployEnvironmentMap, !Ref DeployType, Port]
+      Port: !FindInMap [DeployEnvironmentMap, !Ref EnvType, Port]
 
    |br|
 
-   上記の例では、第1引数で参照するマッピング定義を選択し、第2引数はパラメータDeployTypeを参照しています。DeployTypeはパラメータ要素に定義されている項目でデフォルトは"Dev"ですが、実行時に他の"Staging"などの値を引数にしてテンプレート実行することで、第3引数として設定する値を容易に切り替えられる仕組みです。
+   上記の例では、第1引数で参照するマッピング定義を選択し、第2引数はパラメータEnvTypeを参照しています。EnvTypeはパラメータ要素に定義されている項目でデフォルトは"Dev"ですが、実行時に他の"Staging"などの値を引数にしてテンプレート実行することで、第3引数として設定する値を容易に切り替えられる仕組みです。
 
 
 |br|
@@ -355,7 +355,7 @@ ALBのテンプレートの記述の基本となるポイントは(A)〜(O)の�
        Type: String
        AllowedValues: ["Frontend", "Backend"]
        Default: Backend
-     DeployType:                                                            #(D)
+     EnvType:                                                               #(D)
        Description: Which environments to deploy your service.
        Type: String
        AllowedValues: ["Dev", "Staging", "Production"]
@@ -372,11 +372,11 @@ ALBのテンプレートの記述の基本となるポイントは(A)〜(O)の�
      TargetGroup:                                                           #(F)
        Type: AWS::ElasticLoadBalancingV2::TargetGroup
        Properties:
-         Name: !Sub ${DeployType}-${ServiceName}-tg
+         Name: !Sub ${EnvType}-${ServiceName}-tg
          VpcId:
            Fn::ImportValue: !Sub ${VPCName}-VPCID
-         Port: !FindInMap [DeployEnvironmentMap, !Ref DeployType, Port]
-         Protocol: !FindInMap [DeployEnvironmentMap, !Ref DeployType, Protocol]
+         Port: !FindInMap [DeployEnvironmentMap, !Ref EnvType, Port]
+         Protocol: !FindInMap [DeployEnvironmentMap, !Ref EnvType, Protocol]
          HealthCheckPath: !FindInMap [TargetGroupDefinitionMap, !Ref ServiceName, HealthCheckPath]
          HealthyThresholdCount: 2
          TargetGroupAttributes:
@@ -440,7 +440,7 @@ ALBのテンプレートの記述の基本となるポイントは(A)〜(O)の�
 
    stack_name="mynavi-sample-tg-serviceB"
    template_path="sample-tg-cfn.yml"
-   parameters="SubnetType=Backend DeployType=Dev ServiceName=BackendServiceB"
+   parameters="SubnetType=Backend EnvType=Dev ServiceName=BackendServiceB"
 
    aws cloudformation deploy --stack-name ${stack_name} --template-file ${template_path} --parameter-overrides ${parameters} --capabilities CAPABILITY_IAM
 
