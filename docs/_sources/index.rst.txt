@@ -40,6 +40,7 @@
    automation_infra_devops/automation_infra_devops_cloudformation_vpc.rst
    automation_infra_devops/automation_infra_devops_cloudformation_sg_nat.rst
    automation_infra_devops/automation_infra_devops_cloudformation_alb.rst
+   automation_infra_devops/automation_infra_devops_cloudformation_rds.rst
    cloud_native/aws-lambda-and-api-gateway-1.rst
    cloud_native/aws-lambda-and-api-gateway-2.rst
    cloud_native/aws-lambda-and-api-gateway-3.rst
