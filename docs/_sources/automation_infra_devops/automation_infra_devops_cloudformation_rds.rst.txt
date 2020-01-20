@@ -164,11 +164,11 @@ RDSにはユーザとパスワードの設定が必要になりますが、秘�
 
 |br|
 
-ALBのテンプレートの記述の基本となるポイントは(A)〜(L)の通りです。
+RDSのテンプレートの記述の基本となるポイントは(A)〜(L)の通りです。
 
 |br|
 
-.. list-table:: ALBのCloudFormationテンプレート記述のポイント
+.. list-table:: RDSのCloudFormationテンプレート記述のポイント
    :widths: 1, 9
 
    * - 記述
@@ -181,7 +181,7 @@ ALBのテンプレートの記述の基本となるポイントは(A)〜(L)の�
      - RDSを構築する環境をEnvTypeパラメータとして指定可能にします。このパラメータに応じて、Conditionsを設定し、作成するリソースを切り替えます。
 
    * - (C)
-     - Condtionsとして、EnvTypeパラメータの値に応じて、３つの論理名を定義します※。
+     - Conditionsとして、EnvTypeパラメータの値に応じて、３つの論理名を定義します※。
 
    * - (D)
      - 商用環境向けのDBインスタンスのリソース定義を行います。詳細は `AWS::RDS::DBInstance <https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html>`_ を参照してください。なお、サブネットグループやモニタリングロールは(I)、(J)の定義を、適用するセキュリティグループは :ref:`section-cloudformation-security-group-sample-label` で作成したものを、クロススタックリファレンスを使って参照します。

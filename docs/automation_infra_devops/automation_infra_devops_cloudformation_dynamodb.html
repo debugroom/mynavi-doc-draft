@@ -18,8 +18,8 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="基盤・デプロイ自動化実践" href="automation_infra_devops_cloudformation_sg_nat.html" />
-    <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_cloudformation_taskcat.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="../cloud_native/aws-lambda-and-api-gateway-1.html" />
+    <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_cloudformation_rds.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -82,11 +82,11 @@
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_lint.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_script.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_taskcat.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_vpc.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_sg_nat.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_alb.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_rds.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_dynamodb.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -137,10 +137,10 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
 <li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li><a class="reference internal" href="#vpc-subnet-routetable-internetgateway">VPC/Subnet/RouteTable/InternetGatewayスタック構築テンプレート</a></li>
+<li><a class="reference internal" href="#dynamodb">DynamoDBスタック構築テンプレート</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id4">著者紹介</a></li>
+<li><a class="reference internal" href="#id6">著者紹介</a></li>
 </ul>
 </li>
 </ul>
@@ -152,11 +152,11 @@
               
                 
   <li>
-    <a href="automation_infra_devops_cloudformation_taskcat.html" title="Previous Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 基盤・デプロイ自動化実践</span>
+    <a href="automation_infra_devops_cloudformation_rds.html" title="Previous Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 基盤・デプロイ自動化実践</span>
     </a>
   </li>
   <li>
-    <a href="automation_infra_devops_cloudformation_sg_nat.html" title="Next Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">基盤・デプロイ自動化実践 &raquo;</span>
+    <a href="../cloud_native/aws-lambda-and-api-gateway-1.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
     </a>
   </li>
               
@@ -166,7 +166,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/automation_infra_devops/automation_infra_devops_cloudformation_vpc.rst.txt"
+  <a href="../_sources/automation_infra_devops/automation_infra_devops_cloudformation_dynamodb.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -190,148 +190,83 @@
   <div class="row">
     <div class="col-md-12 content">
       
-  <div class="section" id="section-automation-infra-devops-cloudformation-6-label">
-<span id="id1"></span><h1>基盤・デプロイ自動化実践<a class="headerlink" href="#section-automation-infra-devops-cloudformation-6-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
+  <div class="section" id="section-automation-infra-devops-cloudformation-10-label">
+<span id="id1"></span><h1>基盤・デプロイ自動化実践<a class="headerlink" href="#section-automation-infra-devops-cloudformation-10-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <div class="section" id="id2">
 <h2>マイクロサービスアーキテクチャの基盤・デプロイ自動化<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
-<p>本連載では、以下のイメージの構成にあるAWSリソース基盤自動化環境の構築を実践していきます。</p>
+<p>本連載では、以下のイメージの構成にあるAWSリソース基盤自動化環境の構築を実践しています。</p>
 <p><br/></p>
 <div class="figure">
 <img alt="../_images/cloudformation-scope.png" src="../_images/cloudformation-scope.png" />
 </div>
 <p><br/></p>
-<p>前回は、AWSが提供するオープンソースツール「taskcat」を使って、作成したテンプレートをテストする環境を構築し、結果を出力する方法を解説しました。
-今回から、実際にテンプレートを実装していきます。初回は、サンプルで作成していていたVPCに加えて、パブリック、プライベートサブネット、ルートテーブルおよび、インターネットゲートウェイを作成します。
-なお、このスタック構成は基本AWS無料枠で構成されるサービスです。スタック構築後も特に費用は発生しません。
-実際のソースコードは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-cloudformation">GitHub</a> 上にコミットしています。
+<p>前回は、バックエンドサブネットからのみアクセス可能なRDS(RelationalDatabaseService)を構築するCLoudFormationテンプレートを実装しました。
+続く今回はDynamoDBを構築するテンプレートを作成します。実際のソースコードは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-cloudformation">GitHub</a> 上にコミットしています。
 ソースコード中で本質的でない記述を一部省略しているので、実行コードを作成する場合は、必要に応じて適宜GitHub上のソースコードも参照してください。</p>
 <p><br/></p>
-<div class="section" id="vpc-subnet-routetable-internetgateway">
-<span id="section-cloudformation-vpc-sample-label"></span><h3>VPC/Subnet/RouteTable/InternetGatewayスタック構築テンプレート<a class="headerlink" href="#vpc-subnet-routetable-internetgateway" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="dynamodb">
+<span id="section-cloudformation-dynamodb-sample-label"></span><h3>DynamoDBスタック構築テンプレート<a class="headerlink" href="#dynamodb" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
-<p>構築するVPC関連設定の内容は連載 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4354">「クラウドネイティブアプリケーションの基本 第4回」</a> で構築したVPC構成と基本的にほぼ同様です。
-違いとしては、構築するIPアドレス体系や、構築すると費用が発生するNATGatewayを除外している点、コンソール上で作成された時には自動作成される暗黙のメインルートテーブルとサブネットへの関連づけがCloudFormationでは実行されないので、定義を明示的に行っている点です(メインルートテーブルの作成と関連付けは次回NATGatewayの設定で行います)。
-サンプルとして作成するsample-vpc-cfn.ymlは以下の通りです。</p>
+<p>DynamoDBは <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4498">クラウドネイティブ基本第16回</a> で実施した要領と同等のものを構築します。
+CloudFormationで構築する場合、リソースタイプが、 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html">AWS::DynamoDB::Table</a>
+となるテーブル定義のみを作成すれば良いです。プロパティとして設定可能な属性は、各リンク先の通りですが、加えて、Conditions要素を使って、DynamoDBを商用環境、ステージング環境、開発環境という3つのパターンに分けて作成するようにします。
+前回のRDSでは、Conditionsを定義した上で、Resources配下にCondition要素を設定することにより、各パターンごとに切り替えて作成しましたが、今回はConditions定義と条件関数を使って、作成するリソースを切り替える形で実装してみます。
+テンプレートのサンプルは以下の通りです。</p>
 <p><br/></p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>AWSTemplateFormatVersion: &#39;2010-09-09&#39;
 
 // omit
 
 Parameters:
-  VPCName:                                                                   #(A)
-    Description: Target VPC Stack Name
+  // omit
+  EnvType:                                                                                                                          #(A)
+    Description: Which environments to deploy your service.
     Type: String
-    MinLength: 1
-    MaxLength: 255
-    AllowedPattern: ^[a-zA-Z][-a-zA-Z0-9]*$
-    Default: mynavi-sample-cloudformation-vpc
-  VPCCiderBlock:                                                             #(B)
-    Description: CiderBlock paramater for VPC
-    Type: String
-    MinLength: 9
-    MaxLength: 18
-    AllowedPattern: (\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/(\d{1,2})
-    Default: 172.200.0.0/16
-  PublicSubnet1CiderBlock:                                                   #(C)
-    Description: CiderBlock paramater for VPC
-    Type: String
-    MinLength: 9
-    MaxLength: 18
-    AllowedPattern: (\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/(\d{1,2})
-    Default: 172.200.1.0/24
-
- // omit
+    AllowedValues: [&quot;Dev&quot;, &quot;Staging&quot;, &quot;Production&quot;]
+    Default: Dev
+Conditions:                                                                                                                         #(B)
+  ProductionResources: {&quot;Fn::Equals&quot; : [{&quot;Ref&quot;:&quot;EnvType&quot;}, &quot;Production&quot;]}
+  StagingResources: !Equals [ !Ref EnvType, &quot;Staging&quot;]
+  DevResources: {&quot;Fn::Equals&quot; : [{&quot;Ref&quot;:&quot;EnvType&quot;}, &quot;Dev&quot;]}
 
 Resources:
-  VPC:                                                                       #(D)
-    Type: AWS::EC2::VPC
+  DynamoDBSampleTable:                                                                                                              #(C)
+    Type: AWS::DynamoDB::Table
     Properties:
-      CidrBlock: !Sub ${VPCCiderBlock}
-      InstanceTenancy: default
-      EnableDnsSupport: true
-      EnableDnsHostnames: true
-      Tags:
-        - Key: Name
-          Value: !Sub ${VPCName}
-
-  PublicSubnet1:                                                             #(E)
-     Type: AWS::EC2::Subnet
-     Properties:
-       CidrBlock: !Sub ${PublicSubnet1CiderBlock}
-       VpcId: !Ref VPC
-       AvailabilityZone: !Select [ 0, !GetAZs &#39;&#39; ]                           #(F)
-       Tags:
-         - Key: Name
-           Value: !Sub ${VPCName}-PublicSubnet1
-
-// omit
-
-  IGW:                                                                       #(G)
-    Type: AWS::EC2::InternetGateway
-    Properties:
-      Tags:
-        - Key: Name
-          Value: !Sub ${VPCName}-IGW
-
-  IGWAttach:                                                                 #(H)
-    Type: AWS::EC2::VPCGatewayAttachment
-    Properties:
-      InternetGatewayId: !Ref IGW
-      VpcId: !Ref VPC
-
-  CustomRouteTable:                                                          #(I)
-    Type: AWS::EC2::RouteTable
-    Properties:
-      VpcId: !Ref VPC
-      Tags:
-        - Key: Name
-          Value: !Sub ${VPCName}-PublicRoute
-
-  CustomRoute:                                                               #(J)
-    Type: AWS::EC2::Route
-    Properties:
-      RouteTableId: !Ref CustomRouteTable
-      DestinationCidrBlock: 0.0.0.0/0
-      GatewayId: !Ref IGW
-
-  PublicSubnet1Association:                                                  #(K)
-    Type: AWS::EC2::SubnetRouteTableAssociation
-    Properties:
-      SubnetId: !Ref PublicSubnet1
-      RouteTableId: !Ref CustomRouteTable
-
-// omit
+      TableName: !If [&quot;ProductionResources&quot;, &quot;sample-table&quot;,  !If [&quot;StagingResources&quot;, &quot;staging_sample-table&quot;, &quot;dev_sample-table&quot;]] #(D)
+      BillingMode: PROVISIONED
+      SSESpecification: !If [&quot;ProductionResources&quot;, { &quot;SSEEnabled&quot; : true }, !Ref &quot;AWS::NoValue&quot;]                                   #(E)
+      AttributeDefinitions:
+        - AttributeName: samplePartitionKey
+          AttributeType: S
+        - AttributeName: sampleSortKey
+          AttributeType: S
+      KeySchema:
+        - AttributeName: samplePartitionKey
+          KeyType: HASH
+        - AttributeName: sampleSortKey
+          KeyType: RANGE
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
 
 Outputs:
-  VPC:                                                                       #(L)
-    Description: VPC ID
-    Value: !Ref VPC
+  DynamoDBProduction:                                                                                                                #(F)
+    Condition: &quot;ProductionResources&quot;                                                                                                 #(G)
+    Description: DynamoDB SampleTable for Production
+    Value: !Ref DynamoDBSampleTable
     Export:
-      Name: !Sub ${VPCName}-VPCID
-
-  PublicSubnet1:                                                             #(M)
-    Description: PublicSubnet1
-    Value: !Ref PublicSubnet1
-    Export:
-      Name: !Sub ${VPCName}-PublicSubnet1
-
-  PublicSubnet1Arn:                                                          #(N)
-    Description: PublicSubnet1Arn
-    Value: !Sub                                                              #(O)
-      - arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:subnet/${PublicSubnet1}
-      - PublicSubnet1: !Ref PublicSubnet1
-    Export:
-      Name: !Sub ${VPCName}-PublicSubnet1Arn
+      Name: !Sub ${VPCName}-DynamoDBProductionSampleTable
 
  // omit
 </pre></div>
 </div>
 <p><br/></p>
-<p>テンプレートの記述の基本となるポイントは(A)〜(O)の通りです。</p>
+<p>DynamoDBのテンプレートの記述の基本となるポイントは(A)〜(G)の通りです。</p>
 <p><br/></p>
-<table border="1" class="colwidths-given docutils" id="id5">
-<caption><span class="caption-text">VPC関連CloudFormationテンプレート記述のポイント</span><a class="headerlink" href="#id5" title="このテーブルへのパーマリンク">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id7">
+<caption><span class="caption-text">DynamoDBのCloudFormationテンプレート記述のポイント</span><a class="headerlink" href="#id7" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col width="10%" />
 <col width="90%" />
@@ -344,123 +279,124 @@ Outputs:
 <li></li>
 </ol>
 </td>
-<td>ステージング環境・プロダクション環境など別のVPCを作る場合の再利用に備えて、VPC名をパラメータ化します。</td>
+<td>DynamoDBを商用環境、ステージング環境、開発環境用に分けるよう、EnvTypeパラメータとして指定可能にします。このパラメータに応じて、Conditionsを設定し、作成するリソースを切り替えます。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="2">
 <li></li>
 </ol>
 </td>
-<td>異なるVPCでIPアドレス帯を変更できるようにパラメータ化しておきます。</td>
+<td>Conditionsとして、EnvTypeパラメータの値に応じて、３つの論理名を定義します。定義方法の詳細は <a class="reference internal" href="automation_infra_devops_cloudformation_rds.html#section-cloudformation-rds-sample-label"><span class="std std-ref">RDSスタック構築テンプレート</span></a> と同様なので適宜参照してください。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="3">
 <li></li>
 </ol>
 </td>
-<td>Bと同様、VPC内に構築するサブネットアドレス帯を変更できるようにパラメータ化します。なおここでは、１つのパブリックサブネットしか記載していませんが、パブリック・サブネット各2つずつ定義します。</td>
+<td>DynamoDBテーブルのリソース定義を行います。定義するプロパティの詳細は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html">AWS::DynamoDB::Table</a> を参照してください。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="4">
 <li></li>
 </ol>
 </td>
-<td>構築するVPCリソースを定義します。設定可能なパラメータや必須項目は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpc.html">公式ページ AWS::EC2::VPC</a> を参照してください。</td>
+<td>DynamoDBはリージョンサービスのため、同一リージョンで同じ識別子をもつテーブルを作成することはできません。各環境に応じて、条件関数を使って識別子を変更して作成します。条件関数の詳細は、 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html">AWS公式 条件関数</a> も参照してください。ここでは、&quot;Fn::If&quot;を2回組み合わせて、3つのパラメータの値に応じてテーブル名を切り替えています。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="5">
 <li></li>
 </ol>
 </td>
-<td>VPC内に構築するパブリック・プライベートサブネットリソースを定義します。設定可能なパラメータや必須項目は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet.html">公式ページ AWS::EC2::Subnet</a> を参照してください。なおここでは、１つのパブリックサブネットしか記載していませんが、パブリック・サブネット各2つずつ定義します。</td>
+<td>SSESpecificationは、テーブルの暗号化オプションでConditionが&quot;ProductionResources&quot;の場合のみ、有効化されるように設定します。擬似パラメータ※&quot;AWS::NoValue&quot;関数を使用することにより、このパラメータが有効になると対応するリソースプロパティは削除されます。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="6">
 <li></li>
 </ol>
 </td>
-<td>サブネットのAvailabilityZoneプロパティでは、組み込みファンクション「!GetAZs」や「!Select」を組み合わせて、リージョンで使用可能なアベイラビリティゾーンを取得します。</td>
+<td>DynamoDBのエンドポイントを出力します。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="7">
 <li></li>
 </ol>
 </td>
-<td>VPCに設定するインターネットゲートウェイリソースを定義します。設定可能なパラメータや必須項目は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-internetgateway.html">公式ページ AWS::EC2::InternetGateway</a> を参照してください。</td>
-</tr>
-<tr class="row-odd"><td><ol class="first last upperalpha simple" start="8">
-<li></li>
-</ol>
-</td>
-<td>Gで作成したインターネットゲートウェイリソースをアタッチするVPCを定義するゲートウェイアタッチメントリソースを定義します。設定可能なパラメータや必須項目は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpc-gateway-attachment.html">公式ページ AWS::EC2::VPCGatewayAttachment</a> を参照してください。</td>
-</tr>
-<tr class="row-even"><td><ol class="first last upperroman simple">
-<li></li>
-</ol>
-</td>
-<td>インターネットゲートウェイへ到達するルートテーブルを作成します。設定可能なパラメータや必須項目は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route-table.html">公式ページ AWS::EC2::RouteTable</a> を参照してください。</td>
-</tr>
-<tr class="row-odd"><td><ol class="first last upperalpha simple" start="10">
-<li></li>
-</ol>
-</td>
-<td>インターネットゲートウェイへ到達するルートを作成します。設定可能なパラメータや必須項目は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route.html">公式ページ AWS::EC2::Route</a> を参照してください。</td>
-</tr>
-<tr class="row-even"><td><ol class="first last upperalpha simple" start="11">
-<li></li>
-</ol>
-</td>
-<td>Jで作成したルートとパブリックサブネットを関連づけます。設定可能なパラメータや必須項目は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet-route-table-assoc.html">公式ページ AWS::EC2::SubnetRouteTableAssociation</a> を参照してください。</td>
-</tr>
-<tr class="row-odd"><td><ol class="first last upperalpha simple" start="12">
-<li></li>
-</ol>
-</td>
-<td>VPCの物理IDをOutputsとして出力します。この値は次回以降別のテンプレートで使用します(クロススタックリファレンス)。</td>
-</tr>
-<tr class="row-even"><td><ol class="first last upperalpha simple" start="13">
-<li></li>
-</ol>
-</td>
-<td>VPC内に構築したパブリックサブネットの物理IDをOutputsとして出力します。なおここでは、１つのパブリックサブネットしか記載していませんが、パブリック・サブネット各2つずつ定義します。</td>
-</tr>
-<tr class="row-odd"><td><ol class="first last upperalpha simple" start="14">
-<li></li>
-</ol>
-</td>
-<td>VPC内に構築したパブリックサブネットのARN(AmazonResourceName)をOutputsとして出力します。なおここでは、１つのパブリックサブネットしか記載していませんが、パブリック・サブネット各2つずつ定義します。この値は次回以降別のテンプレートで使用します(クロススタックリファレンス)。</td>
-</tr>
-<tr class="row-even"><td><ol class="first last upperalpha simple" start="15">
-<li></li>
-</ol>
-</td>
-<td>組み込み関数「!Sub」やAWSデフォルトの擬似パラメータを用いて、サブネットのARNを組み立てます。!Subを配列で構成し、配列の第一要素で変換文字列、第二要素で変換パラメータを指定してARNを出力しています。この記法の詳細については、 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-sub.html">AWS公式ページ Fn::Sub</a> を参照してください。</td>
+<td>前回と同様、Conditionsの論理名が&quot;ProductionResources&quot;だった場合に、リソース定義が有効化するよう、Condition要素を定義します。</td>
 </tr>
 </tbody>
 </table>
 <p><br/></p>
-<p>作成したテンプレートに対して、ヘルパースクリプトを以下のように、スタック名とテンプレートパスを変更して実行します。パラメータはデフォルト値を利用するので省略します。</p>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p>Conditionプロパティと条件関数の使い分け</p>
+<p class="last">前回のテンプレートで実装した、Conditionプロパティを用いて有効化された条件によりリソースの生成を切り替える方法と、今回のように条件関数を使う方法は、いずれもConditionsで記載した条件によって生成するリソース定義を切り替えるものですが、双方メリットデメリットがあります。
+前者のConditionプロパティによる切り替えは、シンプルでわかりやすいメリットがある反面、重複した定義が比較的多く出現するデメリットがあります。後者の条件関数による方法は最小限の記述でリソース定義を切り替えることが可能ですが、
+条件の数が多くなってくるとテンプレートに記述する条件式が複雑になり可読性が低下します。適宜状況に応じて、使い分けるようにしましょう。なお、2019年の7月から、複数のプログラム言語でCloudFomationテンプレートを生成する
+AWS クラウド開発キット(AWS CDK)がGA(Generally Available)となっています。条件に応じた複雑な記述はこうしたツールキットを用いた方がより高い可読性を得られます。AWS CDKの使用は別の機会で触れられればと思います。</p>
+</div>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p>※擬似パラメータについて</p>
+<p>擬似パラメータはCloudFormationであらかじめ定義されたパラメータ群で&quot;!Ref&quot;により参照が可能です。以下のようなパラメータが事前定義されています。詳細は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/pseudo-parameter-reference.html">AWS公式 擬似パラメータ参照</a> も参照してください。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given last docutils" id="id8">
+<caption><span class="caption-text">擬似パラメータ参照で利用可能なパラメータ一覧</span><a class="headerlink" href="#id8" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>パラメータ</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td>AWS::Region</td>
+<td>リージョン名を取得します。</td>
+</tr>
+<tr class="row-odd"><td>AWS::StackId</td>
+<td>スタックIDを取得します</td>
+</tr>
+<tr class="row-even"><td>AWS::StackName</td>
+<td>スタック名を取得します</td>
+</tr>
+<tr class="row-odd"><td>AWS::AccountId</td>
+<td>AWSアカウントIDを取得します</td>
+</tr>
+<tr class="row-even"><td>AWS::NotificationARNs</td>
+<td>notification Amazon Resource Namesを取得します</td>
+</tr>
+<tr class="row-odd"><td>AWS::NoValue</td>
+<td>指定したリソースプロパティを削除した形でテンプレートを実行します</td>
+</tr>
+<tr class="row-even"><td>AWS::Partition</td>
+<td>リソースが存在するパーティションを返します。標準のAWSリージョンの場合、パーティションは&quot;aws&quot;です。</td>
+</tr>
+<tr class="row-odd"><td>AWS::URLSuffix</td>
+<td>ドメインの再フィックスを返します。標準のAWSリージョンの場合、さフィックスは&quot;amazonaws.com&quot;です。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br/></p>
+<p>作成したテンプレートに対して、ヘルパースクリプトを以下のように、スタック名とテンプレートパスを変更して実行します。</p>
 <p><br/></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
 
-<span class="nv">stack_name</span><span class="o">=</span><span class="s2">&quot;mynavi-sample-vpc&quot;</span>
-<span class="nv">template_path</span><span class="o">=</span><span class="s2">&quot;sample-vpc-cfn.yml&quot;</span>
-<span class="c1">#parameters=&quot;VPCCiderBlock=172.200.0.0/16&quot;</span>
+<span class="nv">stack_name</span><span class="o">=</span><span class="s2">&quot;mynavi-sample-dynamodb&quot;</span>
+<span class="nv">template_path</span><span class="o">=</span><span class="s2">&quot;sample-dynamodb-cfn.yml&quot;</span>
 
-<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$parameters</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-    aws cloudformation deploy --stack-name <span class="si">${</span><span class="nv">stack_name</span><span class="si">}</span> --template-file <span class="si">${</span><span class="nv">template_path</span><span class="si">}</span> --capabilities CAPABILITY_IAM
-<span class="k">else</span>
-    aws cloudformation deploy --stack-name <span class="si">${</span><span class="nv">stack_name</span><span class="si">}</span> --template-file <span class="si">${</span><span class="nv">template_path</span><span class="si">}</span> --parameter-overrides <span class="si">${</span><span class="nv">parameters</span><span class="si">}</span> --capabilities CAPABILITY_IAM
-<span class="k">fi</span>
+<span class="nv">parameters</span><span class="o">=</span><span class="s2">&quot;EnvType=Production&quot;</span>
+
+aws cloudformation deploy --stack-name <span class="si">${</span><span class="nv">stack_name</span><span class="si">}</span> --template-file <span class="si">${</span><span class="nv">template_path</span><span class="si">}</span> --parameter-overrides <span class="si">${</span><span class="nv">parameters</span><span class="si">}</span> --capabilities CAPABILITY_IAM
 </pre></div>
 </div>
 <p><br/></p>
-<p>実行が正常に終了すると、VPCやサブネット、インターネットゲートウェイが作成されます。</p>
+<p>実行が正常に終了すると、DynamoDBが作成されます。</p>
 <p><br/></p>
 <div class="figure">
-<img alt="../_images/management_console_cloudformation_stack_vpc.png" src="../_images/management_console_cloudformation_stack_vpc.png" />
+<img alt="../_images/management_console_cloudformation_stack_dynamodb.png" src="../_images/management_console_cloudformation_stack_dynamodb.png" />
 </div>
 <p><br/></p>
-<p>次回は、セキュリティグループおよび、NATゲートウェイ、アプリケーションロードバランサーを構築するスタックテンプレートの解説です。</p>
+<p>今回はConditions要素や条件関数、擬似パラメータ参照を使いながら、DynamoDBを構築するCloudFormationテンプレートを実装しました。次回は、ElastiCacheを構築するテンプレートを作成します。</p>
 <p><br/></p>
 </div>
 </div>
-<div class="section" id="id4">
-<h2>著者紹介<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id6">
+<h2>著者紹介<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
 <div class="figure">
 <img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" />
