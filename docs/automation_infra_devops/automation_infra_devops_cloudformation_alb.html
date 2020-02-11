@@ -87,6 +87,8 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_rds.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_dynamodb.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_elasticache.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_s3_sqs.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -220,7 +222,7 @@ URLパスパターンに応じたルーティング定義などを行うルー�
 <li>サービスアプリケーションごとに追加するターゲットグループ、リスナールール定義</li>
 </ul>
 <p>1つのテンプレートで、全ての定義をひとまとめにしておくのもシンプルで分かりやすくて良いですが、サービスアプリケーションを追加する必要が出てきた場合など、後者のリソース定義を再利用して追加対象だけを再実行すればよいテンプレート構成としておいた方が効率的です。
-前者のテンプレートのサンプルは以下の通りです。</p>
+また、開発環境をEnvTypeとしてパラメータ化します。前者のテンプレートのサンプルは以下の通りです。</p>
 <p><br/></p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>AWSTemplateFormatVersion: &#39;2010-09-09&#39;
 
@@ -230,8 +232,8 @@ Mappings:                                                                #(A)※
       &quot;Protocol&quot;: &quot;HTTPS&quot;
       &quot;Port&quot;: 443
     Staging:
-      &quot;Protocol&quot;: &quot;HTTPS&quot;
-      &quot;Port&quot;: 443
+      &quot;Protocol&quot;: &quot;HTTP&quot;
+      &quot;Port&quot;: 80
     Dev:
       &quot;Protocol&quot;: &quot;HTTP&quot;
       &quot;Port&quot;: 80
@@ -252,7 +254,7 @@ Parameters:
     MinLength: 1
     MaxLength: 255
     AllowedPattern: ^[-¥.¥/a-zA-Z0-9]*$
-    Default: /frontend/index.html
+    Default: /frontend/portal
 
   BackendDefaultHealthCheckPath:                                         #(D)
     Description: Backend Service Default health check path
@@ -260,7 +262,7 @@ Parameters:
     MinLength: 1
     MaxLength: 255
     AllowedPattern: ^[-¥.¥/a-zA-Z0-9]*$
-    Default: /backend/api/v1/users
+    Default: /backend/api/v1/healthcheck
 
 Resources:
   FrontendALB:                                                           #(E)
@@ -336,33 +338,43 @@ Outputs:
     Description: Frontend ALB
     Value: !Ref FrontendALB
     Export:
-      Name: !Sub ${VPCName}-Frontend-ALB
+      Name: !Sub ${VPCName}-Frontend-ALB-${EnvType}
 
   BackendALB:                                                            #(M)
     Description: Backend ALB
     Value: !Ref BackendALB
     Export:
-      Name: !Sub ${VPCName}-Backend-ALB
+      Name: !Sub ${VPCName}-Backend-ALB-${EnvType}
+
+  FrontendALBDNS:                                                        #(N)
+    Description: Public DNS Name
+    Value: !GetAtt FrontendALB.DNSName
+    Export:
+      Name: !Sub ${VPCName}-FrontendALBDNS-${EnvType}
+
+  BackendALBDNS:                                                         #(O)
+    Description: Private DNS Name
+    Value: !GetAtt BackendALB.DNSName
+    Export:
+      Name: !Sub ${VPCName}-BackendALBDNS-${EnvType}
+
+  FrontendALBDefaultTargetGroup:                                         #(P)
+    Description: Frontend TagetGroup Default
+    Value: !Ref FrontendALBDefaultTargetGroup
+    Export:
+      Name: !Sub ${VPCName}-Frontend-ALB-DefaultTargetGroup-${EnvType}
+
+  BackendALBDefaultTargetGroup:                                          #(Q)
+    Description: Backend TagetGroup Default
+    Value: !Ref BackendALBDefaultTargetGroup
+    Export:
+      Name: !Sub ${VPCName}-Backend-ALB-DefaultTargetGroup-${EnvType}
 
   // omit
-
-  FrontendALBListener:                                                   #(N)
-    Description: Frontend ALB Listener
-    Value: !Ref FrontendALBListener
-    Export:
-      Name: !Sub ${VPCName}-Frontend-ALB-Listener
-
-  BackendALBListener:                                                    #(O)
-    Description: Backend ALB Listener
-    Value: !Ref BackendALBListener
-    Export:
-      Name: !Sub ${VPCName}-Backend-ALB-Listener
-
- // omit
 </pre></div>
 </div>
 <p><br/></p>
-<p>ALBのテンプレートの記述の基本となるポイントは(A)〜(O)の通りです。</p>
+<p>ALBのテンプレートの記述の基本となるポイントは(A)〜(Q)の通りです。</p>
 <p><br/></p>
 <table border="1" class="colwidths-given docutils" id="id13">
 <caption><span class="caption-text">ALBのCloudFormationテンプレート記述のポイント</span><a class="headerlink" href="#id13" title="このテーブルへのパーマリンク">¶</a></caption>
@@ -456,13 +468,25 @@ Outputs:
 <li></li>
 </ol>
 </td>
-<td>(H)で定義したフロントエンドALBのリスナーをクロススタックリファレンスの(他のテンプレートに値を渡す)ために出力します。</td>
+<td>(E)で定義したフロントエンドALBのDNSをクロススタックリファレンスの(他のテンプレートに値を渡す)ために出力します。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="15">
 <li></li>
 </ol>
 </td>
-<td>(K)で定義したバックエンドエンドALBのリスナーをクロススタックリファレンスの(他のテンプレートに値を渡す)ために出力します。</td>
+<td>(I)で定義したバックエンドエンドALBのDNSをクロススタックリファレンスの(他のテンプレートに値を渡す)ために出力します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="14">
+<li></li>
+</ol>
+</td>
+<td>(F)で定義したフロントエンドALBのターゲットグループをクロススタックリファレンスの(他のテンプレートに値を渡す)ために出力します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="15">
+<li></li>
+</ol>
+</td>
+<td>(J)で定義したバックエンドエンドALBのターゲットグループをクロススタックリファレンスの(他のテンプレートに値を渡す)ために出力します。</td>
 </tr>
 </tbody>
 </table>
@@ -474,10 +498,10 @@ Outputs:
 <p><br/></p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Mappings:
   DeployEnvironmentMap:
-    Staging:
+    Production:
       &quot;Protocol&quot;: &quot;HTTPS&quot;
       &quot;Port&quot;: 443
-    Dev:
+    Staging:
       &quot;Protocol&quot;: &quot;HTTP&quot;
       &quot;Port&quot;: 80
 
@@ -496,7 +520,7 @@ Parameters:
 </pre></div>
 </div>
 <p><br/></p>
-<p class="last">上記の例では、第1引数で参照するマッピング定義を選択し、第2引数はパラメータEnvTypeを参照しています。EnvTypeはパラメータ要素に定義されている項目でデフォルトは&quot;Dev&quot;ですが、実行時に他の&quot;Staging&quot;などの値を引数にしてテンプレート実行することで、第3引数として設定する値を容易に切り替えられる仕組みです。</p>
+<p class="last">上記の例では、第1引数で参照するマッピング定義を選択し、第2引数はパラメータEnvTypeを参照しています。EnvTypeはパラメータ要素に定義されている項目でデフォルトは&quot;Dev&quot;ですが、実行時に&quot;Production&quot;などの値を引数にしてテンプレート実行することで、第3引数として設定する値を容易に切り替えられる仕組みです。</p>
 </div>
 <p><br/></p>
 <p>作成したテンプレートに対して、ヘルパースクリプトを以下のように、スタック名とテンプレートパスを変更して実行します。パラメータはデフォルト値を利用するので省略します。</p>
@@ -525,23 +549,23 @@ Mappings:
   TargetGroupDefinitionMap:                                              #(A)
     FrontendWebApp:
       &quot;PathPattern&quot;: &quot;/frontend/*&quot;
-      &quot;HealthCheckPath&quot;: &quot;/frontend/index.html&quot;
+      &quot;HealthCheckPath&quot;: &quot;/frontend/healthcheck&quot;
       &quot;Priority&quot;: 1
-    BackendServiceA:
-      &quot;PathPattern&quot;: &quot;/backend/serviceA/*&quot;
-      &quot;HealthCheckPath&quot;: &quot;/index.html&quot;
+    BackendUserService:
+      &quot;PathPattern&quot;: &quot;/backend/user*&quot;
+      &quot;HealthCheckPath&quot;: &quot;/backend/api/v1/healthcheck&quot;
       &quot;Priority&quot;: 1
-    BackendServiceB:
-      &quot;PathPattern&quot;: &quot;/backend/serviceB/*&quot;
-      &quot;HealthCheckPath&quot;: &quot;/index.html&quot;
+    BackendSampleService:
+      &quot;PathPattern&quot;: &quot;/backend/sample*&quot;
+      &quot;HealthCheckPath&quot;: &quot;/backend/api/v1/healthcheck&quot;
       &quot;Priority&quot;: 2
   DeployEnvironmentMap:                                                  #(B)
     Production:
       &quot;Protocol&quot;: &quot;HTTPS&quot;
       &quot;Port&quot;: 443
     Staging:
-      &quot;Protocol&quot;: &quot;HTTPS&quot;
-      &quot;Port&quot;: 443
+      &quot;Protocol&quot;: &quot;HTTP&quot;
+      &quot;Port&quot;: 80
     Dev:
       &quot;Protocol&quot;: &quot;HTTP&quot;
       &quot;Port&quot;: 80
@@ -565,7 +589,7 @@ Parameters:
     MinLength: 1
     MaxLength: 255
     AllowedPattern: ^[a-zA-Z][-a-zA-Z0-9]*$
-    Default: BackendServiceA
+    Default: BackendUserService
 
 Resources:
   TargetGroup:                                                           #(F)
@@ -594,8 +618,15 @@ Resources:
             Values:
               - !FindInMap [TargetGroupDefinitionMap, !Ref ServiceName, PathPattern]
       ListenerArn:
-        Fn::ImportValue: !Sub ${VPCName}-${SubnetType}-ALB-Listener
+        Fn::ImportValue: !Sub ${VPCName}-${SubnetType}-ALB-Listener-${EnvType}
       Priority: !FindInMap [TargetGroupDefinitionMap, !Ref ServiceName, Priority]
+
+Outputs:                                                                 #(H)
+  TargetGroup:
+    Description: TargetGroup Service
+    Value: !Ref TargetGroup
+    Export:
+      Name: !Sub ${VPCName}-${SubnetType}-${ServiceName}-TargetGroup-${EnvType}
 </pre></div>
 </div>
 <p><br/></p>
@@ -651,6 +682,12 @@ Resources:
 </td>
 <td>URLパスパターンやフォワードのルール定義を行います。詳細は、 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listenerrule.html">AWS::ElasticLoadBalancingV2::ListenerRule</a> を参照してください。なお、定義はFindInMap関数で入力パラメータに応じて動的に切り替えて設定されます。</td>
 </tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="8">
+<li></li>
+</ol>
+</td>
+<td>(F)で定義したターゲットグループをクロススタックリファレンスの(他のテンプレートに値を渡す)ために出力します。</td>
+</tr>
 </tbody>
 </table>
 <p><br/></p>
@@ -658,9 +695,9 @@ Resources:
 <p><br/></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
 
-<span class="nv">stack_name</span><span class="o">=</span><span class="s2">&quot;mynavi-sample-tg-serviceB&quot;</span>
+<span class="nv">stack_name</span><span class="o">=</span><span class="s2">&quot;mynavi-sample-tg-userservice&quot;</span>
 <span class="nv">template_path</span><span class="o">=</span><span class="s2">&quot;sample-tg-cfn.yml&quot;</span>
-<span class="nv">parameters</span><span class="o">=</span><span class="s2">&quot;SubnetType=Backend EnvType=Dev ServiceName=BackendServiceB&quot;</span>
+<span class="nv">parameters</span><span class="o">=</span><span class="s2">&quot;SubnetType=Backend EnvType=Dev ServiceName=BackendUserService&quot;</span>
 
 aws cloudformation deploy --stack-name <span class="si">${</span><span class="nv">stack_name</span><span class="si">}</span> --template-file <span class="si">${</span><span class="nv">template_path</span><span class="si">}</span> --parameter-overrides <span class="si">${</span><span class="nv">parameters</span><span class="si">}</span> --capabilities CAPABILITY_IAM
 </pre></div>

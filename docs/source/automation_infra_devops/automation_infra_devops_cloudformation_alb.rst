@@ -43,7 +43,7 @@ URLパスパターンに応じたルーティング定義などを行うルー�
 * サービスアプリケーションごとに追加するターゲットグループ、リスナールール定義
 
 1つのテンプレートで、全ての定義をひとまとめにしておくのもシンプルで分かりやすくて良いですが、サービスアプリケーションを追加する必要が出てきた場合など、後者のリソース定義を再利用して追加対象だけを再実行すればよいテンプレート構成としておいた方が効率的です。
-前者のテンプレートのサンプルは以下の通りです。
+また、開発環境をEnvTypeとしてパラメータ化します。前者のテンプレートのサンプルは以下の通りです。
 
 
 |br|
@@ -58,8 +58,8 @@ URLパスパターンに応じたルーティング定義などを行うルー�
          "Protocol": "HTTPS"
          "Port": 443
        Staging:
-         "Protocol": "HTTPS"
-         "Port": 443
+         "Protocol": "HTTP"
+         "Port": 80
        Dev:
          "Protocol": "HTTP"
          "Port": 80
@@ -80,7 +80,7 @@ URLパスパターンに応じたルーティング定義などを行うルー�
        MinLength: 1
        MaxLength: 255
        AllowedPattern: ^[-¥.¥/a-zA-Z0-9]*$
-       Default: /frontend/index.html
+       Default: /frontend/portal
 
      BackendDefaultHealthCheckPath:                                         #(D)
        Description: Backend Service Default health check path
@@ -88,7 +88,7 @@ URLパスパターンに応じたルーティング定義などを行うルー�
        MinLength: 1
        MaxLength: 255
        AllowedPattern: ^[-¥.¥/a-zA-Z0-9]*$
-       Default: /backend/api/v1/users
+       Default: /backend/api/v1/healthcheck
 
    Resources:
      FrontendALB:                                                           #(E)
@@ -164,33 +164,43 @@ URLパスパターンに応じたルーティング定義などを行うルー�
        Description: Frontend ALB
        Value: !Ref FrontendALB
        Export:
-         Name: !Sub ${VPCName}-Frontend-ALB
+         Name: !Sub ${VPCName}-Frontend-ALB-${EnvType}
 
      BackendALB:                                                            #(M)
        Description: Backend ALB
        Value: !Ref BackendALB
        Export:
-         Name: !Sub ${VPCName}-Backend-ALB
+         Name: !Sub ${VPCName}-Backend-ALB-${EnvType}
+
+     FrontendALBDNS:                                                        #(N)
+       Description: Public DNS Name
+       Value: !GetAtt FrontendALB.DNSName
+       Export:
+         Name: !Sub ${VPCName}-FrontendALBDNS-${EnvType}
+
+     BackendALBDNS:                                                         #(O)
+       Description: Private DNS Name
+       Value: !GetAtt BackendALB.DNSName
+       Export:
+         Name: !Sub ${VPCName}-BackendALBDNS-${EnvType}
+
+     FrontendALBDefaultTargetGroup:                                         #(P)
+       Description: Frontend TagetGroup Default
+       Value: !Ref FrontendALBDefaultTargetGroup
+       Export:
+         Name: !Sub ${VPCName}-Frontend-ALB-DefaultTargetGroup-${EnvType}
+
+     BackendALBDefaultTargetGroup:                                          #(Q)
+       Description: Backend TagetGroup Default
+       Value: !Ref BackendALBDefaultTargetGroup
+       Export:
+         Name: !Sub ${VPCName}-Backend-ALB-DefaultTargetGroup-${EnvType}
 
      // omit
 
-     FrontendALBListener:                                                   #(N)
-       Description: Frontend ALB Listener
-       Value: !Ref FrontendALBListener
-       Export:
-         Name: !Sub ${VPCName}-Frontend-ALB-Listener
-
-     BackendALBListener:                                                    #(O)
-       Description: Backend ALB Listener
-       Value: !Ref BackendALBListener
-       Export:
-         Name: !Sub ${VPCName}-Backend-ALB-Listener
-
-    // omit
-
 |br|
 
-ALBのテンプレートの記述の基本となるポイントは(A)〜(O)の通りです。
+ALBのテンプレートの記述の基本となるポイントは(A)〜(Q)の通りです。
 
 |br|
 
@@ -233,7 +243,6 @@ ALBのテンプレートの記述の基本となるポイントは(A)〜(O)の�
    * - (K)
      - (H)と同様、バックエンドALBのリスナーを定義します。詳細は `AWS::ElasticLoadBalancingV2::Listener <https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listener.html>`_ も参考にしてください。リスナーはALBに対するリクエストにおけるプロトコルやポート、フォワードするターゲットグループなどを決定します。なお、オプションとしてはフォワードの他に、リダイレクトやCoginitoやOpenIDConnectを使った認証処理などもあります。
 
-
    * - (L)
      - (E)で定義したフロントエンドALBをクロススタックリファレンスの(他のテンプレートに値を渡す)ために出力します。
 
@@ -241,10 +250,16 @@ ALBのテンプレートの記述の基本となるポイントは(A)〜(O)の�
      - (I)で定義したバックエンドエンドALBをクロススタックリファレンスの(他のテンプレートに値を渡す)ために出力します。
 
    * - (N)
-     - (H)で定義したフロントエンドALBのリスナーをクロススタックリファレンスの(他のテンプレートに値を渡す)ために出力します。
+     - (E)で定義したフロントエンドALBのDNSをクロススタックリファレンスの(他のテンプレートに値を渡す)ために出力します。
 
    * - (O)
-     - (K)で定義したバックエンドエンドALBのリスナーをクロススタックリファレンスの(他のテンプレートに値を渡す)ために出力します。
+     - (I)で定義したバックエンドエンドALBのDNSをクロススタックリファレンスの(他のテンプレートに値を渡す)ために出力します。
+
+   * - (N)
+     - (F)で定義したフロントエンドALBのターゲットグループをクロススタックリファレンスの(他のテンプレートに値を渡す)ために出力します。
+
+   * - (O)
+     - (J)で定義したバックエンドエンドALBのターゲットグループをクロススタックリファレンスの(他のテンプレートに値を渡す)ために出力します。
 
 |br|
 
@@ -258,10 +273,10 @@ ALBのテンプレートの記述の基本となるポイントは(A)〜(O)の�
 
       Mappings:
         DeployEnvironmentMap:
-          Staging:
+          Production:
             "Protocol": "HTTPS"
             "Port": 443
-          Dev:
+          Staging:
             "Protocol": "HTTP"
             "Port": 80
 
@@ -284,7 +299,7 @@ ALBのテンプレートの記述の基本となるポイントは(A)〜(O)の�
 
    |br|
 
-   上記の例では、第1引数で参照するマッピング定義を選択し、第2引数はパラメータEnvTypeを参照しています。EnvTypeはパラメータ要素に定義されている項目でデフォルトは"Dev"ですが、実行時に他の"Staging"などの値を引数にしてテンプレート実行することで、第3引数として設定する値を容易に切り替えられる仕組みです。
+   上記の例では、第1引数で参照するマッピング定義を選択し、第2引数はパラメータEnvTypeを参照しています。EnvTypeはパラメータ要素に定義されている項目でデフォルトは"Dev"ですが、実行時に"Production"などの値を引数にしてテンプレート実行することで、第3引数として設定する値を容易に切り替えられる仕組みです。
 
 
 |br|
@@ -326,23 +341,23 @@ ALBのテンプレートの記述の基本となるポイントは(A)〜(O)の�
      TargetGroupDefinitionMap:                                              #(A)
        FrontendWebApp:
          "PathPattern": "/frontend/*"
-         "HealthCheckPath": "/frontend/index.html"
+         "HealthCheckPath": "/frontend/healthcheck"
          "Priority": 1
-       BackendServiceA:
-         "PathPattern": "/backend/serviceA/*"
-         "HealthCheckPath": "/index.html"
+       BackendUserService:
+         "PathPattern": "/backend/user*"
+         "HealthCheckPath": "/backend/api/v1/healthcheck"
          "Priority": 1
-       BackendServiceB:
-         "PathPattern": "/backend/serviceB/*"
-         "HealthCheckPath": "/index.html"
+       BackendSampleService:
+         "PathPattern": "/backend/sample*"
+         "HealthCheckPath": "/backend/api/v1/healthcheck"
          "Priority": 2
      DeployEnvironmentMap:                                                  #(B)
        Production:
          "Protocol": "HTTPS"
          "Port": 443
        Staging:
-         "Protocol": "HTTPS"
-         "Port": 443
+         "Protocol": "HTTP"
+         "Port": 80
        Dev:
          "Protocol": "HTTP"
          "Port": 80
@@ -366,7 +381,7 @@ ALBのテンプレートの記述の基本となるポイントは(A)〜(O)の�
        MinLength: 1
        MaxLength: 255
        AllowedPattern: ^[a-zA-Z][-a-zA-Z0-9]*$
-       Default: BackendServiceA
+       Default: BackendUserService
 
    Resources:
      TargetGroup:                                                           #(F)
@@ -395,9 +410,16 @@ ALBのテンプレートの記述の基本となるポイントは(A)〜(O)の�
                Values:
                  - !FindInMap [TargetGroupDefinitionMap, !Ref ServiceName, PathPattern]
          ListenerArn:
-           Fn::ImportValue: !Sub ${VPCName}-${SubnetType}-ALB-Listener
+           Fn::ImportValue: !Sub ${VPCName}-${SubnetType}-ALB-Listener-${EnvType}
          Priority: !FindInMap [TargetGroupDefinitionMap, !Ref ServiceName, Priority]
 
+   Outputs:                                                                 #(H)
+     TargetGroup:
+       Description: TargetGroup Service
+       Value: !Ref TargetGroup
+       Export:
+         Name: !Sub ${VPCName}-${SubnetType}-${ServiceName}-TargetGroup-${EnvType}
+         
 |br|
 
 .. list-table:: サービスアプリケーションごとにALBへターゲットグループとして追加するリソースのCloudFormationテンプレート記述のポイント
@@ -427,6 +449,9 @@ ALBのテンプレートの記述の基本となるポイントは(A)〜(O)の�
    * - (G)
      - URLパスパターンやフォワードのルール定義を行います。詳細は、 `AWS::ElasticLoadBalancingV2::ListenerRule <https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listenerrule.html>`_ を参照してください。なお、定義はFindInMap関数で入力パラメータに応じて動的に切り替えて設定されます。
 
+   * - (H)
+     - (F)で定義したターゲットグループをクロススタックリファレンスの(他のテンプレートに値を渡す)ために出力します。
+
 
 |br|
 
@@ -438,9 +463,9 @@ ALBのテンプレートの記述の基本となるポイントは(A)〜(O)の�
 
    #!/usr/bin/env bash
 
-   stack_name="mynavi-sample-tg-serviceB"
+   stack_name="mynavi-sample-tg-userservice"
    template_path="sample-tg-cfn.yml"
-   parameters="SubnetType=Backend EnvType=Dev ServiceName=BackendServiceB"
+   parameters="SubnetType=Backend EnvType=Dev ServiceName=BackendUserService"
 
    aws cloudformation deploy --stack-name ${stack_name} --template-file ${template_path} --parameter-overrides ${parameters} --capabilities CAPABILITY_IAM
 
