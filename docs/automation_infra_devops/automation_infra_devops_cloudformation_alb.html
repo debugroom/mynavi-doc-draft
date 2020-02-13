@@ -303,6 +303,7 @@ Resources:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
       Name: BackendALB
+      Scheme: internal
       Subnets:
         - Fn::ImportValue: !Sub ${VPCName}-PrivateSubnet1
         - Fn::ImportValue: !Sub ${VPCName}-PrivateSubnet2
@@ -552,11 +553,11 @@ Mappings:
       &quot;HealthCheckPath&quot;: &quot;/frontend/healthcheck&quot;
       &quot;Priority&quot;: 1
     BackendUserService:
-      &quot;PathPattern&quot;: &quot;/backend/user*&quot;
+      &quot;PathPattern&quot;: &quot;/backend/api/v1/user*&quot;
       &quot;HealthCheckPath&quot;: &quot;/backend/api/v1/healthcheck&quot;
       &quot;Priority&quot;: 1
     BackendSampleService:
-      &quot;PathPattern&quot;: &quot;/backend/sample*&quot;
+      &quot;PathPattern&quot;: &quot;/backend/api/v1/sample*&quot;
       &quot;HealthCheckPath&quot;: &quot;/backend/api/v1/healthcheck&quot;
       &quot;Priority&quot;: 2
   DeployEnvironmentMap:                                                  #(B)

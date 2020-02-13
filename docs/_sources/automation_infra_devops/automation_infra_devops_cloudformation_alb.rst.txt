@@ -129,6 +129,7 @@ URLパスパターンに応じたルーティング定義などを行うルー�
        Type: AWS::ElasticLoadBalancingV2::LoadBalancer
        Properties:
          Name: BackendALB
+         Scheme: internal
          Subnets:
            - Fn::ImportValue: !Sub ${VPCName}-PrivateSubnet1
            - Fn::ImportValue: !Sub ${VPCName}-PrivateSubnet2
@@ -344,11 +345,11 @@ ALBのテンプレートの記述の基本となるポイントは(A)〜(Q)の�
          "HealthCheckPath": "/frontend/healthcheck"
          "Priority": 1
        BackendUserService:
-         "PathPattern": "/backend/user*"
+         "PathPattern": "/backend/api/v1/user*"
          "HealthCheckPath": "/backend/api/v1/healthcheck"
          "Priority": 1
        BackendSampleService:
-         "PathPattern": "/backend/sample*"
+         "PathPattern": "/backend/api/v1/sample*"
          "HealthCheckPath": "/backend/api/v1/healthcheck"
          "Priority": 2
      DeployEnvironmentMap:                                                  #(B)
@@ -419,7 +420,7 @@ ALBのテンプレートの記述の基本となるポイントは(A)〜(Q)の�
        Value: !Ref TargetGroup
        Export:
          Name: !Sub ${VPCName}-${SubnetType}-${ServiceName}-TargetGroup-${EnvType}
-         
+
 |br|
 
 .. list-table:: サービスアプリケーションごとにALBへターゲットグループとして追加するリソースのCloudFormationテンプレート記述のポイント
