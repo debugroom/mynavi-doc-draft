@@ -33,7 +33,7 @@ S3スタック構築テンプレート
 
 S3は `クラウドネイティブ基本第25回 <https://news.mynavi.jp/itsearch/article/devsoft/4597>`_ で実施した要領と同等のものを構築します。
 S3をCloudFormationで構築する場合、リソースタイプが、 `AWS::S3::Bucket <https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html>`_
-であるリソース定義が必要です。プロパティとして設定可能な属性は、各リンク先の通りですが、加えて、S3を商用環境、ステージング環境、開発環境という3つのパターンに分けて作成するようにします。テンプレートのサンプルは以下の通りです。
+であるリソース定義が必要です。プロパティとして設定可能な属性は、上記リンク先の通りですが、加えて、S3を商用環境、ステージング環境、開発環境という3つのパターンに分けて作成するようにします。テンプレートのサンプルは以下の通りです。
 
 |br|
 
@@ -188,7 +188,19 @@ S3をCloudFormationで構築する場合、リソースタイプが、 `AWS::SQS
          ReceiveMessageWaitTimeSeconds:  !FindInMap [SQSDefinitionMap, !Ref EnvType, ReceiveMessageWaitTimeSeconds]
 
    Outputs:
-     SQSSampleQueue:                                                                                                #(E)
+     SQSServiceEndpoint:                                                                                            #(E)
+       Description: SQS service endipoint
+       Value: !Sub https://sqs.${AWS::Region}.amazonaws.com
+       Export:
+         Name: !Sub MynaviSampleSQS-${EnvType}-ServiceEndpoint
+
+     SQSServiceRegion:                                                                                              #(F)
+       Description: SQS service region
+       Value: !Sub ${AWS::Region}
+       Export:
+         Name: !Sub MynaviSampleSQS-${EnvType}-Region
+
+     SQSSampleQueue:                                                                                                #(G)
        Description: SQS sample queue
        Value: !Ref SQSSampleQueue
        Export:
@@ -220,6 +232,12 @@ SQSのテンプレートの記述の基本となるポイントは(A)〜(G)の�
      - 環境によって異なる値を定義したい箇所は、EnvTypeパラメータを引数としたFindInMap関数でデータ取得します。
 
    * - (E)
+     - SQSのサービスエンドポイントをOutputs出力します。
+
+   * - (F)
+     - SQSを構築したリージョンをOutputs出力します。
+
+   * - (G)
      - SQSのキュー名をOutputs出力します。
 
 |br|
@@ -249,8 +267,7 @@ SQSのテンプレートの記述の基本となるポイントは(A)〜(G)の�
 
 |br|
 
-
-今回はS3、SQSを構築するCloudFormationテンプレートを実装しました。次回は、ECSのCloudFormationテンプレートを作成を行うにあたり、スタックの情報を取得するアプリケーションをSpringCloudAWSを使って実装します。
+今回はS3、SQSを構築するCloudFormationテンプレートを実装しました。次回は、これまで作成してきたテンプレートを一括で実行できるよう親子関係でネスト化する手順を解説します。
 
 |br|
 

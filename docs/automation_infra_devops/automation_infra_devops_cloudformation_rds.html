@@ -87,6 +87,8 @@
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_alb.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_dynamodb.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_elasticache.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_s3_sqs.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -140,7 +142,7 @@
 <li><a class="reference internal" href="#rds">RDSスタック構築テンプレート</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id9">著者紹介</a></li>
+<li><a class="reference internal" href="#id10">著者紹介</a></li>
 </ul>
 </li>
 </ul>
@@ -202,7 +204,7 @@
 </div>
 <p><br/></p>
 <p>前回は、Frontend、Backendサブネットに配置するアプリケーションロードバランサー(ALB)を構築するCloudFormationテンレプートを実装しました。
-続く今回はバックエンドサブネットからのみアクセス可能なRDS(RelationalDatabaseService)を構築するCLoudFormationテンプレートを作成します。
+続く今回はバックエンドサブネットからのアクセスを想定したRDS(RelationalDatabaseService)を構築するCLoudFormationテンプレートを作成します。
 実際のソースコードは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-cloudformation">GitHub</a> 上にコミットしています。
 ソースコード中で本質的でない記述を一部省略しているので、実行コードを作成する場合は、必要に応じて適宜GitHub上のソースコードも参照してください。</p>
 <p><br/></p>
@@ -213,8 +215,9 @@
 CloudFormationで構築する場合、リソースタイプが、 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html">AWS::RDS::DBInstance</a>
 となるDBインスタンスの定義と、DBを配置するサブネットをグループ化したサブネットグループ定義 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbsubnet-group.html">AWS::RDS::DBSubnetGroup</a>
 また、監視のためのモニター権限をIAMロール <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listener.html">AWS::IAM::Role</a> として作成しておかなければなりません。
-プロパティとして設定可能な属性は、各リンク先の通りですが、加えて、Conditions要素を使って、RDSを商用環境、ステージング環境、開発環境という3つのパターンに分けて作成するようにします。また、
-RDSにはユーザとパスワードの設定が必要になりますが、秘匿性の高いパスワードについては、AWS SystemsManager ParameterStoreから取得可能なDynamicReferences機能を使って、テンプレートを構成します。テンプレートのサンプルは以下の通りです。</p>
+プロパティとして設定可能な属性は、各リンク先の通りですが、加えて、Conditions要素を使って、RDSを商用環境、ステージング環境、開発環境という3つのパターンに分けて作成するようにします。
+ここで、開発環境はVPC外の任意のアドレスからもアクセスが可能ように設定するものとします。また、RDSにはユーザとパスワードの設定が必要になりますが、
+秘匿性の高いパスワードについては、AWS SystemsManager ParameterStoreから取得可能なDynamicReferences機能を使って、テンプレートを構成します。テンプレートのサンプルは以下の通りです。</p>
 <p><br/></p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>AWSTemplateFormatVersion: &#39;2010-09-09&#39;
 
@@ -232,25 +235,29 @@ Parameters:
     Description: Which environments to deploy your service.
     Type: String
     AllowedValues: [&quot;Dev&quot;, &quot;Staging&quot;, &quot;Production&quot;]
-    Default: Dev
+    Default: Staging
+  SecurityGroupDev:                                                                             #(C)
+    Description: The local machine permitted SecurityGroup is needed as paramater for Dev.
+    Type: String
+    Default: &quot;&quot;
 
-Conditions:                                                                                     #(C)
+Conditions:                                                                                     #(D)
   ProductionResources: {&quot;Fn::Equals&quot; : [{&quot;Ref&quot;:&quot;EnvType&quot;}, &quot;Production&quot;]}
   StagingResources: !Equals [ !Ref EnvType, &quot;Staging&quot;]
   DevResources: {&quot;Fn::Equals&quot; : [{&quot;Ref&quot;:&quot;EnvType&quot;}, &quot;Dev&quot;]}
 
 Resources:
-  RDSProductionInstance:                                                                        #(D)
+  RDSProductionInstance:                                                                        #(E)
     Type: AWS::RDS::DBInstance
     DeletionPolicy: Snapshot
-    Condition: &quot;ProductionResources&quot;                                                            #(E)
+    Condition: &quot;ProductionResources&quot;                                                            #(F)
     Properties:
       DBInstanceIdentifier: mynavi-sample-cloudformation-production-postgresql
-      DBName: PostgreSQL
+      DBName: sample_database
       Engine: postgres
       MultiAZ: false
       MasterUsername: !Ref RdsUser
-      MasterUserPassword: &#39;{{resolve:ssm-secure:mynavi-sample-cloudformation-rds-password:1}}&#39;  #(F)
+      MasterUserPassword: &#39;{{resolve:ssm-secure:mynavi-sample-cloudformation-rds-password:1}}&#39;  #(G)
       DBInstanceClass: db.t2.micro
       AllocatedStorage: &#39;20&#39;
       DBSubnetGroupName: !Ref DBSubnetGroup
@@ -259,13 +266,13 @@ Resources:
       VPCSecurityGroups:
         - Fn::ImportValue: !Sub ${VPCName}-SecurityGroupRdsPostgres
 
-  RDSStagingInstance:                                                                           #(G)
+  RDSStagingInstance:                                                                           #(H)
     Type: AWS::RDS::DBInstance
     DeletionPolicy: Snapshot
     Condition: &quot;StagingResources&quot;
     Properties:
       DBInstanceIdentifier: mynavi-sample-cloudformation-staging-postgresql
-      DBName: PostgreSQL
+      DBName: sample_database
       Engine: postgres
       MultiAZ: false
       MasterUsername: !Ref RdsUser
@@ -278,13 +285,13 @@ Resources:
       VPCSecurityGroups:
         - Fn::ImportValue: !Sub ${VPCName}-SecurityGroupRdsPostgres
 
-  RDSDevInstance:                                                                               #(H)
+  RDSDevInstance:                                                                               #(I)
     Type: AWS::RDS::DBInstance
     DeletionPolicy: Snapshot
     Condition: &quot;DevResources&quot;
     Properties:
       DBInstanceIdentifier: mynavi-sample-cloudformation-dev-postgresql
-      DBName: PostgreSQL
+      DBName: sample_database
       Engine: postgres
       MultiAZ: false
       MasterUsername: !Ref RdsUser
@@ -294,10 +301,11 @@ Resources:
       DBSubnetGroupName: !Ref DBSubnetGroup
       MonitoringInterval: 10
       MonitoringRoleArn: !GetAtt DBMonitorRole.Arn
+      PubliclyAccessible: true                                                                  #(J)
       VPCSecurityGroups:
-        - Fn::ImportValue: !Sub ${VPCName}-SecurityGroupRdsPostgres
+        - !Ref SecurityGroupDev
 
-  DBSubnetGroup:                                                                                #(I)
+  DBSubnetGroup:                                                                                #(K)
     Type: AWS::RDS::DBSubnetGroup
     Properties:
       DBSubnetGroupDescription: DB Subnet Group for Private Subnet
@@ -305,7 +313,15 @@ Resources:
         - Fn::ImportValue: !Sub ${VPCName}-PrivateSubnet1
         - Fn::ImportValue: !Sub ${VPCName}-PrivateSubnet2
 
-  DBMonitorRole:                                                                                #(J)
+  DBSubnetGroupForDev:                                                                          #(L)
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: DB Subnet Group for Private Subnet
+      SubnetIds:
+        - Fn::ImportValue: !Sub ${VPCName}-PublicSubnet1
+        - Fn::ImportValue: !Sub ${VPCName}-PublicSubnet2
+
+  DBMonitorRole:                                                                                #(M)
     Type: AWS::IAM::Role
     Properties:
       Path: &quot;/&quot;
@@ -325,8 +341,8 @@ Outputs:
 
   //omit
 
-  RDSProductionInstanceEndPoint:                                                                #(K)
-    Condition: &quot;ProductionResources&quot;                                                            #(L)
+  RDSProductionInstanceEndPoint:                                                                #(N)
+    Condition: &quot;ProductionResources&quot;                                                            #(O)
     Description: RDS
     Value: !GetAtt RDSProductionInstance.Endpoint.Address
     Export:
@@ -336,10 +352,10 @@ Outputs:
 </pre></div>
 </div>
 <p><br/></p>
-<p>RDSのテンプレートの記述の基本となるポイントは(A)〜(L)の通りです。</p>
+<p>RDSのテンプレートの記述の基本となるポイントは(A)〜(O)の通りです。</p>
 <p><br/></p>
-<table border="1" class="colwidths-given docutils" id="id10">
-<caption><span class="caption-text">RDSのCloudFormationテンプレート記述のポイント</span><a class="headerlink" href="#id10" title="このテーブルへのパーマリンク">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id11">
+<caption><span class="caption-text">RDSのCloudFormationテンプレート記述のポイント</span><a class="headerlink" href="#id11" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col width="10%" />
 <col width="90%" />
@@ -364,57 +380,75 @@ Outputs:
 <li></li>
 </ol>
 </td>
-<td>Conditionsとして、EnvTypeパラメータの値に応じて、３つの論理名を定義します※。</td>
+<td>開発環境としてのRDSにアクセス可能な端末をターゲットとしたセキュリティグループをパラメータとして受け取ります。 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4829">第27回</a> と同様、事前にセキュリティグループを定義し、IDをパラメータとして渡す前提で実装しておきます。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="4">
 <li></li>
 </ol>
 </td>
-<td>商用環境向けのDBインスタンスのリソース定義を行います。詳細は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html">AWS::RDS::DBInstance</a> を参照してください。なお、サブネットグループやモニタリングロールは(I)、(J)の定義を、適用するセキュリティグループは <a class="reference internal" href="automation_infra_devops_cloudformation_sg_nat.html#section-cloudformation-security-group-sample-label"><span class="std std-ref">セキュリティグループスタック構築テンプレート</span></a> で作成したものを、クロススタックリファレンスを使って参照します。</td>
+<td>Conditionsとして、EnvTypeパラメータの値に応じて、３つの論理名を定義します※。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="5">
 <li></li>
 </ol>
 </td>
-<td>(C)で定義したConditionsの論理名が&quot;ProductionResources&quot;だった場合に、リソース定義が有効化するよう、Condition要素を定義します。</td>
+<td>商用環境向けのDBインスタンスのリソース定義を行います。詳細は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html">AWS::RDS::DBInstance</a> を参照してください。なお、サブネットグループやモニタリングロールは(I)、(J)の定義を、適用するセキュリティグループは <a class="reference internal" href="automation_infra_devops_cloudformation_sg_nat.html#section-cloudformation-security-group-sample-label"><span class="std std-ref">セキュリティグループスタック構築テンプレート</span></a> で作成したものを、クロススタックリファレンスを使って参照します。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="6">
 <li></li>
 </ol>
 </td>
-<td>DynamicReferences機能※※を使って、AWS SystemsManager ParameterStoreからRDSユーザのパスワードを取得します。ここでは&quot;mynavi-sample-cloudformation-rds-password&quot;という定義名のセキュアパラメータを受け取る設定とします。</td>
+<td>(C)で定義したConditionsの論理名が&quot;ProductionResources&quot;だった場合に、リソース定義が有効化するよう、Condition要素を定義します。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="7">
 <li></li>
 </ol>
 </td>
-<td>ステージング環境向けのDBインスタンスのリソース定義を行います。詳細は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html">AWS::RDS::DBInstance</a> を参照してください。なお、サブネットグループやモニタリングロールは(I)、(J)の定義を、適用するセキュリティグループは <a class="reference internal" href="automation_infra_devops_cloudformation_sg_nat.html#section-cloudformation-security-group-sample-label"><span class="std std-ref">セキュリティグループスタック構築テンプレート</span></a> で作成したものを、クロススタックリファレンスを使って参照します。</td>
+<td>DynamicReferences機能※※を使って、AWS SystemsManager ParameterStoreからRDSユーザのパスワードを取得します。ここでは&quot;mynavi-sample-cloudformation-rds-password&quot;という定義名のセキュアパラメータを受け取る設定とします。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="8">
 <li></li>
 </ol>
 </td>
-<td>開発環境向けのDBインスタンスのリソース定義を行います。詳細は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html">AWS::RDS::DBInstance</a> を参照してください。なお、サブネットグループやモニタリングロールは(I)、(J)の定義を、適用するセキュリティグループは <a class="reference internal" href="automation_infra_devops_cloudformation_sg_nat.html#section-cloudformation-security-group-sample-label"><span class="std std-ref">セキュリティグループスタック構築テンプレート</span></a> で作成したものを、クロススタックリファレンスを使って参照します。</td>
+<td>ステージング環境向けのDBインスタンスのリソース定義を行います。詳細は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html">AWS::RDS::DBInstance</a> を参照してください。なお、サブネットグループやモニタリングロールは(I)、(J)の定義を、適用するセキュリティグループは <a class="reference internal" href="automation_infra_devops_cloudformation_sg_nat.html#section-cloudformation-security-group-sample-label"><span class="std std-ref">セキュリティグループスタック構築テンプレート</span></a> で作成したものを、クロススタックリファレンスを使って参照します。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperroman simple">
 <li></li>
 </ol>
 </td>
-<td>DBサブネットグループを定義します。詳細は、 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbsubnet-group.html">AWS::RDS::DBSubnetGroup</a> を参照してください。なお、サブネットは <a class="reference internal" href="automation_infra_devops_cloudformation_vpc.html#section-cloudformation-vpc-sample-label"><span class="std std-ref">VPC/Subnet/RouteTable/InternetGatewayスタック構築テンプレート</span></a> で作成したものを、クロススタックリファレンスを使って参照します。</td>
+<td>開発環境向けのDBインスタンスのリソース定義を行います。詳細は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html">AWS::RDS::DBInstance</a> を参照してください。なお、サブネットグループやモニタリングロールは(I)、(J)の定義を、適用するセキュリティグループは <a class="reference internal" href="automation_infra_devops_cloudformation_sg_nat.html#section-cloudformation-security-group-sample-label"><span class="std std-ref">セキュリティグループスタック構築テンプレート</span></a> で作成したものを、クロススタックリファレンスを使って参照します。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="10">
 <li></li>
 </ol>
 </td>
-<td>DBを監視するためのIAMロールを作成します。ポリシーはAmazonRDSEnhancedMonitoringRoleをアタッチします。詳細は、 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listener.html">AWS::IAM::Role</a> を参照してください。</td>
+<td>開発環境向けのDBインスタンスのみパブリックアクセスを許可する設定としておきます。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="11">
 <li></li>
 </ol>
 </td>
-<td>RDSのエンドポイントをOutputs出力します。</td>
+<td>DBサブネットグループを定義します。詳細は、 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbsubnet-group.html">AWS::RDS::DBSubnetGroup</a> を参照してください。なお、サブネットは <a class="reference internal" href="automation_infra_devops_cloudformation_vpc.html#section-cloudformation-vpc-sample-label"><span class="std std-ref">VPC/Subnet/RouteTable/InternetGatewayスタック構築テンプレート</span></a> で作成したものを、クロススタックリファレンスを使って参照します。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="12">
+<li></li>
+</ol>
+</td>
+<td>開発環境のDBインスタンスはパブリックアクセスする場合もあるため、パブリックサブネットに配置するよう、サブネットグループを(K)と同様に設定します(プライベートサブネットに配置してあるとパブリックアクセスはできません)。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="13">
+<li></li>
+</ol>
+</td>
+<td>DBを監視するためのIAMロールを作成します。ポリシーはAmazonRDSEnhancedMonitoringRoleをアタッチします。詳細は、 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listener.html">AWS::IAM::Role</a> を参照してください。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="14">
+<li></li>
+</ol>
+</td>
+<td>RDSのエンドポイントをOutputs出力します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="15">
 <li></li>
 </ol>
 </td>
@@ -426,7 +460,7 @@ Outputs:
 <div class="admonition note">
 <p class="first admonition-title">注釈</p>
 <p>※Conditionsについて</p>
-<p>Conditionsは条件によって有効な論理名を決定し、ResourcesやOutputs要素などで、Condition要素で条件に一致する論理名が適用された際に定義が有効化されます。以下では、EnvTypeのデフォルトパラメータ&quot;Dev&quot;の場合、Conditionsに定義した論理名&quot;DevResources&quot;が有効化されます。Resources要素で各リソース定義にCondition要素を定義すると、&quot;DevResources&quot;の定義のみリソースが作成されます。</p>
+<p>Conditions要素は条件とする論理名を定義し、ResourcesやOutputs要素内で、条件に一致する論理名が適用された際に定義が有効化されます。以下では、EnvTypeのデフォルトパラメータ&quot;Dev&quot;の場合、Conditionsに定義した論理名&quot;DevResources&quot;が有効化されます。Resources要素で各リソース定義にCondition要素を定義すると、&quot;DevResources&quot;の定義のみリソースが作成されます。</p>
 <p><br/></p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Parameters:
   EnvType:
@@ -478,7 +512,7 @@ Resources:
 <span class="nv">stack_name</span><span class="o">=</span><span class="s2">&quot;mynavi-sample-rds&quot;</span>
 <span class="nv">template_path</span><span class="o">=</span><span class="s2">&quot;sample-alb-rds.yml&quot;</span>
 
-<span class="nv">parameters</span><span class="o">=</span><span class="s2">&quot;EnvType=Production&quot;</span>
+<span class="nv">parameters</span><span class="o">=</span><span class="s2">&quot;EnvType=Staging&quot;</span>
 
 aws cloudformation deploy --stack-name <span class="si">${</span><span class="nv">stack_name</span><span class="si">}</span> --template-file <span class="si">${</span><span class="nv">template_path</span><span class="si">}</span> --parameter-overrides <span class="si">${</span><span class="nv">parameters</span><span class="si">}</span> --capabilities CAPABILITY_IAM
 </pre></div>
@@ -490,12 +524,12 @@ aws cloudformation deploy --stack-name <span class="si">${</span><span class="nv
 <img alt="../_images/management_console_cloudformation_stack_rds.png" src="../_images/management_console_cloudformation_stack_rds.png" />
 </div>
 <p><br/></p>
-<p>今回はConditions要素やDynamicReferece機能を使いながら、RDSを構築するCloudFormationテンプレートを実装しました。次回は、DynamoDBを構築するテンプレートを作成します。</p>
+<p>今回はConditions要素やDynamicReferences機能を使いながら、RDSを構築するCloudFormationテンプレートを実装しました。次回は、DynamoDBを構築するテンプレートを作成します。</p>
 <p><br/></p>
 </div>
 </div>
-<div class="section" id="id9">
-<h2>著者紹介<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id10">
+<h2>著者紹介<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
 <div class="figure">
 <img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" />

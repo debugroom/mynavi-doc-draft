@@ -213,7 +213,7 @@
 <p><br/></p>
 <p>S3は <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4597">クラウドネイティブ基本第25回</a> で実施した要領と同等のものを構築します。
 S3をCloudFormationで構築する場合、リソースタイプが、 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html">AWS::S3::Bucket</a>
-であるリソース定義が必要です。プロパティとして設定可能な属性は、各リンク先の通りですが、加えて、S3を商用環境、ステージング環境、開発環境という3つのパターンに分けて作成するようにします。テンプレートのサンプルは以下の通りです。</p>
+であるリソース定義が必要です。プロパティとして設定可能な属性は、上記リンク先の通りですが、加えて、S3を商用環境、ステージング環境、開発環境という3つのパターンに分けて作成するようにします。テンプレートのサンプルは以下の通りです。</p>
 <p><br/></p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>AWSTemplateFormatVersion: &#39;2010-09-09&#39;
 
@@ -367,7 +367,19 @@ Resources:
       ReceiveMessageWaitTimeSeconds:  !FindInMap [SQSDefinitionMap, !Ref EnvType, ReceiveMessageWaitTimeSeconds]
 
 Outputs:
-  SQSSampleQueue:                                                                                                #(E)
+  SQSServiceEndpoint:                                                                                            #(E)
+    Description: SQS service endipoint
+    Value: !Sub https://sqs.${AWS::Region}.amazonaws.com
+    Export:
+      Name: !Sub MynaviSampleSQS-${EnvType}-ServiceEndpoint
+
+  SQSServiceRegion:                                                                                              #(F)
+    Description: SQS service region
+    Value: !Sub ${AWS::Region}
+    Export:
+      Name: !Sub MynaviSampleSQS-${EnvType}-Region
+
+  SQSSampleQueue:                                                                                                #(G)
     Description: SQS sample queue
     Value: !Ref SQSSampleQueue
     Export:
@@ -415,6 +427,18 @@ Outputs:
 <li></li>
 </ol>
 </td>
+<td>SQSのサービスエンドポイントをOutputs出力します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="6">
+<li></li>
+</ol>
+</td>
+<td>SQSを構築したリージョンをOutputs出力します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="7">
+<li></li>
+</ol>
+</td>
 <td>SQSのキュー名をOutputs出力します。</td>
 </tr>
 </tbody>
@@ -439,7 +463,7 @@ aws cloudformation deploy --stack-name <span class="si">${</span><span class="nv
 <img alt="../_images/management_console_cloudformation_stack_sqs.png" src="../_images/management_console_cloudformation_stack_sqs.png" />
 </div>
 <p><br/></p>
-<p>今回はS3、SQSを構築するCloudFormationテンプレートを実装しました。次回は、ECSのCloudFormationテンプレートを作成を行うにあたり、スタックの情報を取得するアプリケーションをSpringCloudAWSを使って実装します。</p>
+<p>今回はS3、SQSを構築するCloudFormationテンプレートを実装しました。次回は、これまで作成してきたテンプレートを一括で実行できるよう親子関係でネスト化する手順を解説します。</p>
 <p><br/></p>
 </div>
 </div>

@@ -18,7 +18,7 @@
 
 |br|
 
-前回は、バックエンドサブネットからのみアクセス可能なRDS(RelationalDatabaseService)を構築するCLoudFormationテンプレートを実装しました。
+前回は、バックエンドサブネットからのアクセスを想定したRDS(RelationalDatabaseService)を構築するCLoudFormationテンプレートを実装しました。
 続く今回はDynamoDBを構築するテンプレートを作成します。実際のソースコードは `GitHub <https://github.com/debugroom/mynavi-sample-cloudformation>`_ 上にコミットしています。
 ソースコード中で本質的でない記述を一部省略しているので、実行コードを作成する場合は、必要に応じて適宜GitHub上のソースコードも参照してください。
 
@@ -80,18 +80,34 @@ CloudFormationで構築する場合、リソースタイプが、 `AWS::DynamoDB
            WriteCapacityUnits: 5
 
    Outputs:
-     DynamoDBProduction:                                                                                                                #(F)
-       Condition: "ProductionResources"                                                                                                 #(G)
+     EnvironmentRegion:                                                                                                                #(F)
+       Description: Dev Environment Region
+       Value: !Sub ${AWS::Region}
+       Export:
+         Name: !Sub MynaviSampleDynamoDB-${EnvType}-Region
+     DynamoDBServiceEndpoint:                                                                                                          #(G)
+       Description: DynamoDB service endipoint
+       Value: !Sub https://dynamodb.${AWS::Region}.amazonaws.com
+       Export:
+         Name: !Sub MynaviSampleDynamoDB-${EnvType}-ServiceEndpoint
+     DynamoDBProduction:                                                                                                               #(H)
+       Condition: "ProductionResources"                                                                                                #(I)
        Description: DynamoDB SampleTable for Production
        Value: !Ref DynamoDBSampleTable
        Export:
          Name: !Sub ${VPCName}-DynamoDBProductionSampleTable
+     DynamoDBTableStaging:                                                                                                             #(J)
+       Condition: "StagingResources"
+       Description: DynamoDB SampleTable for Staging
+       Value: !Ref DynamoDBSampleTable
+       Export:
+         Name: !Sub ${VPCName}-DynamoDBStagingSampleTable
 
     // omit
 
 |br|
 
-DynamoDBのテンプレートの記述の基本となるポイントは(A)〜(G)の通りです。
+DynamoDBのテンプレートの記述の基本となるポイントは(A)〜(J)の通りです。
 
 |br|
 
@@ -117,10 +133,19 @@ DynamoDBのテンプレートの記述の基本となるポイントは(A)〜(G)
      - SSESpecificationは、テーブルの暗号化オプションでConditionが"ProductionResources"の場合のみ、有効化されるように設定します。擬似パラメータ※"AWS::NoValue"関数を使用することにより、このパラメータが有効になると対応するリソースプロパティは削除されます。
 
    * - (F)
-     - DynamoDBのエンドポイントを出力します。
+     - DynamoDBを構築するリージョンを出力します。
 
    * - (G)
+     - DynamoDBのサービスエンドポイントを出力します。
+
+   * - (H)
+     - DynamoDBのテーブル名を出力します。
+
+   * - (I)
      - 前回と同様、Conditionsの論理名が"ProductionResources"だった場合に、リソース定義が有効化するよう、Condition要素を定義します。
+
+   * - (I)
+     - 前回と同様、Conditionsの論理名が"StagingResources"だった場合に、リソース定義が有効化するよう、Condition要素を定義します。
 
 |br|
 

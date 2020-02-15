@@ -18,8 +18,8 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="基盤・デプロイ自動化実践" href="automation_infra_devops_cloudformation_s3_sqs.html" />
-    <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_cloudformation_dynamodb.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="../cloud_native/aws-lambda-and-api-gateway-1.html" />
+    <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_cloudformation_s3_sqs.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -87,8 +87,9 @@
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_alb.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_rds.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_dynamodb.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_elasticache.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_s3_sqs.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -139,10 +140,10 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
 <li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li><a class="reference internal" href="#elasticache">ElastiCacheスタック構築テンプレート</a></li>
+<li><a class="reference internal" href="#nestedstack">NestedStackの作成</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id9">著者紹介</a></li>
+<li><a class="reference internal" href="#id5">著者紹介</a></li>
 </ul>
 </li>
 </ul>
@@ -154,11 +155,11 @@
               
                 
   <li>
-    <a href="automation_infra_devops_cloudformation_dynamodb.html" title="Previous Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 基盤・デプロイ自動化実践</span>
+    <a href="automation_infra_devops_cloudformation_s3_sqs.html" title="Previous Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 基盤・デプロイ自動化実践</span>
     </a>
   </li>
   <li>
-    <a href="automation_infra_devops_cloudformation_s3_sqs.html" title="Next Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">基盤・デプロイ自動化実践 &raquo;</span>
+    <a href="../cloud_native/aws-lambda-and-api-gateway-1.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
     </a>
   </li>
               
@@ -168,7 +169,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/automation_infra_devops/automation_infra_devops_cloudformation_elasticache.rst.txt"
+  <a href="../_sources/automation_infra_devops/automation_infra_devops_cloudformation_nest.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -192,8 +193,8 @@
   <div class="row">
     <div class="col-md-12 content">
       
-  <div class="section" id="section-automation-infra-devops-cloudformation-11-label">
-<span id="id1"></span><h1>基盤・デプロイ自動化実践<a class="headerlink" href="#section-automation-infra-devops-cloudformation-11-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
+  <div class="section" id="section-automation-infra-devops-cloudformation-13-label">
+<span id="id1"></span><h1>基盤・デプロイ自動化実践<a class="headerlink" href="#section-automation-infra-devops-cloudformation-13-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <div class="section" id="id2">
 <h2>マイクロサービスアーキテクチャの基盤・デプロイ自動化<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
@@ -203,131 +204,133 @@
 <img alt="../_images/cloudformation-scope.png" src="../_images/cloudformation-scope.png" />
 </div>
 <p><br/></p>
-<p>前回は、DynamoDBを構築するテンプレートを実装しました。続く今回はElastiCacheを構築するテンプレートを作成します。
+<p>前回は、S3およびSQSを構築するテンプレートを実装しました。続く今回は、これまで実装してきたテンプレートの親となるネストテンプレートを作成する方法を紹介します。
 実際のソースコードは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-cloudformation">GitHub</a> 上にコミットしています。
 ソースコード中で本質的でない記述を一部省略しているので、実行コードを作成する場合は、必要に応じて適宜GitHub上のソースコードも参照してください。</p>
 <p><br/></p>
-<div class="section" id="elasticache">
-<span id="section-cloudformation-elasticache-sample-label"></span><h3>ElastiCacheスタック構築テンプレート<a class="headerlink" href="#elasticache" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="nestedstack">
+<span id="section-cloudformation-nestedstack-sample-label"></span><h3>NestedStackの作成<a class="headerlink" href="#nestedstack" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
-<p>ElastiCacheは <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4543">クラウドネイティブ基本第22回</a> で実施した要領と同等のものを構築します。
-ElastiCache(Redis)をCloudFormationで構築する場合、リソースタイプが、 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html">AWS::ElastiCache::ReplicationGroup</a>
-であるElastiCache定義および、 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-subnetgroup.html">AWS::ElastiCache::SubnetGroup</a> となるサブネットグループ定義、
-<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-parameter-group.html">AWS::ElastiCache::ParameterGroup</a> となるパラメータグループ定義が必要です。
-プロパティとして設定可能な属性は、各リンク先の通りですが、ElastiCacheを商用環境、ステージング環境、開発環境の3つのパターンに分けて作成するようにします。</p>
-<div class="admonition note">
-<p class="first admonition-title">注釈</p>
-<p class="last"><a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4523">クラウドネイティブ基本第19回</a> では、開発環境はローカル環境にRedisServerを立てるかたちで解説しました。ElastiCacheはRDSやDynamoDBとは異なり、2020年2月時点でもパブリックアクセスが許可されていません(パブリックサブネットに配置してVPC外からエンドポイントを指定してもアクセスできません)。
-そのため、VPCの外にある開発環境ではローカルにRedisServerを立てる必要があります。開発環境でElastiCacheを使用したい場合はAmazon WorkspacesなどでVPC内に仮想マシン環境を用意する方法が簡易です。今回はVPC内に開発環境があることを想定して、開発環境用のElastiCacheをCloudFormationテンプレートで構築してみます。</p>
-</div>
-<p><br/></p>
-<div class="admonition warning">
-<p class="first admonition-title">警告</p>
-<p class="last">ElastiCacheには <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-cache-cluster.html">AWS::ElastiCache::CacheCluster</a> リソースタイプもありますが、Redisを使用する場合はノード数を2つ以上にするとエラーとなります。エンジンがRedisの場合は、AWS::ElastiCache::ReplicationGroupを使用しましょう。</p>
-</div>
-<p><br/></p>
-<p>テンプレートのサンプルは以下の通りです。</p>
+<p><a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4725">第21回</a> で、CloudFormationがサポートする機能として、複数のテンプレートでネスト(親子)を構成するNestedStackがあることを紹介しました。
+NestedStackはテンプレートを分割したり、複数のテンプレートをまとめて実行したいとき、共通のパラメータや定義を複数のテンプレートで共有したいときに利用します。
+ただし、制約として参照するテンプレートをS3へアップロードしておく必要があります。</p>
+<p>NestedStackを使用する場合、リソースタイプが、 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html">AWS::CloudFormation::Stack</a>
+であるリソース定義を使用します。プロパティとして設定可能な属性は、上記リンク先の通りですが、VPCとサブネット、インターネットゲートウェイ、セキュリティグループについては既に構築済みの前提として、
+今回はこれまでの連載で実装してきたRDS、ElastiCache、S3、SQSを構築するテンプレートを子テンプレートとして、開発環境としてひとつにまとめて実行するための親テンプレートを作成してみます。テンプレートのサンプルは以下の通りです。</p>
 <p><br/></p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>AWSTemplateFormatVersion: &#39;2010-09-09&#39;
 
-// omit
+Description: Sample CloudFormation template with YAML - parent stack for dev environment.
 
 Parameters:
-  // omit
-  EnvType:                                                                                                #(A)
+  VPCName:
+    Description: Target VPC Stack Name
+    Type: String
+    MinLength: 1
+    MaxLength: 255
+    AllowedPattern: ^[a-zA-Z][-a-zA-Z0-9]*$
+    Default: mynavi-sample-cloudformation-vpc
+  EnvType:                                                               #(A)
     Description: Which environments to deploy your service.
     Type: String
-    AllowedValues: [&quot;Dev&quot;, &quot;Staging&quot;, &quot;Production&quot;]
+    AllowedValues: [&quot;Dev&quot;]
     Default: Dev
-  SecurityGroupDev:                                                                                       #(B)
-    Description: The local machine permitted SecurityGroup is needed as paramater for Dev.
+  LocalhostIpAddress:                                                    #(B)
+    Description: CiderBlock paramater for VPC
     Type: String
-    Default: &quot;&quot;
-Conditions:                                                                                               #(C)
-  DevResources: {&quot;Fn::Equals&quot; : [{&quot;Ref&quot;:&quot;EnvType&quot;}, &quot;Dev&quot;]}
-
-Mappings:
-  CacheDefinitionMap:                                                                                     #(D)
-    Production:
-      &quot;CacheInstanceType&quot;: &quot;cache.t2.micro&quot;
-      &quot;CacheParameterGroupFamily&quot;: &quot;redis5.0&quot;
-      &quot;EngineVersion&quot;: &quot;5.0.3&quot;
-      &quot;Port&quot;: 6379
-      &quot;ClusterEnabled&quot; : &quot;yes&quot;
-      &quot;AutomaticFailoverEnabled&quot;: true
-      &quot;ReplicasPerNodeGroup&quot;: 2
-    Staging:
-      &quot;CacheInstanceType&quot;: &quot;cache.t2.micro&quot;
-      &quot;CacheParameterGroupFamily&quot;: &quot;redis5.0&quot;
-      &quot;EngineVersion&quot;: &quot;5.0.3&quot;
-      &quot;Port&quot;: 6379
-      &quot;ClusterEnabled&quot; : &quot;no&quot;
-      &quot;AutomaticFailoverEnabled&quot;: false
-      &quot;ReplicasPerNodeGroup&quot;: 1
-    Dev:
-      &quot;CacheInstanceType&quot;: &quot;cache.t2.micro&quot;
-      &quot;CacheParameterGroupFamily&quot;: &quot;redis5.0&quot;
-      &quot;EngineVersion&quot;: &quot;5.0.3&quot;
-      &quot;Port&quot;: 6379
-      &quot;ClusterEnabled&quot; : &quot;no&quot;
-      &quot;AutomaticFailoverEnabled&quot;: false
-      &quot;ReplicasPerNodeGroup&quot;: 1
+    MinLength: 9
+    MaxLength: 18
+    AllowedPattern: (\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/(\d{1,2})
+    Default: 172.200.2.58/32
 
 Resources:
-  ElastiCacheSubnetGroup:                                                                                 #(E)
-    Type: AWS::ElastiCache::SubnetGroup
+  RDSDevStack:                                                           #(C)
+    Type: AWS::CloudFormation::Stack
     Properties:
-      CacheSubnetGroupName: ElastiCacheSubnetGroup
-      Description: SampleCloudFormation ElastiCacheSubnetGroup
-      SubnetIds:
-        - Fn::ImportValue: !Sub ${VPCName}-PublicSubnet1
-        - Fn::ImportValue: !Sub ${VPCName}-PublicSubnet2
+      TemplateURL: ./sample-rds-cfn.yml                                  #(D)
+      Parameters:                                                        #(E)
+        VPCName: !Sub ${VPCName}
+        EnvType: !Sub ${EnvType}
+        SecurityGroupDev: !Ref SecurityGroupRdsPostgresForDev
 
-  ElastiCacheParameterGroup:                                                                              #(F)
-    Type: AWS::ElastiCache::ParameterGroup
+  DynamoDBDevStack:                                                      #(F)
+    Type: AWS::CloudFormation::Stack
     Properties:
-      CacheParameterGroupFamily: !FindInMap [CacheDefinitionMap, !Ref EnvType, CacheParameterGroupFamily] #(G)
-      Description: SampleCloudFormation ElastiCacheParameterGroup
-      Properties:
-        cluster-enabled: !FindInMap [CacheDefinitionMap, !Ref EnvType, ClusterEnabled]
+      TemplateURL: ./sample-dynamodb-cfn.yml
+      Parameters:
+        VPCName: !Sub ${VPCName}
+        EnvType: !Sub ${EnvType}
 
-  ElastiCacheRedis:                                                                                       #(H)
-    Type: AWS::ElastiCache::ReplicationGroup
+# ElastiCache is not permitted public access, use local redis except dev environmant in vpc.
+  ElastiCacheDevStack:                                                   #(G)
+    Type: AWS::CloudFormation::Stack
     Properties:
-      ReplicationGroupId: !Sub elasticache-${EnvType}
-      Engine: redis
-      ReplicationGroupDescription: SampleCloudFormation RedisCluster
-      EngineVersion: !FindInMap [CacheDefinitionMap, !Ref EnvType, EngineVersion]
-      Port: !FindInMap [CacheDefinitionMap, !Ref EnvType, Port]
-      CacheParameterGroupName: !Ref ElastiCacheParameterGroup
-      CacheNodeType: !FindInMap [CacheDefinitionMap, !Ref EnvType, CacheInstanceType]
-      ReplicasPerNodeGroup: !FindInMap [CacheDefinitionMap, !Ref EnvType, ReplicasPerNodeGroup]
-      AutomaticFailoverEnabled: !FindInMap [CacheDefinitionMap, !Ref EnvType, AutomaticFailoverEnabled]
-      CacheSubnetGroupName: !Ref ElastiCacheSubnetGroup
-      SecurityGroupIds:
-        - Fn::ImportValue: !Sub ${VPCName}-SecurityGroupElastiCacheRedis
-        - !If [&quot;DevResources&quot;, !Ref SecurityGroupDev, !Ref &quot;AWS::NoValue&quot;]                                 #(I)
+      TemplateURL: ./sample-elasticache-cfn.yml
+      Parameters:
+        VPCName: !Sub ${VPCName}
+        EnvType: !Sub ${EnvType}
+        SecurityGroupDev: !Ref SecurityGroupElastiCacheRedisForDev
 
-Outputs:
- // omit
-  ElastiCacheRedisEndPoint:                                                                                #(J)
-    Description: ElastiCache Redis EndPoint
-    Value: !GetAtt ElastiCacheRedis.PrimaryEndPoint.Address
-    Export:
-      Name: !Sub ${VPCName}-ElastiCacheRedisEndPoint
+  S3DevStack:                                                            #(H)
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: ./sample-s3-cfn.yml
+      Parameters:
+        EnvType: !Sub ${EnvType}
 
-  ElastiCacheRedisPort:                                                                                    #(K)
-    Description: ElastiCache Redis Port
-    Value:  !FindInMap [CacheDefinitionMap, !Ref EnvType, Port]
-    Export:
-      Name: !Sub ${VPCName}-ElastiCacheRedisPort-${EnvType}
+  SQSDevStack:                                                           #(I)
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: ./sample-sqs-cfn.yml
+      Parameters:
+        EnvType: !Sub ${EnvType}
+
+  SecurityGroupRdsPostgresForDev:                                        #(J)
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: SecurityGroupRdsPostgresForDev
+      GroupDescription: db access only local machine for dev
+      VpcId:
+        Fn::ImportValue: !Sub ${VPCName}-VPCID
+      Tags:
+        - Key: Name
+          Value: !Sub ${VPCName}-SecurityGroupRdsPostgresForDev
+
+  SecurityGroupIngressRdsPostgresForDev:                                 #(K)
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !Ref SecurityGroupRdsPostgresForDev
+      IpProtocol: tcp
+      FromPort: 5432
+      ToPort: 5432
+      CidrIp: !Ref LocalhostIpAddress
+
+  SecurityGroupElastiCacheRedisForDev:                                   #(L)
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: SecurityGroupElastiCacheForDev
+      GroupDescription: elasticache access only local machine for dev
+      VpcId:
+        Fn::ImportValue: !Sub ${VPCName}-VPCID
+      Tags:
+        - Key: Name
+          Value: !Sub ${VPCName}-SecurityGroupElastiCacheRedisForDev
+
+  SecurityGroupIngressElastiCacheRedisForDev:                            #(M)
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !Ref SecurityGroupElastiCacheRedisForDev
+      IpProtocol: tcp
+      FromPort: 6379
+      ToPort: 6379
+      CidrIp: !Ref LocalhostIpAddress
 </pre></div>
 </div>
 <p><br/></p>
-<p>ElastiCacheのテンプレートの記述の基本となるポイントは(A)〜(K)の通りです。</p>
+<p>NestedStackとして作成した親テンプレートの記述の基本となるポイントは(A)〜(M)の通りです。</p>
 <p><br/></p>
-<table border="1" class="colwidths-given docutils" id="id10">
-<caption><span class="caption-text">ElastiCacheのCloudFormationテンプレート記述のポイント</span><a class="headerlink" href="#id10" title="このテーブルへのパーマリンク">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id6">
+<caption><span class="caption-text">NestedStackとして作成した親テンプレート記述のポイント</span><a class="headerlink" href="#id6" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col width="10%" />
 <col width="90%" />
@@ -340,96 +343,151 @@ Outputs:
 <li></li>
 </ol>
 </td>
-<td>ElastiCacheを商用環境、ステージング環境、開発環境用に分けるよう、EnvTypeパラメータとして指定可能にします。このパラメータに応じて、Mappingsに定義したパラメータを切り替え、リソース定義を分けて作成できるようにします。</td>
+<td>パラメータとして、EnvTypeを指定します。今回は開発環境向けのテンプレートとするため、デフォルト値&quot;Dev&quot;のみを許容する設定としておきます。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="2">
 <li></li>
 </ol>
 </td>
-<td>開発環境としてのElastiCacheにアクセス可能な端末をターゲットとしたセキュリティグループをパラメータとして受け取ります。 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4829">第27回</a> と同様、事前にセキュリティグループを定義し、IDをパラメータとして渡す前提で実装しておきます。</td>
+<td>パラメータとして、LocalhostIpAddressを指定します。開発環境の端末のIPアドレスを指定して、RDSおよびElastiCacheへのアクセスを許可するセキュリティグループへ渡す用途で使用します。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="3">
 <li></li>
 </ol>
 </td>
-<td>Conditionsとして、EnvTypeがDevだった場合に、有効になる論理名を定義します。定義方法の詳細は <a class="reference internal" href="automation_infra_devops_cloudformation_rds.html#section-cloudformation-rds-sample-label"><span class="std std-ref">RDSスタック構築テンプレート</span></a> と同様なので適宜参照してください。</td>
+<td>RDSを構築するテンプレートを開発環境用スタックとしてリソース定義します。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="4">
 <li></li>
 </ol>
 </td>
-<td>Mappingsとして、EnvTypeパラメータの値に応じて、2つの論理名を定義します。Mappings定義方法の詳細は <a class="reference internal" href="automation_infra_devops_cloudformation_alb.html#section-cloudformation-alb-sample-label"><span class="std std-ref">アプリケーションロードバランサー(ALB)スタック構築テンプレート</span></a> と同様なので適宜参照してください。</td>
+<td>以前実装したRDSテンプレートの相対パスを指定します。本来、S3にテンプレートをアップロードしてそのオブジェクトキーを指定しなければなりませんが、後述の手順でパスを置き換えるコマンドを実行します。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="5">
 <li></li>
 </ol>
 </td>
-<td>ElastiCacheを配置するサブネットグループのリソース定義を行います。定義するプロパティの詳細は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-subnetgroup.html">AWS::ElastiCache::SubnetGroup</a>  を参照してください。</td>
+<td>親テンプレートから子のテンプレートに渡すパラメータを指定します。子テンプレートに定義したParametersと同じ論理名を指定し、渡すパラメータを設定します。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="6">
 <li></li>
 </ol>
 </td>
-<td>ElastiCacheにおけるパラメータグループのリソース定義を行います。定義するプロパティの詳細は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-parameter-group.html">AWS::ElastiCache::ParameterGroup</a> を参照してください。</td>
+<td>DynamoDBを構築するテンプレートを開発環境用スタックとしてリソース定義します。子テンプレートに渡すパラメータの定義方法は(E)と同様です。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="7">
 <li></li>
 </ol>
 </td>
-<td>環境によって異なる値を定義したい箇所は、EnvTypeパラメータを引数としたFindInMap関数でデータ取得します。</td>
+<td>ElastiCacheを構築するテンプレートを開発環境用スタックとしてリソース定義します。子テンプレートに渡すパラメータの定義方法は(E)と同様です。なお、 <a class="reference internal" href="automation_infra_devops_cloudformation_elasticache.html#section-cloudformation-elasticache-sample-label"><span class="std std-ref">ElastiCacheスタック構築テンプレート</span></a> でも記載しましたが、ElastiCacheのアクセスはVPC内にある開発端末にかぎりアクセスが許可されます。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="8">
 <li></li>
 </ol>
 </td>
-<td>ElastiCacheのリソース定義を行います。定義するプロパティの詳細は  <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html">AWS::ElastiCache::ReplicationGroup</a> を参照してください。</td>
+<td>S3を構築するテンプレートを開発環境用スタックとしてリソース定義します。子テンプレートに渡すパラメータの定義方法は(E)と同様です。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperroman simple">
 <li></li>
 </ol>
 </td>
-<td>開発環境の場合のみ、パラメータとして指定したセキュリティグループが追加されるように定義します。</td>
+<td>SQSを構築するテンプレートを開発環境用スタックとしてリソース定義します。子テンプレートに渡すパラメータの定義方法は(E)と同様です。</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last upperalpha simple" start="10">
 <li></li>
 </ol>
 </td>
-<td>ElastiCacheのプライマリエンドポイントをOutputs出力します。</td>
+<td>(E)で定義したパラメータとして渡すセキュリティグループを定義します。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="11">
 <li></li>
 </ol>
 </td>
-<td>ElastiCacheのポートをOutputs出力します。</td>
+<td>(J)で定義した(RDSへのアクセスを許可する)セキュリティグループのインバウンド接続ルールを定義します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="12">
+<li></li>
+</ol>
+</td>
+<td>(G)で定義したパラメータとして渡すセキュリティグループを定義します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="13">
+<li></li>
+</ol>
+</td>
+<td>(L)で定義した(ElastiCacheへのアクセスを許可する)セキュリティグループのインバウンド接続ルールを定義します。</td>
 </tr>
 </tbody>
 </table>
 <p><br/></p>
-<p>作成したテンプレートに対して、ヘルパースクリプトを以下のように、スタック名とテンプレートパスを変更して実行します。</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">生成するリソースの実行順序を制御するにはDependsOnプロパティを使用します。上記では、RDSやElastiCacheで使用するセキュリティグループを前もって作成する必要がありますが、リソース定義自体にセキュリティグループが参照されているので、自動でCloudFormationが実行順序を判断してくれるので明示的に定義する必要はありません。</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">子テンプレートのパラメータを親テンプレートで参照したい場合は、子テンプレートでOutputs要素にパラメータを定義したのち、GetAtt関数で参照します。例えば、子テンプレートに定義したRDSの開発環境のエンドポイントを参照したい場合、&quot; !GetAtt RDSDevStack.Outputs.RDSDevInstanceEndPoint ” となります。</p>
+</div>
+<p><br/></p>
+<p>作成したテンプレートで指定した子のテンプレートのURLは本来S3にアップロードしてそのオブジェクトキーを指定しなければなりません。AWS CLIの&quot;aws cloudformation package&quot;コマンドで、特定のS3バケットを指定し実行することで、バケットへのアップロードおよびURLをオブジェクトキーに置き換えたテンプレートを生成できます。</p>
+<p>事前にアップロード先のバケットを作成した上で(ここでは <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4597">クラウドネイティブ第25回</a> と同様の手順で、debugroom-mynavi-sample-cloudformation-packageというバケットを事前に作成しておきます)、パッケージを実行するヘルパースクリプトを以下のように作成して実行します。</p>
 <p><br/></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
 
-<span class="nv">stack_name</span><span class="o">=</span><span class="s2">&quot;mynavi-sample-elasticache&quot;</span>
-<span class="nv">template_path</span><span class="o">=</span><span class="s2">&quot;sample-elasticache-cfn.yml&quot;</span>
+<span class="nv">template_path</span><span class="o">=</span><span class="s2">&quot;sample-infra-dev-cfn.yml&quot;</span>
+<span class="nv">output_template</span><span class="o">=</span><span class="s2">&quot;sample-infra-dev-package-cfn.yml&quot;</span>
+<span class="nv">s3_bucket</span><span class="o">=</span><span class="s2">&quot;debugroom-mynavi-sample-cloudformation-package&quot;</span>
 
-<span class="nv">parameters</span><span class="o">=</span><span class="s2">&quot;EnvType=Staging&quot;</span>
+aws cloudformation package --template-file <span class="si">${</span><span class="nv">template_path</span><span class="si">}</span> --s3-bucket <span class="si">${</span><span class="nv">s3_bucket</span><span class="si">}</span> --output-template-file <span class="si">${</span><span class="nv">output_template</span><span class="si">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>実行が正常に終了すると、URLのパスが置き換わったテンプレートが作成されます。</p>
+<p><br/></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>AWSTemplateFormatVersion: &#39;2010-09-09&#39;
+
+#omit
+
+Resources:
+  RDSDevStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://s3.ap-northeast-1.amazonaws.com/debugroom-mynavi-sample-cloudformation-package/85f621985a23d88cd5c0be512e717b3f.template
+      Parameters:
+        VPCName:
+          Fn::Sub: ${VPCName}
+        EnvType:
+          Fn::Sub: ${EnvType}
+        SecurityGroupDev:
+          Ref: SecurityGroupRdsPostgresForDev
+
+#omit
+</pre></div>
+</div>
+<p><br/></p>
+<p>生成されたテンプレートを以下のようにヘルパースクリプトを用いて実行すると、定義したリソースがまとめて実行されます。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+
+<span class="nv">stack_name</span><span class="o">=</span><span class="s2">&quot;mynavi-sample-infra-dev&quot;</span>
+<span class="nv">template_path</span><span class="o">=</span><span class="s2">&quot;sample-infra-dev-package-cfn.yml&quot;</span>
+
+<span class="nv">parameters</span><span class="o">=</span><span class="s2">&quot;EnvType=Dev&quot;</span>
 
 aws cloudformation deploy --stack-name <span class="si">${</span><span class="nv">stack_name</span><span class="si">}</span> --template-file <span class="si">${</span><span class="nv">template_path</span><span class="si">}</span> --parameter-overrides <span class="si">${</span><span class="nv">parameters</span><span class="si">}</span> --capabilities CAPABILITY_IAM
 </pre></div>
 </div>
 <p><br/></p>
-<p>実行が正常に終了すると、ElastiCacheが作成されます。</p>
-<p><br/></p>
 <div class="figure">
-<img alt="../_images/management_console_cloudformation_stack_elasticache.png" src="../_images/management_console_cloudformation_stack_elasticache.png" />
+<img alt="../_images/management_console_cloudformation_stack_nest.png" src="../_images/management_console_cloudformation_stack_nest.png" />
 </div>
 <p><br/></p>
-<p>今回はElastiCacheを構築するCloudFormationテンプレートを実装しました。次回は、AmazonS3やAmazonSQSを構築するテンプレートを作成します。</p>
+<p>今回は複数のリソースをNestedStackを使ってまとめて一括構築するCloudFormationテンプレートを実装しました。次回は、CloudFormationを使って作成したリソースの情報にアクセスするSpringCloudAWSアプリケーションの実装方法の解決を進めていきます。</p>
 <p><br/></p>
 </div>
 </div>
-<div class="section" id="id9">
-<h2>著者紹介<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id5">
+<h2>著者紹介<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
 <div class="figure">
 <img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" />
