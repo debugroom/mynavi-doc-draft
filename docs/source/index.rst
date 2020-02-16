@@ -45,6 +45,7 @@
    automation_infra_devops/automation_infra_devops_cloudformation_elasticache.rst
    automation_infra_devops/automation_infra_devops_cloudformation_s3_sqs.rst
    automation_infra_devops/automation_infra_devops_cloudformation_nest.rst
+   automation_infra_devops/automation_infra_devops_cloudformation_app_backend.rst
    cloud_native/aws-lambda-and-api-gateway-1.rst
    cloud_native/aws-lambda-and-api-gateway-2.rst
    cloud_native/aws-lambda-and-api-gateway-3.rst

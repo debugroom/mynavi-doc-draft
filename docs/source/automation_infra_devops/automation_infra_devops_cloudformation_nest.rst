@@ -275,7 +275,7 @@ NestedStackとして作成した親テンプレートの記述の基本となる
 
 |br|
 
-今回は複数のリソースをNestedStackを使ってまとめて一括構築するCloudFormationテンプレートを実装しました。次回は、CloudFormationを使って作成したリソースの情報にアクセスするSpringCloudAWSアプリケーションの実装方法の解決を進めていきます。
+今回は複数のリソースをNestedStackを使ってまとめて一括構築するCloudFormationテンプレートを実装しました。次回は、CloudFormationを使って作成したリソースの情報にアクセスするSpringCloudAWSアプリケーションの実装方法の解説を進めていきます。
 
 |br|
 

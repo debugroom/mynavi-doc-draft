@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>基盤・デプロイ自動化実践 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AWSで作るクラウドネイティブアプリケーションの基本" href="../cloud_native/aws-lambda-and-api-gateway-1.html" />
+    <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_cloudformation_nest.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarqube.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarlint.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_architecture.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_integrationtest.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unittest.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unit_e2e_test.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codebuild.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_1.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_2.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_3.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_4.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_5.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_6.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_7.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_8.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_9.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_overview.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_cli.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_lint.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_script.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_taskcat.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_vpc.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_sg_nat.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_alb.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_rds.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_dynamodb.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_elasticache.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_s3_sqs.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_nest.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
+<li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li><a class="reference internal" href="#spring-cloud-awscloudformation">Spring Cloud AWSのCloudFormationサポート</a></li>
+<li><a class="reference internal" href="#backend-servicecloudformation">Backend ServiceにおけるCloudFormationスタック情報を利用した設定</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id9">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="automation_infra_devops_cloudformation_nest.html" title="Previous Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 基盤・デプロイ自動化実践</span>
+    </a>
+  </li>
+  <li>
+    <a href="../cloud_native/aws-lambda-and-api-gateway-1.html" title="Next Chapter: AWSで作るクラウドネイティブアプリケーションの基本"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">AWSで作るクラウドネイテ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/automation_infra_devops/automation_infra_devops_cloudformation_app_backend.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="section-automation-infra-devops-cloudformation-14-label">
+<span id="id1"></span><h1>基盤・デプロイ自動化実践<a class="headerlink" href="#section-automation-infra-devops-cloudformation-14-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id2">
+<h2>マイクロサービスアーキテクチャの基盤・デプロイ自動化<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>本連載では、以下のイメージの構成にあるAWSリソース基盤自動化環境の構築を実践しています。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/cloudformation-scope.png" src="../_images/cloudformation-scope.png" />
+</div>
+<p><br/></p>
+<p>前回は、テンプレートの親となるネストテンプレートを作成し、複数のテンプレートに定義したリソースを一括構築しました。続く今回は、作成したスタックの情報をSpring Cloud AWSを用いてアプリケーションから参照する実装を紹介します。
+実際のソースコードは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-cloudformation">GitHub</a> 上にコミットしています。
+ソースコード中で本質的でない記述を一部省略しているので、実行コードを作成する場合は、必要に応じて適宜GitHub上のソースコードも参照してください。</p>
+<p><br/></p>
+<div class="section" id="spring-cloud-awscloudformation">
+<span id="section-cloudformation-spring-cloud-aws-support-label"></span><h3>Spring Cloud AWSのCloudFormationサポート<a class="headerlink" href="#spring-cloud-awscloudformation" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p><a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4426">クラウドネイティブ第12回</a> で、Spring Cloud AWSがCloudFormationで定義した論理名を元にリソース情報へアクセスする機能をサポートしていることを紹介しました。
+これまでの連載の中で、実装してきたアプリケーションでは以下のようにAWSリソースを利用しています。</p>
+<ul class="simple">
+<li>ALBを経由したバックエンドサービスの呼び出し(ALBのDNSをRestTemplateに指定)</li>
+<li>エンドポイントを指定したRDSアクセス</li>
+<li>サービスエンドポイントを指定したDynamoDBアクセス</li>
+<li>エンドポイントを指定したElastiCacheアクセス</li>
+<li>S3バケットへのアクセス</li>
+<li>サービスエンドポイントを指定したSQSへのキュー送信、ポーリングによる取得</li>
+</ul>
+<p>アプリケーションではこれまで設定ファイルもしくは環境変数への指定でリソースアクセスに必要な設定を行ってきましたが、今回はSpring Cloud AWSのCloudFormationサポート機能を使って、必要な設定を行ってみましょう。
+必要に応じて、<a class="reference external" href="https://cloud.spring.io/spring-cloud-aws/reference/html/">Spring Cloud AWSの公式リファレンス</a> も参照してください。</p>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p>これまでの連載ではSpring Cloud AWSを使用する場合、以下の通り、スタックの自動検出を全てOFFにした状態で解説を進めてきました(application.ymlでstack.aws.stack.autoをfalseに設定)。</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cloud:
+  aws:
+    stack:
+      auto: false
+</pre></div>
+</div>
+<p class="last">今回からの解説ではこちらの設定を有効化した状態での設定方法の解説を進めていきます。</p>
+</div>
+<p><br/></p>
+<p>Spring Cloud AWSからアクセスするCloudFormationスタックおよびリソースは前回複数のリソースを一括定義した親テンプレートのNestedStackを指定して取得します。なお、各ライブラリの動作環境は以下のバージョンで実施しています。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>動作対象</td>
+<td>バージョン</td>
+</tr>
+<tr class="row-even"><td>Java</td>
+<td>1.8</td>
+</tr>
+<tr class="row-odd"><td>Spring Boot</td>
+<td>2.2.4.RELEASE</td>
+</tr>
+<tr class="row-even"><td>Spring Cloud AWS</td>
+<td>2.2.1.RELEASE</td>
+</tr>
+<tr class="row-odd"><td>Spring Data JPA</td>
+<td>2.2.4.RELEASE</td>
+</tr>
+<tr class="row-even"><td>Spring Data DynamoDB</td>
+<td>5.2.1</td>
+</tr>
+<tr class="row-odd"><td>Spring Session Data Redis</td>
+<td>2.2.0.RELEASE</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>アプリケーションはFrontendサブネットに配置するECSコンテナ上のWebアプリケーションと、Backendサブネットに配置するECSコンテナ上のサービスアプリケーションの２種類あります。それぞれアプリケーションから参照するAWSリソースは以下の通りです。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>AWSリソース</td>
+<td>Frontend WebApp</td>
+<td>Backend Service</td>
+</tr>
+<tr class="row-even"><td>ALB</td>
+<td>○</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>RDS</td>
+<td>&#160;</td>
+<td>○</td>
+</tr>
+<tr class="row-even"><td>DynamoDB</td>
+<td>&#160;</td>
+<td>○</td>
+</tr>
+<tr class="row-odd"><td>ElastiCache</td>
+<td>○</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>S3</td>
+<td>○</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>SQS</td>
+<td>○</td>
+<td>○</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>ただし、開発環境ではローカル端末内に2つのアプリケーションを起動するため、ALBの参照は行わないものとします。それでは、まず最初にBackend Serviceから、Spring Cloud AWSを使って CloudFormationのスタックから情報を取得する設定を実装してみましょう。</p>
+<p><br/></p>
+</div>
+<div class="section" id="backend-servicecloudformation">
+<span id="section-cloudformation-backend-service-sample-label"></span><h3>Backend ServiceにおけるCloudFormationスタック情報を利用した設定<a class="headerlink" href="#backend-servicecloudformation" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>まず、Mavenプロジェクトのpom.xmlで、spring-boot-starter-web、spring-boot-starter-data-jpa、spring-cloud-starter-awsのライブラリを定義します。
+また、RDSへアクセスするためにはspring-cloud-starter-aws-jdbcを、DynamoDBへのアクセスにはspring-data-dynamodb、SQSのアクセスにはspring-cloud-starter-aws-messagingを合わせて追加する必要があります。
+なお、PostgreSQLのドライバや、エンティティクラスの実装を簡易化するためにLombokライブラリを追加しておきましょう。</p>
+<p><br/></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependencies&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-data-jpa<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-aws<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-aws-jdbc<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-aws-messaging<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>io.github.boostchicken<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-data-dynamodb<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>5.2.1<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.postgresql<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>postgresql<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;scope&gt;</span>runtime<span class="nt">&lt;/scope&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.projectlombok<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>lombok<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;optional&gt;</span>true<span class="nt">&lt;/optional&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+
+<span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>Backend Serviceアプリケーションでは以下のような設定クラスの構成で実装します。以前の連載で実装した内容から差分があるものを中心に解説します。</p>
+<table border="1" class="colwidths-given docutils" id="id10">
+<caption><span class="caption-text">アプリケーション</span><a class="headerlink" href="#id10" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="20%" />
+<col width="70%" />
+<col width="10%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>コンポーネント</td>
+<td>説明</td>
+<td>必須</td>
+</tr>
+<tr class="row-even"><td>App</td>
+<td>SpringBootアプリケーションを実行する起動クラス。以前の連載と設定は変わらないため説明は省略。</td>
+<td>◯</td>
+</tr>
+<tr class="row-odd"><td>DomainConfig</td>
+<td>サービスレイヤの設定を行うクラス。以前の連載と設定は変わらないため説明は省略。</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>DynamoDBConfig</td>
+<td>DynamoDBに関する設定クラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-odd"><td>JpaConfig</td>
+<td>JPAに関する設定クラス。以前の連載と設定は変わらないため説明は省略。</td>
+<td>◯</td>
+</tr>
+<tr class="row-even"><td>MvcConfig</td>
+<td>Webサービスに関する設定クラス。以前の連載と設定は変わらないため説明は省略。</td>
+<td>◯</td>
+</tr>
+<tr class="row-odd"><td>SQSConfig</td>
+<td>SQSに関する設定クラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-even"><td>DevConfig</td>
+<td>開発環境に依存する内容の設定クラス。RDS、DynamoDBで定義が必要なもので開発環境に依存する部分を切り出して設定する。</td>
+<td>◯</td>
+</tr>
+<tr class="row-odd"><td>StagingConfig</td>
+<td>開発環境に依存する内容の設定クラス。RDS、DynamoDBで定義が必要なものでステージング環境に依存する部分を切り出して設定する。</td>
+<td>◯</td>
+</tr>
+<tr class="row-even"><td>ProductionConfig</td>
+<td>開発環境に依存する内容の設定クラス。RDS、DynamoDBで定義が必要なもので商用環境に依存する部分を切り出して設定する。ステージング環境とほぼ同等となる(本来プロダクションの設定がステージングで動くようにするのがあるべき設定)のため、説明は省略する。</td>
+<td>◯</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">アプリケーションでは実際にRDSやDynamoDBへアクセスする実装、SQSへポーリングするリスナー実装クラスなどもありますが、以前の連載で踏襲した実装にしているのでここでは詳しい解説は行いません。
+詳細な説明は <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4426">クラウドネイティブ第12回</a> や <a class="reference external" href="https://news.mynavi.jp/itsearch/article/cloud/4449">第13回</a> 、
+<a class="reference external" href="https://news.mynavi.jp/itsearch/article/cloud/4506">第17回</a> 、<a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4512">第18回</a> 、
+<a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4767">第32回</a> を参照してください。</p>
+</div>
+<p><br/></p>
+<p>まず、DynamoDBの設定クラスであるDynamoDBConfigですが、以下の通り、環境に依存しない&#64;EnableDynamoDBRepositoriesアノテーションの設定のみを行います。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.cloudformation.backend.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.socialsignin.spring.data.dynamodb.repository.config.EnableDynamoDBRepositories</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="nd">@EnableDynamoDBRepositories</span><span class="o">(</span>
+   <span class="n">basePackages</span> <span class="o">=</span> <span class="s">&quot;org.debugroom.mynavi.sample.cloudformation.backend.domain.repository.dynamodb&quot;</span>
+<span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DynamoDBConfig</span> <span class="o">{</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>なお、以前の連載の実装では、クライアントとなるcom.amazonaws.services.dynamodbv2.AmazonDynamoDBのBean定義も合わせてこのクラス内で行っていました。
+必要なDynamoDBのサービスエンドポイントやリージョンを環境変数の形で取得しており、環境ごとに設定内容に違いがなかったためです。
+今回は環境変数を用いず、CloudFormationのスタック情報経由で取得するため、DevConfigクラス内に定義します。説明は後述します。</p>
+<p><br/></p>
+<p>続いて、SQSConfigですが、SQSポーリングを行う場合では、同様にリスナークラスが存在するパッケージをコンポーネントスキャンする定義を追加するかたちで実装します。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.cloudformation.backend.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.ComponentScan</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="nd">@ComponentScan</span><span class="o">(</span><span class="s">&quot;org.debugroom.mynavi.sample.cloudformation.backend.app.listener&quot;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SQSConfig</span> <span class="o">{</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>こちらも同じく、以前の連載の実装では、SQSのクライアントとなるQueueのエンドポイントとリージョンの設定をこのクラス内で行っていましたが、
+環境変数を用いず、CloudFormationのスタック情報経由で取得します。</p>
+<p><br/></p>
+<p>そして、開発環境向けのの設定を行うDevConfigクラスを実装します。ここでは、CloudFormationで構築したスタックの情報を取得し、開発環境固有となる設定を行います。今回サンプルとして実装した例は以下の通りです。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.cloudformation.backend.config</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="kn">import</span> <span class="nn">com.amazonaws.client.builder.AwsClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.cloudformation.AmazonCloudFormationClient</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.cloudformation.model.Export</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.cloudformation.model.ListExportsRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.cloudformation.model.ListExportsResult</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.dynamodbv2.AmazonDynamoDB</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.InitializingBean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.aws.context.config.annotation.EnableStackConfiguration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.aws.core.env.ResourceIdResolver</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.aws.jdbc.config.annotation.EnableRdsInstance</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Profile</span><span class="o">;</span>
+
+<span class="nd">@Profile</span><span class="o">(</span><span class="s">&quot;dev&quot;</span><span class="o">)</span>                                                                         <span class="c1">// …(A)</span>
+<span class="nd">@EnableStackConfiguration</span><span class="o">(</span><span class="n">stackName</span> <span class="o">=</span> <span class="s">&quot;mynavi-sample-infra-dev&quot;</span><span class="o">)</span>                        <span class="c1">// …(B)</span>
+<span class="nd">@EnableRdsInstance</span><span class="o">(</span>
+    <span class="n">dbInstanceIdentifier</span> <span class="o">=</span> <span class="s">&quot;mynavi-sample-cloudformation-dev-postgresql&quot;</span><span class="o">,</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="s">&quot;${rds.password}&quot;</span><span class="o">,</span>
+    <span class="n">readReplicaSupport</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>                                                         <span class="c1">// …(C)</span>
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DevConfig</span> <span class="kd">implements</span> <span class="n">InitializingBean</span> <span class="o">{</span>                                    <span class="c1">// …(D)</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">AmazonCloudFormationClient</span> <span class="n">amazonCloudFormationClient</span><span class="o">;</span>                              <span class="c1">// …(E)</span>
+
+    <span class="nd">@Autowired</span><span class="o">(</span><span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+    <span class="n">ResourceIdResolver</span> <span class="n">resourceIdResolver</span><span class="o">;</span>                                              <span class="c1">// …(F)</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">DynamoDBMapperConfig</span> <span class="nf">dynamoDBMapperConfig</span><span class="o">(){</span>                                 <span class="c1">// …(G)</span>
+       <span class="k">return</span> <span class="n">DynamoDBMapperConfig</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+          <span class="o">.</span><span class="na">withTableNameOverride</span><span class="o">(</span>
+                  <span class="n">DynamoDBMapperConfig</span><span class="o">.</span><span class="na">TableNameOverride</span>
+                          <span class="o">.</span><span class="na">withTableNamePrefix</span><span class="o">(</span><span class="s">&quot;dev_&quot;</span><span class="o">))</span>
+          <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+   <span class="o">}</span>
+
+   <span class="nd">@Bean</span>
+   <span class="kd">public</span> <span class="n">AmazonDynamoDB</span> <span class="nf">amazonDynamoDB</span><span class="o">(){</span>
+       <span class="n">ListExportsResult</span> <span class="n">listExportsResult</span> <span class="o">=</span> <span class="n">amazonCloudFormationClient</span>
+          <span class="o">.</span><span class="na">listExports</span><span class="o">(</span><span class="k">new</span> <span class="n">ListExportsRequest</span><span class="o">());</span>                                       <span class="c1">// …(H)</span>
+       <span class="n">List</span><span class="o">&lt;</span><span class="n">Export</span><span class="o">&gt;</span> <span class="n">exportList</span> <span class="o">=</span> <span class="n">listExportsResult</span><span class="o">.</span><span class="na">getExports</span><span class="o">();</span>
+       <span class="n">List</span><span class="o">&lt;</span><span class="n">Export</span><span class="o">&gt;</span> <span class="n">dynamoDBStackExportList</span> <span class="o">=</span> <span class="n">exportList</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+          <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">export</span> <span class="o">-&gt;</span> <span class="n">export</span><span class="o">.</span><span class="na">getExportingStackId</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span>
+                  <span class="n">resourceIdResolver</span><span class="o">.</span><span class="na">resolveToPhysicalResourceId</span><span class="o">(</span><span class="s">&quot;DynamoDBDevStack&quot;</span><span class="o">)))</span>  <span class="c1">// …(I)</span>
+          <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
+       <span class="n">Export</span> <span class="n">dynamoDBServiceEndpointExport</span> <span class="o">=</span> <span class="n">dynamoDBStackExportList</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+          <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">export</span> <span class="o">-&gt;</span> <span class="n">export</span><span class="o">.</span><span class="na">getName</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="s">&quot;MynaviSampleDynamoDB-Dev-ServiceEndpoint&quot;</span><span class="o">))</span>
+          <span class="o">.</span><span class="na">findFirst</span><span class="o">().</span><span class="na">get</span><span class="o">();</span>                                                           <span class="c1">// …(J)</span>
+       <span class="n">Export</span> <span class="n">environmentRegionExport</span> <span class="o">=</span> <span class="n">dynamoDBStackExportList</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+          <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">export</span> <span class="o">-&gt;</span> <span class="n">export</span><span class="o">.</span><span class="na">getName</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="s">&quot;MynaviSampleDynamoDB-Dev-Region&quot;</span><span class="o">))</span>
+          <span class="o">.</span><span class="na">findFirst</span><span class="o">().</span><span class="na">get</span><span class="o">();</span>                                                           <span class="c1">// …(K)</span>
+       <span class="k">return</span> <span class="n">AmazonDynamoDBClientBuilder</span><span class="o">.</span><span class="na">standard</span><span class="o">()</span>
+          <span class="o">.</span><span class="na">withEndpointConfiguration</span><span class="o">(</span>
+              <span class="k">new</span> <span class="n">AwsClientBuilder</span><span class="o">.</span><span class="na">EndpointConfiguration</span><span class="o">(</span>
+                  <span class="n">dynamoDBServiceEndpointExport</span><span class="o">.</span><span class="na">getValue</span><span class="o">(),</span> <span class="n">environmentRegionExport</span><span class="o">.</span><span class="na">getValue</span><span class="o">()))</span>
+          <span class="o">.</span><span class="na">build</span><span class="o">();</span>                                                                     <span class="c1">// …(L)</span>
+    <span class="o">}</span>
+    <span class="c1">// omit</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>DevConfig設定クラスの実装のポイントは(A)〜(L)の通りです。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id11">
+<caption><span class="caption-text">DevConfigクラス実装のポイント</span><a class="headerlink" href="#id11" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>記述</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple">
+<li></li>
+</ol>
+</td>
+<td>Springの起動時にプロファイル&quot;dev&quot;が指定されたときに有効化されるよう&#64;Profileアノテーションを設定します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="2">
+<li></li>
+</ol>
+</td>
+<td>&#64;EnableStackConfigurationでstackNameに前回NestedStackとして作成したスタック名を指定します。この設定により指定したスタックに定義されたリソースにおける、SpringCloudAWSがサポートする自動設定が可能になります。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="3">
+<li></li>
+</ol>
+</td>
+<td>RDS構築のCloudFormationテンプレートで指定した開発環境用の設定値&quot;dbInstanceIdentifier&quot;の値を&#64;EnableRdsInstanceに指定します。また、RDSのパスワードは秘匿性が高い情報のため、
+ステージング環境やプロダクション環境でアプリケーションが実行されるECSコンテナでSecretManagerやSystemsManager ParameterStoreから取得する想定とし、コンテナの環境変数として設定します。
+この設定方法は次回以降のECSコンテナのタスク定義を作成するCloudFormationテンプレートの解説で詳述しますが、開発環境でも同様に環境変数(application.ymlに記載したプロパティ)から取得する実装とします。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="4">
+<li></li>
+</ol>
+</td>
+<td>本来必要ではありませんが、このクラスではafterPropertiesSet()メソッドでスタック情報の取得方法をサンプル実装しているので、InitializingBeanインターフェースを継承しておきます。
+afterPropertiesSet()メソッドで実装する理由は、SpringによるResourceIdResolverのBean生成が完了してから情報を取得する必要があるためです。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="5">
+<li></li>
+</ol>
+</td>
+<td>スタックの論理名やエクスポート名からリソース情報を取得するためにAmazonCloudFormationClientをインジェクションします。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="6">
+<li></li>
+</ol>
+</td>
+<td>スタックの論理名から物理的にリソースのARNを取得するため、Spring Cloud AWSにより提供されているResourceIdResolverをインジェクションします。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="7">
+<li></li>
+</ol>
+</td>
+<td>開発環境用のDynamoDBにアクセスするためにテーブル名に「dev」というプリフィックスを使って読み込む設定を加えておきます。<a class="reference internal" href="automation_infra_devops_cloudformation_dynamodb.html#section-cloudformation-dynamodb-sample-label"><span class="std std-ref">DynamoDBスタック構築テンプレート</span></a> で実装したDynamoDBのCloudFormationテンプレートではこのプリフィックスの設定を見越した形でテーブル名を設定しています。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="8">
+<li></li>
+</ol>
+</td>
+<td>(E)でインジェクションしたAmazonCloudFormationClientを使用して、スタックで定義されているOutputs要素のExport一覧を指定します。
+注意点として、AmazonCloudFomationClientで取得したスタック情報は、(B)で指定したスタック以外の、全てのCloudFomationスタック情報を取得します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperroman simple">
+<li></li>
+</ol>
+</td>
+<td>全てのエクスポートリストの中から、(B)で指定したスタックで定義されている開発環境DynamoDBの論理名を元に、子のDynamoDBテンプレートで定義されているスタック情報の一覧を取得します。
+論理名からリソースの物理ID(ARN)を取得し、エクスポートしているスタックのIDと一致しているものをピックアップして抽出しています。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="10">
+<li></li>
+</ol>
+</td>
+<td>抽出したDynamoDBスタックのエクスポートリストのうち、開発環境のDynamoDBサービスエンドポイントに関するエクスポートを取得します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="11">
+<li></li>
+</ol>
+</td>
+<td>抽出したDynamoDBのエクスポートリストのうち、開発環境のDynamoDBサービスリージョンに関するエクスポートを取得します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="12">
+<li></li>
+</ol>
+</td>
+<td>エクスポートから出力した値を取得し、DynamoDBClientのエンドポイント情報を設定します。</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">スタックのエクスポートで定義する名前は、CloudFormationで定義している全てのスタックで一意になるよう設定しなければならないため、上記の(I)は必ずしも必要ではありません。
+ただし、エクスポートリストは数が多くなりがちのため、ResourceIdResolverをうまく活用し、(B)で指定したリソースの物理IDから直接サービスクライアントで情報を取得する方法が検索効率が高い場合もあります。</p>
+</div>
+<p><br/></p>
+<p>続いて、ステージング(プロダクションも同等)環境固有の設定を行うStagingConfigの実装サンプルは以下の通りです。
+可読性が向上するよう、CloudFormationから情報を取得する共通のユーティリティクラス(CloudFormationStackInfo)を実装し利用しています。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.cloudformation.backend.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.amazonaws.client.builder.AwsClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.dynamodbv2.AmazonDynamoDB</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.aws.context.config.annotation.EnableStackConfiguration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.aws.jdbc.config.annotation.EnableRdsInstance</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Profile</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.cloudformation.common.apinfra.cloud.aws.CloudFormationStackInfo</span><span class="o">;</span>
+
+<span class="nd">@Profile</span><span class="o">(</span><span class="s">&quot;staging&quot;</span><span class="o">)</span>                                                                         <span class="c1">// …(A)</span>
+<span class="nd">@EnableStackConfiguration</span><span class="o">(</span><span class="n">stackName</span> <span class="o">=</span> <span class="s">&quot;mynavi-sample-infra-staging&quot;</span><span class="o">)</span>                        <span class="c1">// …(B)</span>
+<span class="nd">@EnableRdsInstance</span><span class="o">(</span>
+     <span class="n">dbInstanceIdentifier</span> <span class="o">=</span> <span class="s">&quot;mynavi-sample-cloudformation-staging-postgresql&quot;</span><span class="o">,</span>              <span class="c1">// …(C)</span>
+     <span class="n">password</span> <span class="o">=</span> <span class="s">&quot;${rds.password}&quot;</span><span class="o">,</span>
+     <span class="n">readReplicaSupport</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">StagingConfig</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">DYNAMODB_STACK_NAME</span> <span class="o">=</span> <span class="s">&quot;DynamoDBStagingStack&quot;</span><span class="o">;</span>               <span class="c1">// …(D)</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">DYNAMODB_ENDPOINT_EXPORT</span> <span class="o">=</span> <span class="s">&quot;MynaviSampleDynamoDB-Staging-ServiceEndpoint&quot;</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">DYNAMODB_REGION_EXPORT</span> <span class="o">=</span> <span class="s">&quot;MynaviSampleDynamoDB-Staging-Region&quot;</span><span class="o">;</span>
+
+    <span class="nd">@Bean</span>
+    <span class="n">CloudFormationStackInfo</span> <span class="nf">cloudFormationStackInfo</span><span class="o">(){</span>                                      <span class="c1">// …(E)</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">CloudFormationStackInfo</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">DynamoDBMapperConfig</span> <span class="nf">dynamoDBMapperConfig</span><span class="o">()</span> <span class="o">{</span>                                    <span class="c1">// …(F)</span>
+        <span class="k">return</span> <span class="n">DynamoDBMapperConfig</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+             <span class="o">.</span><span class="na">withTableNameOverride</span><span class="o">(</span>
+                     <span class="n">DynamoDBMapperConfig</span><span class="o">.</span><span class="na">TableNameOverride</span>
+                             <span class="o">.</span><span class="na">withTableNamePrefix</span><span class="o">(</span><span class="s">&quot;staging_&quot;</span><span class="o">))</span>
+             <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">AmazonDynamoDB</span> <span class="nf">amazonDynamoDB</span><span class="o">()</span> <span class="o">{</span>                                                <span class="c1">// …(G)</span>
+        <span class="k">return</span> <span class="n">AmazonDynamoDBClientBuilder</span><span class="o">.</span><span class="na">standard</span><span class="o">()</span>
+             <span class="o">.</span><span class="na">withEndpointConfiguration</span><span class="o">(</span>
+                     <span class="k">new</span> <span class="n">AwsClientBuilder</span><span class="o">.</span><span class="na">EndpointConfiguration</span><span class="o">(</span>
+                             <span class="n">cloudFormationStackInfo</span><span class="o">().</span><span class="na">getExportValue</span><span class="o">(</span>
+                                     <span class="n">DYNAMODB_STACK_NAME</span><span class="o">,</span> <span class="n">DYNAMODB_ENDPOINT_EXPORT</span><span class="o">),</span>
+                             <span class="n">cloudFormationStackInfo</span><span class="o">().</span><span class="na">getExportValue</span><span class="o">(</span>
+                                     <span class="n">DYNAMODB_STACK_NAME</span><span class="o">,</span> <span class="n">DYNAMODB_REGION_EXPORT</span><span class="o">)))</span>
+             <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>StagingConfig設定クラスの実装のポイントは(A)〜(L)の通りです。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id12">
+<caption><span class="caption-text">StagingConfigクラス実装のポイント</span><a class="headerlink" href="#id12" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>記述</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple">
+<li></li>
+</ol>
+</td>
+<td>Springの起動時にプロファイル&quot;staging&quot;が指定されたときに有効化されるよう&#64;Profileアノテーションを設定します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="2">
+<li></li>
+</ol>
+</td>
+<td>&#64;EnableStackConfigurationでスタック名にNestedStackとして作成するスタック名を指定します。この設定により指定したスタックに定義されたリソースにおける、SpringCloudAWSがサポートする自動設定が可能になります。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="3">
+<li></li>
+</ol>
+</td>
+<td>RDS構築のCloudFormationテンプレートで指定したステージング環境用の設定値&quot;dbInstanceIdentifier&quot;の値を&#64;EnableRdsInstanceに指定します。また、RDSのパスワードは秘匿性が高い情報のため、
+ステージング環境やプロダクション環境でアプリケーションが実行されるECSコンテナでSecretManagerやSystemsManager ParameterStoreから取得する想定とし、コンテナの環境変数として設定します。
+この設定方法は次回以降のECSコンテナのタスク定義を作成するCloudFormationテンプレートの解説で詳述しますが、開発環境でも同様に環境変数(application.ymlに記載したプロパティ)から取得する実装とします。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="4">
+<li></li>
+</ol>
+</td>
+<td>CloudFomationテンプレートのOutputs要素で定義したエクスポート名を定数値として定義します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="5">
+<li></li>
+</ol>
+</td>
+<td>AmazonCloudFomationClientによるスタック情報の取得処理を共通化したユーティリティクラスをBean生成します。実装内容は後述します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="6">
+<li></li>
+</ol>
+</td>
+<td>ステージング環境用のDynamoDBにアクセスするためにテーブル名に「staging」というプリフィックスを使って読み込む設定を加えておきます。<a class="reference internal" href="automation_infra_devops_cloudformation_dynamodb.html#section-cloudformation-dynamodb-sample-label"><span class="std std-ref">DynamoDBスタック構築テンプレート</span></a> で実装したDynamoDBのCloudFormationテンプレートではこのプリフィックスの設定を見越した形でテーブル名を設定しています。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="7">
+<li></li>
+</ol>
+</td>
+<td>エクスポートから出力した値を取得し、DynamoDBClientのエンドポイント情報を設定します。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>AmazonCloudFormationClientでスタック情報を取得する処理を共通化したユーティリティクラスの実装ですが、基本的にはスタックの論理名およびエクスポート名から出力値を取得するものになります。サンプルとして作成したものは以下の通りです。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.cloudformation.common.apinfra.cloud.aws</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.cloudformation.AmazonCloudFormationClient</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.cloudformation.model.Export</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.cloudformation.model.ListExportsRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.cloudformation.model.ListExportsResult</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.InitializingBean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.aws.core.env.ResourceIdResolver</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
+
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CloudFormationStackInfo</span> <span class="kd">implements</span> <span class="n">InitializingBean</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">AmazonCloudFormationClient</span> <span class="n">amazonCloudFormationClient</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span><span class="o">(</span><span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+    <span class="n">ResourceIdResolver</span> <span class="n">resourceIdResolver</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Export</span><span class="o">&gt;</span> <span class="n">exportList</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getExportValue</span><span class="o">(</span><span class="n">String</span> <span class="n">logicalStackName</span><span class="o">,</span> <span class="n">String</span> <span class="n">exportName</span><span class="o">){</span>
+        <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Export</span><span class="o">&gt;</span> <span class="n">targetExport</span> <span class="o">=</span> <span class="n">exportList</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+          <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">export</span> <span class="o">-&gt;</span> <span class="n">export</span><span class="o">.</span><span class="na">getExportingStackId</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span>
+                  <span class="n">resourceIdResolver</span><span class="o">.</span><span class="na">resolveToPhysicalResourceId</span><span class="o">(</span><span class="n">logicalStackName</span><span class="o">)))</span>
+          <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">export</span> <span class="o">-&gt;</span> <span class="n">export</span><span class="o">.</span><span class="na">getName</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">exportName</span><span class="o">))</span>
+          <span class="o">.</span><span class="na">findFirst</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">targetExport</span><span class="o">.</span><span class="na">isPresent</span><span class="o">()</span> <span class="o">?</span> <span class="n">targetExport</span><span class="o">.</span><span class="na">get</span><span class="o">().</span><span class="na">getValue</span><span class="o">()</span> <span class="o">:</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">afterPropertiesSet</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">ListExportsResult</span> <span class="n">listExportsResult</span> <span class="o">=</span> <span class="n">amazonCloudFormationClient</span>
+          <span class="o">.</span><span class="na">listExports</span><span class="o">(</span><span class="k">new</span> <span class="n">ListExportsRequest</span><span class="o">());</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">exportList</span> <span class="o">=</span> <span class="n">listExportsResult</span><span class="o">.</span><span class="na">getExports</span><span class="o">();</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p>Backend ServiceアプリケーションではSQSキューのポーリング取得を実装していますが、SQSに関する設定は前述の通り、リスナークラスのコンポーネントスキャンしか実施していません。
+というのもSpring Cloud AWSでSQSキューを取得するための指定は以下の通り&#64;SqsListenerアノテーションで指定したValue属性を使う方法がありますが、Configクラスの&#64;EnableStackConfigurationでスタックを指定することにより、
+スタックの論理名からキューの物理ID(ARN)を取得する実装になっているためです。開発環境、ステージング環境、商用環境のスタック名を切り替えることで特に設定値を気にせず共通のアプリケーションコードでキューを取得できます。</p>
+<div class="last highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.cloudformation.backend.app.listener</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.aws.messaging.config.annotation.EnableSqs</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.aws.messaging.listener.SqsMessageDeletionPolicy</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.aws.messaging.listener.annotation.SqsListener</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
+
+<span class="nd">@Component</span>
+<span class="nd">@EnableSqs</span>
+<span class="nd">@Slf4j</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MessageListener</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">SampleService</span> <span class="n">sampleService</span><span class="o">;</span>
+
+    <span class="nd">@SqsListener</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&quot;SQSSampleQueue&quot;</span><span class="o">,</span> <span class="n">deletionPolicy</span> <span class="o">=</span> <span class="n">SqsMessageDeletionPolicy</span><span class="o">.</span><span class="na">ON_SUCCESS</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">){</span>
+        <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
+        <span class="n">sampleService</span><span class="o">.</span><span class="na">addSample</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<p><br/></p>
+<p>今回はBackend ServiceアプリケーションでCloudFormationのスタック情報を用いて、RDSやDynamoDB、SQSキュー取得の設定情報を取得する実装方法を紹介しました。
+次回はElastiCacheや、S3、SQSキュー送信の設定情報を取得するFrontendアプリケーションの解説を進めていきます。</p>
+<p><br/></p>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>著者紹介<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
+<div class="figure">
+<img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" />
+</div>
+<p>金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p><a class="reference external" href="https://aws.amazon.com/jp/blogs/psa/japan-apn-ambassador-2019/">2019 APN AWS Top Engineers &amp; Ambassadors</a> 選出。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -18,8 +18,6 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="基盤・デプロイ自動化実践" href="automation_infra_devops_cloudformation_app_backend.html" />
-    <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_cloudformation_s3_sqs.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -54,7 +52,7 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
@@ -89,8 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_dynamodb.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_elasticache.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_s3_sqs.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_app_backend.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_nest.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -141,10 +138,11 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
 <li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li><a class="reference internal" href="#nestedstack">NestedStackの作成</a></li>
+<li><a class="reference internal" href="#spring-cloud-awscloudformation">Spring Cloud AWSのCloudFormationサポート</a></li>
+<li><a class="reference internal" href="#backend-servicecloudformation">Backend ServiceにおけるCloudFormationスタック情報を利用した設定</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id5">著者紹介</a></li>
+<li><a class="reference internal" href="#id6">著者紹介</a></li>
 </ul>
 </li>
 </ul>
@@ -155,14 +153,6 @@
             
               
                 
-  <li>
-    <a href="automation_infra_devops_cloudformation_s3_sqs.html" title="Previous Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 基盤・デプロイ自動化実践</span>
-    </a>
-  </li>
-  <li>
-    <a href="automation_infra_devops_cloudformation_app_backend.html" title="Next Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">基盤・デプロイ自動化実践 &raquo;</span>
-    </a>
-  </li>
               
             
             
@@ -170,7 +160,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/automation_infra_devops/automation_infra_devops_cloudformation_nest.rst.txt"
+  <a href="../_sources/automation_infra_devops/automation_infra_devops_cloudformation_app.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -205,19 +195,167 @@
 <img alt="../_images/cloudformation-scope.png" src="../_images/cloudformation-scope.png" />
 </div>
 <p><br/></p>
-<p>前回は、S3およびSQSを構築するテンプレートを実装しました。続く今回は、これまで実装してきたテンプレートの親となるネストテンプレートを作成する方法を紹介します。
+<p>前回は、テンプレートの親となるネストテンプレートを作成し、複数のテンプレートに定義したリソースを一括構築しました。続く今回は、作成したスタックの情報をSpring Cloud AWSを用いてアプリケーションから参照する実装を紹介します。
 実際のソースコードは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-cloudformation">GitHub</a> 上にコミットしています。
 ソースコード中で本質的でない記述を一部省略しているので、実行コードを作成する場合は、必要に応じて適宜GitHub上のソースコードも参照してください。</p>
 <p><br/></p>
-<div class="section" id="nestedstack">
-<span id="section-cloudformation-nestedstack-sample-label"></span><h3>NestedStackの作成<a class="headerlink" href="#nestedstack" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="spring-cloud-awscloudformation">
+<span id="section-cloudformation-spring-cloud-aws-support-label"></span><h3>Spring Cloud AWSのCloudFormationサポート<a class="headerlink" href="#spring-cloud-awscloudformation" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
-<p><a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4725">第21回</a> で、CloudFormationがサポートする機能として、複数のテンプレートでネスト(親子)を構成するNestedStackがあることを紹介しました。
-NestedStackはテンプレートを分割したり、複数のテンプレートをまとめて実行したいとき、共通のパラメータや定義を複数のテンプレートで共有したいときに利用します。
-ただし、制約として参照するテンプレートをS3へアップロードしておく必要があります。</p>
-<p>NestedStackを使用する場合、リソースタイプが、 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html">AWS::CloudFormation::Stack</a>
-であるリソース定義を使用します。プロパティとして設定可能な属性は、上記リンク先の通りですが、VPCとサブネット、インターネットゲートウェイ、セキュリティグループについては既に構築済みの前提として、
-今回はこれまでの連載で実装してきたRDS、ElastiCache、S3、SQSを構築するテンプレートを子テンプレートとして、開発環境としてひとつにまとめて実行するための親テンプレートを作成してみます。テンプレートのサンプルは以下の通りです。</p>
+<p><a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4426">クラウドネイティブ第12回</a> で、Spring Cloud AWSがCloudFormationで定義した論理名を元にリソース情報へアクセスする機能をサポートしていることを紹介しました。
+これまでの連載の中で、実装してきたアプリケーションでは以下のようにAWSリソースを利用しています。</p>
+<ul class="simple">
+<li>ALBを経由したバックエンドサービスの呼び出し(ALBのDNSをRestTemplateに指定)</li>
+<li>エンドポイントを指定したRDSアクセス</li>
+<li>サービスエンドポイントを指定したDynamoDBアクセス</li>
+<li>エンドポイントを指定したElastiCacheアクセス</li>
+<li>S3バケットへのアクセス</li>
+<li>サービスエンドポイントを指定したSQSへのキュー送信、ポーリングによる取得</li>
+</ul>
+<p>アプリケーションではこれまで設定ファイルもしくは環境変数への指定でリソースアクセスに必要な設定を行ってきましたが、今回はSpring Cloud AWSのCloudFormationサポート機能を使って、必要な設定を行ってみましょう。
+参照するリソースは前回複数のリソースを一括定義した親テンプレートのNestedStackを指定して取得します。なお、解説にあたっては、以下の知識がある開発者を想定しています。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>対象読者</td>
+<td>前提知識</td>
+</tr>
+<tr class="row-even"><td>エンタープライズ開発者</td>
+<td>Java言語及びSpringFrameworkを使った開発に従事したことがある経験者。経験がなければ、<br/>
+<a class="reference external" href="http://terasolunaorg.github.io/guideline/5.5.1.RELEASE/ja/Tutorial/index.html">こちらのチュートリアル</a> を実施することを推奨します。TERASOLUNAはSpringのベストプラクティスをまとめた開発方法論で、このチュートリアルでは、JavaやSpring Frameworkを使った開発に必要な最低限の知識を得ることができます。</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>GitHubなどのバージョン管理ツールやApache Mavenなどのライブラリ管理ツールを使った開発に従事したことがある経験者。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>また、動作環境は以下のバージョンで実施しています。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>動作対象</td>
+<td>バージョン</td>
+</tr>
+<tr class="row-even"><td>Java</td>
+<td>1.8</td>
+</tr>
+<tr class="row-odd"><td>Spring Boot</td>
+<td>2.2.4.RELEASE</td>
+</tr>
+<tr class="row-even"><td>Spring Cloud AWS</td>
+<td>2.2.1.RELEASE</td>
+</tr>
+<tr class="row-odd"><td>Spring Data JPA</td>
+<td>2.2.4.RELEASE</td>
+</tr>
+<tr class="row-even"><td>Spring Data DynamoDB</td>
+<td>5.2.1</td>
+</tr>
+<tr class="row-odd"><td>Spring Session Data Redis</td>
+<td>2.2.0.RELEASE</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>アプリケーションはFrontendサブネットに配置するECSコンテナ上のWebアプリケーションと、Backendサブネットに配置するECSコンテナ上のサービスの２種類あります。それぞれアプリケーションから参照するAWSリソースは以下の通りです。</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>AWSリソース</td>
+<td>Frontend WebApp</td>
+<td>Backend Service</td>
+</tr>
+<tr class="row-even"><td>ALB</td>
+<td>○</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>RDS</td>
+<td>&#160;</td>
+<td>○</td>
+</tr>
+<tr class="row-even"><td>DynamoDB</td>
+<td>&#160;</td>
+<td>○</td>
+</tr>
+<tr class="row-odd"><td>ElastiCache</td>
+<td>○</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>S3</td>
+<td>○</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>SQS</td>
+<td>○</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>ただし、開発環境ではローカル端末内に2つのアプリケーションを起動するため、ALBの参照は行わないものとします。それでは、Backend Serviceから、Spring Cloud AWSを使って CloudFormationのスタックから情報を取得する設定を実装してみましょう。</p>
+<p><br/></p>
+</div>
+<div class="section" id="backend-servicecloudformation">
+<span id="section-cloudformation-backend-service-sample-label"></span><h3>Backend ServiceにおけるCloudFormationスタック情報を利用した設定<a class="headerlink" href="#backend-servicecloudformation" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>まず、Mavenプロジェクトのpom.xmlで、spring-boot-starter-web、spring-boot-starter-data-jpa、spring-cloud-starter-awsのライブラリを定義します。
+また、RDSへアクセスするためにはspring-cloud-starter-aws-jdbcを、DynamoDBへのアクセスにはspring-data-dynamodb、SQSのアクセスにはspring-cloud-starter-aws-messagingを合わせて追加する必要があります。
+なお、PostgreSQLのドライバや、エンティティクラスの実装を簡易化するためにLombokライブラリを追加しておきましょう。</p>
+<p><br/></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependencies&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-data-jpa<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-aws<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-aws-jdbc<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-aws-messaging<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>io.github.boostchicken<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-data-dynamodb<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>5.2.1<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.postgresql<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>postgresql<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;scope&gt;</span>runtime<span class="nt">&lt;/scope&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.projectlombok<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>lombok<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;optional&gt;</span>true<span class="nt">&lt;/optional&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+
+<span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+</div>
+<p>Backend Serviceアプリケーションでは以下のような設定クラスの構成で実装します。</p>
 <p><br/></p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>AWSTemplateFormatVersion: &#39;2010-09-09&#39;
 
@@ -330,8 +468,8 @@ Resources:
 <p><br/></p>
 <p>NestedStackとして作成した親テンプレートの記述の基本となるポイントは(A)〜(M)の通りです。</p>
 <p><br/></p>
-<table border="1" class="colwidths-given docutils" id="id6">
-<caption><span class="caption-text">NestedStackとして作成した親テンプレート記述のポイント</span><a class="headerlink" href="#id6" title="このテーブルへのパーマリンク">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id7">
+<caption><span class="caption-text">NestedStackとして作成した親テンプレート記述のポイント</span><a class="headerlink" href="#id7" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col width="10%" />
 <col width="90%" />
@@ -483,12 +621,12 @@ aws cloudformation deploy --stack-name <span class="si">${</span><span class="nv
 <img alt="../_images/management_console_cloudformation_stack_nest.png" src="../_images/management_console_cloudformation_stack_nest.png" />
 </div>
 <p><br/></p>
-<p>今回は複数のリソースをNestedStackを使ってまとめて一括構築するCloudFormationテンプレートを実装しました。次回は、CloudFormationを使って作成したリソースの情報にアクセスするSpringCloudAWSアプリケーションの実装方法の解説を進めていきます。</p>
+<p>今回は複数のリソースをNestedStackを使ってまとめて一括構築するCloudFormationテンプレートを実装しました。次回は、CloudFormationを使って作成したリソースの情報にアクセスするSpringCloudAWSアプリケーションの実装方法の解決を進めていきます。</p>
 <p><br/></p>
 </div>
 </div>
-<div class="section" id="id5">
-<h2>著者紹介<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id6">
+<h2>著者紹介<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
 <div class="figure">
 <img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" />

@@ -102,7 +102,7 @@ ElastiCache(Redis)をCloudFormationで構築する場合、リソースタイプ
      ElastiCacheSubnetGroup:                                                                                 #(E)
        Type: AWS::ElastiCache::SubnetGroup
        Properties:
-         CacheSubnetGroupName: ElastiCacheSubnetGroup
+         CacheSubnetGroupName: !Sub ElastiCacheSubnetGroup-${EnvType}
          Description: SampleCloudFormation ElastiCacheSubnetGroup
          SubnetIds:
            - Fn::ImportValue: !Sub ${VPCName}-PublicSubnet1

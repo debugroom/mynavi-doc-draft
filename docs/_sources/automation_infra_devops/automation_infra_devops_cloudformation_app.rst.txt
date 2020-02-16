@@ -18,26 +18,176 @@
 
 |br|
 
-前回は、S3およびSQSを構築するテンプレートを実装しました。続く今回は、これまで実装してきたテンプレートの親となるネストテンプレートを作成する方法を紹介します。
+前回は、テンプレートの親となるネストテンプレートを作成し、複数のテンプレートに定義したリソースを一括構築しました。続く今回は、作成したスタックの情報をSpring Cloud AWSを用いてアプリケーションから参照する実装を紹介します。
 実際のソースコードは `GitHub <https://github.com/debugroom/mynavi-sample-cloudformation>`_ 上にコミットしています。
 ソースコード中で本質的でない記述を一部省略しているので、実行コードを作成する場合は、必要に応じて適宜GitHub上のソースコードも参照してください。
 
 |br|
 
-.. _section-cloudformation-nestedstack-sample-label:
+.. _section-cloudformation-spring-cloud-aws-support-label:
 
-NestedStackの作成
+Spring Cloud AWSのCloudFormationサポート
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 |br|
 
-`第21回 <https://news.mynavi.jp/itsearch/article/devsoft/4725>`_ で、CloudFormationがサポートする機能として、複数のテンプレートでネスト(親子)を構成するNestedStackがあることを紹介しました。
-NestedStackはテンプレートを分割したり、複数のテンプレートをまとめて実行したいとき、共通のパラメータや定義を複数のテンプレートで共有したいときに利用します。
-ただし、制約として参照するテンプレートをS3へアップロードしておく必要があります。
+`クラウドネイティブ第12回 <https://news.mynavi.jp/itsearch/article/devsoft/4426>`_ で、Spring Cloud AWSがCloudFormationで定義した論理名を元にリソース情報へアクセスする機能をサポートしていることを紹介しました。
+これまでの連載の中で、実装してきたアプリケーションでは以下のようにAWSリソースを利用しています。
 
-NestedStackを使用する場合、リソースタイプが、 `AWS::CloudFormation::Stack <https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html>`_
-であるリソース定義を使用します。プロパティとして設定可能な属性は、上記リンク先の通りですが、VPCとサブネット、インターネットゲートウェイ、セキュリティグループについては既に構築済みの前提として、
-今回はこれまでの連載で実装してきたRDS、ElastiCache、S3、SQSを構築するテンプレートを子テンプレートとして、開発環境としてひとつにまとめて実行するための親テンプレートを作成してみます。テンプレートのサンプルは以下の通りです。
+* ALBを経由したバックエンドサービスの呼び出し(ALBのDNSをRestTemplateに指定)
+* エンドポイントを指定したRDSアクセス
+* サービスエンドポイントを指定したDynamoDBアクセス
+* エンドポイントを指定したElastiCacheアクセス
+* S3バケットへのアクセス
+* サービスエンドポイントを指定したSQSへのキュー送信、ポーリングによる取得
+
+アプリケーションではこれまで設定ファイルもしくは環境変数への指定でリソースアクセスに必要な設定を行ってきましたが、今回はSpring Cloud AWSのCloudFormationサポート機能を使って、必要な設定を行ってみましょう。
+参照するリソースは前回複数のリソースを一括定義した親テンプレートのNestedStackを指定して取得します。なお、解説にあたっては、以下の知識がある開発者を想定しています。
+
+|br|
+
+.. list-table::
+   :widths: 3, 7
+
+   * - 対象読者
+     - 前提知識
+
+   * - エンタープライズ開発者
+     - Java言語及びSpringFrameworkを使った開発に従事したことがある経験者。経験がなければ、|br|
+       `こちらのチュートリアル <http://terasolunaorg.github.io/guideline/5.5.1.RELEASE/ja/Tutorial/index.html>`_ を実施することを推奨します。TERASOLUNAはSpringのベストプラクティスをまとめた開発方法論で、このチュートリアルでは、JavaやSpring Frameworkを使った開発に必要な最低限の知識を得ることができます。
+
+   * -
+     - GitHubなどのバージョン管理ツールやApache Mavenなどのライブラリ管理ツールを使った開発に従事したことがある経験者。
+
+|br|
+
+また、動作環境は以下のバージョンで実施しています。
+
+|br|
+
+
+.. list-table::
+   :widths: 5, 5
+
+   * - 動作対象
+     - バージョン
+
+   * - Java
+     - 1.8
+
+   * - Spring Boot
+     - 2.2.4.RELEASE
+
+   * - Spring Cloud AWS
+     - 2.2.1.RELEASE
+
+   * - Spring Data JPA
+     - 2.2.4.RELEASE
+
+   * - Spring Data DynamoDB
+     - 5.2.1
+
+   * - Spring Session Data Redis
+     - 2.2.0.RELEASE
+
+|br|
+
+アプリケーションはFrontendサブネットに配置するECSコンテナ上のWebアプリケーションと、Backendサブネットに配置するECSコンテナ上のサービスの２種類あります。それぞれアプリケーションから参照するAWSリソースは以下の通りです。
+
+.. list-table::
+   :widths: 5, 5, 5
+
+   * - AWSリソース
+     - Frontend WebApp
+     - Backend Service
+
+   * - ALB
+     - ○
+     -
+
+   * - RDS
+     -
+     - ○
+
+   * - DynamoDB
+     -
+     - ○
+
+   * - ElastiCache
+     - ○
+     -
+
+   * - S3
+     - ○
+     -
+
+   * - SQS
+     - ○
+     -
+
+|br|
+
+ただし、開発環境ではローカル端末内に2つのアプリケーションを起動するため、ALBの参照は行わないものとします。それでは、Backend Serviceから、Spring Cloud AWSを使って CloudFormationのスタックから情報を取得する設定を実装してみましょう。
+
+|br|
+
+.. _section-cloudformation-backend-service-sample-label:
+
+Backend ServiceにおけるCloudFormationスタック情報を利用した設定
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+|br|
+
+まず、Mavenプロジェクトのpom.xmlで、spring-boot-starter-web、spring-boot-starter-data-jpa、spring-cloud-starter-awsのライブラリを定義します。
+また、RDSへアクセスするためにはspring-cloud-starter-aws-jdbcを、DynamoDBへのアクセスにはspring-data-dynamodb、SQSのアクセスにはspring-cloud-starter-aws-messagingを合わせて追加する必要があります。
+なお、PostgreSQLのドライバや、エンティティクラスの実装を簡易化するためにLombokライブラリを追加しておきましょう。
+
+|br|
+
+.. sourcecode:: xml
+
+   <dependencies>
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-data-jpa</artifactId>
+     </dependency>
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-web</artifactId>
+     </dependency>
+     <dependency>
+       <groupId>org.springframework.cloud</groupId>
+       <artifactId>spring-cloud-starter-aws</artifactId>
+     </dependency>
+     <dependency>
+       <groupId>org.springframework.cloud</groupId>
+       <artifactId>spring-cloud-starter-aws-jdbc</artifactId>
+     </dependency>
+     <dependency>
+       <groupId>org.springframework.cloud</groupId>
+       <artifactId>spring-cloud-starter-aws-messaging</artifactId>
+     </dependency>
+     <dependency>
+       <groupId>io.github.boostchicken</groupId>
+       <artifactId>spring-data-dynamodb</artifactId>
+       <version>5.2.1</version>
+     </dependency>
+     <dependency>
+       <groupId>org.postgresql</groupId>
+       <artifactId>postgresql</artifactId>
+       <scope>runtime</scope>
+     </dependency>
+     <dependency>
+       <groupId>org.projectlombok</groupId>
+       <artifactId>lombok</artifactId>
+       <optional>true</optional>
+     </dependency>
+
+   </dependencies>
+
+
+Backend Serviceアプリケーションでは以下のような設定クラスの構成で実装します。
+
 
 |br|
 
@@ -275,7 +425,7 @@ NestedStackとして作成した親テンプレートの記述の基本となる
 
 |br|
 
-今回は複数のリソースをNestedStackを使ってまとめて一括構築するCloudFormationテンプレートを実装しました。次回は、CloudFormationを使って作成したリソースの情報にアクセスするSpringCloudAWSアプリケーションの実装方法の解説を進めていきます。
+今回は複数のリソースをNestedStackを使ってまとめて一括構築するCloudFormationテンプレートを実装しました。次回は、CloudFormationを使って作成したリソースの情報にアクセスするSpringCloudAWSアプリケーションの実装方法の解決を進めていきます。
 
 |br|
 
