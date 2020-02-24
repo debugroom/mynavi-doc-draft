@@ -121,8 +121,8 @@ Spring Cloud AWSからアクセスするCloudFormationスタックおよびリ�
      -
 
    * - SQS
-     - ○
-     - ○
+     - ○(キュー送信)
+     - ○(キュー受信)
 
 |br|
 
