@@ -95,6 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_ecs_cluster.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_ecs_task.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_ecs_taskrole.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_ecs_service.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -309,6 +310,10 @@
 </tr>
 </tbody>
 </table>
+<p><br/></p>
+<p>設定のポイントを先に述べますが、ElastiCacheの設定としては、LettuceConnectionFactoryにCloudFormationClient経由でスタック情報から取得したエンドポイントとポートを指定します。
+S3においては特別な設定は不要になりますが、アクセス対象となるバケットをスタック情報から取得します。SQSにおいては、事前にQueueMessagingTemplateにスタック情報から、キューのサービスエンドポイントとリージョンおよび
+送信先のキュー名を取得して設定するかたちになります。目指す実装のあり方としては、環境ごとにプロファイルを切り替えるだけで、各環境ごとにアプリケーションが同じように動くようにすることです。それでは順次アプリケーションの設定実装をみていきましょう。</p>
 <p><br/></p>
 <p>まず、ElastiCacheの設定クラスを行うRedisConfigですが、<a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4525">第20回</a> で解説したときと同じく、
 Redis内に保存したデータを確認するための設定のみを行います。</p>
@@ -804,8 +809,10 @@ Springのセッション共有のスタンダードなサポートでは、Maven
 ちなみにセッション共有とキャッシュでは、可用性などの非機能要件が異なるので(キャッシュはなくても動作することが望ましいですが、共有領域にセッションデータが保存できないとアプリケーションとしては致命的です)、複数のElastiCacheを構築して、用途に応じてを使い分けるようにしてください。</p>
 </div>
 <p><br/></p>
-<p>今回はFrontend WebアプリケーションでCloudFormationのスタック情報を用いて、ElastiCacheやS3、SQSキュー送信の設定情報を取得する実装方法を紹介しました。
-次回は構築したアプリケーションのコンテナイメージを作成し、ECSクラスタ定義、タスク定義、サービス構築をCloudFormationテンプレートを使って実装します。</p>
+<p>前回のBackend Serviceアプリケーションに引き続き、今回はFrontend WebアプリケーションでCloudFormationのスタック情報を用いて、ElastiCacheやS3、SQSキュー送信の設定情報を取得する実装方法を紹介しました。
+アプリケーションで各環境ごとに変わるパラメータを環境変数として参照する実装は分かりやすくて良いのですが、環境変数の数が多くなってくると管理も大変になります。
+CloudFormationを使って基盤情報を構築するのであれば、環境変数を用いずとも、このようにスタック情報から各環境ごとに変わるパラメータを取得する実装が可能になります。</p>
+<p>次回は構築したアプリケーションのコンテナイメージを作成し、ECSクラスタ定義、タスク定義、サービス構築をCloudFormationテンプレートを使って実装します。</p>
 <p><br/></p>
 </div>
 </div>

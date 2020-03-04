@@ -95,6 +95,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_ecs_task.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_ecs_taskrole.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_ecs_service.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -145,10 +146,11 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
 <li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li><a class="reference internal" href="#section-cloudformation-ecs-task-preparation-label">事前準備</a></li>
 <li><a class="reference internal" href="#ecs">ECSクラスタスタック構築テンプレート</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id10">著者紹介</a></li>
+<li><a class="reference internal" href="#id12">著者紹介</a></li>
 </ul>
 </li>
 </ul>
@@ -214,6 +216,83 @@
 実際のソースコードは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-cloudformation">GitHub</a> 上にコミットしています。
 ソースコード中で本質的でない記述を一部省略しているので、実行コードを作成する場合は、必要に応じて適宜GitHub上のソースコードも参照してください。</p>
 <p><br/></p>
+<div class="section" id="section-cloudformation-ecs-task-preparation-label">
+<span id="id3"></span><h3>事前準備<a class="headerlink" href="#section-cloudformation-ecs-task-preparation-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><br/></p>
+<p>事前準備として、前回実装したアプリケーションのコンテナイメージを作成し、DockerHubへプッシュしておきましょう。
+作業の方法は <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4390">第7回</a> と同様です。Backend Serviceアプリケーションおよび、Frontend Webアプリケーションのコンテナイメージを作成するDockerfileのサンプルは以下の通りです。</p>
+<p><br/></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># Dockerfile for sample service using embedded tomcat server
+
+FROM centos:centos7
+MAINTAINER debugroom
+
+RUN yum install -y \
+    java-1.8.0-openjdk \
+    java-1.8.0-openjdk-devel \
+    wget tar iproute git
+
+RUN rm -f /etc/rpm/macros.image-language-conf &amp;&amp; \
+    sed -i &#39;/^override_install_langs=/d&#39; /etc/yum.conf &amp;&amp; \
+    yum -y update glibc-common &amp;&amp; \
+    yum clean all
+
+ENV LANG=&quot;ja_JP.UTF-8&quot; \
+    LANGUAGE=&quot;ja_JP:ja&quot; \
+    LC_ALL=&quot;ja_JP.UTF-8&quot;
+
+RUN wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
+RUN sed -i s/\$releasever/6/g /etc/yum.repos.d/epel-apache-maven.repo
+RUN yum install -y apache-maven
+ENV JAVA_HOME /etc/alternatives/jre
+RUN git clone https://github.com/debugroom/mynavi-sample-aws-cloudformation.git /usr/local/mynavi-sample-aws-cloudformation
+RUN mvn install -f /usr/local/mynavi-sample-aws-cloudformation/common/pom.xml
+RUN mvn package -f /usr/local/mynavi-sample-aws-cloudformation/backend-service/pom.xml
+RUN cp /etc/localtime /etc/localtime.org
+RUN ln -sf  /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+
+EXPOSE 8080
+
+CMD java -jar -Dspring.profiles.active=$ENV_TYPE /usr/local/mynavi-sample-aws-cloudformation/backend-service/target/mynavi-sample-cloudformation-backend-0.0.1-SNAPSHOT.jar
+</pre></div>
+</div>
+<p><br/></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># Dockerfile for sample service using embedded tomcat server
+
+FROM centos:centos7
+MAINTAINER debugroom
+
+RUN yum install -y \
+    java-1.8.0-openjdk \
+    java-1.8.0-openjdk-devel \
+    wget tar iproute git
+
+RUN rm -f /etc/rpm/macros.image-language-conf &amp;&amp; \
+    sed -i &#39;/^override_install_langs=/d&#39; /etc/yum.conf &amp;&amp; \
+    yum -y update glibc-common &amp;&amp; \
+    yum clean all
+
+ENV LANG=&quot;ja_JP.UTF-8&quot; \
+    LANGUAGE=&quot;ja_JP:ja&quot; \
+    LC_ALL=&quot;ja_JP.UTF-8&quot;
+
+RUN wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
+RUN sed -i s/\$releasever/6/g /etc/yum.repos.d/epel-apache-maven.repo
+RUN yum install -y apache-maven
+ENV JAVA_HOME /etc/alternatives/jre
+RUN git clone https://github.com/debugroom/mynavi-sample-aws-cloudformation.git /usr/local/mynavi-sample-aws-cloudformation
+RUN mvn install -f /usr/local/mynavi-sample-aws-cloudformation/common/pom.xml
+RUN mvn package -f /usr/local/mynavi-sample-aws-cloudformation/frontend-webapp/pom.xml
+RUN cp /etc/localtime /etc/localtime.org
+RUN ln -sf  /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+
+EXPOSE 8080
+
+CMD java -jar -Dspring.profiles.active=$ENV_TYPE /usr/local/mynavi-sample-aws-cloudformation/frontend-webapp/target/mynavi-sample-cloudformation-frontend-0.0.1-SNAPSHOT.jar
+</pre></div>
+</div>
+<p><br/></p>
+</div>
 <div class="section" id="ecs">
 <span id="section-cloudformation-ecs-cluster-sample-label"></span><h3>ECSクラスタスタック構築テンプレート<a class="headerlink" href="#ecs" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><br/></p>
@@ -328,8 +407,8 @@ Resources:
 <p><br/></p>
 <p>ECSクラスタのテンプレートの記述の基本となるポイントは(A)〜(G)の通りです。</p>
 <p><br/></p>
-<table border="1" class="colwidths-given docutils" id="id11">
-<caption><span class="caption-text">ECSクラスタのCloudFormationテンプレート記述のポイント</span><a class="headerlink" href="#id11" title="このテーブルへのパーマリンク">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id13">
+<caption><span class="caption-text">ECSクラスタのCloudFormationテンプレート記述のポイント</span><a class="headerlink" href="#id13" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col width="10%" />
 <col width="90%" />
@@ -424,8 +503,8 @@ aws cloudformation deploy --stack-name <span class="si">${</span><span class="nv
 <p><br/></p>
 </div>
 </div>
-<div class="section" id="id10">
-<h2>著者紹介<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id12">
+<h2>著者紹介<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
 <div class="figure">
 <img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" />

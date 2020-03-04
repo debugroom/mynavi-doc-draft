@@ -50,6 +50,7 @@
    automation_infra_devops/automation_infra_devops_cloudformation_ecs_cluster.rst
    automation_infra_devops/automation_infra_devops_cloudformation_ecs_task.rst
    automation_infra_devops/automation_infra_devops_cloudformation_ecs_taskrole.rst
+   automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.rst
    cloud_native/aws-lambda-and-api-gateway-1.rst
    cloud_native/aws-lambda-and-api-gateway-2.rst
    cloud_native/aws-lambda-and-api-gateway-3.rst

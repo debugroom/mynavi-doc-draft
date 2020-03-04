@@ -22,8 +22,6 @@
 実際のソースコードは `GitHub <https://github.com/debugroom/mynavi-sample-cloudformation>`_ 上にコミットしています。
 ソースコード中で本質的でない記述を一部省略しているので、実行コードを作成する場合は、必要に応じて適宜GitHub上のソースコードも参照してください。
 
-|br|
-
 .. _section-cloudformation-ecs-task-sample-label:
 
 ECSタスク定義スタック構築テンプレート
@@ -160,7 +158,7 @@ ECSタスク定義のテンプレートの記述の基本となるポイント�
      - 説明
 
    * - (A)
-     - パラメータEnvTypeに応じて、適用するパラメータ値を変更するよう、Mappings要素を定義します。
+     - パラメータEnvTypeに応じて、Backend Serviceアプリケーションのタスク定義に適用するパラメータ値を変更するよう、Mappings要素を定義します。省略していますが、Mapはアプリケーションの単位で作成します。
 
    * - (B)
      - コンテナイメージでは、DockerHub上にプッシュすることを前提としたURIを定義しておきます。

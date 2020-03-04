@@ -25,6 +25,92 @@
 
 |br|
 
+.. _section-cloudformation-ecs-task-preparation-label:
+
+事前準備
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+|br|
+
+事前準備として、前回実装したアプリケーションのコンテナイメージを作成し、DockerHubへプッシュしておきましょう。
+作業の方法は `クラウドネイティブ基本第7回 <https://news.mynavi.jp/itsearch/article/devsoft/4390>`_ と同様です。Backend Serviceアプリケーションおよび、Frontend Webアプリケーションのコンテナイメージを作成するDockerfileのサンプルは以下の通りです。
+
+|br|
+
+.. sourcecode:: none
+
+   # Dockerfile for sample service using embedded tomcat server
+
+   FROM centos:centos7
+   MAINTAINER debugroom
+
+   RUN yum install -y \
+       java-1.8.0-openjdk \
+       java-1.8.0-openjdk-devel \
+       wget tar iproute git
+
+   RUN rm -f /etc/rpm/macros.image-language-conf && \
+       sed -i '/^override_install_langs=/d' /etc/yum.conf && \
+       yum -y update glibc-common && \
+       yum clean all
+
+   ENV LANG="ja_JP.UTF-8" \
+       LANGUAGE="ja_JP:ja" \
+       LC_ALL="ja_JP.UTF-8"
+
+   RUN wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
+   RUN sed -i s/\$releasever/6/g /etc/yum.repos.d/epel-apache-maven.repo
+   RUN yum install -y apache-maven
+   ENV JAVA_HOME /etc/alternatives/jre
+   RUN git clone https://github.com/debugroom/mynavi-sample-aws-cloudformation.git /usr/local/mynavi-sample-aws-cloudformation
+   RUN mvn install -f /usr/local/mynavi-sample-aws-cloudformation/common/pom.xml
+   RUN mvn package -f /usr/local/mynavi-sample-aws-cloudformation/backend-service/pom.xml
+   RUN cp /etc/localtime /etc/localtime.org
+   RUN ln -sf  /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+
+   EXPOSE 8080
+
+   CMD java -jar -Dspring.profiles.active=$ENV_TYPE /usr/local/mynavi-sample-aws-cloudformation/backend-service/target/mynavi-sample-cloudformation-backend-0.0.1-SNAPSHOT.jar
+
+|br|
+
+.. sourcecode:: none
+
+   # Dockerfile for sample service using embedded tomcat server
+
+   FROM centos:centos7
+   MAINTAINER debugroom
+
+   RUN yum install -y \
+       java-1.8.0-openjdk \
+       java-1.8.0-openjdk-devel \
+       wget tar iproute git
+
+   RUN rm -f /etc/rpm/macros.image-language-conf && \
+       sed -i '/^override_install_langs=/d' /etc/yum.conf && \
+       yum -y update glibc-common && \
+       yum clean all
+
+   ENV LANG="ja_JP.UTF-8" \
+       LANGUAGE="ja_JP:ja" \
+       LC_ALL="ja_JP.UTF-8"
+
+   RUN wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
+   RUN sed -i s/\$releasever/6/g /etc/yum.repos.d/epel-apache-maven.repo
+   RUN yum install -y apache-maven
+   ENV JAVA_HOME /etc/alternatives/jre
+   RUN git clone https://github.com/debugroom/mynavi-sample-aws-cloudformation.git /usr/local/mynavi-sample-aws-cloudformation
+   RUN mvn install -f /usr/local/mynavi-sample-aws-cloudformation/common/pom.xml
+   RUN mvn package -f /usr/local/mynavi-sample-aws-cloudformation/frontend-webapp/pom.xml
+   RUN cp /etc/localtime /etc/localtime.org
+   RUN ln -sf  /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+
+   EXPOSE 8080
+
+   CMD java -jar -Dspring.profiles.active=$ENV_TYPE /usr/local/mynavi-sample-aws-cloudformation/frontend-webapp/target/mynavi-sample-cloudformation-frontend-0.0.1-SNAPSHOT.jar
+
+|br|
+
 .. _section-cloudformation-ecs-cluster-sample-label:
 
 ECSクラスタスタック構築テンプレート

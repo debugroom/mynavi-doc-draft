@@ -22,8 +22,6 @@
 実際のソースコードは `GitHub <https://github.com/debugroom/mynavi-sample-cloudformation>`_ 上にコミットしています。
 ソースコード中で本質的でない記述を一部省略しているので、実行コードを作成する場合は、必要に応じて適宜GitHub上のソースコードも参照してください。
 
-|br|
-
 .. _section-cloudformation-ecs-task-sample-label:
 
 ECSタスク定義スタック構築テンプレート

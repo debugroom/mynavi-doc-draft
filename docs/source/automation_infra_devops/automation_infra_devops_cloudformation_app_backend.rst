@@ -32,7 +32,7 @@ Spring Cloud AWSのCloudFormationサポート
 |br|
 
 `クラウドネイティブ第12回 <https://news.mynavi.jp/itsearch/article/devsoft/4426>`_ で、Spring Cloud AWSがCloudFormationで定義した論理名を元にリソース情報へアクセスする機能をサポートしていることを紹介しました。
-これまでの連載の中で、実装してきたアプリケーションでは以下のようにAWSリソースを利用しています。
+また、これまでの連載の中では、実装してきたアプリケーションでは以下のようにAWSリソースを利用しています。
 
 * ALBを経由したバックエンドサービスの呼び出し(ALBのDNSをRestTemplateに指定)
 * エンドポイントを指定したRDSアクセス
@@ -55,7 +55,7 @@ Spring Cloud AWSのCloudFormationサポート
           stack:
             auto: false
 
-   今回からの解説ではこちらの設定を有効化した状態での設定方法の解説を進めていきます。
+   この状態では、スタック情報から自動的にデータ取得する設定がオフになります。今回からの解説ではこちらの設定を有効化した状態での設定方法の解説を進めていきます。
 
 |br|
 
@@ -234,13 +234,20 @@ Backend Serviceアプリケーションでは以下のような設定クラス�
 |br|
 
 .. note:: アプリケーションでは実際にRDSやDynamoDBへアクセスする実装、SQSへポーリングするリスナー実装クラスなどもありますが、以前の連載で踏襲した実装にしているのでここでは詳しい解説は行いません。
-          詳細な説明は `クラウドネイティブ第12回 <https://news.mynavi.jp/itsearch/article/devsoft/4426>`_ や `第13回 <https://news.mynavi.jp/itsearch/article/cloud/4449>`_ 、
+          以前の連載における詳細な説明は `クラウドネイティブ第12回 <https://news.mynavi.jp/itsearch/article/devsoft/4426>`_ や `第13回 <https://news.mynavi.jp/itsearch/article/cloud/4449>`_ 、
           `第17回 <https://news.mynavi.jp/itsearch/article/cloud/4506>`_ 、`第18回 <https://news.mynavi.jp/itsearch/article/devsoft/4512>`_ 、
           `第32回 <https://news.mynavi.jp/itsearch/article/devsoft/4767>`_ を参照してください。
 
 |br|
 
-まず、DynamoDBの設定クラスであるDynamoDBConfigですが、以下の通り、環境に依存しない@EnableDynamoDBRepositoriesアノテーションの設定のみを行います。
+設定のポイントを先に述べますが、RDSにおける設定はorg.springframework.cloud.aws.jdbc.config.annotation.EnableRdsInstanceアノテーション内にスタックで設定したIdentifierやパスワードを指定することで、
+SpringCloudAWSがエンドポイントやDBユーザを自動設定します。ただし、パスワードはアプリケーションコンテナ実行時にSystemsManager経由で取得した秘匿データを環境変数経由で設定するかたちで行います。
+DynamoDBはサービスエンドポイントとリージョンの情報を環境に応じてamazonDynamoDBClientBuilderに設定し、SQSにおいては、SpringCloudAWSがCloudFormationのスタック情報から取得するようになります。
+目指す実装のあり方としては、環境ごとにプロファイルを切り替えるだけで、各環境ごとにアプリケーションが同じように動くようにすることです。それでは順次アプリケーションの設定実装をみていきましょう。
+
+|br|
+
+最初に、DynamoDBの設定クラスであるDynamoDBConfigですが、以下の通り、環境に依存しない@EnableDynamoDBRepositoriesアノテーションの設定のみを行います。
 
 |br|
 
@@ -267,7 +274,7 @@ Backend Serviceアプリケーションでは以下のような設定クラス�
 
 |br|
 
-続いて、SQSConfigですが、SQSポーリングを行う場合では、同様にリスナークラスが存在するパッケージをコンポーネントスキャンする定義を追加するかたちで実装します。
+続いて、SQSConfigですが、SQSポーリングを行う場合では、リスナークラスが存在するパッケージをコンポーネントスキャンする定義を追加する設定を実装します。
 
 |br|
 
@@ -290,7 +297,7 @@ Backend Serviceアプリケーションでは以下のような設定クラス�
 
 |br|
 
-そして、開発環境向けのの設定を行うDevConfigクラスを実装します。ここでは、CloudFormationで構築したスタックの情報を取得し、開発環境固有となる設定を行います。今回サンプルとして実装した例は以下の通りです。
+そして、開発環境向けの設定を行うDevConfigクラスを実装します。ここでは、CloudFormationで構築したスタックの情報を取得し、開発環境固有となる設定を行います。今回サンプルとして実装した例は以下の通りです。
 
 |br|
 
@@ -397,10 +404,10 @@ DevConfig設定クラスの実装のポイントは(A)〜(L)の通りです。
      - スタックの論理名やエクスポート名からリソース情報を取得するためにAmazonCloudFormationClientをインジェクションします。
 
    * - (F)
-     - スタックの論理名から物理的にリソースのARNを取得するため、Spring Cloud AWSにより提供されているResourceIdResolverをインジェクションします。
+     - スタックの論理名から物理的なリソースのIDであるARN(AmazonResourceName)を取得するため、Spring Cloud AWSにより提供されているResourceIdResolverをインジェクションします。
 
    * - (G)
-     - 開発環境用のDynamoDBにアクセスするためにテーブル名に「dev」というプリフィックスを使って読み込む設定を加えておきます。:ref:`section-cloudformation-dynamodb-sample-label` で実装したDynamoDBのCloudFormationテンプレートではこのプリフィックスの設定を見越した形でテーブル名を設定しています。
+     - :ref:`section-cloudformation-dynamodb-sample-label` では、開発環境用のDynamoDBを"dev_sample-table"と定義していました。開発環境用の設定ファイルでは、テーブル名に「dev」というプリフィックスを使って読み込む設定を加えておきます。この設定によりアプリケーションのエンティティクラス実装ではテーブル名「sample_table」で共通化することができます。
 
    * - (H)
      - (E)でインジェクションしたAmazonCloudFormationClientを使用して、スタックで定義されているOutputs要素のExport一覧を指定します。
@@ -420,13 +427,13 @@ DevConfig設定クラスの実装のポイントは(A)〜(L)の通りです。
      - エクスポートから出力した値を取得し、DynamoDBClientのエンドポイント情報を設定します。
 
 
-.. note:: スタックのエクスポートで定義する名前は、CloudFormationで定義している全てのスタックで一意になるよう設定しなければならないため、上記の(I)は必ずしも必要ではありません。
+.. note:: スタックのエクスポートで定義する名前は、CloudFormationで定義している全てのスタックで一意になるよう設定しなければならないため、上記の(I)の処理は必ずしも必要ではありません。
    ただし、エクスポートリストは数が多くなりがちのため、ResourceIdResolverをうまく活用し、(B)で指定したリソースの物理IDから直接サービスクライアントで情報を取得する方法が検索効率が高い場合もあります。
 
 |br|
 
 続いて、ステージング(プロダクションも同等)環境固有の設定を行うStagingConfigの実装サンプルは以下の通りです。
-可読性が向上するよう、CloudFormationから情報を取得する共通のユーティリティクラス(CloudFormationStackInfo)を実装し利用しています。
+可読性が向上するよう、CloudFormationから情報を取得する共通のユーティリティクラス(CloudFormationStackInfo)を作成するものとします。
 
 |br|
 
