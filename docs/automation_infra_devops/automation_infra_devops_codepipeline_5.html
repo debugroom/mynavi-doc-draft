@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>基盤・デプロイ自動化実践 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <title>【第16回】AWS CodePipeLineを用いた継続的デリバリ自動化(4) &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -18,8 +18,8 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="基盤・デプロイ自動化実践" href="automation_infra_devops_codepipeline_6.html" />
-    <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_codepipeline_4.html" />
+    <link rel="next" title="【第17回】AWS CodePipeLineを用いた継続的デリバリ自動化(5)" href="automation_infra_devops_codepipeline_6.html" />
+    <link rel="prev" title="【第15回】AWS CodePipeLineを用いた継続的デリバリ自動化(3)" href="automation_infra_devops_codepipeline_4.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -57,23 +57,23 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarqube.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarlint.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_architecture.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-1.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-2.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_integrationtest.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unittest.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unit_e2e_test.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codebuild.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_1.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_2.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_3.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_4.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_6.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_actual_experience.html">【第1回】マイクロサービスアーキテクチャの基盤・デプロイ自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarqube.html">【第2回】SonarQubeを利用した静的解析環境の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarlint.html">【第3回】SonarLintを利用した開発端末の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_architecture.html">【第4回】マイクロサービスにおけるテスト自動化とテスト戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-1.html">【第5回】マイクロサービスの単体試験コード実装(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-2.html">【第6回】マイクロサービスの単体試験コード実装(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_integrationtest.html">【第7回】マイクロサービスの結合試験コード実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unittest.html">【第8回】マイクロサービスを呼び出すWebAPの単体テストコード・E2Eテストの実装(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unit_e2e_test.html">【第9回】マイクロサービスを呼び出すWebAPの単体テストコード・E2Eテストの実装(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codebuild_local.html">【第10回】AWS CodeBuildを使用したCI環境構築(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codebuild.html">【第11回】AWS CodeBuildを使用したCI環境構築(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_1.html">【第12回】AWS CodePipeLineを用いた継続的デリバリ自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_2.html">【第13回】AWS CodePipeLineを用いた継続的デリバリ自動化(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_3.html">【第14回】AWS CodePipeLineを用いた継続的デリバリ自動化(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_4.html">【第15回】AWS CodePipeLineを用いた継続的デリバリ自動化(3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">【第16回】AWS CodePipeLineを用いた継続的デリバリ自動化(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_6.html">【第17回】AWS CodePipeLineを用いた継続的デリバリ自動化(5)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_7.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_8.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_9.html">基盤・デプロイ自動化実践</a></li>
@@ -95,6 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_ecs_cluster.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_ecs_task.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_ecs_taskrole.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_ecs_service.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -143,15 +144,12 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
-<li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li><a class="reference internal" href="#">【第16回】AWS CodePipeLineを用いた継続的デリバリ自動化(4)</a><ul>
 <li><a class="reference internal" href="#web-bff-dockerhub">(4)Web(BFF)アプリケーションのコンテナイメージをビルドして、DockerHubへプッシュするパイプラインの構築</a></li>
 <li><a class="reference internal" href="#bffbuildspec-ymldockerfile">BFFアプリケーションをビルドするbuildspec.ymlおよびDockerfileの作成</a></li>
 <li><a class="reference internal" href="#aws-sysmtems-managers-parameter-store">AWS Sysmtems Managers Parameter Storeでの環境変数の定義</a></li>
 <li><a class="reference internal" href="#codepipeline">ビルドプロジェクトの作成とCodePipelineの設定</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id3">著者紹介</a></li>
+<li><a class="reference internal" href="#id1">著者紹介</a></li>
 </ul>
 </li>
 </ul>
@@ -163,11 +161,11 @@
               
                 
   <li>
-    <a href="automation_infra_devops_codepipeline_4.html" title="Previous Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 基盤・デプロイ自動化実践</span>
+    <a href="automation_infra_devops_codepipeline_4.html" title="Previous Chapter: 【第15回】AWS CodePipeLineを用いた継続的デリバリ自動化(3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 【第15回】AWS Cod...</span>
     </a>
   </li>
   <li>
-    <a href="automation_infra_devops_codepipeline_6.html" title="Next Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">基盤・デプロイ自動化実践 &raquo;</span>
+    <a href="automation_infra_devops_codepipeline_6.html" title="Next Chapter: 【第17回】AWS CodePipeLineを用いた継続的デリバリ自動化(5)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">【第17回】AWS Cod... &raquo;</span>
     </a>
   </li>
               
@@ -201,12 +199,10 @@
   <div class="row">
     <div class="col-md-12 content">
       
-  <div class="section" id="section-automation-infra-devops-codepipeline-5-label">
-<span id="id1"></span><h1>基盤・デプロイ自動化実践<a class="headerlink" href="#section-automation-infra-devops-codepipeline-5-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<div class="section" id="id2">
-<h2>マイクロサービスアーキテクチャの基盤・デプロイ自動化<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+  <div class="section" id="aws-codepipeline-4">
+<span id="section-automation-infra-devops-codepipeline-5-label"></span><h1>【第16回】AWS CodePipeLineを用いた継続的デリバリ自動化(4)<a class="headerlink" href="#aws-codepipeline-4" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <div class="section" id="web-bff-dockerhub">
-<span id="section-codepipeline-setting-codepipeline-build-bff-label"></span><h3>(4)Web(BFF)アプリケーションのコンテナイメージをビルドして、DockerHubへプッシュするパイプラインの構築<a class="headerlink" href="#web-bff-dockerhub" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<span id="section-codepipeline-setting-codepipeline-build-bff-label"></span><h2>(4)Web(BFF)アプリケーションのコンテナイメージをビルドして、DockerHubへプッシュするパイプラインの構築<a class="headerlink" href="#web-bff-dockerhub" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
 <p>本連載では、マイクロサービスアーキテクチャでの継続的デリバリ(Continuous Delivery:CD)を以下のようなパイプラインで実現していきます。</p>
 <p><br/></p>
@@ -230,7 +226,7 @@
 <p><br/></p>
 </div>
 <div class="section" id="bffbuildspec-ymldockerfile">
-<span id="section-codepipeline-create-buildspec-for-building-bff-label"></span><h3>BFFアプリケーションをビルドするbuildspec.ymlおよびDockerfileの作成<a class="headerlink" href="#bffbuildspec-ymldockerfile" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<span id="section-codepipeline-create-buildspec-for-building-bff-label"></span><h2>BFFアプリケーションをビルドするbuildspec.ymlおよびDockerfileの作成<a class="headerlink" href="#bffbuildspec-ymldockerfile" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
 <p><a class="reference internal" href="automation_infra_devops_codepipeline_2.html#section-codepipeline-create-backend-staging-buildspec-label"><span class="std std-ref">Backendマイクロサービスのコンテナイメージをビルドするbuildspec.ymlおよびDockerfileの作成</span></a> と同様にアプリケーションをコンテナイメージ化するbuildspec.ymlをbackend-for-fronted/build/staging/配下に作成します。</p>
 <p><br/></p>
@@ -328,7 +324,7 @@ CMD java -jar -Dspring.profiles.active<span class="o">=</span>production /usr/lo
 <p><br/></p>
 </div>
 <div class="section" id="aws-sysmtems-managers-parameter-store">
-<span id="section-codepipeline-setting-ssm-definition-bff-staging-label"></span><h3>AWS Sysmtems Managers Parameter Storeでの環境変数の定義<a class="headerlink" href="#aws-sysmtems-managers-parameter-store" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<span id="section-codepipeline-setting-ssm-definition-bff-staging-label"></span><h2>AWS Sysmtems Managers Parameter Storeでの環境変数の定義<a class="headerlink" href="#aws-sysmtems-managers-parameter-store" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
 <p>CodePipelineの設定を行う前に、前節のbuildspec.ymlで使用する環境変数を定義しておきます。設定の要領は、 <a class="reference internal" href="automation_infra_devops_codebuild_local.html#section-codebuild-setting-sms-label"><span class="std std-ref">AWS Systems Manager Parameter Storeの概要と設定</span></a> と同様です。以下のパラメータを定義します。</p>
 <ul class="simple">
@@ -338,7 +334,7 @@ CMD java -jar -Dspring.profiles.active<span class="o">=</span>production /usr/lo
 <p><br/></p>
 </div>
 <div class="section" id="codepipeline">
-<span id="section-codepipeline-setting-pipeline-for-building-bff-label"></span><h3>ビルドプロジェクトの作成とCodePipelineの設定<a class="headerlink" href="#codepipeline" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<span id="section-codepipeline-setting-pipeline-for-building-bff-label"></span><h2>ビルドプロジェクトの作成とCodePipelineの設定<a class="headerlink" href="#codepipeline" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
 <p>これまで作成してきたCodePipelineを編集してBFFアプリケーションのコンテナイメージを作成するためのCodeBuildプロジェクトを作成し、設定します。
 AWSコンソールの「CodePipeline」サービスを選択し、パイプラインを選択して、「編集する」ボタンを押下します。</p>
@@ -369,8 +365,8 @@ AWSコンソールの「CodePipeline」サービスを選択し、パイプラ�
 <p><br/></p>
 <p>また、CodeBuildプロジェクトの設定要領は <a class="reference internal" href="automation_infra_devops_codebuild.html#section-codebuild-setting-codebuild-label"><span class="std std-ref">CodeBuildの設定</span></a> と同様ですが、以下の点に留意して設定しましょう。</p>
 <p><br/></p>
-<table border="1" class="colwidths-given docutils" id="id4">
-<caption><span class="caption-text">CodeBuildの設定</span><a class="headerlink" href="#id4" title="このテーブルへのパーマリンク">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id2">
+<caption><span class="caption-text">CodeBuildの設定</span><a class="headerlink" href="#id2" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col width="17%" />
 <col width="25%" />
@@ -435,9 +431,8 @@ AWSコンソールの「CodePipeline」サービスを選択し、パイプラ�
 <p>これでBFFアプリケーションのコンテナイメージをビルドして、DockerHubへプッシュするパイプラインが作成できました。次回は、BFFアプリケーションをステージングデプロイするパイプラインを構築します。</p>
 <p><br/></p>
 </div>
-</div>
-<div class="section" id="id3">
-<h2>著者紹介<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id1">
+<h2>著者紹介<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
 <div class="figure">
 <img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" />

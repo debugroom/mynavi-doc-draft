@@ -3,14 +3,66 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+.. include:: module.txt
+
 マイナビ記事原稿ドラフト
 ============================================
+
+[AWSで作るクラウドネイティブアプリケーションの基本]
+
+|br|
 
 .. toctree::
    :maxdepth: 4
    :caption: Contents:
 
-   table_of_contents_draft.rst
+   cloud_native/aws-lambda-and-api-gateway-1.rst
+   cloud_native/aws-lambda-and-api-gateway-2.rst
+   cloud_native/aws-lambda-and-api-gateway-3.rst
+   cloud_native/aws-ecs-1.rst
+   cloud_native/aws-ecs-2.rst
+   cloud_native/aws-ecs-3.rst
+   cloud_native/aws-ecs-4.rst
+   cloud_native/aws-ecs-5.rst
+   cloud_native/aws-ecs-6.rst
+   cloud_native/aws-ecs-7.rst
+   cloud_native/aws-rds-1.rst
+   cloud_native/aws-rds-2.rst
+   cloud_native/aws-rds-3.rst
+   cloud_native/aws-nosql-1-1.rst
+   cloud_native/aws-nosql-1-2.rst
+   cloud_native/aws-nosql-2-1.rst
+   cloud_native/aws-nosql-2-2.rst
+   cloud_native/aws-nosql-2-3.rst
+   cloud_native/aws-nosql-3-1.rst
+   cloud_native/aws-nosql-3-2.rst
+   cloud_native/aws-nosql-3-3.rst
+   cloud_native/aws-nosql-4-1.rst
+   cloud_native/aws-nosql-4-2.rst
+   cloud_native/aws-nosql-4-3.rst
+   cloud_native/aws-nosql-4-4.rst
+   cloud_native/aws-nosql-4-5.rst
+   cloud_native/aws-nosql-4-6.rst
+   cloud_native/aws-s3-1.rst
+   cloud_native/aws-s3-2.rst
+   cloud_native/aws-s3-3.rst
+   cloud_native/aws-sqs-1.rst
+   cloud_native/aws-sqs-2.rst
+   cloud_native/aws-sqs-3.rst
+   cloud_native/aws-sqs-4.rst
+   cloud_native/aws-sqs-5.rst
+
+|br|
+
+[AWSで実践！基盤構築・デプロイ自動化]
+
+|br|
+
+.. toctree::
+   :maxdepth: 4
+   :caption: Contents:
+
+
    automation_infra_devops/automation_infra_devops_overview.rst
    automation_infra_devops/automation_infra_devops_actual_experience.rst
    automation_infra_devops/automation_infra_devops_sonarqube.rst
@@ -51,38 +103,3 @@
    automation_infra_devops/automation_infra_devops_cloudformation_ecs_task.rst
    automation_infra_devops/automation_infra_devops_cloudformation_ecs_taskrole.rst
    automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.rst
-   cloud_native/aws-lambda-and-api-gateway-1.rst
-   cloud_native/aws-lambda-and-api-gateway-2.rst
-   cloud_native/aws-lambda-and-api-gateway-3.rst
-   cloud_native/aws-ecs-1.rst
-   cloud_native/aws-ecs-2.rst
-   cloud_native/aws-ecs-3.rst
-   cloud_native/aws-ecs-4.rst
-   cloud_native/aws-ecs-5.rst
-   cloud_native/aws-ecs-6.rst
-   cloud_native/aws-ecs-7.rst
-   cloud_native/aws-rds-1.rst
-   cloud_native/aws-rds-2.rst
-   cloud_native/aws-rds-3.rst
-   cloud_native/aws-nosql-1-1.rst
-   cloud_native/aws-nosql-1-2.rst
-   cloud_native/aws-nosql-2-1.rst
-   cloud_native/aws-nosql-2-2.rst
-   cloud_native/aws-nosql-2-3.rst
-   cloud_native/aws-nosql-3-1.rst
-   cloud_native/aws-nosql-3-2.rst
-   cloud_native/aws-nosql-3-3.rst
-   cloud_native/aws-nosql-4-1.rst
-   cloud_native/aws-nosql-4-2.rst
-   cloud_native/aws-nosql-4-3.rst
-   cloud_native/aws-nosql-4-4.rst
-   cloud_native/aws-nosql-4-5.rst
-   cloud_native/aws-nosql-4-6.rst
-   cloud_native/aws-s3-1.rst
-   cloud_native/aws-s3-2.rst
-   cloud_native/aws-s3-3.rst
-   cloud_native/aws-sqs-1.rst
-   cloud_native/aws-sqs-2.rst
-   cloud_native/aws-sqs-3.rst
-   cloud_native/aws-sqs-4.rst
-   cloud_native/aws-sqs-5.rst

@@ -18,7 +18,7 @@
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="検索" href="search.html" />
-    <link rel="next" title="記事目次案" href="table_of_contents_draft.html" />
+    <link rel="next" title="【第1回】サーバレス開発(1)Spring Cloud Functionの実装" href="cloud_native/aws-lambda-and-api-gateway-1.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -54,82 +54,84 @@
       role="menu"
       aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="table_of_contents_draft.html">記事目次案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-1.html">【第1回】サーバレス開発(1)Spring Cloud Functionの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-2.html">【第2回】サーバレス開発(2)Amazon Lambdaの利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-3.html">【第3回】サーバレス開発(3)AWS API Gatewayの利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-1.html">【第4回】ECSコンテナAP開発(1)VPC構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-2.html">【第5回】ECSコンテナAP開発(2)ALB構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-3.html">【第6回】ECSコンテナAP開発(3)SpringBootアプリケーション実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-4.html">【第7回】ECSコンテナAP開発(4)Dockerイメージ作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-5.html">【第8回】ECSコンテナAP開発(5)ECSクラスタ設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-6.html">【第9回】ECSコンテナAP開発(6)ECSタスク設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-7.html">【第10回】ECSコンテナAP開発(7)ECSサービス設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-rds-1.html">【第11回】Amazon RDSの概要とデータベース構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-rds-2.html">【第12回】RDSへのテーブル構築とSpring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-rds-3.html">【第13回】RDSへのテーブル構築とSpring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-1-1.html">【第14回】NoSQL(1)-基礎-CAP定理を元にしたデータベースの分類とデータ特性</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-1-2.html">【第15回】NoSQL(2)-基礎-AP型データベースAmazon DynamoDBとApache Cassandraの特徴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-2-1.html">【第16回】NoSQL(3)-DynamoDB-Amazon DynamoDBの概要及び構築と認証情報の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-2-2.html">【第17回】NoSQL(4)-DynamoDB-Spring Data DynamoDBを用いたアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-2-3.html">【第18回】NoSQL(5)-DynamoDB-Spring Data DynamoDBを用いたアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-3-1.html">【第N回】NoSQL-Managed Apache Cassandra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-3-2.html">【第N回】NoSQL-Spring Data Cassandraを用いたアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-3-3.html">【第N回】NoSQL-Spring Data Cassandraを用いたアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-4-1.html">【第19回】NoSQL(6)-AmazonElasiCacheの概要及びローカル環境でのRedisServer構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-4-2.html">【第20回】NoSQL(10)-Spring SessionとSpring Data Redisを用いたアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-4-3.html">【第21回】NoSQL(11)-Spring SessionとSpring Data Redisを用いたアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-4-4.html">【第22回】NoSQL(12)-Amazon ElastiCacheの設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-4-5.html">【第23回】NoSQL(13)-セッション共有するECSアプリケーションの構築(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-4-6.html">【第24回】NoSQL(14)-セッション共有するECSアプリケーションの構築(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-s3-1.html">【第25回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-s3-2.html">【第26回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-s3-3.html">【第27回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-sqs-1.html">【第28回】AmazonSQSを使用する実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-sqs-2.html">【第29回】AmazonSQSを使用する実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-sqs-3.html">【第30回】AmazonSQSを使用する実装(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-sqs-4.html">【第31回】AmazonSQSを使用する実装(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-sqs-5.html">【第32回】AmazonSQSを使用する実装(5)</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarqube.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarlint.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_architecture.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_unittest-1.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_unittest-2.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unittest.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_1.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_2.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_3.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_4.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_5.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_6.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_7.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_8.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_overview.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_cli.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_lint.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_script.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_taskcat.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_vpc.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_sg_nat.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_alb.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_rds.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_dynamodb.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_elasticache.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_s3_sqs.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_nest.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_app_backend.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_webapp_frontend.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_cluster.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_task.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_taskrole.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-rds-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-rds-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-rds-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-s3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-s3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-s3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-sqs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-sqs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-sqs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-sqs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-sqs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_actual_experience.html">【第1回】マイクロサービスアーキテクチャの基盤・デプロイ自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarqube.html">【第2回】SonarQubeを利用した静的解析環境の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarlint.html">【第3回】SonarLintを利用した開発端末の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_architecture.html">【第4回】マイクロサービスにおけるテスト自動化とテスト戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_unittest-1.html">【第5回】マイクロサービスの単体試験コード実装(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_unittest-2.html">【第6回】マイクロサービスの単体試験コード実装(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html">【第7回】マイクロサービスの結合試験コード実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unittest.html">【第8回】マイクロサービスを呼び出すWebAPの単体テストコード・E2Eテストの実装(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html">【第9回】マイクロサービスを呼び出すWebAPの単体テストコード・E2Eテストの実装(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild_local.html">【第10回】AWS CodeBuildを使用したCI環境構築(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild.html">【第11回】AWS CodeBuildを使用したCI環境構築(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_1.html">【第12回】AWS CodePipeLineを用いた継続的デリバリ自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_2.html">【第13回】AWS CodePipeLineを用いた継続的デリバリ自動化(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_3.html">【第14回】AWS CodePipeLineを用いた継続的デリバリ自動化(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_4.html">【第15回】AWS CodePipeLineを用いた継続的デリバリ自動化(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_5.html">【第16回】AWS CodePipeLineを用いた継続的デリバリ自動化(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_6.html">【第17回】AWS CodePipeLineを用いた継続的デリバリ自動化(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_7.html">【第18回】AWS CodePipeLineを用いた継続的デリバリ自動化(6)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_8.html">【第19回】AWS CodePipeLineを用いた継続的デリバリ自動化(7)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html">【第20回】AWS CodePipeLineを用いた継続的デリバリ自動化(8)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_overview.html">【第21回】AWS CloudFormationを用いた基盤自動化(1)CloudFormationの概要</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_cli.html">【第22回】AWS CloudFormationを用いた基盤自動化(2)AWS CLIの実行環境</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_lint.html">【第23回】AWS CloudFormationを用いた基盤自動化(3)各種検証プラグインインストールと統合開発環境の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_script.html">【第24回】AWS CloudFormationを用いた基盤自動化(4)テンプレート記述の基本と実行ヘルパースクリプトの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_taskcat.html">【第25回】AWS CloudFormationを用いた基盤自動化(5)CloudFormationテスト環境の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_vpc.html">【第26回】AWS CloudFormationを用いた基盤自動化(6)VPC、サブネット、ルートテーブル、インターネットGWの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_sg_nat.html">【第27回】AWS CloudFormationを用いた基盤自動化(7)SecurityGroup/NATGatewayの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_alb.html">【第28回】AWS CloudFormationを用いた基盤自動化(8)ApplicationLoadBalancer/TargetGroupの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_rds.html">【第29回】AWS CloudFormationを用いた基盤自動化(9)RDSの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_dynamodb.html">【第30回】AWS CloudFormationを用いた基盤自動化(10)DynamoDBの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_elasticache.html">【第31回】AWS CloudFormationを用いた基盤自動化(11)ElastiCacheの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_s3_sqs.html">【第32回】AWS CloudFormationを用いた基盤自動化(12)SQS/S3の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_nest.html">【第33回】AWS CloudFormationを用いた基盤自動化(13)NestedStackの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_app_backend.html">【第34回】AWS CloudFormationを用いた基盤自動化(14)SpringCloudAWSを利用したBackend Serviceアプリケーションにおけるスタック情報の取得・設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_webapp_frontend.html">【第35回】AWS CloudFormationを用いた基盤自動化(15)SpringCloudAWSを利用したFrontend Webアプリケーションにおけるスタック情報の取得・設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_cluster.html">【第36回】AWS CloudFormationを用いた基盤自動化(16)ECSクラスタの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_task.html">【第37回】AWS CloudFormationを用いた基盤自動化(17)ECSタスク定義の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_taskrole.html">【第38回】AWS CloudFormationを用いた基盤自動化(18)ECSタスクロール定義の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.html">【第39回】AWS CloudFormationを用いた基盤自動化(19)ECSサービスの構築</a></li>
 </ul>
 </ul>
 </li>
@@ -143,7 +145,9 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">マイナビ記事原稿ドラフト</a></li>
+<li><a class="reference internal" href="#">マイナビ記事原稿ドラフト</a><ul>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -153,7 +157,7 @@
               
                 
   <li>
-    <a href="table_of_contents_draft.html" title="Next Chapter: 記事目次案"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">記事目次案 &raquo;</span>
+    <a href="cloud_native/aws-lambda-and-api-gateway-1.html" title="Next Chapter: 【第1回】サーバレス開発(1)Spring Cloud Functionの実装"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">【第1回】サーバレス開発(... &raquo;</span>
     </a>
   </li>
               
@@ -189,23 +193,219 @@
       
   <div class="section" id="id1">
 <h1>マイナビ記事原稿ドラフト<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>[AWSで作るクラウドネイティブアプリケーションの基本]</p>
+<p><br/></p>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="table_of_contents_draft.html">記事目次案</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="table_of_contents_draft.html#id2">1. 基盤自動化・デプロイ自動化実践編</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="table_of_contents_draft.html#ap">1-1. マイクロサービスアーキテクチャでのAP実装</a></li>
-<li class="toctree-l3"><a class="reference internal" href="table_of_contents_draft.html#aws-codepipeline">1-2. AWS CodePipeLineを使った継続的デリバリ</a></li>
-<li class="toctree-l3"><a class="reference internal" href="table_of_contents_draft.html#aws-cloudformation-terraform">1-3. AWS CloudFormationを使った基盤自動化(競合・類似製品：Terraformなど)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-1.html">【第1回】サーバレス開発(1)Spring Cloud Functionの実装</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-1.html#spring-cloud-funtion">サーバレス開発・Spring Cloud Funtionとは</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-1.html#section-severless-implementation-using-spring-cloud-function-label">(1) Spring Cloud Functionを使用したサーバレスアプリケーション実装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-1.html#id3">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="table_of_contents_draft.html#id5">マイクロサービス関連補足記事</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="table_of_contents_draft.html#id6">2. 関連記事：クラウドネイティブアプリケーションの実装</a></li>
-<li class="toctree-l3"><a class="reference internal" href="table_of_contents_draft.html#id7">3. 関連記事：マイクロサービスの設計指針</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-2.html">【第2回】サーバレス開発(2)Amazon Lambdaの利用</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-2.html#aws-lambda">(2)AWS Lambdaの設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-2.html#id1">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-3.html">【第3回】サーバレス開発(3)AWS API Gatewayの利用</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-3.html#amazon-api-gateway">Amazon API Gatewayの設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-3.html#id1">まとめ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-3.html#id2">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-1.html">【第4回】ECSコンテナAP開発(1)VPC構築</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-1.html#aws-ecs">AWS ECSの概要とアプリケーション環境構成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-1.html#vpc-virtual-private-cloud">(1)VPC(Virtual Private Cloud)環境の構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-1.html#id2">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-2.html">【第5回】ECSコンテナAP開発(2)ALB構築</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-2.html#alb">(2)アプリケーションロードバランサー(ALB)の作成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-2.html#id1">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-3.html">【第6回】ECSコンテナAP開発(3)SpringBootアプリケーション実装</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-3.html#spring">(3)Springを使用したコンテナアプリケーションの実装方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-3.html#id1">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-4.html">【第7回】ECSコンテナAP開発(4)Dockerイメージ作成</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-4.html#dockerdockerhub">(4)Dockerコンテナの作成・DockerHubへのプッシュ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-4.html#id1">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-5.html">【第8回】ECSコンテナAP開発(5)ECSクラスタ設定</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-5.html#ecs">(5)ECSクラスタの作成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-5.html#id1">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-6.html">【第9回】ECSコンテナAP開発(6)ECSタスク設定</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-6.html#ecs">(6)ECSタスクの定義</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-6.html#id2">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-7.html">【第10回】ECSコンテナAP開発(7)ECSサービス設定</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-7.html#ecs">(7)ECSサービスの実行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-7.html#id5">まとめ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-7.html#id6">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-rds-1.html">【第11回】Amazon RDSの概要とデータベース構築</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-rds-1.html#section-cloud-native-rds-overview-label">Amazon RDSの概要</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-rds-1.html#section-cloud-native-rds-setup-label">Amazon RDSの構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-rds-1.html#id5">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-rds-2.html">【第12回】RDSへのテーブル構築とSpring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(1)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-rds-2.html#spring-data-jpaspring-cloud-aws">Spring Data JPAおよびSpring Cloud AWSの概要</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-rds-2.html#spring-data-jpaspring-cloud-awsrds-1">Spring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(1)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-rds-2.html#id2">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-rds-3.html">【第13回】RDSへのテーブル構築とSpring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(2)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-rds-3.html#spring-data-jpaspring-cloud-awsrds-2">Spring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(2)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-rds-3.html#id4">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-1-1.html">【第14回】NoSQL(1)-基礎-CAP定理を元にしたデータベースの分類とデータ特性</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-1-1.html#nosql">NoSQLデータベースの特徴とデータ特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-1-1.html#cap">CAP定理を基づくデータベースの分類</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-1-1.html#id2">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-1-2.html">【第15回】NoSQL(2)-基礎-AP型データベースAmazon DynamoDBとApache Cassandraの特徴</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-1-2.html#apamazon-dynamodbapache-cassandra">AP型データベースAmazon DynamoDBとApache Cassandraの特徴</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-1-2.html#id1">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-2-1.html">【第16回】NoSQL(3)-DynamoDB-Amazon DynamoDBの概要及び構築と認証情報の設定</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-2-1.html#amazon-dynamodb">Amazon DynamoDBの概要</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-2-1.html#section-cloud-native-create-dynamodb-label">Amazon DynamoDBの構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-2-1.html#section-cloud-native-create-user-and-credential-label">ユーザ・認証情報の作成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-2-1.html#id3">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-2-2.html">【第17回】NoSQL(4)-DynamoDB-Spring Data DynamoDBを用いたアプリケーション(1)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-2-2.html#spring-data-dynamodb">Spring Data DynamoDBの概要</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-2-2.html#spring-data-dynamodb-1">Spring Data DynamoDBを使ったアプリケーション実装(1)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-2-2.html#id2">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-2-3.html">【第18回】NoSQL(5)-DynamoDB-Spring Data DynamoDBを用いたアプリケーション(2)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-2-3.html#spring-data-dynamodb-2">Spring Data DynamoDBを使ったアプリケーション実装(2)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-nosql-2-3.html#id1">著者紹介</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-3-1.html">【第N回】NoSQL-Managed Apache Cassandra</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-3-1.html#apache-cassandra">Apache Cassandraの概要</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-3-1.html#id1">Apache Cassandraの構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-3-1.html#id2">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-3-2.html">【第N回】NoSQL-Spring Data Cassandraを用いたアプリケーション(1)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-3-2.html#spring-data-cassandra">Spring Data Cassandraの概要</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-3-2.html#spring-data-cassandra-1">Spring Data Cassandraを使ったアプリケーション実装(1)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-3-2.html#id2">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-3-3.html">【第N回】NoSQL-Spring Data Cassandraを用いたアプリケーション(2)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-3-3.html#spring-data-cassandra-2">Spring Data Cassandraを使ったアプリケーション実装(2)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-3-3.html#id1">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-4-1.html">【第19回】NoSQL(6)-AmazonElasiCacheの概要及びローカル環境でのRedisServer構築</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-1.html#amazon-elasticache">Amazon ElastiCacheの概要</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-1.html#redis">ローカル環境におけるRedisの構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-1.html#id1">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-4-2.html">【第20回】NoSQL(10)-Spring SessionとSpring Data Redisを用いたアプリケーション(1)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-2.html#spring-data-sessionspring-data-redis">Spring Data SessionとSpring Data Redisの概要</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-2.html#spring-sessionspring-data-redis-1">Spring SessionとSpring Data Redisを使ったアプリケーション実装(1)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-2.html#id1">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-4-3.html">【第21回】NoSQL(11)-Spring SessionとSpring Data Redisを用いたアプリケーション(2)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-3.html#spring-sessionspring-data-redis-2">Spring SessionとSpring Data Redisを使ったアプリケーション実装(2)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-3.html#id1">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-4-4.html">【第22回】NoSQL(12)-Amazon ElastiCacheの設定</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-4.html#amazon-elasticache-redis">Amazon ElastiCache(Redis)の設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-4.html#id2">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-4-5.html">【第23回】NoSQL(13)-セッション共有するECSアプリケーションの構築(1)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-5.html#redisdocker">アプリケーション・RedisクライアントのDockerイメージの作成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-5.html#alb">アプリケーションロードバランサー(ALB)の作成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-5.html#id1">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-4-6.html">【第24回】NoSQL(14)-セッション共有するECSアプリケーションの構築(2)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-6.html#ecs">ECSクラスタ及びセキュリティグループの設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-6.html#section-cloud-native-create-ecs-task-for-elasticache-label">ECSタスクの定義</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-6.html#section-cloud-native-create-ecs-service-for-elasticache-label">ECSサービスの実行・アプリケーション起動の確認</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-6.html#id3">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-s3-1.html">【第25回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(1)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-s3-1.html#amazon-s3">Amazon S3の概要</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-s3-1.html#section-cloud-native-s3-create-bucket-and-upload-label">バケットの作成とファイルのアップロード</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-s3-1.html#id4">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-s3-2.html">【第26回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(2)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-s3-2.html#s3">アプリケーションでのS3アクセス方式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-s3-2.html#spring-cloud-awss3-1">Spring Cloud AWSを使ったS3アクセスアプリケーション(1)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-s3-2.html#id5">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-s3-3.html">【第27回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(3)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-s3-3.html#spring-cloud-awss3-2">Spring Cloud AWSを使ったS3アクセスアプリケーション(2)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-s3-3.html#id1">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-sqs-1.html">【第28回】AmazonSQSを使用する実装(1)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-sqs-1.html#amazon-sqs">Amazon SQSの概要</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-sqs-1.html#sqs">SQSを使ったアプリケーションの処理パターン</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-sqs-1.html#section-cloud-native-sqs-create-queue-label">SQSキューの作成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-sqs-1.html#id3">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-sqs-2.html">【第29回】AmazonSQSを使用する実装(2)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-sqs-2.html#spring-cloud-awsproducer">Spring Cloud AWSを使ったProducerアプリケーション</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-sqs-2.html#id2">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-sqs-3.html">【第30回】AmazonSQSを使用する実装(3)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-sqs-3.html#springbatch">SpringBatchを使用したサンプルアプリケーション</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-sqs-3.html#section-cloud-native-sqs-batch-using-spring-bacth-setting-implementation-label">SpringBatchの設定クラス実装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-sqs-3.html#id2">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-sqs-4.html">【第31回】AmazonSQSを使用する実装(4)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-sqs-4.html#springbatch">SpringBatchの処理実装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-sqs-4.html#id1">著者紹介</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-sqs-5.html">【第32回】AmazonSQSを使用する実装(5)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-sqs-5.html#spring-cloud-awsconsumer">Spring Cloud AWSを使ったConsumerアプリケーション</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-sqs-5.html#section-cloud-native-conclusion-label">最後に</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-sqs-5.html#id3">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p><br/></p>
+<p>[AWSで実践！基盤構築・デプロイ自動化]</p>
+<p><br/></p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_overview.html#id2">第4回 基盤・デプロイ自動化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_overview.html#section-automation-infra-history-label">基盤構築自動化の発展経緯</a></li>
@@ -216,719 +416,261 @@
 <li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_overview.html#id10">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_actual_experience.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_actual_experience.html#section-application-architecture-for-microservice-label">マイクロサービスのアプリケーション構成と構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_actual_experience.html">【第1回】マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_actual_experience.html#section-application-architecture-for-microservice-label">マイクロサービスのアプリケーション構成と構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_actual_experience.html#id6">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_actual_experience.html#id7">著者紹介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarqube.html">【第2回】SonarQubeを利用した静的解析環境の構築</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarqube.html#section-sonarqube-overview-label">SonarQubeの概要</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarqube.html#amazon-rdssonarqubeserver">Amazon RDSを使ったSonarQubeServer用データベースの構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarqube.html#section-create-alb-for-sonarqube-label">SonarQubeServer向けのアプリケーションロードバランサーの構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarqube.html#sonarqubedockerfile">SonarQubeを構築するDockerfile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarqube.html#ecs">ECSクラスタ・タスク定義、サービスの実行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarqube.html#id5">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarqube.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarqube.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarqube.html#sonarqube">SonarQubeの概要</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarqube.html#amazon-rdssonarqubeserver">Amazon RDSを使ったSonarQubeServer用データベースの構築</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarqube.html#section-create-alb-for-sonarqube-label">SonarQubeServer向けのアプリケーションロードバランサーの構築</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarqube.html#sonarqubedockerfile">SonarQubeを構築するDockerfile</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarqube.html#ecs">ECSクラスタ・タスク定義、サービスの実行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarlint.html">【第3回】SonarLintを利用した開発端末の設定</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarlint.html#sonarqube">SonarQubeプロジェクトの作成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarlint.html#qualityprofile">サードパーティ製プラグインのインストールとカスタムQualityProfileの作成・適用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarlint.html#intellij-ideasonarlint">IntelliJ IDEAへのSonarLintのインストールとプロジェクトの設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarlint.html#id1">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarqube.html#id6">著者紹介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_architecture.html">【第4回】マイクロサービスにおけるテスト自動化とテスト戦略</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_architecture.html#section-application-test-overview-for-microservice-label">マイクロサービスにおけるテスト自動化とテスト戦略の重要性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_architecture.html#section-application-component-for-microservice-label">アプリケーションのパッケージ・コンポーネント構成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_architecture.html#section-test-strategy-for-microservice-label">アプリケーションのテスト観点</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_architecture.html#id7">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarlint.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarlint.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarlint.html#sonarqube">SonarQubeプロジェクトの作成</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarlint.html#qualityprofile">サードパーティ製プラグインのインストールとカスタムQualityProfileの作成・適用</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarlint.html#intellij-ideasonarlint">IntelliJ IDEAへのSonarLintのインストールとプロジェクトの設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_unittest-1.html">【第5回】マイクロサービスの単体試験コード実装(前編)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_unittest-1.html#section-application-test-for-microservice-label">マイクロサービスにおける単体テスト</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_unittest-1.html#repository">Repositoryの単体テスト実装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_unittest-1.html#id3">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_sonarlint.html#id3">著者紹介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_unittest-2.html">【第6回】マイクロサービスの単体試験コード実装(後編)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_unittest-2.html#service">Serviceの単体テスト実装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_unittest-2.html#controller">Controllerの単体テスト実装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_unittest-2.html#section-unit-test-strategy-for-microservice-label">マイクロサービスにおける単体テスト戦略と品質評価</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_unittest-2.html#id3">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_architecture.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_architecture.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_architecture.html#section-application-test-overview-for-microservice-label">マイクロサービスにおけるテスト自動化とテスト戦略の重要性</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_architecture.html#section-application-component-for-microservice-label">アプリケーションのパッケージ・コンポーネント構成</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_architecture.html#section-test-strategy-for-microservice-label">アプリケーションのテスト観点</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html">【第7回】マイクロサービスの結合試験コード実装</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html#section-integration-test-for-microservice-label">マイクロサービスにおける結合テスト</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html#servicerepository">Service⇔Repositoryの結合テスト実装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html#controllerservicerepository">Controller⇔Service⇔Repositoryの結合テスト実装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html#section-integration-test-strategy-for-microservice-label">マイクロサービスにおける結合テスト戦略と品質評価</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html#id5">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_architecture.html#id8">著者紹介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unittest.html">【第8回】マイクロサービスを呼び出すWebAPの単体テストコード・E2Eテストの実装(前編)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unittest.html#webendtoend">マイクロサービスを呼び出すWebアプリケーションの単体テスト・EndToEndテスト(前編)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unittest.html#webaprepository">マイクロサービスを呼び出すWebAPのRepository単体テスト実装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unittest.html#webapservice">マイクロサービスを呼び出すWebAPのService単体テスト実装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unittest.html#id1">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_unittest-1.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_unittest-1.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_unittest-1.html#section-application-test-for-microservice-label">マイクロサービスにおける単体テスト</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_unittest-1.html#repository">Repositoryの単体テスト実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html">【第9回】マイクロサービスを呼び出すWebAPの単体テストコード・E2Eテストの実装(後編)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html#webendtoend">マイクロサービスを呼び出すWebアプリケーションの単体テスト・EndToEndテスト(後編)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html#webcontroller">マイクロサービスを呼び出すWebアプリケーションのController単体テスト実装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html#seleniumendtoend">Seleniumを使用したEndToEndテスト</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html#web">マイクロサービスを呼び出すWebアプリケーションのテスト戦略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html#id3">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_unittest-1.html#id4">著者紹介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild_local.html">【第10回】AWS CodeBuildを使用したCI環境構築(前編)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild_local.html#aws-codebuild1">AWS CodeBuildを用いた継続的インテグレーション自動化1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild_local.html#codebuild">CodeBuildの概要</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild_local.html#codebuild-local">CodeBuild Localの環境設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild_local.html#aws-systems-manager-parameter-store">AWS Systems Manager Parameter Storeの概要と設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild_local.html#buildspec-ymlcodebuild-local">buildspec.ymlの作成とCodeBuild Localの実行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild_local.html#id2">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_unittest-2.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_unittest-2.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_unittest-2.html#service">Serviceの単体テスト実装</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_unittest-2.html#controller">Controllerの単体テスト実装</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_unittest-2.html#section-unit-test-strategy-for-microservice-label">マイクロサービスにおける単体テスト戦略と品質評価</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild.html">【第11回】AWS CodeBuildを使用したCI環境構築(後編)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild.html#aws-codebuild2">AWS CodeBuildを用いた継続的インテグレーション自動化2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild.html#section-codebuild-create-security-group-label">事前準備：セキュリティグループの作成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild.html#codebuild">CodeBuildの設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild.html#aws-systems-manager-parameter-store">AWS Systems Manager Parameter Storeへのアクセス権限の付与</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild.html#buildwebhook">Buildの実行とWebHook設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild.html#section-codebuild-conclusion-label">マイクロサービスにおける継続的インテグレーションのまとめ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild.html#id5">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_unittest-2.html#id4">著者紹介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_1.html">【第12回】AWS CodePipeLineを用いた継続的デリバリ自動化</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_1.html#section-automation-infra-devops-continuous-delivery-automation-using-codepipeline-label">AWS CodePipeLineを用いた継続的デリバリ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_1.html#codepipeline">CodePipelineの概要</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_1.html#section-codepipeline-microservice-pipeline-overview-label">マイクロサービスでのパイプライン構成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_1.html#id3">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html#section-integration-test-for-microservice-label">マイクロサービスにおける結合テスト</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html#servicerepository">Service⇔Repositoryの結合テスト実装</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html#controllerservicerepository">Controller⇔Service⇔Repositoryの結合テスト実装</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html#section-integration-test-strategy-for-microservice-label">マイクロサービスにおける結合テスト戦略と品質評価</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_2.html">【第13回】AWS CodePipeLineを用いた継続的デリバリ自動化(1)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_2.html#dockerhub">(1)バックエンドのマイクロサービスアプリケーションをビルドし、DockerHubへプッシュするパイプラインの構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_2.html#backendbuildspec-ymldockerfile">Backendマイクロサービスのコンテナイメージをビルドするbuildspec.ymlおよびDockerfileの作成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_2.html#aws-sysmtems-managers-parameter-store">AWS Sysmtems Managers Parameter Storeでの環境変数の定義</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_2.html#codepipeline">CodePipelineの設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_2.html#id1">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html#id6">著者紹介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_3.html">【第14回】AWS CodePipeLineを用いた継続的デリバリ自動化(2)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_3.html#section-codepipeline-setting-codepipeline-deploy-backend-staging-label">(2)バックエンドマイクロサービスのコンテナイメージをデプロイするパイプラインの構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_3.html#section-codepipeline-setting-codepipeline-backend-staging-environment-label">事前準備：マイクロサービスのステージング環境の構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_3.html#section-codepipeline-setting-pipeline-deploy-backend-staging-label">マイクロサービスのステージング環境へのデプロイパイプラインの設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_3.html#id4">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unittest.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unittest.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unittest.html#webendtoend">マイクロサービスを呼び出すWebアプリケーションの単体テスト・EndToEndテスト(前編)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unittest.html#webaprepository">マイクロサービスを呼び出すWebAPのRepository単体テスト実装</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unittest.html#webapservice">マイクロサービスを呼び出すWebAPのService単体テスト実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_4.html">【第15回】AWS CodePipeLineを用いた継続的デリバリ自動化(3)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_4.html#e2e">(3)E2Eテストを実行するパイプラインの構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_4.html#e2ebuildspec-yml">E2Eテストを実行するbuildspec.ymlの実装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_4.html#section-codepipeline-setting-pipeline-for-e2etest-label">E2Eテストを実行するパイプラインの設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_4.html#id2">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unittest.html#id3">著者紹介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_5.html">【第16回】AWS CodePipeLineを用いた継続的デリバリ自動化(4)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_5.html#web-bff-dockerhub">(4)Web(BFF)アプリケーションのコンテナイメージをビルドして、DockerHubへプッシュするパイプラインの構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_5.html#bffbuildspec-ymldockerfile">BFFアプリケーションをビルドするbuildspec.ymlおよびDockerfileの作成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_5.html#aws-sysmtems-managers-parameter-store">AWS Sysmtems Managers Parameter Storeでの環境変数の定義</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_5.html#codepipeline">ビルドプロジェクトの作成とCodePipelineの設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_5.html#id1">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html#webendtoend">マイクロサービスを呼び出すWebアプリケーションの単体テスト・EndToEndテスト(後編)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html#webcontroller">マイクロサービスを呼び出すWebアプリケーションのController単体テスト実装</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html#seleniumendtoend">Seleniumを使用したEndToEndテスト</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html#web">マイクロサービスを呼び出すWebアプリケーションのテスト戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_6.html">【第17回】AWS CodePipeLineを用いた継続的デリバリ自動化(5)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_6.html#web">(5)Webアプリケーションコンテナをステージング環境へデプロイするパイプラインの構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_6.html#web-bff">事前準備：Web(BFF)アプリケーションのステージング環境の構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_6.html#aws-sysmtems-managers-parameter-storeecs">AWS Sysmtems Managers Parameter Storeでの環境変数の定義とECSサービスロールへのアクセス権限の付与</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_6.html#section-codepipeline-setting-pipeline-deploy-bff-staging-label">Web(BFF)アプリケーションのステージング環境へのデプロイ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_6.html#id2">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html#id5">著者紹介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_7.html">【第18回】AWS CodePipeLineを用いた継続的デリバリ自動化(6)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_7.html#section-codepipeline-setting-codepipeline-approve-production-label">(6)プロダクション環境へのリリース承認を行うパイプラインの構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_7.html#amazon-sns">Amazon SNSの概要と承認トピックの作成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_7.html#section-codepipeline-setting-pipeline-for-release-approval-label">プロダクション環境へのリリース承認フローパイプラインの設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_7.html#id3">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild_local.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild_local.html#aws-codebuild1">AWS CodeBuildを用いた継続的インテグレーション自動化1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild_local.html#codebuild">CodeBuildの概要</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild_local.html#codebuild-local">CodeBuild Localの環境設定</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild_local.html#aws-systems-manager-parameter-store">AWS Systems Manager Parameter Storeの概要と設定</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild_local.html#buildspec-ymlcodebuild-local">buildspec.ymlの作成とCodeBuild Localの実行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_8.html">【第19回】AWS CodePipeLineを用いた継続的デリバリ自動化(7)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_8.html#dockerhub">(7)プロダクション環境へリリースするコンテナイメージをビルドして、DockerHubへプッシュするパイプラインの構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_8.html#buildspec-yml">プロダクション環境のコンテナイメージをビルドするbuildspec.ymlの作成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_8.html#aws-sysmtems-managers-parameter-store">AWS Sysmtems Managers Parameter Storeでの環境変数の定義</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_8.html#codepipeline">ビルドプロジェクトの作成とCodePipelineの設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_8.html#id1">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild_local.html#id4">著者紹介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html">【第20回】AWS CodePipeLineを用いた継続的デリバリ自動化(8)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html#section-codepipeline-setting-codepipeline-deploy-label">(8)プロダクション環境へデプロイするパイプラインの構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html#section-codepipeline-setting-codepipeline-production-environment-label">事前準備：アプリケーションのプロダクション環境の構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html#aws-sysmtems-managers-parameter-store">AWS Sysmtems Managers Parameter Storeでの環境変数の定義</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html#section-codebuild-setting-pipeline-deploy-production-label">プロダクション環境デプロイのパイプラインの作成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html#section-codepipeline-conclusion-label">マイクロサービスにおける継続的デリバリーのまとめ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html#id5">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild.html#aws-codebuild2">AWS CodeBuildを用いた継続的インテグレーション自動化2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild.html#section-codebuild-create-security-group-label">事前準備：セキュリティグループの作成</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild.html#codebuild">CodeBuildの設定</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild.html#aws-systems-manager-parameter-store">AWS Systems Manager Parameter Storeへのアクセス権限の付与</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild.html#buildwebhook">Buildの実行とWebHook設定</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild.html#section-codebuild-conclusion-label">マイクロサービスにおける継続的インテグレーションのまとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_overview.html">【第21回】AWS CloudFormationを用いた基盤自動化(1)CloudFormationの概要</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_overview.html#aws-cloudformation">AWS CloudFormationを使用した基盤自動化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_overview.html#section-cloudformation-overview-label">AWS CloudFormationの概要</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_overview.html#section-cloudformation-template-overview-label">テンプレートの基本要素と記述ルールの概要</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_overview.html#cloudformation">CloudFormationで利用可能な組み込みファンクションや擬似パラメータ、その他機能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_overview.html#section-cloudformation-article-index-label">CloudFormationを使った基盤自動化環境構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_overview.html#id5">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codebuild.html#id7">著者紹介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_cli.html">【第22回】AWS CloudFormationを用いた基盤自動化(2)AWS CLIの実行環境</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_cli.html#amazoncli-commandlineinterface">AmazonCLI(CommandLineInterface)の概要と実行環境設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_cli.html#id1">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_1.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_1.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_1.html#aws-codepipeline">AWS CodePipeLineを用いた継続的デリバリ</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_1.html#codepipeline">CodePipelineの概要</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_1.html#section-codepipeline-microservice-pipeline-overview-label">マイクロサービスでのパイプライン構成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_lint.html">【第23回】AWS CloudFormationを用いた基盤自動化(3)各種検証プラグインインストールと統合開発環境の設定</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_lint.html#cfn-lintintellij-idea">cfn-lintのインストールとIntelliJ IDEAでのプラグイン設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_lint.html#id1">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_1.html#id4">著者紹介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_script.html">【第24回】AWS CloudFormationを用いた基盤自動化(4)テンプレート記述の基本と実行ヘルパースクリプトの作成</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_script.html#cloudformation">CloudFormationテンプレート記述の基本</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_script.html#id2">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_2.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_2.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_2.html#dockerhub">(1)バックエンドのマイクロサービスアプリケーションをビルドし、DockerHubへプッシュするパイプラインの構築</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_2.html#backendbuildspec-ymldockerfile">Backendマイクロサービスのコンテナイメージをビルドするbuildspec.ymlおよびDockerfileの作成</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_2.html#aws-sysmtems-managers-parameter-store">AWS Sysmtems Managers Parameter Storeでの環境変数の定義</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_2.html#codepipeline">CodePipelineの設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_taskcat.html">【第25回】AWS CloudFormationを用いた基盤自動化(5)CloudFormationテスト環境の構築</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_taskcat.html#taskcat">taskcatの概要</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_taskcat.html#section-cloudformation-taskcat-install-label">事前準備：taskcatのインストールと認証情報の設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_taskcat.html#section-cloudformation-taskcat-execution-label">taskcatの設定とテスト実行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_taskcat.html#id4">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_2.html#id3">著者紹介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_vpc.html">【第26回】AWS CloudFormationを用いた基盤自動化(6)VPC、サブネット、ルートテーブル、インターネットGWの構築</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_vpc.html#vpc-subnet-routetable-internetgateway">VPC/Subnet/RouteTable/InternetGatewayスタック構築テンプレート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_vpc.html#id2">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_3.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_3.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_3.html#section-codepipeline-setting-codepipeline-deploy-backend-staging-label">(2)バックエンドマイクロサービスのコンテナイメージをデプロイするパイプラインの構築</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_3.html#section-codepipeline-setting-codepipeline-backend-staging-environment-label">事前準備：マイクロサービスのステージング環境の構築</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_3.html#section-codepipeline-setting-pipeline-deploy-backend-staging-label">マイクロサービスのステージング環境へのデプロイパイプラインの設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_sg_nat.html">【第27回】AWS CloudFormationを用いた基盤自動化(7)SecurityGroup/NATGatewayの構築</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_sg_nat.html#section-cloudformation-security-group-sample-label">セキュリティグループスタック構築テンプレート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_sg_nat.html#natgateway">NATGatewayスタック構築テンプレート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_sg_nat.html#id11">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_3.html#id6">著者紹介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_alb.html">【第28回】AWS CloudFormationを用いた基盤自動化(8)ApplicationLoadBalancer/TargetGroupの構築</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_alb.html#alb">アプリケーションロードバランサー(ALB)スタック構築テンプレート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_alb.html#id10">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_4.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_4.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_4.html#e2e">(3)E2Eテストを実行するパイプラインの構築</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_4.html#e2ebuildspec-yml">E2Eテストを実行するbuildspec.ymlの実装</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_4.html#section-codepipeline-setting-pipeline-for-e2etest-label">E2Eテストを実行するパイプラインの設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_rds.html">【第29回】AWS CloudFormationを用いた基盤自動化(9)RDSの構築</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_rds.html#rds">RDSスタック構築テンプレート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_rds.html#id8">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_4.html#id4">著者紹介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_dynamodb.html">【第30回】AWS CloudFormationを用いた基盤自動化(10)DynamoDBの構築</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_dynamodb.html#dynamodb">DynamoDBスタック構築テンプレート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_dynamodb.html#id4">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_5.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_5.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_5.html#web-bff-dockerhub">(4)Web(BFF)アプリケーションのコンテナイメージをビルドして、DockerHubへプッシュするパイプラインの構築</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_5.html#bffbuildspec-ymldockerfile">BFFアプリケーションをビルドするbuildspec.ymlおよびDockerfileの作成</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_5.html#aws-sysmtems-managers-parameter-store">AWS Sysmtems Managers Parameter Storeでの環境変数の定義</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_5.html#codepipeline">ビルドプロジェクトの作成とCodePipelineの設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_elasticache.html">【第31回】AWS CloudFormationを用いた基盤自動化(11)ElastiCacheの構築</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_elasticache.html#elasticache">ElastiCacheスタック構築テンプレート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_elasticache.html#id7">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_5.html#id3">著者紹介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_s3_sqs.html">【第32回】AWS CloudFormationを用いた基盤自動化(12)SQS/S3の構築</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_s3_sqs.html#s3">S3スタック構築テンプレート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_s3_sqs.html#sqs">SQSスタック構築テンプレート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_s3_sqs.html#id5">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_6.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_6.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_6.html#web">(5)Webアプリケーションコンテナをステージング環境へデプロイするパイプラインの構築</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_6.html#web-bff">事前準備：Web(BFF)アプリケーションのステージング環境の構築</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_6.html#aws-sysmtems-managers-parameter-storeecs">AWS Sysmtems Managers Parameter Storeでの環境変数の定義とECSサービスロールへのアクセス権限の付与</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_6.html#section-codepipeline-setting-pipeline-deploy-bff-staging-label">Web(BFF)アプリケーションのステージング環境へのデプロイ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_nest.html">【第33回】AWS CloudFormationを用いた基盤自動化(13)NestedStackの作成</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_nest.html#nestedstack">NestedStackの作成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_nest.html#id3">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_6.html#id4">著者紹介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_app_backend.html">【第34回】AWS CloudFormationを用いた基盤自動化(14)SpringCloudAWSを利用したBackend Serviceアプリケーションにおけるスタック情報の取得・設定</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_app_backend.html#spring-cloud-awscloudformation">Spring Cloud AWSのCloudFormationサポート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_app_backend.html#backend-servicecloudformation">Backend ServiceにおけるCloudFormationスタック情報を利用した設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_app_backend.html#id7">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_7.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_7.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_7.html#section-codepipeline-setting-codepipeline-approve-production-label">(6)プロダクション環境へのリリース承認を行うパイプラインの構築</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_7.html#amazon-sns">Amazon SNSの概要と承認トピックの作成</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_7.html#section-codepipeline-setting-pipeline-for-release-approval-label">プロダクション環境へのリリース承認フローパイプラインの設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_webapp_frontend.html">【第35回】AWS CloudFormationを用いた基盤自動化(15)SpringCloudAWSを利用したFrontend Webアプリケーションにおけるスタック情報の取得・設定</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_webapp_frontend.html#frontend-webcloudformation">Frontend WebアプリケーションにおけるCloudFormationスタック情報を利用した設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_webapp_frontend.html#id9">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_7.html#id5">著者紹介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_cluster.html">【第36回】AWS CloudFormationを用いた基盤自動化(16)ECSクラスタの構築</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_cluster.html#section-cloudformation-ecs-task-preparation-label">事前準備</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_cluster.html#ecs">ECSクラスタスタック構築テンプレート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_cluster.html#id10">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_8.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_8.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_8.html#dockerhub">(7)プロダクション環境へリリースするコンテナイメージをビルドして、DockerHubへプッシュするパイプラインの構築</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_8.html#buildspec-yml">プロダクション環境のコンテナイメージをビルドするbuildspec.ymlの作成</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_8.html#aws-sysmtems-managers-parameter-store">AWS Sysmtems Managers Parameter Storeでの環境変数の定義</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_8.html#codepipeline">ビルドプロジェクトの作成とCodePipelineの設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_task.html">【第37回】AWS CloudFormationを用いた基盤自動化(17)ECSタスク定義の構築</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_task.html#ecs">ECSタスク定義スタック構築テンプレート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_task.html#id6">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_8.html#id3">著者紹介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_taskrole.html">【第38回】AWS CloudFormationを用いた基盤自動化(18)ECSタスクロール定義の構築</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_taskrole.html#ecs">ECSタスクロール定義スタック構築テンプレート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_taskrole.html#id4">著者紹介</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html#section-codepipeline-setting-codepipeline-deploy-label">(8)プロダクション環境へデプロイするパイプラインの構築</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html#section-codepipeline-setting-codepipeline-production-environment-label">事前準備：アプリケーションのプロダクション環境の構築</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html#aws-sysmtems-managers-parameter-store">AWS Sysmtems Managers Parameter Storeでの環境変数の定義</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html#section-codebuild-setting-pipeline-deploy-production-label">プロダクション環境デプロイのパイプラインの作成</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html#section-codepipeline-conclusion-label">マイクロサービスにおける継続的デリバリーのまとめ</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_codepipeline_9.html#id7">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_overview.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_overview.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_overview.html#aws-cloudformation">AWS CloudFormationを使用した基盤自動化</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_overview.html#section-cloudformation-overview-label">AWS CloudFormationの概要</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_overview.html#section-cloudformation-template-overview-label">テンプレートの基本要素と記述ルールの概要</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_overview.html#cloudformation">CloudFormationで利用可能な組み込みファンクションや擬似パラメータ、その他機能</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_overview.html#section-cloudformation-article-index-label">CloudFormationを使った基盤自動化環境構築</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_overview.html#id7">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_cli.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_cli.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_cli.html#amazoncli-commandlineinterface">AmazonCLI(CommandLineInterface)の概要と実行環境設定</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_cli.html#id3">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_lint.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_lint.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_lint.html#cfn-lintintellij-idea">cfn-lintのインストールとIntelliJ IDEAでのプラグイン設定</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_lint.html#id3">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_script.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_script.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_script.html#cloudformation">CloudFormationテンプレート記述の基本</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_script.html#id4">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_taskcat.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_taskcat.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_taskcat.html#taskcat">taskcatの概要</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_taskcat.html#section-cloudformation-taskcat-install-label">事前準備：taskcatのインストールと認証情報の設定</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_taskcat.html#section-cloudformation-taskcat-execution-label">taskcatの設定とテスト実行</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_taskcat.html#id6">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_vpc.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_vpc.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_vpc.html#vpc-subnet-routetable-internetgateway">VPC/Subnet/RouteTable/InternetGatewayスタック構築テンプレート</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_vpc.html#id4">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_sg_nat.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_sg_nat.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_sg_nat.html#section-cloudformation-security-group-sample-label">セキュリティグループスタック構築テンプレート</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_sg_nat.html#natgateway">NATGatewayスタック構築テンプレート</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_sg_nat.html#id13">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_alb.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_alb.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_alb.html#alb">アプリケーションロードバランサー(ALB)スタック構築テンプレート</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_alb.html#id12">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_rds.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_rds.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_rds.html#rds">RDSスタック構築テンプレート</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_rds.html#id10">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_dynamodb.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_dynamodb.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_dynamodb.html#dynamodb">DynamoDBスタック構築テンプレート</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_dynamodb.html#id6">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_elasticache.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_elasticache.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_elasticache.html#elasticache">ElastiCacheスタック構築テンプレート</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_elasticache.html#id9">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_s3_sqs.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_s3_sqs.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_s3_sqs.html#s3">S3スタック構築テンプレート</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_s3_sqs.html#sqs">SQSスタック構築テンプレート</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_s3_sqs.html#id7">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_nest.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_nest.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_nest.html#nestedstack">NestedStackの作成</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_nest.html#id5">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_app_backend.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_app_backend.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_app_backend.html#spring-cloud-awscloudformation">Spring Cloud AWSのCloudFormationサポート</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_app_backend.html#backend-servicecloudformation">Backend ServiceにおけるCloudFormationスタック情報を利用した設定</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_app_backend.html#id9">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_webapp_frontend.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_webapp_frontend.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_webapp_frontend.html#frontend-webcloudformation">Frontend WebアプリケーションにおけるCloudFormationスタック情報を利用した設定</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_webapp_frontend.html#id11">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_cluster.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_cluster.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_cluster.html#section-cloudformation-ecs-task-preparation-label">事前準備</a></li>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_cluster.html#ecs">ECSクラスタスタック構築テンプレート</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_cluster.html#id12">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_task.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_task.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_task.html#ecs">ECSタスク定義スタック構築テンプレート</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_task.html#id8">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_taskrole.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_taskrole.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_taskrole.html#ecs">ECSタスクロール定義スタック構築テンプレート</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_taskrole.html#id6">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.html">基盤・デプロイ自動化実践</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.html#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.html#ecs">ECSサービススタック構築テンプレート</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.html#id8">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-1.html#api-gatewaylambdaspring-1">第1回 API GatewayとLambdaを使ったサーバレスSpringアプリケーション(1)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-1.html#spring-cloud-funtion">サーバレス開発・Spring Cloud Funtionとは</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-1.html#spring-cloud-function">(1) Spring Cloud Functionを使用したサーバレスアプリケーション実装</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-1.html#id2">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-2.html#api-gatewaylambdaspring-2">第1回 API GatewayとLambdaを使ったサーバレスSpringアプリケーション(2)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-2.html#aws-lambda">(2)AWS Lambdaの設定</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-2.html#id1">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-3.html#api-gatewaylambdaspring-3">第1回 API GatewayとLambdaを使ったサーバレスSpringアプリケーション(3)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-3.html#amazon-api-gateway">Amazon API Gatewayの設定</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-3.html#id1">まとめ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-lambda-and-api-gateway-3.html#id2">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-1.html#aws-ecsspring-1">第2回 AWS ECS上に構築するSpringアプリケーション(1)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-ecs-1.html#aws-ecs">AWS ECSの概要とアプリケーション環境構成</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-ecs-1.html#vpc-virtual-private-cloud">(1)VPC(Virtual Private Cloud)環境の構築</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-1.html#id2">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-2.html#aws-ecsspring-2">第2回 AWS ECS上に構築するSpringアプリケーション(2)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-ecs-2.html#alb">(2)アプリケーションロードバランサー(ALB)の作成</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-2.html#id1">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-3.html#aws-ecsspring-3">第2回 AWS ECS上に構築するSpringアプリケーション(3)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-ecs-3.html#spring">(3)Springを使用したコンテナアプリケーションの実装方法</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-3.html#id1">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-4.html#aws-ecsspring-4">第2回 AWS ECS上に構築するSpringアプリケーション(4)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-ecs-4.html#dockerdockerhub">(4)Dockerコンテナの作成・DockerHubへのプッシュ</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-4.html#id1">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-5.html#aws-ecsspring-5">第2回 AWS ECS上に構築するSpringアプリケーション(5)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-ecs-5.html#ecs">(5)ECSクラスタの作成</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-5.html#id1">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-6.html#aws-ecsspring-6">第2回 AWS ECS上に構築するSpringアプリケーション(6)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-ecs-6.html#ecs">(6)ECSタスクの定義</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-6.html#id2">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-ecs-7.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-7.html#aws-ecsspring-7">第2回 AWS ECS上に構築するSpringアプリケーション(7)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-ecs-7.html#ecs">(7)ECSサービスの実行</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-7.html#id5">まとめ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-ecs-7.html#id6">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-rds-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-rds-1.html#amazon-rdsspring-1">Amazon RDSにアクセスするSpringアプリケーション(1)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-rds-1.html#amazon-rds">Amazon RDSの概要</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-rds-1.html#section-cloud-native-rds-setup-label">Amazon RDSの構築</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-rds-1.html#id4">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-rds-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-rds-2.html#amazon-rdsspring-2">Amazon RDSにアクセスするSpringアプリケーション(2)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-rds-2.html#spring-data-jpaspring-cloud-aws">Spring Data JPAおよびSpring Cloud AWSの概要</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-rds-2.html#spring-data-jpaspring-cloud-awsrds-1">Spring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(1)</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-rds-2.html#id3">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-rds-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-rds-3.html#amazon-rdsspring-3">Amazon RDSにアクセスするSpringアプリケーション(3)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-rds-3.html#spring-data-jpaspring-cloud-awsrds-2">Spring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(2)</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-rds-3.html#id4">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-1-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-1-1.html#awsnosql-1-1">第3回 AWS上に構築するNoSQLアプリケーション(1)-1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-nosql-1-1.html#nosql">NoSQLデータベースの特徴とデータ特性</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cloud_native/aws-nosql-1-1.html#cap">CAP定理を基づくデータベースの分類</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-1-1.html#id2">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-1-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-1-2.html#awsnosql-1-2">第3回 AWS上に構築するNoSQLアプリケーション(1)-2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-nosql-1-2.html#nosql">NoSQLデータベースの特徴とデータ特性</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cloud_native/aws-nosql-1-2.html#apamazon-dynamodbapache-cassandra">AP型データベースAmazon DynamoDBとApache Cassandraの特徴</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-1-2.html#id1">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-2-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-2-1.html#awsnosql-2-1">第3回 AWS上に構築するNoSQLアプリケーション(2)-1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-nosql-2-1.html#amazon-dynamodbspring">Amazon DynamoDBへアクセスするSpringアプリケーション</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cloud_native/aws-nosql-2-1.html#amazon-dynamodb">Amazon DynamoDBの概要</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cloud_native/aws-nosql-2-1.html#section-cloud-native-create-dynamodb-label">Amazon DynamoDBの構築</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cloud_native/aws-nosql-2-1.html#section-cloud-native-create-user-and-credential-label">ユーザ・認証情報の作成</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-2-1.html#id3">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-2-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-2-2.html#awsnosql-2-2">第3回 AWS上に構築するNoSQLアプリケーション(2)-2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-nosql-2-2.html#amazon-dynamodbspring">Amazon DynamoDBへアクセスするSpringアプリケーション</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cloud_native/aws-nosql-2-2.html#spring-data-dynamodb">Spring Data DynamoDBの概要</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cloud_native/aws-nosql-2-2.html#spring-data-dynamodb-1">Spring Data DynamoDBを使ったアプリケーション実装(1)</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-2-2.html#id3">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-2-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-2-3.html#awsnosql-2-3">第3回 AWS上に構築するNoSQLアプリケーション(2)-3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-nosql-2-3.html#amazon-dynamodbspring">Amazon DynamoDBへアクセスするSpringアプリケーション</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cloud_native/aws-nosql-2-3.html#spring-data-dynamodb-2">Spring Data DynamoDBを使ったアプリケーション実装(2)</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-2-3.html#id1">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-3-1.html#awsnosql-3-1">第3回 AWS上に構築するNoSQLアプリケーション(3)-1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-nosql-3-1.html#apache-cassandraspring">Apache CassandraへアクセスするSpringアプリケーション</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cloud_native/aws-nosql-3-1.html#apache-cassandra">Apache Cassandraの概要</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cloud_native/aws-nosql-3-1.html#id1">Apache Cassandraの構築</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-3-1.html#id2">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-3-2.html#awsnosql-3-2">第3回 AWS上に構築するNoSQLアプリケーション(3)-2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-nosql-3-2.html#apache-cassandraspring">Apache CassandraへアクセスするSpringアプリケーション</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cloud_native/aws-nosql-3-2.html#spring-data-cassandra">Spring Data Cassandraの概要</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cloud_native/aws-nosql-3-2.html#spring-data-cassandra-1">Spring Data Cassandraを使ったアプリケーション実装(1)</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-3-2.html#id2">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-3-3.html#awsnosql-3-3">第3回 AWS上に構築するNoSQLアプリケーション(3)-3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-nosql-3-3.html#apache-cassandraspring">Apache CassandraへアクセスするSpringアプリケーション</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cloud_native/aws-nosql-3-3.html#spring-data-cassandra-2">Spring Data Cassandraを使ったアプリケーション実装(2)</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-3-3.html#id1">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-4-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-1.html#awsnosql-4-1">第3回 AWS上に構築するNoSQLアプリケーション(4)-1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-nosql-4-1.html#amazon-elasticachespring">Amazon ElastiCacheへアクセスするSpringアプリケーション</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cloud_native/aws-nosql-4-1.html#amazon-elasticache">Amazon ElastiCacheの概要</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cloud_native/aws-nosql-4-1.html#redis">ローカル環境におけるRedisの構築</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-1.html#id1">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-4-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-2.html#awsnosql-4-2">第3回 AWS上に構築するNoSQLアプリケーション(4)-2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-nosql-4-2.html#amazon-elasticachespring">Amazon ElastiCacheへアクセスするSpringアプリケーション</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cloud_native/aws-nosql-4-2.html#spring-data-sessionspring-data-redis">Spring Data SessionとSpring Data Redisの概要</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cloud_native/aws-nosql-4-2.html#spring-sessionspring-data-redis-1">Spring SessionとSpring Data Redisを使ったアプリケーション実装(1)</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-2.html#id1">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-4-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-3.html#awsnosql-4-3">第3回 AWS上に構築するNoSQLアプリケーション(4)-3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-nosql-4-3.html#amazon-elasticachespring">Amazon ElastiCacheへアクセスするSpringアプリケーション</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cloud_native/aws-nosql-4-3.html#spring-sessionspring-data-redis-2">Spring SessionとSpring Data Redisを使ったアプリケーション実装(2)</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-3.html#id1">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-4-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-4.html#awsnosql-4-4">第3回 AWS上に構築するNoSQLアプリケーション(4)-4</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-nosql-4-4.html#amazon-elasticachespring">Amazon ElastiCacheへアクセスするSpringアプリケーション</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cloud_native/aws-nosql-4-4.html#amazon-elasticache-redis">Amazon ElastiCache(Redis)の設定</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-4.html#id2">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-4-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-5.html#awsnosql-4-5">第3回 AWS上に構築するNoSQLアプリケーション(4)-5</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-nosql-4-5.html#amazon-elasticachespring">Amazon ElastiCacheへアクセスするSpringアプリケーション</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cloud_native/aws-nosql-4-5.html#ecs-1">セッション共有するECSアプリケーションの構築(1)</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-5.html#id1">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-nosql-4-6.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-6.html#awsnosql-4-6">第3回 AWS上に構築するNoSQLアプリケーション(4)-6</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-nosql-4-6.html#amazon-elasticachespring">Amazon ElastiCacheへアクセスするSpringアプリケーション</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cloud_native/aws-nosql-4-6.html#ecs-2">セッション共有するECSアプリケーションの構築(2)</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-nosql-4-6.html#id3">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-s3-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-s3-1.html#amazon-s3">Amazon S3の概要とバケットの作成・ファイルのアップロード</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-s3-1.html#section-cloud-native-s3-overview-label">Amazon S3の概要</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-s3-1.html#section-cloud-native-s3-create-bucket-and-upload-label">バケットの作成とファイルのアップロード</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-s3-1.html#id6">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-s3-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-s3-2.html#amazon-s3spring-1">Amazon S3にアクセスするSpringアプリケーション(1)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-s3-2.html#s3">アプリケーションでのS3アクセス方式</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-s3-2.html#spring-cloud-awss3-1">Spring Cloud AWSを使ったS3アクセスアプリケーション(1)</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-s3-2.html#id6">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-s3-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-s3-3.html#amazon-s3spring-2">Amazon S3にアクセスするSpringアプリケーション(2)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-s3-3.html#spring-cloud-awss3-2">Spring Cloud AWSを使ったS3アクセスアプリケーション(2)</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-s3-3.html#id1">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-sqs-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-sqs-1.html#amazon-sqsspring-1">Amazon SQSを使ったSpringアプリケーション(1)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-sqs-1.html#amazon-sqs">Amazon SQSの概要</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-sqs-1.html#sqs">SQSを使ったアプリケーションの処理パターン</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-sqs-1.html#section-cloud-native-sqs-create-queue-label">SQSキューの作成</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-sqs-1.html#id3">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-sqs-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-sqs-2.html#amazon-sqsspring-2">Amazon SQSを使ったSpringアプリケーション(2)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-sqs-2.html#spring-cloud-awsproducer">Spring Cloud AWSを使ったProducerアプリケーション</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-sqs-2.html#id3">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-sqs-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-sqs-3.html#amazon-sqsspring-3">Amazon SQSを使ったSpringアプリケーション(3)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-sqs-3.html#springbatch">SpringBatchを使用したサンプルアプリケーション</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-sqs-3.html#section-cloud-native-sqs-batch-using-spring-bacth-setting-implementation-label">SpringBatchの設定クラス実装</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-sqs-3.html#id2">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-sqs-4.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-sqs-4.html#amazon-sqsspring-4">Amazon SQSを使ったSpringアプリケーション(4)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-sqs-4.html#springbatch">SpringBatchの処理実装</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-sqs-4.html#id1">著者紹介</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cloud_native/aws-sqs-5.html">AWSで作るクラウドネイティブアプリケーションの基本</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-sqs-5.html#amazon-sqsspring-5">Amazon SQSを使ったSpringアプリケーション(5)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-sqs-5.html#spring-cloud-awsconsumer">Spring Cloud AWSを使ったConsumerアプリケーション</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cloud_native/aws-sqs-5.html#section-cloud-native-conclusion-label">最後に</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_native/aws-sqs-5.html#id4">著者紹介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.html">【第39回】AWS CloudFormationを用いた基盤自動化(19)ECSサービスの構築</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.html#ecs">ECSサービススタック構築テンプレート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.html#id6">著者紹介</a></li>
 </ul>
 </li>
 </ul>

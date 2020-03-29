@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>基盤・デプロイ自動化実践 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <title>【第7回】マイクロサービスの結合試験コード実装 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -18,8 +18,8 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="基盤・デプロイ自動化実践" href="automation_infra_devops_web_app_unittest.html" />
-    <link rel="prev" title="基盤・デプロイ自動化実践" href="automation_infra_devops_micro_service_unittest-2.html" />
+    <link rel="next" title="マイクロサービスを呼び出すWebアプリケーションの単体テスト・EndToEndテスト(前編)" href="automation_infra_devops_web_app_unittest.html" />
+    <link rel="prev" title="【第6回】マイクロサービスの単体試験コード実装(後編)" href="automation_infra_devops_micro_service_unittest-2.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -57,15 +57,20 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../table_of_contents_draft.html">記事目次案</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_actual_experience.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarqube.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarlint.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_architecture.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-1.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-2.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unittest.html">基盤・デプロイ自動化実践</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unit_e2e_test.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_actual_experience.html">【第1回】マイクロサービスアーキテクチャの基盤・デプロイ自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarqube.html">【第2回】SonarQubeを利用した静的解析環境の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarlint.html">【第3回】SonarLintを利用した開発端末の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_architecture.html">【第4回】マイクロサービスにおけるテスト自動化とテスト戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-1.html">【第5回】マイクロサービスの単体試験コード実装(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-2.html">【第6回】マイクロサービスの単体試験コード実装(後編)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">【第7回】マイクロサービスの結合試験コード実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unittest.html">マイクロサービスを呼び出すWebアプリケーションの単体テスト・EndToEndテスト(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unittest.html#webaprepository">マイクロサービスを呼び出すWebAPのRepository単体テスト実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unittest.html#webapservice">マイクロサービスを呼び出すWebAPのService単体テスト実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unit_e2e_test.html">マイクロサービスを呼び出すWebアプリケーションの単体テスト・EndToEndテスト(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unit_e2e_test.html#webcontroller">マイクロサービスを呼び出すWebアプリケーションのController単体テスト実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unit_e2e_test.html#seleniumendtoend">Seleniumを使用したEndToEndテスト</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unit_e2e_test.html#web">マイクロサービスを呼び出すWebアプリケーションのテスト戦略</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codebuild_local.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codebuild.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_1.html">基盤・デプロイ自動化実践</a></li>
@@ -95,6 +100,7 @@
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_ecs_cluster.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_ecs_task.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_ecs_taskrole.html">基盤・デプロイ自動化実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_ecs_service.html">基盤・デプロイ自動化実践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">AWSで作るクラウドネイティブアプリケーションの基本</a></li>
@@ -143,15 +149,12 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">基盤・デプロイ自動化実践</a><ul>
-<li><a class="reference internal" href="#id2">マイクロサービスアーキテクチャの基盤・デプロイ自動化</a><ul>
+<li><a class="reference internal" href="#">【第7回】マイクロサービスの結合試験コード実装</a><ul>
 <li><a class="reference internal" href="#section-integration-test-for-microservice-label">マイクロサービスにおける結合テスト</a></li>
 <li><a class="reference internal" href="#servicerepository">Service⇔Repositoryの結合テスト実装</a></li>
 <li><a class="reference internal" href="#controllerservicerepository">Controller⇔Service⇔Repositoryの結合テスト実装</a></li>
 <li><a class="reference internal" href="#section-integration-test-strategy-for-microservice-label">マイクロサービスにおける結合テスト戦略と品質評価</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id6">著者紹介</a></li>
+<li><a class="reference internal" href="#id5">著者紹介</a></li>
 </ul>
 </li>
 </ul>
@@ -163,11 +166,11 @@
               
                 
   <li>
-    <a href="automation_infra_devops_micro_service_unittest-2.html" title="Previous Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 基盤・デプロイ自動化実践</span>
+    <a href="automation_infra_devops_micro_service_unittest-2.html" title="Previous Chapter: 【第6回】マイクロサービスの単体試験コード実装(後編)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 【第6回】マイクロサービス...</span>
     </a>
   </li>
   <li>
-    <a href="automation_infra_devops_web_app_unittest.html" title="Next Chapter: 基盤・デプロイ自動化実践"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">基盤・デプロイ自動化実践 &raquo;</span>
+    <a href="automation_infra_devops_web_app_unittest.html" title="Next Chapter: マイクロサービスを呼び出すWebアプリケーションの単体テスト・EndToEndテスト(前編)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">マイクロサービスを呼び出す... &raquo;</span>
     </a>
   </li>
               
@@ -201,13 +204,10 @@
   <div class="row">
     <div class="col-md-12 content">
       
-  <div class="section" id="section-automation-infra-devops-microservice-integration-test-label">
-<span id="id1"></span><h1>基盤・デプロイ自動化実践<a class="headerlink" href="#section-automation-infra-devops-microservice-integration-test-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<div class="section" id="id2">
-<h2>マイクロサービスアーキテクチャの基盤・デプロイ自動化<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p><br/></p>
+  <div class="section" id="id1">
+<h1>【第7回】マイクロサービスの結合試験コード実装<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <div class="section" id="section-integration-test-for-microservice-label">
-<span id="id3"></span><h3>マイクロサービスにおける結合テスト<a class="headerlink" href="#section-integration-test-for-microservice-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<span id="id2"></span><h2>マイクロサービスにおける結合テスト<a class="headerlink" href="#section-integration-test-for-microservice-label" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
 <p>前回は、マイクロサービス(Backend)の単体テストの実装例や検証観点、テスト戦略のポイントを説明しました。
 今回はバックエンドで実行されるマイクロサービスの結合テストです。アプリケーションおよびテストのパッケージ・コンポーネント構成は前回と同様、以下としています。</p>
@@ -325,7 +325,7 @@
 <p><br/></p>
 </div>
 <div class="section" id="servicerepository">
-<span id="section-service-repository-integration-test-for-microservice-label"></span><h3>Service⇔Repositoryの結合テスト実装<a class="headerlink" href="#servicerepository" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<span id="section-service-repository-integration-test-for-microservice-label"></span><h2>Service⇔Repositoryの結合テスト実装<a class="headerlink" href="#servicerepository" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
 <p>データベースからの基本的なデータ取得については、Repositoryの単体テストで妥当性確認はとれているので、データベースへの更新結果を中心にDBUnitを用いて検証します(複雑な条件のデータ取得は処理結合レベルでバリエーションテストを実施した方がよりベターです)。
 また、Serviceの単体でも分岐条件などで発生するビジネスエラーや設定されるメッセージの確認はとれているので、ServiceがRepositoryを正しく呼び出すことができるか、
@@ -409,8 +409,8 @@ Serviceクラスを起点としたサンプル結合テストコードは以下�
 </pre></div>
 </div>
 <p><br/></p>
-<table border="1" class="colwidths-given docutils" id="id7">
-<caption><span class="caption-text">Service⇔Repositoryの結合テストコードの説明</span><a class="headerlink" href="#id7" title="このテーブルへのパーマリンク">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id6">
+<caption><span class="caption-text">Service⇔Repositoryの結合テストコードの説明</span><a class="headerlink" href="#id6" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col width="5%" />
 <col width="95%" />
@@ -595,7 +595,7 @@ Serviceクラスを起点としたサンプル結合テストコードは以下�
 <p><br/></p>
 </div>
 <div class="section" id="controllerservicerepository">
-<span id="section-controller-service-repository-integration-test-for-microservice-label"></span><h3>Controller⇔Service⇔Repositoryの結合テスト実装<a class="headerlink" href="#controllerservicerepository" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<span id="section-controller-service-repository-integration-test-for-microservice-label"></span><h2>Controller⇔Service⇔Repositoryの結合テスト実装<a class="headerlink" href="#controllerservicerepository" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
 <p>Controller⇔Service⇔Repositoryの結合テストでは、実際にアプリケーションを起動した時と同様、HTTPリクエストを送信し、期待したHTTPレスポンスが返ってくるか検証します。
 データベースへの反映結果は前節のService⇔Repositoryで確認が取れているので、Service実行後のアウトプットが期待した通り、HTTPレスポンスに変換されるか、モデルのデータマッピングが正しく実行されているか、アプリケーションの設定が正しく動作するかといった点が主な観点になります。
@@ -653,8 +653,8 @@ Controllerクラスを起点とした結合テストサンプルコードは以�
 </pre></div>
 </div>
 <p><br/></p>
-<table border="1" class="colwidths-given docutils" id="id8">
-<caption><span class="caption-text">Controller⇔Service⇔Repositoryの結合テストコードの説明</span><a class="headerlink" href="#id8" title="このテーブルへのパーマリンク">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id7">
+<caption><span class="caption-text">Controller⇔Service⇔Repositoryの結合テストコードの説明</span><a class="headerlink" href="#id7" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col width="5%" />
 <col width="95%" />
@@ -803,7 +803,7 @@ Controllerクラスを起点とした結合テストサンプルコードは以�
 <p><br/></p>
 </div>
 <div class="section" id="section-integration-test-strategy-for-microservice-label">
-<span id="id5"></span><h3>マイクロサービスにおける結合テスト戦略と品質評価<a class="headerlink" href="#section-integration-test-strategy-for-microservice-label" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<span id="id4"></span><h2>マイクロサービスにおける結合テスト戦略と品質評価<a class="headerlink" href="#section-integration-test-strategy-for-microservice-label" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
 <p>(1)Service⇔Repository、(2)Controller⇔Service⇔Repositoryの結合テストコード実装を解説してきました。単体テストと似通った試験を実施しても非効率になりますので、効率的な結合テスト戦略策定のポイントとしては、</p>
 <ul class="simple">
@@ -818,9 +818,8 @@ Controllerクラスを起点とした結合テストサンプルコードは以�
 <p>次回は引き続き、マイクロサービスを呼び出すWebアプリケーションにおいて、単体テストコードをSpringBootでどのように実装するか、解説していきます。</p>
 <p><br/></p>
 </div>
-</div>
-<div class="section" id="id6">
-<h2>著者紹介<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id5">
+<h2>著者紹介<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
 <div class="figure">
 <img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" />

@@ -1,21 +1,10 @@
 .. include:: ../module.txt
 
-.. _section-cloud-native-nosql-label-4-6:
-
-AWSで作るクラウドネイティブアプリケーションの基本
-========================================================================================
-
 .. _section-cloud-native-nosql-4th-6-label:
 
-第3回 AWS上に構築するNoSQLアプリケーション(4)-6
+【第24回】NoSQL(14)-セッション共有するECSアプリケーションの構築(2)
 ----------------------------------------------------------------------------------------
 
-|br|
-
-.. _section-cloud-native-nosql-spring-applicaiton-4-6-label:
-
-Amazon ElastiCacheへアクセスするSpringアプリケーション
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 |br|
 
@@ -54,22 +43,12 @@ Amazon ElastiCacheへアクセスするSpringアプリケーション
 
 |br|
 
-前回 :ref:`section-cloud-native-create-session-sharing-application-1-label` では、アプリケーション及びRedisクライアントのDockerイメージを作成し、アプリケーションロードバランサーを構築しました。
+前回 :ref:`section-cloud-native-nosql-4th-5-label` では、アプリケーション及びRedisクライアントのDockerイメージを作成し、アプリケーションロードバランサーを構築しました。
 下記のイメージ通りに、今回はECSクラスタを作成し、ECSタスク定義を行って、コンテナをデプロイしてアプリケーションを実行しましょう。
 
 |br|
 
 .. figure:: img/aws-nosql/architecture-elasticache.png
-
-
-|br|
-
-.. _section-cloud-native-create-session-sharing-application-2-label:
-
-セッション共有するECSアプリケーションの構築(2)
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-|br|
 
 .. _section-cloud-native-create-ecs-cluster-for-elasticache-label:
 
@@ -250,7 +229,7 @@ ECSクラスタにSSHでログインし、前回 :ref:`section-cloud-native-crea
 |br|
 
 著者紹介
-------------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 川畑 光平(KAWABATA Kohei)
 
