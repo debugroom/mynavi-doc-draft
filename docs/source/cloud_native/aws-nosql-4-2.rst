@@ -43,7 +43,7 @@
 
 |br|
 
-前回 :ref:`section-cloud-native-nosql-spring-applicaiton-4-1-label` では、CP型データベースである、Amazon ElastiCacheの概要を説明し、
+前回 :ref:`section-cloud-native-nosql-4th-1-label` では、CP型データベースである、Amazon ElastiCacheの概要を説明し、
 シングルノードでローカル環境へテーブル構築しました。今回は、Spring SessionおよびSpring Data Redisを使ってアクセスするアプリケーションを実装してみます。
 
 |br|

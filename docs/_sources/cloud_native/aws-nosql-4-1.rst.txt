@@ -43,7 +43,7 @@
 
 |br|
 
-前回 :ref:`section-cloud-native-nosql-spring-applicaiton-3-2-label` では、AP型データベースである、Apache CassandraデータベースへアクセスするSpringアプリケーションを構築しました。
+前回 :ref:`section-cloud-native-nosql-3rd-2-label` では、AP型データベースである、Apache CassandraデータベースへアクセスするSpringアプリケーションを構築しました。
 今回からはCP型データベースであるRedis及びAWSのマネージドサービスであるAmazon ElastiCache(Redis)の概要を説明し、実際にアプリケーションを構築していきます。
 
 |br|
