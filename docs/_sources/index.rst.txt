@@ -54,6 +54,19 @@
 
 |br|
 
+
+[AWSで作るクラウドネイティブアプリケーション(発展編)]
+
+|br|
+
+.. toctree::
+   :maxdepth: 4
+   :caption: Contents:
+
+   cloud_native/aws-s3-4.rst
+
+|br|
+
 [AWSで実践！基盤構築・デプロイ自動化]
 
 |br|

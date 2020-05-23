@@ -92,6 +92,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-5.html">【第32回】AmazonSQSを使用する実装(5)</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-4.html">【第1回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(4)</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_actual_experience.html">【第1回】マイクロサービスアーキテクチャの基盤・デプロイ自動化</a></li>
@@ -350,7 +354,7 @@ Outputs:
 <li></li>
 </ol>
 </td>
-<td>開発環境としてのElastiCacheにアクセス可能な端末をターゲットとしたセキュリティグループをパラメータとして受け取ります。 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4829">第27回</a> と同様、事前にセキュリティグループを定義し、IDをパラメータとして渡す前提で実装しておきます。</td>
+<td>開発環境としてのElastiCacheにアクセス可能な端末をターゲットとしたセキュリティグループをパラメータとして受け取ります。ElastiCacheに設定するセキュリティグループは、 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4829">第27回</a> と同様、事前にセキュリティグループを定義し、IDをパラメータとして渡す前提で実装しておきますが、開発環境ではVPC内にある開発端末からのアクセスを許可するためにセキュリティグループを(I)で追加します。</td>
 </tr>
 <tr class="row-even"><td><ol class="first last upperalpha simple" start="3">
 <li></li>
