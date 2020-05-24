@@ -64,6 +64,7 @@
    :caption: Contents:
 
    cloud_native/aws-s3-4.rst
+   cloud_native/aws-s3-5.rst
 
 |br|
 
