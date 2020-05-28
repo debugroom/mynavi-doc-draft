@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>【第3回】AmazonS3へダイレクトアクセスするアプリケーション実装(6) &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="ソフトウェア開発自動化" href="../automation_infra_devops/automation_infra_devops_overview.html" />
+    <link rel="prev" title="【第2回】AmazonS3へダイレクトアクセスするアプリケーション実装(5)" href="aws-s3-5.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">【第1回】サーバレス開発(1)Spring Cloud Functionの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">【第2回】サーバレス開発(2)Amazon Lambdaの利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">【第3回】サーバレス開発(3)AWS API Gatewayの利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-1.html">【第4回】ECSコンテナAP開発(1)VPC構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-2.html">【第5回】ECSコンテナAP開発(2)ALB構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-3.html">【第6回】ECSコンテナAP開発(3)SpringBootアプリケーション実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-4.html">【第7回】ECSコンテナAP開発(4)Dockerイメージ作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-5.html">【第8回】ECSコンテナAP開発(5)ECSクラスタ設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-6.html">【第9回】ECSコンテナAP開発(6)ECSタスク設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-7.html">【第10回】ECSコンテナAP開発(7)ECSサービス設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-1.html">【第11回】Amazon RDSの概要とデータベース構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-2.html">【第12回】RDSへのテーブル構築とSpring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-3.html">【第13回】RDSへのテーブル構築とSpring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-1.html">【第14回】NoSQL(1)-基礎-CAP定理を元にしたデータベースの分類とデータ特性</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-2.html">【第15回】NoSQL(2)-基礎-AP型データベースAmazon DynamoDBとApache Cassandraの特徴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-1.html">【第16回】NoSQL(3)-DynamoDB-Amazon DynamoDBの概要及び構築と認証情報の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-2.html">【第17回】NoSQL(4)-DynamoDB-Spring Data DynamoDBを用いたアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-3.html">【第18回】NoSQL(5)-DynamoDB-Spring Data DynamoDBを用いたアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-1.html">【第N回】NoSQL-Managed Apache Cassandra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-2.html">【第N回】NoSQL-Spring Data Cassandraを用いたアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-3.html">【第N回】NoSQL-Spring Data Cassandraを用いたアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-1.html">【第19回】NoSQL(6)-AmazonElasiCacheの概要及びローカル環境でのRedisServer構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-2.html">【第20回】NoSQL(10)-Spring SessionとSpring Data Redisを用いたアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-3.html">【第21回】NoSQL(11)-Spring SessionとSpring Data Redisを用いたアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-4.html">【第22回】NoSQL(12)-Amazon ElastiCacheの設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-5.html">【第23回】NoSQL(13)-セッション共有するECSアプリケーションの構築(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-6.html">【第24回】NoSQL(14)-セッション共有するECSアプリケーションの構築(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-1.html">【第25回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-2.html">【第26回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-3.html">【第27回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-1.html">【第28回】AmazonSQSを使用する実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-2.html">【第29回】AmazonSQSを使用する実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-3.html">【第30回】AmazonSQSを使用する実装(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-4.html">【第31回】AmazonSQSを使用する実装(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-5.html">【第32回】AmazonSQSを使用する実装(5)</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-4.html">【第1回】AmazonS3へダイレクトアクセスするアプリケーション実装(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-5.html">【第2回】AmazonS3へダイレクトアクセスするアプリケーション実装(5)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">【第3回】AmazonS3へダイレクトアクセスするアプリケーション実装(6)</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_actual_experience.html">【第1回】マイクロサービスアーキテクチャの基盤・デプロイ自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_sonarqube.html">【第2回】SonarQubeを利用した静的解析環境の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_sonarlint.html">【第3回】SonarLintを利用した開発端末の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_architecture.html">【第4回】マイクロサービスにおけるテスト自動化とテスト戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_unittest-1.html">【第5回】マイクロサービスの単体試験コード実装(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_unittest-2.html">【第6回】マイクロサービスの単体試験コード実装(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html">【第7回】マイクロサービスの結合試験コード実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unittest.html">【第8回】マイクロサービスを呼び出すWebAPの単体テストコード・E2Eテストの実装(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html">【第9回】マイクロサービスを呼び出すWebAPの単体テストコード・E2Eテストの実装(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild_local.html">【第10回】AWS CodeBuildを使用したCI環境構築(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild.html">【第11回】AWS CodeBuildを使用したCI環境構築(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_1.html">【第12回】AWS CodePipeLineを用いた継続的デリバリ自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_2.html">【第13回】AWS CodePipeLineを用いた継続的デリバリ自動化(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_3.html">【第14回】AWS CodePipeLineを用いた継続的デリバリ自動化(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_4.html">【第15回】AWS CodePipeLineを用いた継続的デリバリ自動化(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_5.html">【第16回】AWS CodePipeLineを用いた継続的デリバリ自動化(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_6.html">【第17回】AWS CodePipeLineを用いた継続的デリバリ自動化(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_7.html">【第18回】AWS CodePipeLineを用いた継続的デリバリ自動化(6)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_8.html">【第19回】AWS CodePipeLineを用いた継続的デリバリ自動化(7)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_9.html">【第20回】AWS CodePipeLineを用いた継続的デリバリ自動化(8)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_overview.html">【第21回】AWS CloudFormationを用いた基盤自動化(1)CloudFormationの概要</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_cli.html">【第22回】AWS CloudFormationを用いた基盤自動化(2)AWS CLIの実行環境</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_lint.html">【第23回】AWS CloudFormationを用いた基盤自動化(3)各種検証プラグインインストールと統合開発環境の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_script.html">【第24回】AWS CloudFormationを用いた基盤自動化(4)テンプレート記述の基本と実行ヘルパースクリプトの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_taskcat.html">【第25回】AWS CloudFormationを用いた基盤自動化(5)CloudFormationテスト環境の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_vpc.html">【第26回】AWS CloudFormationを用いた基盤自動化(6)VPC、サブネット、ルートテーブル、インターネットGWの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sg_nat.html">【第27回】AWS CloudFormationを用いた基盤自動化(7)SecurityGroup/NATGatewayの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_alb.html">【第28回】AWS CloudFormationを用いた基盤自動化(8)ApplicationLoadBalancer/TargetGroupの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_rds.html">【第29回】AWS CloudFormationを用いた基盤自動化(9)RDSの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_dynamodb.html">【第30回】AWS CloudFormationを用いた基盤自動化(10)DynamoDBの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_elasticache.html">【第31回】AWS CloudFormationを用いた基盤自動化(11)ElastiCacheの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_s3_sqs.html">【第32回】AWS CloudFormationを用いた基盤自動化(12)SQS/S3の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_nest.html">【第33回】AWS CloudFormationを用いた基盤自動化(13)NestedStackの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_app_backend.html">【第34回】AWS CloudFormationを用いた基盤自動化(14)SpringCloudAWSを利用したBackend Serviceアプリケーションにおけるスタック情報の取得・設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_webapp_frontend.html">【第35回】AWS CloudFormationを用いた基盤自動化(15)SpringCloudAWSを利用したFrontend Webアプリケーションにおけるスタック情報の取得・設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_cluster.html">【第36回】AWS CloudFormationを用いた基盤自動化(16)ECSクラスタの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_task.html">【第37回】AWS CloudFormationを用いた基盤自動化(17)ECSタスク定義の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_taskrole.html">【第38回】AWS CloudFormationを用いた基盤自動化(18)ECSタスクロール定義の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.html">【第39回】AWS CloudFormationを用いた基盤自動化(19)ECSサービスの構築</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">【第3回】AmazonS3へダイレクトアクセスするアプリケーション実装(6)</a><ul>
+<li><a class="reference internal" href="#s3cors">S3へのCORSの設定</a></li>
+<li><a class="reference internal" href="#s3">クライアントからS3へダイレクトファイルアップロードするアプリケーション</a></li>
+<li><a class="reference internal" href="#id3">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="aws-s3-5.html" title="Previous Chapter: 【第2回】AmazonS3へダイレクトアクセスするアプリケーション実装(5)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 【第2回】AmazonS3...</span>
+    </a>
+  </li>
+  <li>
+    <a href="../automation_infra_devops/automation_infra_devops_overview.html" title="Next Chapter: ソフトウェア開発自動化"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">ソフトウェア開発自動化 &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/cloud_native/aws-s3-6.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="amazons3-6">
+<span id="section-cloud-native-s3-6th-label"></span><h1>【第3回】AmazonS3へダイレクトアクセスするアプリケーション実装(6)<a class="headerlink" href="#amazons3-6" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p><br/></p>
+<p>クラウド上のストレージとして、AWSで利用可能なAmazon S3。前回から引き続き、Amazon S3へクライアントからダイレクトアクセスするSpringアプリケーションの実装方法について解説します。</p>
+<p>前回は、署名付きURLを使ってS3にあるファイルへダイレクトダウンロードするアプリケーションを解説しました。続く今回は、S3へファイルをダイレクトアップロードするアプリケーションの実装方法を紹介します。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/S3DirectAccessNewIcon.png" src="../_images/S3DirectAccessNewIcon.png" />
+</div>
+<p><br/></p>
+<div class="section" id="s3cors">
+<span id="section-cloud-native-s3-cors-setting-label"></span><h2>S3へのCORSの設定<a class="headerlink" href="#s3cors" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>前回も解説した通り、ブラウザには、XSS(Cross Site Scripting:クロスサイトスクリプティング)やCSRF(Cross Site Request Forgeries:クロスサイトリクエストフォージェリ)といったセキュリティ脅威に対する対策として、
+開いているドメイン(<a class="reference external" href="http://exampleA.com">http://exampleA.com</a>)とは異なるドメイン(<a class="reference external" href="http://exampleB.com">http://exampleB.com</a>)へのアクセスを制御する仕組みがあり(同一オリジンポリシー)、CORSはクロスドメインでのアクセスを安全に実行するための仕様です。</p>
+<p>今回のアプリケーションはブラウザ上で実行するJavaScriptからAjax(XMLHttpRequest)を使って、S3へファイルアップロードを行うため、事前にS3へCORS設定を行っておく必要があります。
+マネジメントコンソールからS3サービスを選択し、対象のバケットを選択して、アクセス制御タブでCORS設定が行えます。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/management-console-s3-setting-cors-1.png" src="../_images/management-console-s3-setting-cors-1.png" />
+</div>
+<p><br/></p>
+<p>S3側にはクロスドメインで参照してくるドメインと許可する操作を設定します。今回はローカルで動作するアプリケーション(<a class="reference external" href="http://localhost:8080">http://localhost:8080</a>)からのファイルアップロードを許可するように以下の通り、CORS構成を追加しましょう。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;?xml <span class="nv">version</span><span class="o">=</span><span class="s2">&quot;1.0&quot;</span> <span class="nv">encoding</span><span class="o">=</span><span class="s2">&quot;UTF-8&quot;</span>?&gt;
+&lt;CORSConfiguration <span class="nv">xmlns</span><span class="o">=</span><span class="s2">&quot;http://s3.amazonaws.com/doc/2006-03-01/&quot;</span>&gt;
+&lt;CORSRule&gt;
+    &lt;AllowedOrigin&gt;http://localhost:8080&lt;/AllowedOrigin&gt;
+    &lt;AllowedMethod&gt;POST&lt;/AllowedMethod&gt;
+    &lt;AllowedHeader&gt;*&lt;/AllowedHeader&gt;
+&lt;/CORSRule&gt;
+&lt;/CORSConfiguration&gt;
+</pre></div>
+</div>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">上記は開発環境としてローカルで動作する場合の設定で、商用環境などでは別途そのドメインを指定する必要があります。</p>
+</div>
+<p><br/></p>
+</div>
+<div class="section" id="s3">
+<span id="section-cloud-native-s3-direct-upload-implementation-1-label"></span><h2>クライアントからS3へダイレクトファイルアップロードするアプリケーション<a class="headerlink" href="#s3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>ベースとなるアプリケーションは 前回に引き続き、<a class="reference external" href="https://news.mynavi.jp/itsearch/article/cloud/4615">基本編第26回</a> で実装したものと同様のものを使用します。</p>
+<p>本連載で実際に作成するアプリケーションでは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-aws-s3">GitHub</a> 上にコミットしています。
+以降に記載するソースコードでは、import文など本質的でない記述を省略している部分があるので、実行コードを作成する際は、必要に応じて適宜GitHubにあるソースコードも参照してください。</p>
+<p>それでは、アプリケーションの実装の解説に進みます。前回同様、今回はダイレクトアクセスを実現するS3DirectUploadHelperクラスを追加して、SampleControllerにこのHelperを呼び出す処理を適宜追加します。
+S3へのダイレクトアップロードアクセスは、まずSTSから、アップロードするS3のバケットに対してアクセスを許可する一時認証情報を取得して、アップロード時にAWS側で検証を行うためのPostポリシーなどを生成し、
+ブラウザなどのクライアントへ渡してアップロードを実行します。クライアントへ返却する必要がある最低限の情報を表したモデルオブジェクトは以下の通りです。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.s3.app.model</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DirectUploadAuthorization</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">objectKey</span><span class="o">;</span>     <span class="c1">// アップロードファイルのオブジェクトキー</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">acl</span><span class="o">;</span>           <span class="c1">// アップロードしたファイルの公開範囲</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">uploadUrl</span><span class="o">;</span>     <span class="c1">// POSTメソッドでアクセスするアップロード先のURL</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">policy</span><span class="o">;</span>        <span class="c1">// POSTポリシードキュメント(Base64エンコードが必要)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">securityToken</span><span class="o">;</span> <span class="c1">// 一時的認証情報のセキュリティトークン</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">date</span><span class="o">;</span>          <span class="c1">// 日時情報(UTCTimezone ISO8601:YYYYMMDD&#39;T&#39;HHMMSS&#39;Z&#39;)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">algorithm</span><span class="o">;</span>     <span class="c1">// &quot;AWS4-HMAC-SHA256&quot;固定</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">credential</span><span class="o">;</span>    <span class="c1">// 一時的認証情報やリージョンを含む文字列</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">signature</span><span class="o">;</span>     <span class="c1">// POSTポリシーに対する署名の16進数表現</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">fileSizeLimit</span><span class="o">;</span> <span class="c1">// アップロードファイルサイズ上限</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>PostポリシーはS3DirectUploadHelperクラス内で生成しますが、一時認証情報に加えてアップロードファイルの条件やメタデータを付与して、
+Base64エンコードなどを施した上で、HMAC SHA-1アルゴリズムを用いて、一時認証情報のシークレットキーで署名する処理を行います。Helperクラスの実装は以下の通りです。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.s3.app.web.helper</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="kn">import</span> <span class="nn">javax.crypto.Mac</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.crypto.spec.SecretKeySpec</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.amazonaws.auth.policy.Policy</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.auth.policy.Statement</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.auth.policy.actions.S3Actions</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.identitymanagement.AmazonIdentityManagementClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.identitymanagement.model.GetRoleRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.s3.AmazonS3</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.s3.model.ObjectMetadata</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.s3.model.PutObjectRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.securitytoken.AWSSecurityTokenServiceClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.securitytoken.model.AssumeRoleRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.securitytoken.model.Credentials</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.fasterxml.jackson.core.JsonProcessingException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.fasterxml.jackson.databind.ObjectMapper</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.apache.commons.codec.binary.Base64</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.commons.codec.binary.Hex</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.joda.time.DateTime</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.joda.time.DateTimeZone</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.aws.s3.app.model.DirectUploadAuthorization</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.aws.s3.app.model.PostPolicy</span><span class="o">;</span>
+
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">S3DirectUploadHelper</span> <span class="kd">implements</span> <span class="n">InitializingBean</span> <span class="o">{</span>                 <span class="c1">// …(1)</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">RESOURCE_ARN_PREFIX</span> <span class="o">=</span> <span class="s">&quot;arn:aws:s3:::&quot;</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">ALGORITHM</span> <span class="o">=</span> <span class="s">&quot;HmacSHA256&quot;</span><span class="o">;</span>
+
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">&quot;${bucket.name}&quot;</span><span class="o">)</span>                                                    <span class="c1">// …(2)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">bucketName</span><span class="o">;</span>
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">&quot;${cloud.aws.region.static}&quot;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">region</span><span class="o">;</span>
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">&quot;${sts.min.duration.minutes}&quot;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">stsMinDurationMinutes</span><span class="o">;</span>
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">&quot;${s3.upload.duration.seconds}&quot;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">durationSeconds</span><span class="o">;</span>
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">&quot;${s3.upload.acl}&quot;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">accessControlLevel</span><span class="o">;</span>
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">&quot;${s3.upload.limitBytes}&quot;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">fileSizeLimit</span><span class="o">;</span>
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">&quot;${s3.upload.role.name}&quot;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">roleName</span><span class="o">;</span>
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">&quot;${s3.upload.role.session.name}&quot;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">roleSessionName</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">roleArn</span><span class="o">;</span>                                                     <span class="c1">// …(3)</span>
+
+    <span class="c1">// omit</span>
+
+    <span class="kd">public</span> <span class="n">DirectUploadAuthorization</span> <span class="nf">createDirectUploadAuthorization</span><span class="o">(</span>
+                <span class="n">String</span> <span class="n">uploadDirectory</span><span class="o">){</span>                                        <span class="c1">// …(4)</span>
+        <span class="n">String</span> <span class="n">objectKey</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">().</span><span class="na">append</span><span class="o">(</span><span class="n">uploadDirectory</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;/&quot;</span><span class="o">).</span><span class="na">toString</span><span class="o">();</span>
+        <span class="n">Credentials</span> <span class="n">credentials</span> <span class="o">=</span> <span class="n">getTemporaryCredentials</span><span class="o">(</span><span class="n">objectKey</span><span class="o">);</span>           <span class="c1">// …(5)</span>
+        <span class="n">DateTime</span> <span class="n">nowUTC</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DateTime</span><span class="o">(</span><span class="n">DateTimeZone</span><span class="o">.</span><span class="na">UTC</span><span class="o">);</span>
+        <span class="n">String</span> <span class="n">dateString</span> <span class="o">=</span> <span class="n">nowUTC</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="s">&quot;yyyyMMdd&quot;</span><span class="o">);</span>
+        <span class="n">String</span> <span class="n">credentialString</span> <span class="o">=</span> <span class="n">createCredentialString</span><span class="o">(</span><span class="n">credentials</span><span class="o">.</span><span class="na">getAccessKeyId</span><span class="o">(),</span>
+                <span class="n">dateString</span><span class="o">,</span> <span class="n">region</span><span class="o">,</span> <span class="s">&quot;s3&quot;</span><span class="o">);</span>                                      <span class="c1">// …(6)</span>
+        <span class="n">String</span> <span class="n">securityToken</span> <span class="o">=</span> <span class="n">credentials</span><span class="o">.</span><span class="na">getSessionToken</span><span class="o">();</span>                   <span class="c1">// …(7)</span>
+        <span class="n">String</span> <span class="n">uploadUrl</span> <span class="o">=</span> <span class="n">createUploadUrl</span><span class="o">(</span><span class="n">region</span><span class="o">);</span>          　　　　　　         <span class="c1">// …(8)</span>
+        <span class="n">String</span> <span class="n">algorithm</span> <span class="o">=</span> <span class="s">&quot;AWS4-HMAC-SHA256&quot;</span><span class="o">;</span>
+        <span class="n">String</span> <span class="n">iso8601dateTime</span> <span class="o">=</span> <span class="n">nowUTC</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="s">&quot;yyyyMMdd&#39;T&#39;HHmmss&#39;Z&#39;&quot;</span><span class="o">);</span>
+
+        <span class="n">PostPolicy</span> <span class="n">postPolicy</span> <span class="o">=</span> <span class="n">PostPolicy</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">expiration</span><span class="o">(</span><span class="n">nowUTC</span><span class="o">.</span><span class="na">plusSeconds</span><span class="o">(</span><span class="n">durationSeconds</span><span class="o">).</span><span class="na">toString</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">conditions</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">[][]{</span>
+                    <span class="o">{</span><span class="s">&quot;eq&quot;</span><span class="o">,</span> <span class="s">&quot;$bucket&quot;</span><span class="o">,</span> <span class="n">bucketName</span><span class="o">},</span>
+                    <span class="o">{</span><span class="s">&quot;starts-with&quot;</span><span class="o">,</span> <span class="s">&quot;$key&quot;</span><span class="o">,</span> <span class="n">objectKey</span><span class="o">},</span>
+                    <span class="o">{</span><span class="s">&quot;eq&quot;</span><span class="o">,</span> <span class="s">&quot;$acl&quot;</span><span class="o">,</span> <span class="n">accessControlLevel</span><span class="o">},</span>
+                    <span class="o">{</span><span class="s">&quot;eq&quot;</span><span class="o">,</span> <span class="s">&quot;$x-amz-credential&quot;</span><span class="o">,</span> <span class="n">credentialString</span><span class="o">},</span>
+                    <span class="o">{</span><span class="s">&quot;eq&quot;</span><span class="o">,</span> <span class="s">&quot;$x-amz-security-token&quot;</span><span class="o">,</span> <span class="n">securityToken</span><span class="o">},</span>
+                    <span class="o">{</span><span class="s">&quot;eq&quot;</span><span class="o">,</span> <span class="s">&quot;$x-amz-algorithm&quot;</span><span class="o">,</span> <span class="n">algorithm</span><span class="o">},</span>
+                    <span class="o">{</span><span class="s">&quot;eq&quot;</span><span class="o">,</span> <span class="s">&quot;$x-amz-date&quot;</span><span class="o">,</span> <span class="n">iso8601dateTime</span><span class="o">},</span>
+                    <span class="o">{</span><span class="s">&quot;content-length-range&quot;</span><span class="o">,</span> <span class="s">&quot;0&quot;</span><span class="o">,</span> <span class="n">fileSizeLimit</span><span class="o">},</span>
+                <span class="o">})</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span>                                                       <span class="c1">// …(9)</span>
+
+        <span class="n">String</span> <span class="n">policyDocument</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span><span class="o">{</span>
+            <span class="n">policyDocument</span> <span class="o">=</span> <span class="n">objectMapper</span><span class="o">.</span><span class="na">writeValueAsString</span><span class="o">(</span><span class="n">postPolicy</span><span class="o">);</span>       <span class="c1">// …(10)</span>
+        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">JsonProcessingException</span> <span class="n">e</span><span class="o">){</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+
+        <span class="n">String</span> <span class="n">base64Policy</span> <span class="o">=</span> <span class="n">Base64</span><span class="o">.</span><span class="na">encodeBase64String</span><span class="o">(</span>
+                <span class="n">policyDocument</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="n">StandardCharsets</span><span class="o">.</span><span class="na">UTF_8</span><span class="o">));</span>               <span class="c1">// …(11)</span>
+
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">signingKey</span> <span class="o">=</span> <span class="n">getSignatureKey</span><span class="o">(</span><span class="n">credentials</span><span class="o">.</span><span class="na">getSecretAccessKey</span><span class="o">(),</span>   <span class="c1">// …(12)</span>
+                <span class="n">dateString</span><span class="o">,</span> <span class="n">region</span><span class="o">,</span> <span class="s">&quot;s3&quot;</span><span class="o">);</span>
+
+        <span class="n">String</span> <span class="n">signatureForPolicy</span> <span class="o">=</span> <span class="n">Hex</span><span class="o">.</span><span class="na">encodeHexString</span><span class="o">(</span><span class="n">calculateHmacSHA256</span><span class="o">(</span>
+                <span class="n">base64Policy</span><span class="o">,</span> <span class="n">signingKey</span><span class="o">));</span>                  　　　　　　　　　    <span class="c1">// …(13)</span>
+
+        <span class="k">return</span> <span class="n">DirectUploadAuthorization</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">uploadUrl</span><span class="o">(</span><span class="n">uploadUrl</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">acl</span><span class="o">(</span><span class="n">accessControlLevel</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">date</span><span class="o">(</span><span class="n">iso8601dateTime</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">objectKey</span><span class="o">(</span><span class="n">objectKey</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">securityToken</span><span class="o">(</span><span class="n">securityToken</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">algorithm</span><span class="o">(</span><span class="n">algorithm</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">credential</span><span class="o">(</span><span class="n">credentialString</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">signature</span><span class="o">(</span><span class="n">signatureForPolicy</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">policy</span><span class="o">(</span><span class="n">base64Policy</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">fileSizeLimit</span><span class="o">(</span><span class="n">fileSizeLimit</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span>                  　　　　　　　　　　　　　　　　　　　　    <span class="c1">// …(14)</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">Credentials</span> <span class="nf">getTemporaryCredentials</span><span class="o">(</span><span class="n">String</span> <span class="n">objectKey</span><span class="o">){</span>
+        <span class="n">String</span> <span class="n">resourceArn</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">RESOURCE_ARN_PREFIX</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">bucketName</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;/&quot;</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">objectKey</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;*&quot;</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+
+        <span class="n">Statement</span> <span class="n">statement</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Statement</span><span class="o">(</span><span class="n">Statement</span><span class="o">.</span><span class="na">Effect</span><span class="o">.</span><span class="na">Allow</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">withActions</span><span class="o">(</span><span class="n">S3Actions</span><span class="o">.</span><span class="na">PutObject</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">withResources</span><span class="o">(</span><span class="k">new</span> <span class="n">com</span><span class="o">.</span><span class="na">amazonaws</span><span class="o">.</span><span class="na">auth</span><span class="o">.</span><span class="na">policy</span><span class="o">.</span><span class="na">Resource</span><span class="o">(</span><span class="n">resourceArn</span><span class="o">));</span>
+        <span class="n">String</span> <span class="n">iamPolicy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Policy</span><span class="o">().</span><span class="na">withStatements</span><span class="o">(</span><span class="n">statement</span><span class="o">).</span><span class="na">toJson</span><span class="o">();</span>     <span class="c1">// …(15)</span>
+
+        <span class="n">AssumeRoleRequest</span> <span class="n">assumeRoleRequest</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AssumeRoleRequest</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">withRoleArn</span><span class="o">(</span><span class="n">roleArn</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">withDurationSeconds</span><span class="o">((</span><span class="kt">int</span><span class="o">)</span><span class="n">TimeUnit</span><span class="o">.</span><span class="na">MINUTES</span><span class="o">.</span><span class="na">toSeconds</span><span class="o">(</span><span class="n">stsMinDurationMinutes</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">withRoleSessionName</span><span class="o">(</span><span class="n">roleSessionName</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">withPolicy</span><span class="o">(</span><span class="n">iamPolicy</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">AWSSecurityTokenServiceClientBuilder</span><span class="o">.</span><span class="na">standard</span><span class="o">().</span><span class="na">build</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">assumeRole</span><span class="o">(</span><span class="n">assumeRoleRequest</span><span class="o">).</span><span class="na">getCredentials</span><span class="o">();</span>                <span class="c1">// …(16)</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">String</span> <span class="nf">createCredentialString</span><span class="o">(</span><span class="n">String</span> <span class="n">accessKey</span><span class="o">,</span> <span class="n">String</span> <span class="n">date</span><span class="o">,</span> <span class="n">String</span> <span class="n">region</span><span class="o">,</span> <span class="n">String</span> <span class="n">serviceName</span><span class="o">){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">accessKey</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;/&quot;</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">date</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;/&quot;</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">region</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;/&quot;</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">serviceName</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;/aws4_request&quot;</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">toString</span><span class="o">();</span>                                                    <span class="c1">// …(17)</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">String</span> <span class="nf">createUploadUrl</span><span class="o">(</span><span class="n">String</span> <span class="n">region</span><span class="o">){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;https://&quot;</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">bucketName</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;.s3-&quot;</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">region</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;.amazonaws.com/&quot;</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">toString</span><span class="o">();</span>                  　　　　　　　　　　　　　　　　　      <span class="c1">// …(18)</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">getSignatureKey</span><span class="o">(</span><span class="n">String</span> <span class="n">key</span><span class="o">,</span> <span class="n">String</span> <span class="n">dateStamp</span><span class="o">,</span> <span class="n">String</span> <span class="n">region</span><span class="o">,</span>
+                                   <span class="n">String</span> <span class="n">serviceName</span><span class="o">){</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">kSecret</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">().</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;AWS4&quot;</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">key</span><span class="o">).</span><span class="na">toString</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="n">StandardCharsets</span><span class="o">.</span><span class="na">UTF_8</span><span class="o">);</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">kDate</span> <span class="o">=</span> <span class="n">calculateHmacSHA256</span><span class="o">(</span><span class="n">dateStamp</span><span class="o">,</span> <span class="n">kSecret</span><span class="o">);</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">kRegion</span> <span class="o">=</span> <span class="n">calculateHmacSHA256</span><span class="o">(</span><span class="n">region</span><span class="o">,</span> <span class="n">kDate</span><span class="o">);</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">kService</span> <span class="o">=</span> <span class="n">calculateHmacSHA256</span><span class="o">(</span><span class="n">serviceName</span><span class="o">,</span> <span class="n">kRegion</span><span class="o">);</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">kSigning</span> <span class="o">=</span> <span class="n">calculateHmacSHA256</span><span class="o">(</span><span class="s">&quot;aws4_request&quot;</span><span class="o">,</span> <span class="n">kService</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">kSigning</span><span class="o">;</span>                                                        <span class="c1">// …(19)</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">calculateHmacSHA256</span><span class="o">(</span><span class="n">String</span> <span class="n">stringToSign</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">signingKey</span><span class="o">){</span>
+        <span class="n">Mac</span> <span class="n">mac</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span><span class="o">{</span>
+            <span class="n">mac</span> <span class="o">=</span> <span class="n">Mac</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">ALGORITHM</span><span class="o">);</span>
+            <span class="n">mac</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="k">new</span> <span class="n">SecretKeySpec</span><span class="o">(</span><span class="n">signingKey</span><span class="o">,</span> <span class="n">ALGORITHM</span><span class="o">));</span>
+        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">NoSuchAlgorithmException</span> <span class="o">|</span> <span class="n">InvalidKeyException</span> <span class="n">e</span><span class="o">){</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">mac</span><span class="o">.</span><span class="na">doFinal</span><span class="o">(</span><span class="n">stringToSign</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="n">StandardCharsets</span><span class="o">.</span><span class="na">UTF_8</span><span class="o">));</span>      <span class="c1">// …(20)</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">afterPropertiesSet</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">GetRoleRequest</span> <span class="n">getRoleRequest</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GetRoleRequest</span><span class="o">().</span><span class="na">withRoleName</span><span class="o">(</span><span class="n">roleName</span><span class="o">);</span>
+        <span class="n">roleArn</span> <span class="o">=</span> <span class="n">AmazonIdentityManagementClientBuilder</span><span class="o">.</span><span class="na">standard</span><span class="o">().</span><span class="na">build</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">getRole</span><span class="o">(</span><span class="n">getRoleRequest</span><span class="o">).</span><span class="na">getRole</span><span class="o">().</span><span class="na">getArn</span><span class="o">();</span>                    <span class="c1">// …(21)</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>S3DirectUploadHelperクラスコードの説明は以下の通りです。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id4">
+<caption><span class="caption-text">S3DirectUploadHelperクラスコードの説明</span><a class="headerlink" href="#id4" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>項番</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple">
+<li></li>
+</ol>
+</td>
+<td>前回と同様、org.springframework.beans.factory.InitializingBeanインターフェースを実装します。これにより、(21)でオーバーライドしたafterPropertiesSet()メソッドがSpringBootの起動時、
+application.ymlに記載したプロパティが読み込まれた後にコールされることになります。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="2">
+<li></li>
+</ol>
+</td>
+<td>application.ymlに必要なプロパティを定義して、&#64;Valueでインジェクションします。今回必要なものは、バケット名、S3のリージョン、STSの一時認証情報の有効期限(分)、アップロードを許可する時間(秒)、
+アップロードしたファイルのアクセス制御レベル、ファイルアップロードするファイルサイズ上限、第一回で作成したアップロード用のIAMロール名、ロールセッション名です。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="3">
+<li></li>
+</ol>
+</td>
+<td>(21)で、第一回で作成したアップロード用のIAMロール名のARNを取得し、設定します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="4">
+<li></li>
+</ol>
+</td>
+<td>クライアント(今回はブラウザ)からPOSTメソッドでダイレクトアップロードするために必要な認証情報を作成するメソッドを定義します。クライアントへ返却する情報を表したモデルオブジェクトは後述します。
+なお、このメソッドの引数としてアップロードするバケットのディレクトリに相当するオブジェクトキーを渡します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="5">
+<li></li>
+</ol>
+</td>
+<td>S3へ一時的にアクセスする認証情報を取得するプライベートメソッドを呼び出します。詳細な説明は(15)、(16)を参照してください。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="6">
+<li></li>
+</ol>
+</td>
+<td>クライアントからのPOSTメソッドで指定するカスタムパラメータX-Amz-Credentialに設定する文字列を作成するプライベートメソッドを呼び出します。詳細な説明は(17)を参照してください。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="7">
+<li></li>
+</ol>
+</td>
+<td>(5)で取得した一時認証情報から、セッショントークンを取得します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="8">
+<li></li>
+</ol>
+</td>
+<td>S3のリージョンを元に、アップロードするS3のURLを生成するプライベートメソッドを呼び出します。詳細な説明は(18)を参照してください。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="9">
+<li></li>
+</ol>
+</td>
+<td>S3へ非公開バケットへアップロードを行う場合に必要なPOSTポリシーを作成します。今回作成するPOSTポリシーオブジェクトは後述しますが、アップロードファイルの上限やアップロードするファイル名のオブジェクトキーパターン、
+メタデータなどの情報を追加します。POSTポリシーに含まれていない情報が、実際アップロードするリクエストに含まれていた場合、アップロードに失敗するので注意してください※。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="10">
+<li></li>
+</ol>
+</td>
+<td>作成したPOSTポリシーオブジェクトをJacksonのマッパーライブラリを用いて、JSON表現の文字列に変換します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="11">
+<li></li>
+</ol>
+</td>
+<td>(10)で作成したJSON形式の文字列をBase64でエンコーティングします。この処理以降のPOSTポリシーの署名の処理の流れは <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/API/sigv4-authentication-HTTPPOST.html">Authenticating Requests: Browser-Based Uploads Using POST (AWS Signature Version 4)</a> も参考にして下さい。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="12">
+<li></li>
+</ol>
+</td>
+<td>(5)で生成した一時認証情報から取得したシークレットキー、日付、リージョン、サービスをキーにしてHMAC SHA-1アルゴリズムで署名のキーを作成します。詳細な説明は(19)を参照してください。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="13">
+<li></li>
+</ol>
+</td>
+<td>(11)で作成したBase64エンコードされた文字列を署名キーで再度署名し、16進数表現の文字列に変換します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="14">
+<li></li>
+</ol>
+</td>
+<td>(13)までで作成した情報を元に、クライアントへ返却するモデルオブジェクトを生成します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="15">
+<li></li>
+</ol>
+</td>
+<td>指定されたオブジェクトキー名でアップロードすることを許可するIAMポリシーを作成して、JSON表現の文字列に変換します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="16">
+<li></li>
+</ol>
+</td>
+<td>AssumeRole APIを実行して、(15)で作成したIAMポリシーに対する一時認証情報を取得して返却します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="17">
+<li></li>
+</ol>
+</td>
+<td>POSTリクエストで、X-Amz-Credentialに設定する文字列を作成するメソッドです。このメソッドで作成する文字列の詳細な書式は
+<a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html">Authenticating Requests: Using Query Parameters (AWS Signature Version 4)</a> も参考にして下さい。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="18">
+<li></li>
+</ol>
+</td>
+<td>指定されたリージョンとバケット名に応じて、アップロードするS3BucketのURLを作成するメソッドです。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="19">
+<li></li>
+</ol>
+</td>
+<td>一時認証情報から取得したシークレットキー、日付、リージョン、サービス名を元に署名のバイト文字列を取得するメソッドです。このメソッドの実装は、
+<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/general/latest/gr/signature-v4-examples.html#signature-v4-examples-java">署名バージョン 4 署名キーを取得する方法の例</a> も参考にしてください。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="20">
+<li></li>
+</ol>
+</td>
+<td>署名キーを使って、HmacSHA256アルゴリズムでハッシュ計算するメソッドです。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="21">
+<li></li>
+</ol>
+</td>
+<td>AmazonIdentityManagementClientを使用して、ロール名からARNを取得し、(3)に設定します。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p>※なお、今回POSTポリシーは以下のような条件を設定するモデルとしています。クライアントからリクエスト送信する際にこれらの条件と一致しない、もしくは不要な条件が含まれていた場合アップロードに失敗するので注意してください。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;eq&quot;</span><span class="p">,</span> <span class="s2">&quot;$bucket&quot;</span><span class="p">,</span> <span class="nx">bucketName</span><span class="p">},</span>                         <span class="c1">// バケット名が完全一致</span>
+<span class="p">{</span><span class="s2">&quot;starts-with&quot;</span><span class="p">,</span> <span class="s2">&quot;$key&quot;</span><span class="p">,</span> <span class="nx">objectKey</span><span class="p">},</span>                    <span class="c1">// オブジェクトキー名が前方一致</span>
+<span class="p">{</span><span class="s2">&quot;eq&quot;</span><span class="p">,</span> <span class="s2">&quot;$acl&quot;</span><span class="p">,</span> <span class="nx">accessControlLevel</span><span class="p">},</span>                    <span class="c1">// ACLが完全一致</span>
+<span class="p">{</span><span class="s2">&quot;eq&quot;</span><span class="p">,</span> <span class="s2">&quot;$x-amz-credential&quot;</span><span class="p">,</span> <span class="nx">credentialString</span><span class="p">},</span>         <span class="c1">// 認証情報が完全一致</span>
+<span class="p">{</span><span class="s2">&quot;eq&quot;</span><span class="p">,</span> <span class="s2">&quot;$x-amz-security-token&quot;</span><span class="p">,</span> <span class="nx">securityToken</span><span class="p">},</span>        <span class="c1">// セキュリティトークンが完全一致</span>
+<span class="p">{</span><span class="s2">&quot;eq&quot;</span><span class="p">,</span> <span class="s2">&quot;$x-amz-algorithm&quot;</span><span class="p">,</span> <span class="nx">algorithm</span><span class="p">},</span>                 <span class="c1">// アルゴリズムが完全一致</span>
+<span class="p">{</span><span class="s2">&quot;eq&quot;</span><span class="p">,</span> <span class="s2">&quot;$x-amz-date&quot;</span><span class="p">,</span> <span class="nx">iso8601dateTime</span><span class="p">},</span>                <span class="c1">// 日付書式が完全一致</span>
+<span class="p">{</span><span class="s2">&quot;content-length-range&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="nx">fileSizeLimit</span><span class="p">},</span>          <span class="c1">// ファイル上限サイズを指定</span>
+</pre></div>
+</div>
+<dl class="last docutils">
+<dt>必要に応じて条件は変更可能です。詳細は、<a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-post-example.html">Example: Browser-Based Upload using HTTP POST (Using AWS Signature Version 4)</a> や</dt>
+<dd><a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/API/sigv4-HTTPPOSTConstructPolicy.html">Creating a POST Policy</a> も参照して下さい。</dd>
+</dl>
+</div>
+<p><br/></p>
+<p>当ヘルパークラスで使用するプロパティをapplication.ymlに定義します。</p>
+<p><br/></p>
+<p>applicaiton.yml</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bucket:
+  name: debugroom-mynavi-sample
+s3:
+  upload:
+    role:
+      name: mynavi-sample-s3-upload-role
+      session:
+        name: mynavi-sample
+    duration:
+      seconds: <span class="m">86400</span>
+    limitBytes: <span class="m">10000000000</span>
+    acl: private
+sts:
+  min:
+    duration:
+      minutes: <span class="m">15</span>
+</pre></div>
+</div>
+<p><br/>
+Controllerクラスで(4)を呼び出すリクエストハンドラメソッドを実装します。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.s3.app.web</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="nd">@Controller</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SampleController</span> <span class="o">{</span>
+
+    <span class="c1">// omit</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">S3DirectUploadHelper</span> <span class="n">s3DirectUploadHelper</span><span class="o">;</span>
+
+
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&quot;/upload/authorization&quot;</span><span class="o">)</span>
+    <span class="nd">@ResponseBody</span>
+    <span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">DirectUploadAuthorization</span><span class="o">&gt;</span>
+            <span class="nf">getDirectUploadAuthorization</span><span class="o">(){</span>
+        <span class="n">String</span> <span class="n">fileUploadPath</span> <span class="o">=</span> <span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
+        <span class="n">s3DirectUploadHelper</span><span class="o">.</span><span class="na">createDirectory</span><span class="o">(</span><span class="n">fileUploadPath</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">OK</span><span class="o">).</span><span class="na">body</span><span class="o">(</span>
+                <span class="n">s3DirectUploadHelper</span><span class="o">.</span><span class="na">createDirectUploadAuthorization</span><span class="o">(</span>
+                <span class="n">fileUploadPath</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="c1">// omit</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>上記のメソッドを呼び出すリクエストは、HTMLやJavaScriptなどのブラウザで実行されるクライアントで行われます。下記は、ThymeleafおよびjQueryを使ってS3へダイレクトアップロードしている箇所です。</p>
+<p><br/></p>
+<p>resources/templates/portal.html</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">xmlns:th</span><span class="o">=</span><span class="s">&quot;http://www.thymeleaf.org&quot;</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;ja&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;ja&quot;</span><span class="p">&gt;</span>
+
+// omit
+
+<span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Upload File to S3 directly<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">form</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;directUploadForm&quot;</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="na">enctype</span><span class="o">=</span><span class="s">&quot;multipart/form-data&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;directUploadInput&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;uploadFiles&quot;</span> <span class="na">multiple</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;file&quot;</span> <span class="na">data-authorization-url</span><span class="o">=</span><span class="s">&quot;/upload/authorization&quot;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;static/js/portal.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>ブラウザはファイルアップロード要求をサーバ側に対して行い、ダイレクトアップロードに必要な情報(DirectUploadAuthorization)を取得した後、ダイレクトアップロード処理を実行します。
+サンプルとなる(jQueryUploadを使用した)JavaScript実装は以下の通りです。</p>
+<p><br/></p>
+<p>resources/static/js/portal.js</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>// omit
+
+function uploadFiles(){
+    var progressPanel = $(&quot;#progress&quot;);
+    if(progressPanel != null){
+        progressPanel.remove();
+    }
+    // ダイアログボタンを押すと表示する。
+    $(&quot;#directUploadForm&quot;).after(&#39;&lt;div id=&quot;progress&quot;&gt;&lt;span id=&quot;pre-message&quot; class=&quot;errorMessage&quot;&gt;アップロードの準備中…&lt;/span&gt;&lt;/div&gt;&#39;);
+    var formData = new FormData;
+    // ダイアログを選択すると呼ばれる。
+    $(&quot;#directUploadInput&quot;).fileupload({
+        forceIframeTransport : true,
+//        url: &quot;&quot; // url option is for hr, not working
+        acceptFileTypes: /(\.|\/)(txt|gif|jpe?g|png|mp4|MOV|mov|m4v)$/i,
+        formData: formData,
+        // ダイアログでFileを選択すると呼ばれる。(マルチアップロードがあることを想定)
+        add: function(e, data){
+            // S3へダイレクトアップロードするURLおよび認証情報をサーバへ要求する。
+            $.ajax({
+                url: $(&quot;#directUploadInput&quot;).data(&quot;authorizationUrl&quot;),
+                type: &quot;GET&quot;,
+                async:true,
+            }).done(function(directUploadAuthorization, textStatus, jqXHR){
+                $(&quot;pre-message&quot;).remove();
+                var uploadUrl;
+                // ダイアログで選択したファイルごとに、進行状況を表示しながらアップロードする。
+                $.each(data.originalFiles, function(index, value){
+                    var fileName = data.files[index].name.replace(&quot;.&quot;, &quot;-&quot;);
+                    $(&quot;#progress-&quot; + fileName).remove();
+                    $(&quot;#errorMessage-&quot; + fileName).remove();
+                    $(&quot;#progress&quot;).appendChild(
+                        $(&#39;&lt;div id=&quot;progress-&#39; + fileName +
+                          &#39;&gt;&lt;div class=&quot;progress-bar&quot;&gt;&lt;span id=&quot;progress-ratio-&#39; + fileName +
+                          &#39;&quot;&gt;0&lt;/span&gt;%&lt;/div&gt;&#39;));
+                    $(&#39;#progress-&#39; + fileName + &#39; .progress-bar&#39;).css(&#39;width&#39;, 0 + &#39;%&#39;);
+                    $(&quot;#progress-&quot; + fileName).before($(&#39;&lt;span id=&quot;upload-label-&#39; + fileName
+                        + &#39;&quot; class=&quot;successMessage&quot;&gt;アップロード進行状況： &#39;
+                        + data.files[index].name + &#39;&lt;br&gt;&lt;/span&gt;&#39;));
+                    // アップロードするファイルがサポート形式か判定する
+                    var isSupportedFile = false;
+                    switch (data.files[index].type) {
+                        case &quot;text/plain&quot;:
+                            isSupportedFile = true;
+                            break;
+                        case &quot;image/gif&quot;:
+                            isSupportedFile = true;
+                            break;
+                        case &quot;image/jpeg&quot;:
+                            isSupportedFile = true;
+                            break;
+                        case &quot;image/png&quot;:
+                            isSupportedFile = true;
+                            break;
+                        case &quot;video/mpeg&quot;:
+                            isSupportedFile = true;
+                            break;
+                        case &quot;video/mp4&quot;:
+                            isSupportedFile = true;
+                            break;
+                        case &quot;video/quicktime&quot;:
+                            isSupportedFile = true;
+                            break;
+                        default:
+                            break;
+                    }
+                    アップロードするファイルと共に送信するメタ情報を作成する。
+                    formData = new FormData();
+                    if(isSupportedFile){
+                        uploadUrl = directUploadAuthorization.uploadUrl;
+                        formData.append(&#39;key&#39;, directUploadAuthorization.objectKey + data.files[index].name);
+                        formData.append(&#39;x-amz-credential&#39;, directUploadAuthorization.credential);
+                        formData.append(&#39;acl&#39;, directUploadAuthorization.acl);
+                        formData.append(&#39;x-amz-security-token&#39;, directUploadAuthorization.securityToken);
+                        formData.append(&#39;x-amz-algorithm&#39;, directUploadAuthorization.algorithm);
+                        formData.append(&#39;x-amz-date&#39;, directUploadAuthorization.date);
+                        formData.append(&#39;policy&#39;, directUploadAuthorization.policy);
+                        formData.append(&#39;x-amz-signature&#39;, directUploadAuthorization.signature);
+                        formData.append(&#39;file&#39;, data.files[index]);
+                        // S3へダイレクトアップロードする
+                        $.ajax({
+                            url: uploadUrl,
+                            type: &#39;POST&#39;,
+                            dataType: &#39;json&#39;,
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                            xhr : function(){
+                                var XHR = $.ajaxSettings.xhr();
+                                if(XHR.upload){
+                                    XHR.upload.addEventListener(&#39;progress&#39;,function(e){
+                                        var progre = parseInt(e.loaded/e.total*100);
+                                        $(&#39;#progress-&#39; + fileName + &#39; .progress-bar&#39;).css({width: ((progre+1)*95/100)+&#39;%&#39;});
+                                        $(&quot;#progress-ratio-&quot; + fileName).text(progre);
+                                    }, false);
+                                }
+                                return XHR;
+                            },
+                        }).done(function(data, textStatus, jqXHR){
+                            $(&quot;#upload-label-&quot; + fileName).html($(&quot;#upload-label-&quot; + fileName).html() + &quot; アップロードが完了しました。&lt;br/&gt;&quot;);
+                            $(&quot;#progress-&quot; + fileName).remove();
+                        }).fail(function(jqXHR, textStatus, errorThrown){
+                            $(&quot;#errorMessage-&quot; + fileName).remove();
+                            $(&quot;#thumbnailPanel&quot;).after($(&#39;&lt;span id=&quot;errorMessage-&#39; + fileName + &#39;&quot; class=&quot;errorMessage&quot;&gt;&#39;
+                                + &#39;ファイルアップロード中にエラーが発生しました。&#39; + fileName + &#39;&lt;/span&gt;&#39;));
+                        });
+                    }else {
+                        $(&quot;#errorMessage-&quot; + fileName).remove();
+                        $(&quot;#thumbnailPanel&quot;).before($(&#39;&lt;span id=&quot;errorMessage-&#39; + fileName
+                            + &#39;&quot; class=&quot;errorMessage&quot;&gt;サポートされない形式です。&#39;
+                            + fileName + &#39;&lt;/span&gt;&#39;));
+                    }
+                });
+            }).fail(function(jqXHR, textStatus, errorThrown){});
+        }, done : function(e, data){}, fail: function(e, data){}
+    });
+}
+</pre></div>
+</div>
+<p><br/></p>
+<p>今回はS3へダイレクトアップロードする実装を紹介しました。次回はS3へダイレクトアップロードした後、S3でイベントを発生させ、Lambdaファンクションで後続処理を行う実装を紹介します。</p>
+<p><br/></p>
+</div>
+<div class="section" id="id3">
+<h2>著者紹介<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei) - NTTデータ</p>
+<div class="figure">
+<img alt="../_images/aws_361383_075.jpeg" src="../_images/aws_361383_075.jpeg" />
+</div>
+<p>金融機関システム業務アプリケーション開発・システム基盤担当、ソフトウェア開発自動化関連の研究開発を経て、デジタル技術関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p><a class="reference external" href="https://aws.amazon.com/jp/partners/ambassadors/?cards-body.sort-by=item.additionalFields.ambassadorName&amp;cards-body.sort-order=asc&amp;cards-body.q=kawabata&amp;cards-body.q_operator=AND">AWS Top Engineers &amp; Ambassadors</a> 選出。</p>
+<p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

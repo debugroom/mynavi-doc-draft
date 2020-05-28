@@ -2,7 +2,7 @@
 
 .. _section-cloud-native-s3-5th-label:
 
-【第26回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(5)
+【第2回】AmazonS3へダイレクトアクセスするアプリケーション実装(5)
 ----------------------------------------------------------------------------------------
 
 |br|
@@ -27,8 +27,7 @@
 
 ベースとなるアプリケーションは `基本編第26回 <https://news.mynavi.jp/itsearch/article/cloud/4615>`_ で実装したものと同様のものを使用します。
 アプリケーション内からS3へアクセスを行う場合は、Spring Cloud AWSを使ってResourceLoader経由でもデータ取得できましたが、
-バケットの操作やダイレクトアップロード時に利用するAWS STSへ一時認証情報の取得処理などは、AmazonSDKのAPIを直接実行する必要があり、
-厳密にいえば、本実装ではSpring Cloud AWSのライブラリは使用しません。
+バケットの操作やダイレクトアップロード時に利用するAWS STSへ一時認証情報の取得処理などは、AmazonSDKのAPIを直接実行する必要があり、今回の実装ではSpring Cloud AWSのライブラリは使用しません。
 
 本連載で実際に作成するアプリケーションでは `GitHub <https://github.com/debugroom/mynavi-sample-aws-s3>`_ 上にコミットしています。
 以降に記載するソースコードでは、import文など本質的でない記述を省略している部分があるので、実行コードを作成する際は、必要に応じて適宜GitHubにあるソースコードも参照してください。
@@ -108,7 +107,7 @@
 
 .. note:: CORSについて
 
-   ブラウザには、クロスサイトスクリプティングといったセキュリティ脅威に対する対策として、開いているドメイン(http://exampleA.com)とは異なるドメイン(http://exampleB.com)へのアクセスを制御する仕組みがあり、
+   ブラウザには、XSS(Cross Site Scripting:クロスサイトスクリプティング)やCSRF(Cross Site Request Forgeries:クロスサイトリクエストフォージェリ)といったセキュリティ脅威に対する対策として、開いているドメイン(http://exampleA.com)とは異なるドメイン(http://exampleB.com)へのアクセスを制御する仕組みがあり、
    (`同一オリジンポリシー <https://developer.mozilla.org/ja/docs/Web/Security/Same-origin_policy#Cross-origin_network_access>`_ と呼びます)、CORSはクロスドメインでのアクセスを安全に実行するための仕様です。
 
 |br|
@@ -218,7 +217,7 @@ S3DirectDownloadHelperクラスコードの説明は以下の通りです。
 
 |br|
 
-.. list-table:: SpringBatchのサンプル設定クラスコードの説明
+.. list-table:: S3DirectDownloadHelperクラスコードの説明
    :widths: 1, 19
 
    * - 項番

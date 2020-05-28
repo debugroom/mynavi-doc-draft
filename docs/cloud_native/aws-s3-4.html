@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>【第1回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(4) &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <title>【第1回】AmazonS3へダイレクトアクセスするアプリケーション実装(4) &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -18,7 +18,7 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="ソフトウェア開発自動化" href="../automation_infra_devops/automation_infra_devops_overview.html" />
+    <link rel="next" title="【第2回】AmazonS3へダイレクトアクセスするアプリケーション実装(5)" href="aws-s3-5.html" />
     <link rel="prev" title="【第32回】AmazonSQSを使用する実装(5)" href="aws-sqs-5.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -93,7 +93,9 @@
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">【第1回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(4)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">【第1回】AmazonS3へダイレクトアクセスするアプリケーション実装(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-5.html">【第2回】AmazonS3へダイレクトアクセスするアプリケーション実装(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-6.html">【第3回】AmazonS3へダイレクトアクセスするアプリケーション実装(6)</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -150,7 +152,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">【第1回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(4)</a><ul>
+<li><a class="reference internal" href="#">【第1回】AmazonS3へダイレクトアクセスするアプリケーション実装(4)</a><ul>
 <li><a class="reference internal" href="#amazon-s3">Amazon S3へのダイレクトアップロード・ダウンロード</a></li>
 <li><a class="reference internal" href="#aws-sts">AWS STSの概要</a></li>
 <li><a class="reference internal" href="#iam">IAMロールとポリシーの設定</a></li>
@@ -170,7 +172,7 @@
     </a>
   </li>
   <li>
-    <a href="../automation_infra_devops/automation_infra_devops_overview.html" title="Next Chapter: ソフトウェア開発自動化"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">ソフトウェア開発自動化 &raquo;</span>
+    <a href="aws-s3-5.html" title="Next Chapter: 【第2回】AmazonS3へダイレクトアクセスするアプリケーション実装(5)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">【第2回】AmazonS3... &raquo;</span>
     </a>
   </li>
               
@@ -204,8 +206,8 @@
   <div class="row">
     <div class="col-md-12 content">
       
-  <div class="section" id="amazons3springcloudaws-4">
-<span id="section-cloud-native-s3-4th-label"></span><h1>【第1回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(4)<a class="headerlink" href="#amazons3springcloudaws-4" title="このヘッドラインへのパーマリンク">¶</a></h1>
+  <div class="section" id="amazons3-4">
+<span id="section-cloud-native-s3-4th-label"></span><h1>【第1回】AmazonS3へダイレクトアクセスするアプリケーション実装(4)<a class="headerlink" href="#amazons3-4" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p><br/></p>
 <p>これまで32回にわたり、 <a class="reference external" href="https://news.mynavi.jp/itsearch/series/devsoft/AWS.html">AWSで作るクラウドネイティブアプリケーションの基本</a> で、
 AWS ECSやALB、RDS、DynamoDB、ElastiCache、SQS、AWS Lambda、APIGateway等を使って、SpringBootをベースとしたアプリケーションを実装する方法を紹介してきました。</p>
@@ -275,9 +277,6 @@ AWS ECSやALB、RDS、DynamoDB、ElastiCache、SQS、AWS Lambda、APIGateway等�
 <tr class="row-odd"><td>Spring Boot</td>
 <td>2.1.6.RELEASE</td>
 </tr>
-<tr class="row-even"><td>Spring Cloud AWS</td>
-<td>2.1.2.RELEASE</td>
-</tr>
 </tbody>
 </table>
 <p><br/></p>
@@ -301,9 +300,9 @@ VPC内にあるEC2やECSで実行されているアプリケーション内か�
 <span id="section-cloud-native-s3-sts-label"></span><h2>AWS STSの概要<a class="headerlink" href="#aws-sts" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
 <p>AWS STSではAWSリソースのアクセスを一時的に許可する認証情報を作成するためのサービスです。STSに対して、SDKやCLI(Command Line Interface)から、AssumeRoleというAPIを実行すると、
-指定したRoleに設定された権限と同様のポリシーを一時的な認証情報として受け取ることができます(AWSコンソール上からはSTSのサービスはないので実行できません)。
-もちろん、誰でもAssumeRole APIを実行してポリシーを取得できるわけではありません。AssumeRoleが可能な対象を、事前にIAMで信頼された対象(エンティティ)として設定しておく必要があります。
-あらかじめ指定されたエンティティが引き受け対象として設定されたRoleに付与されたポリシーを取得し、一時的に許可されたAWSリソースへアクセスする権限を得るのです。
+指定したIAMロールに設定された権限と同様のポリシーを一時的な認証情報として受け取ることができます(AWSコンソール上からはSTSのサービスはないので実行できません)。
+もちろん、誰でもAssumeRole APIを実行してポリシーを取得できるわけではありません。事前にAsumeRole APIが実行可能な対象を、信頼された対象(エンティティ)として設定しておく必要があります。今回はその対象として指定したアプリケーションユーザーが、
+引き受け対象として設定されたIAMロールに付与されたポリシーを取得し、一時的に許可されたAWSリソースへアクセスする権限を得るのです。
 それでは、実際にIAMでAssumeRoleの設定とS3へのアクセスが許可されたポリシーを設定してみましょう。</p>
 <p><br/></p>
 </div>

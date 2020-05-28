@@ -65,6 +65,7 @@
 
    cloud_native/aws-s3-4.rst
    cloud_native/aws-s3-5.rst
+   cloud_native/aws-s3-6.rst
 
 |br|
 
