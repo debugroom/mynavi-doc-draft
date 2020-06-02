@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AWSで作るマイクロサービスアプリケーション &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="prev" title="【第39回】AWS CloudFormationを用いた基盤自動化(19)ECSサービスの構築" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">【第1回】サーバレス開発(1)Spring Cloud Functionの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">【第2回】サーバレス開発(2)Amazon Lambdaの利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">【第3回】サーバレス開発(3)AWS API Gatewayの利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-1.html">【第4回】ECSコンテナAP開発(1)VPC構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-2.html">【第5回】ECSコンテナAP開発(2)ALB構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-3.html">【第6回】ECSコンテナAP開発(3)SpringBootアプリケーション実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-4.html">【第7回】ECSコンテナAP開発(4)Dockerイメージ作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-5.html">【第8回】ECSコンテナAP開発(5)ECSクラスタ設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-6.html">【第9回】ECSコンテナAP開発(6)ECSタスク設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-7.html">【第10回】ECSコンテナAP開発(7)ECSサービス設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-1.html">【第11回】Amazon RDSの概要とデータベース構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-2.html">【第12回】RDSへのテーブル構築とSpring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-3.html">【第13回】RDSへのテーブル構築とSpring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-1.html">【第14回】NoSQL(1)-基礎-CAP定理を元にしたデータベースの分類とデータ特性</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-2.html">【第15回】NoSQL(2)-基礎-AP型データベースAmazon DynamoDBとApache Cassandraの特徴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-1.html">【第16回】NoSQL(3)-DynamoDB-Amazon DynamoDBの概要及び構築と認証情報の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-2.html">【第17回】NoSQL(4)-DynamoDB-Spring Data DynamoDBを用いたアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-3.html">【第18回】NoSQL(5)-DynamoDB-Spring Data DynamoDBを用いたアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-1.html">【第N回】NoSQL-Managed Apache Cassandra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-2.html">【第N回】NoSQL-Spring Data Cassandraを用いたアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-3.html">【第N回】NoSQL-Spring Data Cassandraを用いたアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-1.html">【第19回】NoSQL(6)-AmazonElasiCacheの概要及びローカル環境でのRedisServer構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-2.html">【第20回】NoSQL(10)-Spring SessionとSpring Data Redisを用いたアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-3.html">【第21回】NoSQL(11)-Spring SessionとSpring Data Redisを用いたアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-4.html">【第22回】NoSQL(12)-Amazon ElastiCacheの設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-5.html">【第23回】NoSQL(13)-セッション共有するECSアプリケーションの構築(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-6.html">【第24回】NoSQL(14)-セッション共有するECSアプリケーションの構築(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-1.html">【第25回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-2.html">【第26回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-3.html">【第27回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-1.html">【第28回】AmazonSQSを使用する実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-2.html">【第29回】AmazonSQSを使用する実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-3.html">【第30回】AmazonSQSを使用する実装(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-4.html">【第31回】AmazonSQSを使用する実装(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-5.html">【第32回】AmazonSQSを使用する実装(5)</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-4.html">【第1回】AmazonS3へダイレクトアクセスするアプリケーション実装(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-5.html">【第2回】AmazonS3へダイレクトアクセスするアプリケーション実装(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-6.html">【第3回】AmazonS3へダイレクトアクセスするアプリケーション実装(6)</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_actual_experience.html">【第1回】マイクロサービスアーキテクチャの基盤・デプロイ自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_sonarqube.html">【第2回】SonarQubeを利用した静的解析環境の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_sonarlint.html">【第3回】SonarLintを利用した開発端末の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_architecture.html">【第4回】マイクロサービスにおけるテスト自動化とテスト戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_unittest-1.html">【第5回】マイクロサービスの単体試験コード実装(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_unittest-2.html">【第6回】マイクロサービスの単体試験コード実装(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html">【第7回】マイクロサービスの結合試験コード実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unittest.html">【第8回】マイクロサービスを呼び出すWebAPの単体テストコード・E2Eテストの実装(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html">【第9回】マイクロサービスを呼び出すWebAPの単体テストコード・E2Eテストの実装(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild_local.html">【第10回】AWS CodeBuildを使用したCI環境構築(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild.html">【第11回】AWS CodeBuildを使用したCI環境構築(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_1.html">【第12回】AWS CodePipeLineを用いた継続的デリバリ自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_2.html">【第13回】AWS CodePipeLineを用いた継続的デリバリ自動化(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_3.html">【第14回】AWS CodePipeLineを用いた継続的デリバリ自動化(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_4.html">【第15回】AWS CodePipeLineを用いた継続的デリバリ自動化(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_5.html">【第16回】AWS CodePipeLineを用いた継続的デリバリ自動化(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_6.html">【第17回】AWS CodePipeLineを用いた継続的デリバリ自動化(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_7.html">【第18回】AWS CodePipeLineを用いた継続的デリバリ自動化(6)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_8.html">【第19回】AWS CodePipeLineを用いた継続的デリバリ自動化(7)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_9.html">【第20回】AWS CodePipeLineを用いた継続的デリバリ自動化(8)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_overview.html">【第21回】AWS CloudFormationを用いた基盤自動化(1)CloudFormationの概要</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_cli.html">【第22回】AWS CloudFormationを用いた基盤自動化(2)AWS CLIの実行環境</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_lint.html">【第23回】AWS CloudFormationを用いた基盤自動化(3)各種検証プラグインインストールと統合開発環境の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_script.html">【第24回】AWS CloudFormationを用いた基盤自動化(4)テンプレート記述の基本と実行ヘルパースクリプトの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_taskcat.html">【第25回】AWS CloudFormationを用いた基盤自動化(5)CloudFormationテスト環境の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_vpc.html">【第26回】AWS CloudFormationを用いた基盤自動化(6)VPC、サブネット、ルートテーブル、インターネットGWの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sg_nat.html">【第27回】AWS CloudFormationを用いた基盤自動化(7)SecurityGroup/NATGatewayの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_alb.html">【第28回】AWS CloudFormationを用いた基盤自動化(8)ApplicationLoadBalancer/TargetGroupの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_rds.html">【第29回】AWS CloudFormationを用いた基盤自動化(9)RDSの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_dynamodb.html">【第30回】AWS CloudFormationを用いた基盤自動化(10)DynamoDBの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_elasticache.html">【第31回】AWS CloudFormationを用いた基盤自動化(11)ElastiCacheの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_s3_sqs.html">【第32回】AWS CloudFormationを用いた基盤自動化(12)SQS/S3の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_nest.html">【第33回】AWS CloudFormationを用いた基盤自動化(13)NestedStackの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_app_backend.html">【第34回】AWS CloudFormationを用いた基盤自動化(14)SpringCloudAWSを利用したBackend Serviceアプリケーションにおけるスタック情報の取得・設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_webapp_frontend.html">【第35回】AWS CloudFormationを用いた基盤自動化(15)SpringCloudAWSを利用したFrontend Webアプリケーションにおけるスタック情報の取得・設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_cluster.html">【第36回】AWS CloudFormationを用いた基盤自動化(16)ECSクラスタの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_task.html">【第37回】AWS CloudFormationを用いた基盤自動化(17)ECSタスク定義の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_taskrole.html">【第38回】AWS CloudFormationを用いた基盤自動化(18)ECSタスクロール定義の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.html">【第39回】AWS CloudFormationを用いた基盤自動化(19)ECSサービスの構築</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AWSで作るマイクロサービスアプリケーション</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">AWSで作るマイクロサービスアプリケーション</a><ul>
+<li><a class="reference internal" href="#id1">第1回 マイクロサービスアーキテクチャで目指すもの</a></li>
+<li><a class="reference internal" href="#id5">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.html" title="Previous Chapter: 【第39回】AWS CloudFormationを用いた基盤自動化(19)ECSサービスの構築"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 【第39回】AWS Clo...</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/microservice/microservice_overview.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="aws">
+<span id="section-aws-microservice-overview-label"></span><h1>AWSで作るマイクロサービスアプリケーション<a class="headerlink" href="#aws" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id1">
+<h2>第1回 マイクロサービスアーキテクチャで目指すもの<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>2014年にJames LewisとMartin Flowlerが提唱したマイクロサービスですが、一時はバズワードと呼べるほどトレンド化し、
+特にクラウドでのデフォルトのアーキテクチャスタイルに位置付ける程に、キャッチコピーとして雑誌・記事やアナリストレポートに登場しています。
+近年では政府のシステム入札案件の要件としても見かけるようになってきました。筆者の連載、「 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4379">AWSで実践！基盤構築・デプロイ自動化第一回</a> 」の中でも、
+マイクロサービスアプリケーションの特徴について触れていますが、ただ、提唱された当初と比べて、少し目指している目的が広がってきています。</p>
+<p>従来、マイクロサービスでは、下記の図のような構成によって、以下に示すようなメリットが得られるアーキテクチャを目指してきました。</p>
+<ul class="simple">
+<li>開発チームごとに分担した各サービスの疎結合性／独立性が向上し、開発のアジリティが向上する</li>
+<li>使用頻度の高い特定の機能を、サービス単位でスケールできるため、アプリケーションパフォーマンスが向上する</li>
+<li>独立したサービスの集合でアプリケーションが構成されるため、特定のサービスが障害などで機能不全に陥ってもシステム全体が機能不全に陥ることはなく可用性が向上する</li>
+</ul>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/microservice-old-school.png" src="../_images/microservice-old-school.png" />
+</div>
+<p><br/></p>
+<p>近年では下記の図のように、Webアプリケーション、モバイル、運用端末といったマルチクライアントに加え、サードパーティサービスに利用されることを想定し、
+ビジネスロジックを切り出してAPI化し、マイクロサービスアーキテクチャを検討する動きも目立ちつつあります。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/microservice.png" src="../_images/microservice.png" />
+</div>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">サードパーティサービスとの連携に関して、こうした様々なサービスを組み合わせて、あらたな付加価値をつける試みは、SOA(Service Oriented Architecture)やマッシュアップなどマイクロサービスが提唱される以前からありましたが、
+サービス連携時の複雑なセキュリティ対策や多数のクライアントが接続するための拡張性に難があり、広く普及させるために障害となる多くの問題を抱えていました。近年このような潮流が再び巻き起こっているのは
+クラウド化によりスケーラビリティが容易に図れるようになったことやOAuth2、OIDCなどの標準化されたセキュリティ技術の普及により、技術的なハードルが下がってきたことが背景にあります。</p>
+</div>
+<p><br/></p>
+<p>一方で、このようなマイクロサービスアーキテクチャでのアプリケーションを構築するのは容易ではありません。サービス分離によるトランザクションの分割・通信エラーの発生や、データベースが分離された構成での一貫性担保の問題、
+揮発性のあるサーバ環境での永続化処理の実行、各サービス自体のスケーラビリティの確保、様々なクライアントから実行される場合の認証・認可といったセキュリティ対策などアプリケーション実装も相応に複雑になります。
+例えば、元々モノリシックだったWebアプリケーションのドメインロジックを分離して、上記の図のようにBackend Service APIとして切り出した場合、以下のようなアーキテクチャ上の検討課題がでてきます。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id6">
+<caption><span class="caption-text">アプリケーションアーキテクチャの検討課題</span><a class="headerlink" href="#id6" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>課題</td>
+<td>詳細</td>
+</tr>
+<tr class="row-even"><td>サービス実行フロー制御</td>
+<td>処理のオーケストレーション・コレオグラフィといったサービス実行フロー制御、エラーハンドリング方式</td>
+</tr>
+<tr class="row-odd"><td>トランザクション管理</td>
+<td>複数の更新系Backend Serviceを実行する場合の業務トランザクションのロールバックや補償トランザクション</td>
+</tr>
+<tr class="row-even"><td>ステートフル共有データストア</td>
+<td>アプリケーションにスケーラビリティを持たせることを目的とした、ステートフル(状態)データを共有するためのデータストアの利用や、データストア障害に伴うフェイルオーバー発生時のエラーハンドリング</td>
+</tr>
+<tr class="row-odd"><td>サービスディスカバリ方式</td>
+<td>サービスが動的にスケールアウト・縮退する場合のBackend Service APIのサービスディスカバリ</td>
+</tr>
+<tr class="row-even"><td>サービス間通信方式</td>
+<td>Backend Service APIを呼び出す場合の同期・非同期の使い分け、リトライ・サーキットブレイカー処理</td>
+</tr>
+<tr class="row-odd"><td>サービス認証・認可方式</td>
+<td>OIDC、OAuth2.0に準拠した、JWTを使ったアクセストークンの連携方式</td>
+</tr>
+<tr class="row-even"><td>ロギング・モニタリング方式</td>
+<td>アプリケーション・サービスを跨いでトレーサビリティを確保するためのロギング、各サービスごとのモニタリング</td>
+</tr>
+<tr class="row-odd"><td>Backend Serviceステートレス化・冪等生</td>
+<td>スケールアウトを容易にする、Backend Serviceのステートレス化を前提としたREST準拠API規約・ルール(HTTPステータスコード等)、耐障害性向上のための冪等性をもつ処理実装</td>
+</tr>
+<tr class="row-even"><td>マネージドサービス連携</td>
+<td>揮発性であるコンテナ・サーバレス環境下で、データ永続化のためのマネージドストレージやキューを利用する場合の方式</td>
+</tr>
+<tr class="row-odd"><td>マルチクライアントにおけるサービス分割</td>
+<td>Webアプリケーション以外にも、モバイルなどのSPAクライアント、サードパーティサービス連携がある場合のサービス分割・ビジネスロジックの分離方針</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>そのような中で、AWSではマイクロサービスアーキテクチャベースのアプリケーション構築をサポートする以下のサービスが提供されています。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id7">
+<caption><span class="caption-text">マイクロサービスアプリケーション構築する場合によく利用するサービス</span><a class="headerlink" href="#id7" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>サービス</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td>Elastic Load Balancing</td>
+<td>Classic Load Balancer、Application LoadBalancer、Network LoadBalancerで構成されるサービス。詳細は 「 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4359">AWSで作るクラウドネイティブアプリケーションの基本第5回</a> 」を参照して下さい。
+ALBでは、各コンテナにデプロイされたマイクロサービスのIP・ポートを意識せずにパスベースでルーティングを行うことができます。</td>
+</tr>
+<tr class="row-odd"><td>Route53</td>
+<td>通常のDNSサービスに加えて、ECS上にデプロイしたマイクロサービスの <a class="reference external" href="https://aws.amazon.com/jp/blogs/news/amazon-ecs-service-discovery/">サービスレジストリ・ディスカバリ機能</a> や
+オンプレミスや別のデータセンタからのルーティングなどの <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/Route53/latest/DeveloperGuide/resolver.html">リゾルバ機能</a> があります。</td>
+</tr>
+<tr class="row-even"><td>Amazon ECS</td>
+<td>マイクロサービスアプリケーションがデプロイされたDockerコンテナを実行するコンテナオーケストレーションサービスです。
+コンテナの死活監視やオートスケーリングなどを実行します。詳細は 「 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4354">AWSで作るクラウドネイティブアプリケーションの基本第4回</a> 」を参照して下さい</td>
+</tr>
+<tr class="row-odd"><td>Amazon EKS</td>
+<td>マイクロサービスアプリケーションがデプロイされたコンテナを実行する、オープンソースのコンテナオーケストレーションツールKuberntesのマネージドサービスです。機能的にはECSと同等です。</td>
+</tr>
+<tr class="row-even"><td>Amazon ElastiCache</td>
+<td>複数のマイクロサービスアプリケーションのデータ共有のためのキャッシュストレージとして利用できるサービスです。詳細は 「 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4523">AWSで作るクラウドネイティブアプリケーションの基本第19回</a> 」を参照して下さい</td>
+</tr>
+<tr class="row-odd"><td>Amazon API Gateway</td>
+<td>マイクロサービスアプリケーションのAPIゲートウェイとして利用できるサービスです。REST APIの定義やデプロイ、サービスへのHTTPリクエスト・レスポンス変換などを実行します。
+詳細は 「 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4321">AWSで作るクラウドネイティブアプリケーションの基本第3回</a> 」を参照して下さい</td>
+</tr>
+<tr class="row-even"><td>AWS Lambda</td>
+<td>サーバレスでマイクロサービスアプリケーションの実行が可能なサービスです。詳細は 「 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4318">AWSで作るクラウドネイティブアプリケーションの基本第2回</a> 」を参照して下さい</td>
+</tr>
+<tr class="row-odd"><td>AWS Cognito</td>
+<td>認証・認可サービスです。外部の認証Providerとの連携や、IAMロールに応じたAWSリソースへのアクセス制御、マルチデバイス間でデータ同期する機能などもあります。</td>
+</tr>
+<tr class="row-even"><td>Cloud Map</td>
+<td>クラウドリソースのDNSサービスです。IPアドレスが割り当てられているEC2やRDSなどのAWSリソースに加え、LambdaやDynamoDB、SQSといったARNが割り当てられたリソースに対しても名前解決が可能です。</td>
+</tr>
+<tr class="row-odd"><td>App Mesh</td>
+<td>オープンソースのサービスメッシュプロキシEnvoyのマネージドサービスです。サービス間の通信、監視、ログやメトリクス出力などを実行できます。</td>
+</tr>
+<tr class="row-even"><td>X Ray</td>
+<td>マイクロサービスアプリケーションを分析することができるサービスです。サービス実行時間の計測やトレース、フィルタリングによる可視化などが行えます。</td>
+</tr>
+<tr class="row-odd"><td>Amazon SQS</td>
+<td>マネージドキューサービスです。マイクロサービス間の非同期メッセージ連携などで利用します。詳細は 「 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4656">AWSで作るクラウドネイティブアプリケーションの基本第28回</a> 」を参照して下さい</td>
+</tr>
+<tr class="row-even"><td>Amazon SNS</td>
+<td>Publish/Subscribe型のメッセージ配信サービスです。複数のマイクロサービスへメッセージを連携する場合などで利用します。詳細は 「 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4682">AWSで実践！基盤構築・デプロイ自動化第18回</a> 」を参照して下さい</td>
+</tr>
+<tr class="row-odd"><td>Amazon MSK (Managed Streaming for Apache Kafka)</td>
+<td>オープンソースのメッセージキューミドルウェアであるApache Kafkaのマネージドサービスです。非同期メッセージ連携などで利用します。Kafkaではデータの流量制御等きめ細やかな設定が可能です。</td>
+</tr>
+<tr class="row-even"><td>Amazon MQ</td>
+<td>マイクロサービス間の非同期メッセージ連携などで利用します。メッセージの到達保証を担保したい場合に利用します。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>ただし、当然これらがのサービスがマイクロサービスアーキテクチャにおける課題を全てカバーしてくれるわけではありません。
+必要に応じて、様々なオープンソースのプロダクトを組み合わせながらアプリケーションを構成・実装していく必要があります。
+本連載では、AWSのマネージドサービスを駆使しながら、マイクロサービスのメリットを最大限享受できる、SpringBootをベースとしたアプリケーションアーキテクチャの実装例を紹介していきます。
+(いまだこの分野の技術は栄枯盛衰が激しく、各プロダクトの機能追加や新たなサービスの登場によりベストプラクティスは変わっていくので、AWSクラウド上での実装例のひとつとして捉えていただくと良いと思います)</p>
+<p><br/></p>
+<p>次回以降は、マイクロサービスアプリケーションを構築していく上で、難しいハードルの一つである認証・認可処理をどのように実現していくか全体像を解説します。</p>
+<p><br/></p>
+</div>
+<div class="section" id="id5">
+<h2>著者紹介<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei) - NTTデータ</p>
+<div class="figure">
+<img alt="../_images/aws_361383_0751.jpeg" src="../_images/aws_361383_0751.jpeg" />
+</div>
+<p>金融機関システム業務アプリケーション開発・システム基盤担当、ソフトウェア開発自動化関連の研究開発を経て、デジタル技術関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p><a class="reference external" href="https://aws.amazon.com/jp/partners/ambassadors/?cards-body.sort-by=item.additionalFields.ambassadorName&amp;cards-body.sort-order=asc&amp;cards-body.q=kawabata&amp;cards-body.q_operator=AND">AWS Top Engineers &amp; Ambassadors</a> 選出。</p>
+<p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

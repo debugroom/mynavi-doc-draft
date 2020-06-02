@@ -118,3 +118,15 @@
    automation_infra_devops/automation_infra_devops_cloudformation_ecs_task.rst
    automation_infra_devops/automation_infra_devops_cloudformation_ecs_taskrole.rst
    automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.rst
+
+|br|
+
+[AWSで作るマイクロサービスアプリケーション]
+
+|br|
+
+.. toctree::
+   :maxdepth: 4
+   :caption: Contents:
+
+   microservice/microservice_overview.rst
