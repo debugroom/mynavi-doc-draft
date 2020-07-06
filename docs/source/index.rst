@@ -130,3 +130,4 @@
    :caption: Contents:
 
    microservice/microservice_overview.rst
+   microservice/microservice_architecture.rst

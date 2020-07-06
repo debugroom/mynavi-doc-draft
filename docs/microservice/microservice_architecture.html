@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>【第1回】マイクロサービスアーキテクチャで目指すもの &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <title>【第2回】本連載でモデルとするマイクロサービスアーキテクチャ &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -18,8 +18,7 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="【第2回】本連載でモデルとするマイクロサービスアーキテクチャ" href="microservice_architecture.html" />
-    <link rel="prev" title="【第39回】AWS CloudFormationを用いた基盤自動化(19)ECSサービスの構築" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.html" />
+    <link rel="prev" title="【第1回】マイクロサービスアーキテクチャで目指すもの" href="microservice_overview.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -142,10 +141,10 @@
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">【第1回】マイクロサービスアーキテクチャで目指すもの</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#id4">著者紹介</a></li>
-<li class="toctree-l1"><a class="reference internal" href="microservice_architecture.html">【第2回】本連載でモデルとするマイクロサービスアーキテクチャ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="microservice_architecture.html#id2">著者紹介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_overview.html">【第1回】マイクロサービスアーキテクチャで目指すもの</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_overview.html#id4">著者紹介</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">【第2回】本連載でモデルとするマイクロサービスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id2">著者紹介</a></li>
 </ul>
 </ul>
 </li>
@@ -159,8 +158,11 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">【第1回】マイクロサービスアーキテクチャで目指すもの</a></li>
-<li><a class="reference internal" href="#id4">著者紹介</a></li>
+<li><a class="reference internal" href="#">【第2回】本連載でモデルとするマイクロサービスアーキテクチャ</a><ul>
+<li><a class="reference internal" href="#oidc-oauth2-0">OIDC／OAuth2.0</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id2">著者紹介</a></li>
 </ul>
 </ul>
 </li>
@@ -170,11 +172,7 @@
               
                 
   <li>
-    <a href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.html" title="Previous Chapter: 【第39回】AWS CloudFormationを用いた基盤自動化(19)ECSサービスの構築"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 【第39回】AWS Clo...</span>
-    </a>
-  </li>
-  <li>
-    <a href="microservice_architecture.html" title="Next Chapter: 【第2回】本連載でモデルとするマイクロサービスアーキテクチャ"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">【第2回】本連載でモデルと... &raquo;</span>
+    <a href="microservice_overview.html" title="Previous Chapter: 【第1回】マイクロサービスアーキテクチャで目指すもの"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 【第1回】マイクロサービス...</span>
     </a>
   </li>
               
@@ -184,7 +182,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/microservice/microservice_overview.rst.txt"
+  <a href="../_sources/microservice/microservice_architecture.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -208,159 +206,153 @@
   <div class="row">
     <div class="col-md-12 content">
       
-  <div class="section" id="section-aws-microservice-overview-label">
-<span id="id1"></span><h1>【第1回】マイクロサービスアーキテクチャで目指すもの<a class="headerlink" href="#section-aws-microservice-overview-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
+  <div class="section" id="section-aws-microservice-architecture-label">
+<span id="id1"></span><h1>【第2回】本連載でモデルとするマイクロサービスアーキテクチャ<a class="headerlink" href="#section-aws-microservice-architecture-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p><br/></p>
-<p>2014年にJames LewisとMartin Flowlerが提唱したマイクロサービスですが、一時はバズワードと呼べるほどトレンド化し、
-特にクラウドでのデフォルトのアーキテクチャスタイルに位置付ける程に、キャッチコピーとして雑誌・記事やアナリストレポートに登場しています。
-近年では政府のシステム入札案件の要件としても見かけるようになってきました。筆者の連載、「 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4379">AWSで実践！基盤構築・デプロイ自動化第一回</a> 」の中でも、
-マイクロサービスアプリケーションの特徴について触れていますが、ただ、提唱された当初と比べて、少し目指している目的が広がってきています。</p>
-<p>従来、マイクロサービスでは、下記の図のような構成によって、以下に示すようなメリットが得られるアーキテクチャを目指してきました。</p>
-<ul class="simple">
-<li>開発チームごとに分担した各サービスの疎結合性／独立性が向上し、開発のアジリティが向上する</li>
-<li>使用頻度の高い特定の機能を、サービス単位でスケールできるため、アプリケーションパフォーマンスが向上する</li>
-<li>独立したサービスの集合でアプリケーションが構成されるため、特定のサービスが障害などで機能不全に陥ってもシステム全体が機能不全に陥ることはなく可用性が向上する</li>
-</ul>
-<p><br/></p>
-<div class="figure">
-<img alt="../_images/microservice-old-school.png" src="../_images/microservice-old-school.png" />
-</div>
-<p><br/></p>
-<p>近年では下記の図のように、Webアプリケーション、モバイル、運用端末といったマルチクライアントに加え、サードパーティサービスに利用されることを想定し、
-ビジネスロジックを切り出してAPI化し、マイクロサービスアーキテクチャを検討する動きも目立ちつつあります。</p>
+<p>前回はマイクロサービスアーキテクチャのメリットや導入で課題になりがちな検討項目、
+マイクロサービスアプリケーションを構築するにあたって、AWSがサポートする主なサービスを紹介しました。</p>
+<p>今回からは、本連載のテーマであるAWS上でマイクロサービスアプリケーションを構築するための具体的なアーキテクチャの概要と、
+そのアーキテクチャを実現する上で、難しいハードルのひとつである認証／認可処理の全体像や考え方を解説していきます。</p>
+<p>前回も説明した通り、近年ではWebアプリケーション、モバイル、運用端末といったマルチクライアントに加え、サードパーティ製のサービスに利用されることを想定し、
+ビジネスロジックを切り出してAPI化し、マイクロサービス化を検討するケースが増えつつあります。例えば、「オープンAPI」に端を発し、金融業界で標準仕様策定が進められている「オープンバンキング」や「FAPI(Financial-grade API)」に則ったAPIの公開や、
+政府を中心としたパブリックセクターでも、公共データを営利目的・非営利目的を問わず、二次利用可能なルールの下で、機械判読に適した形で、無償で公開する「オープンデータ」の取組を推進しており、これをREST APIとして公開することも並行して進められています。
+エンタープライズ分野でも有益なデータをもつ企業が、社内外向けに様々な目的でAPIを公開している事例も多くなってきましたが、
+既存システムで稼働しているアプリケーションをAPI化して不特定多数のユーザやサービスに公開する場合、リクエスト量に応じてスケールアウト・縮退する機能を有するクラウドが有力な選択肢としてあがります。</p>
 <p><br/></p>
 <div class="figure">
 <img alt="../_images/microservice.png" src="../_images/microservice.png" />
 </div>
 <p><br/></p>
-<div class="admonition note">
-<p class="first admonition-title">注釈</p>
-<p class="last">サードパーティサービスとの連携に関して、こうした様々なサービスを組み合わせて、あらたな付加価値をつける試みは、SOA(Service Oriented Architecture)やマッシュアップなどマイクロサービスが提唱される以前からありましたが、
-サービス連携時の複雑なセキュリティ対策や多数のクライアントが接続するための拡張性に難があり、広く普及させるために障害となる多くの問題を抱えていました。近年このような潮流が再び巻き起こっているのは
-クラウド化によりスケーラビリティが容易に図れるようになったことやOAuth2、OIDCなどの標準化されたセキュリティ技術の普及により、技術的なハードルが下がってきたことが背景にあります。</p>
-</div>
+<p>図のアーキテクチャでは、アプリケーションや他の外部サービスから呼び出すビジネスロジックを切り出してマイクロサービスとしてAPI化して、バックエンドとなるプライベートサブネットに、API化したマイクロサービスをスケーラブルなコンテナアプリケーションとして配置し、
+保護が必要なデータベースアクセスなどもそのコンテナアプリケーション内で行います。バックエンドAPIの呼び出しはインターナルなALBを経由して行い、フロントエンドとなるパブリックサブネットに配置した
+各種Webアプリケーション・運用のためのアプリケーションや、他のVPC、オンプレミスや他クラウドで動くサードパーティ製のサービスからアクセスできるように構成します。
+なお、スマートフォンやタブレットで動くネイティブアプリケーション(またはシングルページアーキテクチャ:SPAアプリケーション)向けにはAPI Gatewayを経由して、バックエンドのAPIに直接アクセスできるように構成することもできます。
+本連載では、上記のアーキテクチャに基づき、AWSのサービスを組み合わせてアプリケーションを構成・実装していく方法を紹介していきます。</p>
+<p>このような構成をとる場合、同時にAPIを、厳格なセキュリティのもとで適切な権限に応じてアクセスさせる仕組みが必要になります。APIとして切り出されたマイクロサービスを適切に保護し、第３者を含めて公開するためには、
+OIDC(Open ID Connect)やOAuth2.0などの標準化されたセキュリティ仕様を準拠したミドルウェアやサービスを組み込んだアーキテクチャで構成する必要があります。</p>
 <p><br/></p>
-<p>一方で、このようなマイクロサービスアーキテクチャでのアプリケーションを構築するのは容易ではありません。サービス分離によるトランザクションの分割・通信エラーの発生や、データベースが分離された構成での一貫性担保の問題、
-揮発性のあるサーバ環境での永続化処理の実行、各サービス自体のスケーラビリティの確保、様々なクライアントから実行される場合の認証・認可といったセキュリティ対策などアプリケーション実装も相応に複雑になります。
-例えば、元々モノリシックだったWebアプリケーションのドメインロジックを分離して、上記の図のようにBackend Service APIとして切り出した場合、以下のようなアーキテクチャ上の検討課題がでてきます。</p>
+<div class="section" id="oidc-oauth2-0">
+<h2>OIDC／OAuth2.0<a class="headerlink" href="#oidc-oauth2-0" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
-<table border="1" class="colwidths-given docutils" id="id5">
-<caption><span class="caption-text">アプリケーションアーキテクチャの検討課題</span><a class="headerlink" href="#id5" title="このテーブルへのパーマリンク">¶</a></caption>
+<p>OIDC(1.0)やOAuth2.0は各々が単体で１冊の本が書けてしまう程、内容が深く重要なセキュリティに関する仕様です。
+これらはRFC(Request for Comments:インターネット関連の標準技術)として、複数の仕様文書から構成されています。先にOAuth2.0について解説を行いますが、
+詳細まで踏み込むと本連載の趣旨から大きく外れてしまうため、適宜ポイントを抜粋しながら解説します。詳細については
+<a class="reference external" href="http://terasolunaorg.github.io/guideline/5.6.0.RELEASE/ja/Security/OAuth.html">TERASOLUNAのガイドライン 9.9 OAuth</a>
+等である程度体系的にまとめられているので、必要に応じて参照してください。</p>
+<p>OAuth2.0とは、あるアプリケーションの一部の処理をWebサービスとして公開するときに、不特定多数のクライアントやサードパーティサービス(第３者製のアプリケーション)が、
+そのサービスを適切な権限に応じて利用できるようにするためのセキュリティ仕様(認可)です。
+具体的に言えば、正当に認証されたクライアントに対し、アクセスする対象のWebサービスやアクセス元の情報、権限の情報をまとめたアクセストークンを発行し、
+ターゲットとなるWebサービスでトークンを解析して、安全にWebサービスを利用するセキュリティ仕様になります。通常アプリケーションで実装されるフォーム認証・認可処理等と比較して、
+サードパーティ製のアプリケーションに対して、ユーザの認証情報を渡すことなく、権限に応じた処理の実行の許可を与える(認可)点が特徴です。
+OAuth2.0では、それを実現するために４つのロールを定義して、認可処理フローを仕様化しています。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id3">
+<caption><span class="caption-text">OAuth2.0におけるロール</span><a class="headerlink" href="#id3" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col width="20%" />
 <col width="80%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td>課題</td>
+<tr class="row-odd"><td>ロール</td>
 <td>詳細</td>
 </tr>
-<tr class="row-even"><td>サービス実行フロー制御</td>
-<td>処理のオーケストレーション・コレオグラフィといったサービス実行フロー制御、エラーハンドリング方式</td>
+<tr class="row-even"><td>リソースオーナー</td>
+<td>保護されたリソースへのアクセスを許可するロール。人（エンドユーザ）など。</td>
 </tr>
-<tr class="row-odd"><td>トランザクション管理</td>
-<td>複数の更新系Backend Serviceを実行する場合の業務トランザクションのロールバックや補償トランザクション</td>
+<tr class="row-odd"><td>リソースサーバ</td>
+<td>保護されたリソースを提供するサーバ。</td>
 </tr>
-<tr class="row-even"><td>ステートフル共有データストア</td>
-<td>アプリケーションにスケーラビリティを持たせることを目的とした、ステートフル(状態)データを共有するためのデータストアの利用や、データストア障害に伴うフェイルオーバー発生時のエラーハンドリング</td>
+<tr class="row-even"><td>認可サーバ</td>
+<td>リソースオーナの認証と、アクセストークン（クライアントがリソースサーバにアクセスするときに必要な情報）の発行を行うサーバ。</td>
 </tr>
-<tr class="row-odd"><td>サービスディスカバリ方式</td>
-<td>サービスが動的にスケールアウト・縮退する場合のBackend Service APIのサービスディスカバリ</td>
-</tr>
-<tr class="row-even"><td>サービス間通信方式</td>
-<td>Backend Service APIを呼び出す場合の同期・非同期の使い分け、リトライ・サーキットブレイカー処理</td>
-</tr>
-<tr class="row-odd"><td>サービス認証・認可方式</td>
-<td>OIDC、OAuth2.0に準拠した、JWTを使ったアクセストークンの連携方式</td>
-</tr>
-<tr class="row-even"><td>ロギング・モニタリング方式</td>
-<td>アプリケーション・サービスを跨いでトレーサビリティを確保するためのロギング、各サービスごとのモニタリング</td>
-</tr>
-<tr class="row-odd"><td>Backend Serviceステートレス化・冪等生</td>
-<td>スケールアウトを容易にする、Backend Serviceのステートレス化を前提としたREST準拠API規約・ルール(HTTPステータスコード等)、耐障害性向上のための冪等性をもつ処理実装</td>
-</tr>
-<tr class="row-even"><td>マネージドサービス連携</td>
-<td>揮発性であるコンテナ・サーバレス環境下で、データ永続化のためのマネージドストレージやキューを利用する場合の方式</td>
-</tr>
-<tr class="row-odd"><td>マルチクライアントにおけるサービス分割</td>
-<td>Webアプリケーション以外にも、モバイルなどのSPAクライアント、サードパーティサービス連携がある場合のサービス分割・ビジネスロジックの分離方針</td>
+<tr class="row-odd"><td>クライアント</td>
+<td>リソースオーナの認可を得て、リソースオーナの代理として保護されたリソースに対してリクエストを行うロール。Webアプリケーションやサードパーティサービスなど。クライアント情報は事前に認可サーバに登録され、認可サーバ内で一意な情報であるクライアントIDにより管理される。</td>
 </tr>
 </tbody>
 </table>
 <p><br/></p>
-<p>そのような中で、AWSではマイクロサービスアーキテクチャベースのアプリケーション構築をサポートする以下のサービスが提供されています。</p>
+<p>OAuth2.0ではクライアントのタイプ(Webサービスを利用したいアプリケーションの種別)に応じて、グラントタイプというカテゴリーで4分類し、各々のタイプでアクセストークンの発行手法を仕様としてまとめていますが、
+特別な理由がない限り、主に「認可コードグラント」というタイプの手法を使ってアクセストークンを扱うことが一般的です。他の手法は用途に応じて適切に利用しないとセキュリティホールになりえます。</p>
+<p>OIDCはOAuth2.0の拡張としてまとめられた認証及びそのフローに関する仕様になります。リソースオーナーがID、パスワード等を用いて自身の認証を行った後、
+クライアントとなるアプリケーションに自身の情報(ユーザークレイム：UserClaim)をまとめたIDトークンを発行する仕様です。
+OAuth2.0と同様、認証・認可サーバがもつ認可エンドポイントやトークンエンドポイントに、同様のフローでリクエストを送信することでアクセストークンとIDトークンを同時に取得できます。</p>
+<p>前節で掲載したアーキテクチャ図にOAuth2.0やOIDCのロールを当てはめると、以下のようになります。ロールとなり得る対象に、種別ごとに分けて赤い丸でA〜Fをマッピングしています。</p>
 <p><br/></p>
-<table border="1" class="colwidths-given docutils" id="id6">
-<caption><span class="caption-text">マイクロサービスアプリケーション構築する場合によく利用するサービス</span><a class="headerlink" href="#id6" title="このテーブルへのパーマリンク">¶</a></caption>
+<div class="figure">
+<img alt="../_images/microservice-oauth.png" src="../_images/microservice-oauth.png" />
+</div>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id4">
+<caption><span class="caption-text">OAuth2.0におけるロールとその対象のマッピング</span><a class="headerlink" href="#id4" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
+<col width="10%" />
 <col width="20%" />
-<col width="80%" />
+<col width="70%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td>サービス</td>
+<tr class="row-odd"><td>対象</td>
+<td>種別</td>
 <td>説明</td>
 </tr>
-<tr class="row-even"><td>Elastic Load Balancing</td>
-<td>Classic Load Balancer、Application LoadBalancer、Network LoadBalancerで構成されるサービス。詳細は 「 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4359">AWSで作るクラウドネイティブアプリケーションの基本第5回</a> 」を参照して下さい。
-ALBでは、各コンテナにデプロイされたマイクロサービスのIP・ポートを意識せずにパスベースでルーティングを行うことができます。</td>
+<tr class="row-even"><td>A</td>
+<td>リソースオーナー</td>
+<td>リソースオーナーはWebアプリケーションやモバイルアプリケーションを利用するユーザです。各アプリケーションで認証を行い、そのアプリケーションに対して適切な許可を与える(選択する)ことを実施します。</td>
 </tr>
-<tr class="row-odd"><td>Route53</td>
-<td>通常のDNSサービスに加えて、ECS上にデプロイしたマイクロサービスの <a class="reference external" href="https://aws.amazon.com/jp/blogs/news/amazon-ecs-service-discovery/">サービスレジストリ・ディスカバリ機能</a> や
-オンプレミスや別のデータセンタからのルーティングなどの <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/Route53/latest/DeveloperGuide/resolver.html">リゾルバ機能</a> があります。</td>
+<tr class="row-odd"><td>B</td>
+<td>リソースサーバ</td>
+<td>ビジネスロジックを切り出してAPI化してバックエンドで実行されているマイクロサービスをリソースサーバとして扱います。リソースサーバはクライアントからアクセストークンを受け取って正当性を検証し、権限に応じてリソース(要求されたデータ)を返却する処理を実行します。</td>
 </tr>
-<tr class="row-even"><td>Amazon ECS</td>
-<td>マイクロサービスアプリケーションがデプロイされたDockerコンテナを実行するコンテナオーケストレーションサービスです。
-コンテナの死活監視やオートスケーリングなどを実行します。詳細は 「 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4354">AWSで作るクラウドネイティブアプリケーションの基本第4回</a> 」を参照して下さい</td>
+<tr class="row-even"><td>C</td>
+<td>認可サーバ</td>
+<td>OAuth2.0の認可サーバとしてAmazon Cognitoを利用します。Cognitoについては次回以降詳細に解説しますが、ユーザの認証・認可サーバでもあり、IDトークン、アクセストークンの発行を行います。
+なお、CognitoはOIDCに完全に準拠した認証プロバイダではないため、トークンの無効化や動的クライアント機能など、必要な要件を満たすために別のOIDC準拠のプロバイダと連携する必要があります。</td>
 </tr>
-<tr class="row-odd"><td>Amazon EKS</td>
-<td>マイクロサービスアプリケーションがデプロイされたコンテナを実行する、オープンソースのコンテナオーケストレーションツールKuberntesのマネージドサービスです。機能的にはECSと同等です。</td>
+<tr class="row-odd"><td>D</td>
+<td>クライアント</td>
+<td>クライアントの代表例として、Webアプリケーションがあります。リソースオーナーがブラウザを介し利用するWebサービスアプリケーションであったり、運用を行うアプリケーション等、Cからアクセストークンを受け取って、Bへアクセスします。</td>
 </tr>
-<tr class="row-even"><td>Amazon ElastiCache</td>
-<td>複数のマイクロサービスアプリケーションのデータ共有のためのキャッシュストレージとして利用できるサービスです。詳細は 「 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4523">AWSで作るクラウドネイティブアプリケーションの基本第19回</a> 」を参照して下さい</td>
+<tr class="row-even"><td>E</td>
+<td>クライアント</td>
+<td>スマートフォンやタブレットなどで実行されるネイティブなアプリケーションもクライアントとなり得ます。ネイティブアプリケーションの中には別のアプリケーションを利用している中で、サードパーティ製サービスとして、同じデータにアクセスするケースもあるかもしません。</td>
 </tr>
-<tr class="row-odd"><td>Amazon API Gateway</td>
-<td>マイクロサービスアプリケーションのAPIゲートウェイとして利用できるサービスです。REST APIの定義やデプロイ、サービスへのHTTPリクエスト・レスポンス変換などを実行します。
-詳細は 「 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4321">AWSで作るクラウドネイティブアプリケーションの基本第3回</a> 」を参照して下さい</td>
-</tr>
-<tr class="row-even"><td>AWS Lambda</td>
-<td>サーバレスでマイクロサービスアプリケーションの実行が可能なサービスです。詳細は 「 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4318">AWSで作るクラウドネイティブアプリケーションの基本第2回</a> 」を参照して下さい</td>
-</tr>
-<tr class="row-odd"><td>AWS Cognito</td>
-<td>認証・認可サービスです。外部の認証Providerとの連携や、IAMロールに応じたAWSリソースへのアクセス制御、マルチデバイス間でデータ同期する機能などもあります。</td>
-</tr>
-<tr class="row-even"><td>Cloud Map</td>
-<td>クラウドリソースのDNSサービスです。IPアドレスが割り当てられているEC2やRDSなどのAWSリソースに加え、LambdaやDynamoDB、SQSといったARNが割り当てられたリソースに対しても名前解決が可能です。</td>
-</tr>
-<tr class="row-odd"><td>App Mesh</td>
-<td>オープンソースのサービスメッシュプロキシEnvoyのマネージドサービスです。サービス間の通信、監視、ログやメトリクス出力などを実行できます。</td>
-</tr>
-<tr class="row-even"><td>X Ray</td>
-<td>マイクロサービスアプリケーションを分析することができるサービスです。サービス実行時間の計測やトレース、フィルタリングによる可視化などが行えます。</td>
-</tr>
-<tr class="row-odd"><td>Amazon SQS</td>
-<td>マネージドキューサービスです。マイクロサービス間の非同期メッセージ連携などで利用します。詳細は 「 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4656">AWSで作るクラウドネイティブアプリケーションの基本第28回</a> 」を参照して下さい</td>
-</tr>
-<tr class="row-even"><td>Amazon SNS</td>
-<td>Publish/Subscribe型のメッセージ配信サービスです。複数のマイクロサービスへメッセージを連携する場合などで利用します。詳細は 「 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4682">AWSで実践！基盤構築・デプロイ自動化第18回</a> 」を参照して下さい</td>
-</tr>
-<tr class="row-odd"><td>Amazon MSK (Managed Streaming for Apache Kafka)</td>
-<td>オープンソースのメッセージキューミドルウェアであるApache Kafkaのマネージドサービスです。非同期メッセージ連携などで利用します。Kafkaではデータの流量制御等きめ細やかな設定が可能です。</td>
-</tr>
-<tr class="row-even"><td>Amazon MQ</td>
-<td>マイクロサービス間の非同期メッセージ連携などで利用します。メッセージの到達保証を担保したい場合に利用します。</td>
+<tr class="row-odd"><td>F</td>
+<td>クライアント</td>
+<td>同じAWS内で実行しているか、他のクラウドで動いているか、いずれにせよサードパーティ製のサービスもRoute53 Resolver等の機能を用いて、クライアントとしてCからアクセストークンを受け取り、Bにアクセスします。</td>
 </tr>
 </tbody>
 </table>
 <p><br/></p>
-<p>ただし、当然これらがのサービスがマイクロサービスアーキテクチャにおける課題を全てカバーしてくれるわけではありません。
-必要に応じて、様々なオープンソースのプロダクトを組み合わせながらアプリケーションを構成・実装していく必要があります。
-本連載では、AWSのマネージドサービスを駆使しながら、マイクロサービスのメリットを最大限享受できる、SpringBootをベースとしたアプリケーションアーキテクチャの実装例を紹介していきます。
-(いまだこの分野の技術は栄枯盛衰が激しく、各プロダクトの機能追加や新たなサービスの登場によりベストプラクティスは変わっていくので、AWSクラウド上での実装例のひとつとして捉えていただくと良いと思います)</p>
+<p>複数のクライアントが登場しますが、認証・認可サーバとしてAmazon Cognitoを利用した場合、いずれも概ね以下のような認可コードグラントフローで、クライアントがIDトークンやアクセストークンを取得するアーキテクチャにすることができます。
+詳細は次回以降順次解説を進めていきますが、認証処理をはじめ、マイクロサービスからデータを取得するまでの全体的な処理の流れを理解しておくことが重要です。</p>
 <p><br/></p>
-<p>次回以降は、マイクロサービスアプリケーションを構築していく上で、難しいハードルの一つである認証・認可処理をどのように実現していくか全体像を解説します。</p>
+<div class="figure">
+<img alt="../_images/granted-code-flow.png" src="../_images/granted-code-flow.png" />
+</div>
+<p><br/></p>
+<p>リソースオーナーから一度クライアントが正当に認証・認可されれば、発行されたアクセストークンを用いて、点線の枠内でマイクロサービスに継続的にアクセスするかたちとなります。
+アクセストークンの有効期限はデフォルトでは1時間程度に設定されており、有効期限が切れるとリフレッシュトークンを使って、最新のアクセストークンを認可サーバから再び入手するかたちで実装しておきます。</p>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">スマートフォンやタブレットでもブラウザを介してWebアプリケーションにアクセスすることも当然ありますが、Eでは主にネイティブアプリケーションを想定しており、
+ネイティブアプリケーションのユーザーエージェントとしてはWebViewを使用することを前提としています。また、SPAアプリケーション等、ブラウザでJavaScriptを用いる場合はインプリシットフローを用いて直接アクセストークンを受ける実装にするケースもあります。</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">EのネイティブアプリケーションなどのクライアントではリソースサーバへAPI Gatewayを通じてアクセスします。ここではクライアントに付与されるIDトークンを用いてAPI Gatewayで認証処理を実行した後に、リソースサーバでアクセストークンの検証を行います。
+詳細は次回以降、API Gateway HTTP APIの構築を行う手順で解説します。</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">なお、クライアントの処理がユーザエージェント側で実行されるものは認可コードグラントフローでも認可コードが不当に奪取されることがないよう、コードチャレンジなどの値を付与するなど実装面で気を付ける必要があります(RFC7636:PKCE)。</p>
+</div>
+<p><br/></p>
+<p>今回は、本連載でAWS上に構成、実装していくアーキテクチャと認証・認可の全体像や考え方を解説しました。次回以降は、実際にアプリケーションを実装するためのベースとなる環境を構築していきます。</p>
 <p><br/></p>
 </div>
-<div class="section" id="id4">
-<h1>著者紹介<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h1>
+</div>
+<div class="section" id="id2">
+<h1>著者紹介<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>川畑 光平(KAWABATA Kohei) - NTTデータ</p>
 <div class="figure">
 <img alt="../_images/aws_361383_0751.jpeg" src="../_images/aws_361383_0751.jpeg" />
