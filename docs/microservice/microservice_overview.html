@@ -143,9 +143,7 @@
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">【第1回】マイクロサービスアーキテクチャで目指すもの</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#id4">著者紹介</a></li>
 <li class="toctree-l1"><a class="reference internal" href="microservice_architecture.html">【第2回】本連載でモデルとするマイクロサービスアーキテクチャ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="microservice_architecture.html#id2">著者紹介</a></li>
 </ul>
 </ul>
 </li>
@@ -159,8 +157,13 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">【第1回】マイクロサービスアーキテクチャで目指すもの</a></li>
-<li><a class="reference internal" href="#id4">著者紹介</a></li>
+<li><a class="reference internal" href="#">【第1回】マイクロサービスアーキテクチャで目指すもの</a><ul>
+<li><a class="reference internal" href="#id2">マイクロサービスを目指す目的</a></li>
+<li><a class="reference internal" href="#id3">マイクロサービスの検討課題</a></li>
+<li><a class="reference internal" href="#id4">マイクロサービスアプリケーション構築をサポートするAWSのサービス</a></li>
+<li><a class="reference internal" href="#id7">著者紹介</a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -210,6 +213,8 @@
       
   <div class="section" id="section-aws-microservice-overview-label">
 <span id="id1"></span><h1>【第1回】マイクロサービスアーキテクチャで目指すもの<a class="headerlink" href="#section-aws-microservice-overview-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id2">
+<h2>マイクロサービスを目指す目的<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
 <p>2014年にJames LewisとMartin Flowlerが提唱したマイクロサービスですが、一時はバズワードと呼べるほどトレンド化し、
 特にクラウドでのデフォルトのアーキテクチャスタイルに位置付ける程に、キャッチコピーとして雑誌・記事やアナリストレポートに登場しています。
@@ -240,12 +245,16 @@
 クラウド化によりスケーラビリティが容易に図れるようになったことやOAuth2、OIDCなどの標準化されたセキュリティ技術の普及により、技術的なハードルが下がってきたことが背景にあります。</p>
 </div>
 <p><br/></p>
+</div>
+<div class="section" id="id3">
+<h2>マイクロサービスの検討課題<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
 <p>一方で、このようなマイクロサービスアーキテクチャでのアプリケーションを構築するのは容易ではありません。サービス分離によるトランザクションの分割・通信エラーの発生や、データベースが分離された構成での一貫性担保の問題、
 揮発性のあるサーバ環境での永続化処理の実行、各サービス自体のスケーラビリティの確保、様々なクライアントから実行される場合の認証・認可といったセキュリティ対策などアプリケーション実装も相応に複雑になります。
 例えば、元々モノリシックだったWebアプリケーションのドメインロジックを分離して、上記の図のようにBackend Service APIとして切り出した場合、以下のようなアーキテクチャ上の検討課題がでてきます。</p>
 <p><br/></p>
-<table border="1" class="colwidths-given docutils" id="id5">
-<caption><span class="caption-text">アプリケーションアーキテクチャの検討課題</span><a class="headerlink" href="#id5" title="このテーブルへのパーマリンク">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id8">
+<caption><span class="caption-text">アプリケーションアーキテクチャの検討課題</span><a class="headerlink" href="#id8" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col width="20%" />
 <col width="80%" />
@@ -287,10 +296,15 @@
 </tbody>
 </table>
 <p><br/></p>
+<p><br/></p>
+</div>
+<div class="section" id="id4">
+<h2>マイクロサービスアプリケーション構築をサポートするAWSのサービス<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
 <p>そのような中で、AWSではマイクロサービスアーキテクチャベースのアプリケーション構築をサポートする以下のサービスが提供されています。</p>
 <p><br/></p>
-<table border="1" class="colwidths-given docutils" id="id6">
-<caption><span class="caption-text">マイクロサービスアプリケーション構築する場合によく利用するサービス</span><a class="headerlink" href="#id6" title="このテーブルへのパーマリンク">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id9">
+<caption><span class="caption-text">マイクロサービスアプリケーション構築する場合によく利用するサービス</span><a class="headerlink" href="#id9" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col width="20%" />
 <col width="80%" />
@@ -359,8 +373,8 @@ ALBでは、各コンテナにデプロイされたマイクロサービスのIP
 <p>次回以降は、マイクロサービスアプリケーションを構築していく上で、難しいハードルの一つである認証・認可処理をどのように実現していくか全体像を解説します。</p>
 <p><br/></p>
 </div>
-<div class="section" id="id4">
-<h1>著者紹介<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id7">
+<h2>著者紹介<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei) - NTTデータ</p>
 <div class="figure">
 <img alt="../_images/aws_361383_0751.jpeg" src="../_images/aws_361383_0751.jpeg" />
@@ -369,6 +383,7 @@ ALBでは、各コンテナにデプロイされたマイクロサービスのIP
 <p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
 <p><a class="reference external" href="https://aws.amazon.com/jp/partners/ambassadors/?cards-body.sort-by=item.additionalFields.ambassadorName&amp;cards-body.sort-order=asc&amp;cards-body.q=kawabata&amp;cards-body.q_operator=AND">AWS Top Engineers &amp; Ambassadors</a> 選出。</p>
 <p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
 </div>
 
 

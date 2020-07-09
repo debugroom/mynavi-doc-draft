@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>【第2回】本連載でモデルとするマイクロサービスアーキテクチャ &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <title>【第2回】マイクロサービスアーキテクチャの全体像 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -142,9 +142,7 @@
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="microservice_overview.html">【第1回】マイクロサービスアーキテクチャで目指すもの</a></li>
-<li class="toctree-l1"><a class="reference internal" href="microservice_overview.html#id4">著者紹介</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">【第2回】本連載でモデルとするマイクロサービスアーキテクチャ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#id2">著者紹介</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">【第2回】マイクロサービスアーキテクチャの全体像</a></li>
 </ul>
 </ul>
 </li>
@@ -158,11 +156,13 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">【第2回】本連載でモデルとするマイクロサービスアーキテクチャ</a><ul>
+<li><a class="reference internal" href="#">【第2回】マイクロサービスアーキテクチャの全体像</a><ul>
+<li><a class="reference internal" href="#id2">本連載でモデルとするマイクロサービスアーキテクチャ</a></li>
 <li><a class="reference internal" href="#oidc-oauth2-0">OIDC／OAuth2.0</a></li>
+<li><a class="reference internal" href="#oidc-oauth">OIDC／OAuthで保護するマイクロサービスアーキテクチャの全体像</a></li>
+<li><a class="reference internal" href="#id4">著者紹介</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id2">著者紹介</a></li>
 </ul>
 </ul>
 </li>
@@ -207,47 +207,102 @@
     <div class="col-md-12 content">
       
   <div class="section" id="section-aws-microservice-architecture-label">
-<span id="id1"></span><h1>【第2回】本連載でモデルとするマイクロサービスアーキテクチャ<a class="headerlink" href="#section-aws-microservice-architecture-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<span id="id1"></span><h1>【第2回】マイクロサービスアーキテクチャの全体像<a class="headerlink" href="#section-aws-microservice-architecture-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id2">
+<h2>本連載でモデルとするマイクロサービスアーキテクチャ<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
 <p>前回はマイクロサービスアーキテクチャのメリットや導入で課題になりがちな検討項目、
 マイクロサービスアプリケーションを構築するにあたって、AWSがサポートする主なサービスを紹介しました。</p>
 <p>今回からは、本連載のテーマであるAWS上でマイクロサービスアプリケーションを構築するための具体的なアーキテクチャの概要と、
 そのアーキテクチャを実現する上で、難しいハードルのひとつである認証／認可処理の全体像や考え方を解説していきます。</p>
 <p>前回も説明した通り、近年ではWebアプリケーション、モバイル、運用端末といったマルチクライアントに加え、サードパーティ製のサービスに利用されることを想定し、
-ビジネスロジックを切り出してAPI化し、マイクロサービス化を検討するケースが増えつつあります。例えば、「オープンAPI」に端を発し、金融業界で標準仕様策定が進められている「オープンバンキング」や「FAPI(Financial-grade API)」に則ったAPIの公開や、
+ビジネスロジックを切り出してAPI化し、マイクロサービス化を検討するケースが増えつつあります。例えば、「オープンAPI」に端を発し、金融業界で標準仕様策定が進められている「オープンバンキング」や「FAPI(Financial-grade API)」に則ったAPIの公開、
 政府を中心としたパブリックセクターでも、公共データを営利目的・非営利目的を問わず、二次利用可能なルールの下で、機械判読に適した形で、無償で公開する「オープンデータ」の取組を推進しており、これをREST APIとして公開することも並行して進められています。
 エンタープライズ分野でも有益なデータをもつ企業が、社内外向けに様々な目的でAPIを公開している事例も多くなってきましたが、
-既存システムで稼働しているアプリケーションをAPI化して不特定多数のユーザやサービスに公開する場合、リクエスト量に応じてスケールアウト・縮退する機能を有するクラウドが有力な選択肢としてあがります。</p>
+既存システムで稼働しているアプリケーションをAPI化して不特定多数のユーザやサービスに公開する場合、下記のようにリクエスト量に応じてスケールアウト・縮退する機能を有するクラウドが有力な選択肢としてあがります。</p>
 <p><br/></p>
 <div class="figure">
-<img alt="../_images/microservice.png" src="../_images/microservice.png" />
+<img alt="../_images/microservice-numbering.png" src="../_images/microservice-numbering.png" />
 </div>
 <p><br/></p>
-<p>図のアーキテクチャでは、アプリケーションや他の外部サービスから呼び出すビジネスロジックを切り出してマイクロサービスとしてAPI化して、バックエンドとなるプライベートサブネットに、API化したマイクロサービスをスケーラブルなコンテナアプリケーションとして配置し、
-保護が必要なデータベースアクセスなどもそのコンテナアプリケーション内で行います。バックエンドAPIの呼び出しはインターナルなALBを経由して行い、フロントエンドとなるパブリックサブネットに配置した
-各種Webアプリケーション・運用のためのアプリケーションや、他のVPC、オンプレミスや他クラウドで動くサードパーティ製のサービスからアクセスできるように構成します。
-なお、スマートフォンやタブレットで動くネイティブアプリケーション(またはシングルページアーキテクチャ:SPAアプリケーション)向けにはAPI Gatewayを経由して、バックエンドのAPIに直接アクセスできるように構成することもできます。
-本連載では、上記のアーキテクチャに基づき、AWSのサービスを組み合わせてアプリケーションを構成・実装していく方法を紹介していきます。</p>
+<p>本連載では、上記のアーキテクチャに基づき、AWSのサービスを組み合わせてアプリケーションを構成・実装していく方法を紹介していきます。アーキテクチャの詳細は以下の通りです。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id5">
+<caption><span class="caption-text">アーキテクチャの説明</span><a class="headerlink" href="#id5" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>項番</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple">
+<li></li>
+</ol>
+</td>
+<td>アプリケーションや他の外部サービスから呼び出すビジネスロジックを切り出してマイクロサービスとしてAPI化します。バックエンドとなるプライベートサブネットに、API化したマイクロサービスをスケーラブルなコンテナアプリケーションとして配置し、
+データベースアクセスなどセキュリティ的に保護したい処理はそのコンテナアプリケーション内で行います。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="2">
+<li></li>
+</ol>
+</td>
+<td>バックエンドAPIの呼び出しは特定のネットワークからのみ許可するインターナルなALBを経由して行い、(3)〜(5)からアクセスできるように構成します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="3">
+<li></li>
+</ol>
+</td>
+<td>Webアプリケーションや運用アプリケーションをフロントエンドのパブリックサブネットに配置します。セッション共有が可能なようにElastiCacheも合わせて配置します。クラウドストレージへのアクセス処理などもこのレイヤで行うとよいでしょう。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="4">
+<li></li>
+</ol>
+</td>
+<td>スマートフォンやタブレットで動くネイティブアプリケーション(またはシングルページアーキテクチャ:SPAアプリケーション)向けに、API Gateway(HTTP API)を経由して、バックエンドのAPIに直接アクセスできるように構成します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="5">
+<li></li>
+</ol>
+</td>
+<td>他のVPCやオンプレミス、別のクラウドで動くサードパーティ製アプリケーションは、Route53 Resolver等の機能を用いて、(2)のインターナルなALBへアクセス可能なように構成します。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">re:Invent 2019で発表されたAPI Gatewayの新機能「HTTP API」により、プライベートサブネットに配置したインターナルなALBへ直接リクエストをフォワードすることが可能になりました。</p>
+</div>
+<p><br/></p>
 <p>このような構成をとる場合、同時にAPIを、厳格なセキュリティのもとで適切な権限に応じてアクセスさせる仕組みが必要になります。APIとして切り出されたマイクロサービスを適切に保護し、第３者を含めて公開するためには、
 OIDC(Open ID Connect)やOAuth2.0などの標準化されたセキュリティ仕様を準拠したミドルウェアやサービスを組み込んだアーキテクチャで構成する必要があります。</p>
 <p><br/></p>
+</div>
 <div class="section" id="oidc-oauth2-0">
 <h2>OIDC／OAuth2.0<a class="headerlink" href="#oidc-oauth2-0" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
-<p>OIDC(1.0)やOAuth2.0は各々が単体で１冊の本が書けてしまう程、内容が深く重要なセキュリティに関する仕様です。
+<p>OIDCやOAuth2.0はそれぞれ１冊の本が書けてしまう程、内容が深く重要なセキュリティに関する仕様です。
 これらはRFC(Request for Comments:インターネット関連の標準技術)として、複数の仕様文書から構成されています。先にOAuth2.0について解説を行いますが、
 詳細まで踏み込むと本連載の趣旨から大きく外れてしまうため、適宜ポイントを抜粋しながら解説します。詳細については
 <a class="reference external" href="http://terasolunaorg.github.io/guideline/5.6.0.RELEASE/ja/Security/OAuth.html">TERASOLUNAのガイドライン 9.9 OAuth</a>
 等である程度体系的にまとめられているので、必要に応じて参照してください。</p>
-<p>OAuth2.0とは、あるアプリケーションの一部の処理をWebサービスとして公開するときに、不特定多数のクライアントやサードパーティサービス(第３者製のアプリケーション)が、
-そのサービスを適切な権限に応じて利用できるようにするためのセキュリティ仕様(認可)です。
-具体的に言えば、正当に認証されたクライアントに対し、アクセスする対象のWebサービスやアクセス元の情報、権限の情報をまとめたアクセストークンを発行し、
-ターゲットとなるWebサービスでトークンを解析して、安全にWebサービスを利用するセキュリティ仕様になります。通常アプリケーションで実装されるフォーム認証・認可処理等と比較して、
-サードパーティ製のアプリケーションに対して、ユーザの認証情報を渡すことなく、権限に応じた処理の実行の許可を与える(認可)点が特徴です。
+<p>OAuth2.0とは、あるアプリケーションの一部の処理をWebサービスとして公開したい場合に、不特定多数のクライアントやサードパーティサービス(第３者製のアプリケーション)が、
+そのサービスを適切な権限に応じて利用できるようにするためのセキュリティに関する(認可)仕様です。</p>
+<p>OAuth2.0が定めていることを具体的に言えば、以下の処理フローになります。</p>
+<p><br/></p>
+<ul class="simple">
+<li>正当に認証されたクライアントに対して、認可サーバと呼ばれるサーバが、アクセスする対象のWebサービスやアクセス元の情報、権限の情報をまとめたアクセストークンを発行</li>
+<li>クライアントはターゲットとなるWebサービスへのリクエストにトークンを含めて送信</li>
+<li>リクエストを受け付けるWebサービスは送信されてきたトークンを解析して、正当なリクエストか確認(し、問題なければ要求されたサービスを実行)</li>
+</ul>
+<p><br/></p>
+<p>通常アプリケーションで実装されるフォーム認証・認可処理等と比較して、サードパーティ製のアプリケーションに対して、ユーザの認証情報を渡すことなく、権限に応じた処理の実行の許可を与える(認可)点が特徴です。
 OAuth2.0では、それを実現するために４つのロールを定義して、認可処理フローを仕様化しています。</p>
 <p><br/></p>
-<table border="1" class="colwidths-given docutils" id="id3">
-<caption><span class="caption-text">OAuth2.0におけるロール</span><a class="headerlink" href="#id3" title="このテーブルへのパーマリンク">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id6">
+<caption><span class="caption-text">OAuth2.0におけるロール</span><a class="headerlink" href="#id6" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col width="20%" />
 <col width="80%" />
@@ -271,19 +326,25 @@ OAuth2.0では、それを実現するために４つのロールを定義して
 </tbody>
 </table>
 <p><br/></p>
-<p>OAuth2.0ではクライアントのタイプ(Webサービスを利用したいアプリケーションの種別)に応じて、グラントタイプというカテゴリーで4分類し、各々のタイプでアクセストークンの発行手法を仕様としてまとめていますが、
-特別な理由がない限り、主に「認可コードグラント」というタイプの手法を使ってアクセストークンを扱うことが一般的です。他の手法は用途に応じて適切に利用しないとセキュリティホールになりえます。</p>
+<p>各ロールの処理フローの大枠は、<a class="reference external" href="http://terasolunaorg.github.io/guideline/5.6.0.RELEASE/ja/Security/OAuth.html#oauthprotocolflow">TERASOLUNAのガイドライン OAuth2.0 プロトコルフロー</a> を参照してください。
+OAuth2.0ではクライアントのタイプ(Webサービスを利用したいアプリケーションの種別)に応じて、グラントタイプというカテゴリーで4分類し、各々のタイプでアクセストークンの発行手法を仕様としてまとめていますが、
+特別な理由がない限り、主に「認可コードグラント」というタイプの手法を用いて、アクセストークンを扱うことが一般的です。他の手法は用途に応じて適切に利用しないとセキュリティホールになりえます。</p>
 <p>OIDCはOAuth2.0の拡張としてまとめられた認証及びそのフローに関する仕様になります。リソースオーナーがID、パスワード等を用いて自身の認証を行った後、
-クライアントとなるアプリケーションに自身の情報(ユーザークレイム：UserClaim)をまとめたIDトークンを発行する仕様です。
-OAuth2.0と同様、認証・認可サーバがもつ認可エンドポイントやトークンエンドポイントに、同様のフローでリクエストを送信することでアクセストークンとIDトークンを同時に取得できます。</p>
+クライアントとなるアプリケーションに自身の情報(ユーザークレイム：User Claimと呼びます)をまとめたIDトークンを発行する仕様です。
+OAuth2.0と同様、認証・認可サーバがもつ認可エンドポイントやトークンエンドポイントと呼ばれるURLに、同様のフローでリクエストを送信することでアクセストークンとIDトークンを同時に取得できます。</p>
+<p><br/></p>
+</div>
+<div class="section" id="oidc-oauth">
+<h2>OIDC／OAuthで保護するマイクロサービスアーキテクチャの全体像<a class="headerlink" href="#oidc-oauth" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
 <p>前節で掲載したアーキテクチャ図にOAuth2.0やOIDCのロールを当てはめると、以下のようになります。ロールとなり得る対象に、種別ごとに分けて赤い丸でA〜Fをマッピングしています。</p>
 <p><br/></p>
 <div class="figure">
 <img alt="../_images/microservice-oauth.png" src="../_images/microservice-oauth.png" />
 </div>
 <p><br/></p>
-<table border="1" class="colwidths-given docutils" id="id4">
-<caption><span class="caption-text">OAuth2.0におけるロールとその対象のマッピング</span><a class="headerlink" href="#id4" title="このテーブルへのパーマリンク">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id7">
+<caption><span class="caption-text">OAuth2.0におけるロールとその対象のマッピング</span><a class="headerlink" href="#id7" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col width="10%" />
 <col width="20%" />
@@ -317,12 +378,12 @@ OAuth2.0と同様、認証・認可サーバがもつ認可エンドポイント
 </tr>
 <tr class="row-odd"><td>F</td>
 <td>クライアント</td>
-<td>同じAWS内で実行しているか、他のクラウドで動いているか、いずれにせよサードパーティ製のサービスもRoute53 Resolver等の機能を用いて、クライアントとしてCからアクセストークンを受け取り、Bにアクセスします。</td>
+<td>同じAWS内で実行しているか、他のクラウドで動いているかの違いはありますがいずれにせよサードパーティ製のサービスも、クライアントとしてCからアクセストークンを受け取り、Bにアクセスします。</td>
 </tr>
 </tbody>
 </table>
 <p><br/></p>
-<p>複数のクライアントが登場しますが、認証・認可サーバとしてAmazon Cognitoを利用した場合、いずれも概ね以下のような認可コードグラントフローで、クライアントがIDトークンやアクセストークンを取得するアーキテクチャにすることができます。
+<p>本連載では、複数のクライアントが登場しますが、認証・認可サーバとしてAmazon Cognitoを利用した場合、いずれも概ね以下のような認可コードグラントフローで、クライアントがIDトークンやアクセストークンを取得するアーキテクチャにすることができます。
 詳細は次回以降順次解説を進めていきますが、認証処理をはじめ、マイクロサービスからデータを取得するまでの全体的な処理の流れを理解しておくことが重要です。</p>
 <p><br/></p>
 <div class="figure">
@@ -334,12 +395,13 @@ OAuth2.0と同様、認証・認可サーバがもつ認可エンドポイント
 <p><br/></p>
 <div class="admonition note">
 <p class="first admonition-title">注釈</p>
-<p class="last">スマートフォンやタブレットでもブラウザを介してWebアプリケーションにアクセスすることも当然ありますが、Eでは主にネイティブアプリケーションを想定しており、
-ネイティブアプリケーションのユーザーエージェントとしてはWebViewを使用することを前提としています。また、SPAアプリケーション等、ブラウザでJavaScriptを用いる場合はインプリシットフローを用いて直接アクセストークンを受ける実装にするケースもあります。</p>
+<p class="last">スマートフォンやタブレットでもブラウザを介してWebアプリケーションにアクセスすることも当然ありますが、アーキテクチャ図上のEでは主にネイティブアプリケーションを想定しており、
+ネイティブアプリケーションのユーザーエージェントとしてはWebViewを使用することを前提としています。また、SPAアプリケーション等、ブラウザでJavaScriptを用いる場合は
+インプリシットグラントフローと呼ばれるフローを用いて直接アクセストークンを受ける実装にするケースもあります。詳細は <a class="reference external" href="http://terasolunaorg.github.io/guideline/5.6.0.RELEASE/ja/Security/OAuth.html#id9">TERASOLUNAのガイドライン OAuth2.0 インプリシットグラントフロー</a> を参照してください。</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">注釈</p>
-<p class="last">EのネイティブアプリケーションなどのクライアントではリソースサーバへAPI Gatewayを通じてアクセスします。ここではクライアントに付与されるIDトークンを用いてAPI Gatewayで認証処理を実行した後に、リソースサーバでアクセストークンの検証を行います。
+<p class="last">アーキテクチャ図上のEネイティブアプリケーションなどのクライアントではリソースサーバへAPI Gatewayを通じてアクセスします。ここではクライアントに付与されるIDトークンを用いてAPI Gatewayで認証処理を実行した後に、リソースサーバでアクセストークンの検証を行います。
 詳細は次回以降、API Gateway HTTP APIの構築を行う手順で解説します。</p>
 </div>
 <div class="admonition note">
@@ -350,9 +412,8 @@ OAuth2.0と同様、認証・認可サーバがもつ認可エンドポイント
 <p>今回は、本連載でAWS上に構成、実装していくアーキテクチャと認証・認可の全体像や考え方を解説しました。次回以降は、実際にアプリケーションを実装するためのベースとなる環境を構築していきます。</p>
 <p><br/></p>
 </div>
-</div>
-<div class="section" id="id2">
-<h1>著者紹介<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id4">
+<h2>著者紹介<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei) - NTTデータ</p>
 <div class="figure">
 <img alt="../_images/aws_361383_0751.jpeg" src="../_images/aws_361383_0751.jpeg" />
@@ -361,6 +422,7 @@ OAuth2.0と同様、認証・認可サーバがもつ認可エンドポイント
 <p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
 <p><a class="reference external" href="https://aws.amazon.com/jp/partners/ambassadors/?cards-body.sort-by=item.additionalFields.ambassadorName&amp;cards-body.sort-order=asc&amp;cards-body.q=kawabata&amp;cards-body.q_operator=AND">AWS Top Engineers &amp; Ambassadors</a> 選出。</p>
 <p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
 </div>
 
 
