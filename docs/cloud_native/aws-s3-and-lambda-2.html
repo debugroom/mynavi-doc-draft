@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>【第5回】AmazonS3で発生したイベント契機で実行するサーバレスアプリケーション(2) &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="ソフトウェア開発自動化" href="../automation_infra_devops/automation_infra_devops_overview.html" />
+    <link rel="prev" title="【第4回】AmazonS3で発生したイベント契機で実行するサーバレスアプリケーション(1)" href="aws-s3-and-lambda-1.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">【第1回】サーバレス開発(1)Spring Cloud Functionの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">【第2回】サーバレス開発(2)Amazon Lambdaの利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">【第3回】サーバレス開発(3)AWS API Gatewayの利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-1.html">【第4回】ECSコンテナAP開発(1)VPC構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-2.html">【第5回】ECSコンテナAP開発(2)ALB構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-3.html">【第6回】ECSコンテナAP開発(3)SpringBootアプリケーション実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-4.html">【第7回】ECSコンテナAP開発(4)Dockerイメージ作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-5.html">【第8回】ECSコンテナAP開発(5)ECSクラスタ設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-6.html">【第9回】ECSコンテナAP開発(6)ECSタスク設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-7.html">【第10回】ECSコンテナAP開発(7)ECSサービス設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-1.html">【第11回】Amazon RDSの概要とデータベース構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-2.html">【第12回】RDSへのテーブル構築とSpring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-3.html">【第13回】RDSへのテーブル構築とSpring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-1.html">【第14回】NoSQL(1)-基礎-CAP定理を元にしたデータベースの分類とデータ特性</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-2.html">【第15回】NoSQL(2)-基礎-AP型データベースAmazon DynamoDBとApache Cassandraの特徴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-1.html">【第16回】NoSQL(3)-DynamoDB-Amazon DynamoDBの概要及び構築と認証情報の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-2.html">【第17回】NoSQL(4)-DynamoDB-Spring Data DynamoDBを用いたアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-3.html">【第18回】NoSQL(5)-DynamoDB-Spring Data DynamoDBを用いたアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-1.html">【第N回】NoSQL-Managed Apache Cassandra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-2.html">【第N回】NoSQL-Spring Data Cassandraを用いたアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-3.html">【第N回】NoSQL-Spring Data Cassandraを用いたアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-1.html">【第19回】NoSQL(6)-AmazonElasiCacheの概要及びローカル環境でのRedisServer構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-2.html">【第20回】NoSQL(10)-Spring SessionとSpring Data Redisを用いたアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-3.html">【第21回】NoSQL(11)-Spring SessionとSpring Data Redisを用いたアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-4.html">【第22回】NoSQL(12)-Amazon ElastiCacheの設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-5.html">【第23回】NoSQL(13)-セッション共有するECSアプリケーションの構築(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-6.html">【第24回】NoSQL(14)-セッション共有するECSアプリケーションの構築(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-1.html">【第25回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-2.html">【第26回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-3.html">【第27回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-1.html">【第28回】AmazonSQSを使用する実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-2.html">【第29回】AmazonSQSを使用する実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-3.html">【第30回】AmazonSQSを使用する実装(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-4.html">【第31回】AmazonSQSを使用する実装(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-5.html">【第32回】AmazonSQSを使用する実装(5)</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-4.html">【第1回】AmazonS3へダイレクトアクセスするアプリケーション実装(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-5.html">【第2回】AmazonS3へダイレクトアクセスするアプリケーション実装(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-6.html">【第3回】AmazonS3へダイレクトアクセスするアプリケーション実装(6)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-and-lambda-1.html">【第4回】AmazonS3で発生したイベント契機で実行するサーバレスアプリケーション(1)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">【第5回】AmazonS3で発生したイベント契機で実行するサーバレスアプリケーション(2)</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_actual_experience.html">【第1回】マイクロサービスアーキテクチャの基盤・デプロイ自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_sonarqube.html">【第2回】SonarQubeを利用した静的解析環境の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_sonarlint.html">【第3回】SonarLintを利用した開発端末の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_architecture.html">【第4回】マイクロサービスにおけるテスト自動化とテスト戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_unittest-1.html">【第5回】マイクロサービスの単体試験コード実装(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_unittest-2.html">【第6回】マイクロサービスの単体試験コード実装(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html">【第7回】マイクロサービスの結合試験コード実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unittest.html">【第8回】マイクロサービスを呼び出すWebAPの単体テストコード・E2Eテストの実装(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html">【第9回】マイクロサービスを呼び出すWebAPの単体テストコード・E2Eテストの実装(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild_local.html">【第10回】AWS CodeBuildを使用したCI環境構築(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild.html">【第11回】AWS CodeBuildを使用したCI環境構築(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_1.html">【第12回】AWS CodePipeLineを用いた継続的デリバリ自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_2.html">【第13回】AWS CodePipeLineを用いた継続的デリバリ自動化(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_3.html">【第14回】AWS CodePipeLineを用いた継続的デリバリ自動化(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_4.html">【第15回】AWS CodePipeLineを用いた継続的デリバリ自動化(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_5.html">【第16回】AWS CodePipeLineを用いた継続的デリバリ自動化(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_6.html">【第17回】AWS CodePipeLineを用いた継続的デリバリ自動化(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_7.html">【第18回】AWS CodePipeLineを用いた継続的デリバリ自動化(6)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_8.html">【第19回】AWS CodePipeLineを用いた継続的デリバリ自動化(7)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_9.html">【第20回】AWS CodePipeLineを用いた継続的デリバリ自動化(8)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_overview.html">【第21回】AWS CloudFormationを用いた基盤自動化(1)CloudFormationの概要</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_cli.html">【第22回】AWS CloudFormationを用いた基盤自動化(2)AWS CLIの実行環境</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_lint.html">【第23回】AWS CloudFormationを用いた基盤自動化(3)各種検証プラグインインストールと統合開発環境の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_script.html">【第24回】AWS CloudFormationを用いた基盤自動化(4)テンプレート記述の基本と実行ヘルパースクリプトの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_taskcat.html">【第25回】AWS CloudFormationを用いた基盤自動化(5)CloudFormationテスト環境の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_vpc.html">【第26回】AWS CloudFormationを用いた基盤自動化(6)VPC、サブネット、ルートテーブル、インターネットGWの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sg_nat.html">【第27回】AWS CloudFormationを用いた基盤自動化(7)SecurityGroup/NATGatewayの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_alb.html">【第28回】AWS CloudFormationを用いた基盤自動化(8)ApplicationLoadBalancer/TargetGroupの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_rds.html">【第29回】AWS CloudFormationを用いた基盤自動化(9)RDSの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_dynamodb.html">【第30回】AWS CloudFormationを用いた基盤自動化(10)DynamoDBの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_elasticache.html">【第31回】AWS CloudFormationを用いた基盤自動化(11)ElastiCacheの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_s3_sqs.html">【第32回】AWS CloudFormationを用いた基盤自動化(12)SQS/S3の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_nest.html">【第33回】AWS CloudFormationを用いた基盤自動化(13)NestedStackの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_app_backend.html">【第34回】AWS CloudFormationを用いた基盤自動化(14)SpringCloudAWSを利用したBackend Serviceアプリケーションにおけるスタック情報の取得・設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_webapp_frontend.html">【第35回】AWS CloudFormationを用いた基盤自動化(15)SpringCloudAWSを利用したFrontend Webアプリケーションにおけるスタック情報の取得・設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_cluster.html">【第36回】AWS CloudFormationを用いた基盤自動化(16)ECSクラスタの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_task.html">【第37回】AWS CloudFormationを用いた基盤自動化(17)ECSタスク定義の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_taskrole.html">【第38回】AWS CloudFormationを用いた基盤自動化(18)ECSタスクロール定義の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.html">【第39回】AWS CloudFormationを用いた基盤自動化(19)ECSサービスの構築</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../microservice/microservice_overview.html">【第1回】マイクロサービスアーキテクチャで目指すもの</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../microservice/microservice_architecture.html">【第2回】マイクロサービスアーキテクチャの全体像</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">【第5回】AmazonS3で発生したイベント契機で実行するサーバレスアプリケーション(2)</a><ul>
+<li><a class="reference internal" href="#s3">事前準備：デプロイのためのS3バケット作成とアップロード</a></li>
+<li><a class="reference internal" href="#cloudformationlambda">CloudFormationを使った環境構築とLambdaファンクションのデプロイ</a></li>
+<li><a class="reference internal" href="#id6">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="aws-s3-and-lambda-1.html" title="Previous Chapter: 【第4回】AmazonS3で発生したイベント契機で実行するサーバレスアプリケーション(1)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 【第4回】AmazonS3...</span>
+    </a>
+  </li>
+  <li>
+    <a href="../automation_infra_devops/automation_infra_devops_overview.html" title="Next Chapter: ソフトウェア開発自動化"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">ソフトウェア開発自動化 &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/cloud_native/aws-s3-and-lambda-2.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="amazons3-2">
+<span id="section-cloud-native-s3-and-lambda-2nd-label"></span><h1>【第5回】AmazonS3で発生したイベント契機で実行するサーバレスアプリケーション(2)<a class="headerlink" href="#amazons3-2" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p><br/></p>
+<p>前回は、S3へダイレクトアップロードした後の後続処理をAWS Lambdaファンクションを使ったサーバレスアプリケーションとして実装しました。続く今回は実際にAWSに環境を構築してLambdaファンクションをデプロイして実行してみます。</p>
+<p><br/></p>
+<div class="section" id="s3">
+<span id="section-cloud-native-prepare-s3-label"></span><h2>事前準備：デプロイのためのS3バケット作成とアップロード<a class="headerlink" href="#s3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>前回も解説した通り、以下の構成図通り(7)の部分でLambdaファンクションとして、DynamoDBへのアクセスとSQSキュー送信を実装しています。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/serverless-postprocess.png" src="../_images/serverless-postprocess.png" />
+</div>
+<p><br/></p>
+<p>今回はAWS LambdaのデプロイとアクセスするDynamoDB(7')、SQS(7'')の構築、トリガーとなるS3およびイベント設定(6)をCloudFormationで実装します。
+CloudFormationの基本的な使い方は「AWSで実践！デプロイ・基盤自動化」の <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4725">第21回</a> 以降を、S3やDynamoDBをCloudFormationで作成する要領は、
+<a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4896">第30回</a> および <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4926">第32回</a> も参照してください。
+ただし、Lambdaのデプロイを行う前に、図中のものとは別のデプロイ用S3バケットを作成して、前回作成したLambdaファンクションをアップロードしておく必要があります。
+そこで、S3バケットを作成するCloudFormationテンプレートとLambdaファンクションをビルドしてアップロードするスクリプトをまず実装します。</p>
+<p>S3バケットを作成するCloudFormationテンプレートではバケットの名称やARNをOutput要素で指定しておきます、これは、後に作成するLambdaファンクションのデプロイを行うCloudFormationテンプレートでクロススタックリファレンスで参照するためです。</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>AWSTemplateFormatVersion: &#39;2010-09-09&#39;
+
+Description: S3 Bucket for Lambda function template with YAML - S3 Bucket Definition
+
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: debugroom-mynavi-sample-lambda-s3event-for-deploy
+      AccessControl: Private
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: True
+        BlockPublicPolicy: True
+        IgnorePublicAcls: True
+        RestrictPublicBuckets: True
+
+Outputs:
+  S3Bucket:
+    Description: Lambda deploy S3 bucket name
+    Value: !Ref S3Bucket
+    Export:
+      Name: MynaviSampleLambdaS3Event-deployS3Bucket
+
+  S3BucketArn:
+    Description: Deploy S3 for Lambda bucket arn
+    Value: !GetAtt S3Bucket.Arn
+    Export:
+      Name: MynaviSampleLambdaS3Event-deployS3BucketArn
+</pre></div>
+</div>
+<p><br/></p>
+<p>続いて、前回実装したLambdaファンクションをビルドして、上記のS3バケットにアップロードするシェルスクリプトを作成します。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+
+<span class="nv">bucket_name</span><span class="o">=</span>debugroom-mynavi-sample-lambda-s3event-for-deploy
+<span class="nv">stack_name</span><span class="o">=</span><span class="s2">&quot;mynavi-sample-s3-lambda-s3event&quot;</span>
+<span class="nv">template_path</span><span class="o">=</span><span class="s2">&quot;src/main/cloudformation/s3-deploy-lambda-cfn.yml&quot;</span>
+<span class="nv">s3_objectkey</span><span class="o">=</span><span class="s2">&quot;mynavi-sample-aws-lambda-s3event-0.0.1-SNAPSHOT-aws.jar&quot;</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;&quot;</span> <span class="o">==</span> <span class="s2">&quot;`aws s3 ls | grep </span><span class="nv">$bucket_name</span><span class="s2">`&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+   aws cloudformation deploy --stack-name <span class="si">${</span><span class="nv">stack_name</span><span class="si">}</span> --template-file <span class="si">${</span><span class="nv">template_path</span><span class="si">}</span> --capabilities CAPABILITY_IAM
+<span class="k">fi</span>
+
+./mvnw package
+aws s3 cp target/<span class="si">${</span><span class="nv">s3_objectkey</span><span class="si">}</span> s3://<span class="si">${</span><span class="nv">bucket_name</span><span class="si">}</span>/
+</pre></div>
+</div>
+<p><br/></p>
+<p>上記のスクリプトを実行して、バケット内にJarファイルがあることを確認しましょう。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/management-console-s3.png" src="../_images/management-console-s3.png" />
+</div>
+<p><br/></p>
+</div>
+<div class="section" id="cloudformationlambda">
+<span id="section-cloud-native-cloudformation-deploy-lambda-label"></span><h2>CloudFormationを使った環境構築とLambdaファンクションのデプロイ<a class="headerlink" href="#cloudformationlambda" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>引き続き、DynamoDBおよびSQSを構築するCloudFormationを実装します。
+DynamoDBのテンプレートでは、テーブル定義をリソースとして定義しますが、前回の実装でDynamoDBのキーとして指定したfileIdをHASH属性で指定します。またLambdaファンクションから参照するため、Output要素にエンドポイントとリージョンを指定しておきます。</p>
+<p><br/></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>AWSTemplateFormatVersion: &#39;2010-09-09&#39;
+
+Description: Sample CloudFormation template with YAML - DynamoDB Definition
+
+Resources:
+  DynamoDBUploadFileTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: &quot;upload-file-table&quot;
+      BillingMode: PROVISIONED
+      AttributeDefinitions:
+        - AttributeName: fileId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: fileId
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+
+Outputs:
+  EnvironmentRegion:
+    Description: Dev Environment Region
+    Value: !Sub ${AWS::Region}
+    Export:
+      Name: MynaviSampleLambdaS3Event-DynamoDB-Region
+  DynamoDBServiceEndpoint:
+    Description: DynamoDB service endipoint
+    Value: !Sub https://dynamodb.${AWS::Region}.amazonaws.com
+    Export:
+      Name:  MynaviSampleLambdaS3Event-DynamoDB-ServiceEndpoint
+</pre></div>
+</div>
+<p><br/></p>
+<p>同様にSQSのテンプレートでも、リソースの定義に加えて、Output要素にエンドポイントとリージョン、そしてキュー名をLambdaファンクションからの参照用に出力しておきます。</p>
+<p><br/></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>AWSTemplateFormatVersion: &#39;2010-09-09&#39;
+
+Description: Sample CloudFormation template with YAML - SQS Definition
+
+Resources:
+  SQSSampleQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: mynavi-sample-lambda-s3event-queue
+      VisibilityTimeout: 30
+      DelaySeconds: 5
+      MaximumMessageSize: 26144
+      MessageRetentionPeriod: 345600
+      ReceiveMessageWaitTimeSeconds: 0
+
+Outputs:
+  SQSServiceEndpoint:
+    Description: SQS service endipoint
+    Value: !Sub https://sqs.${AWS::Region}.amazonaws.com
+    Export:
+      Name: MynaviSampleLambdaS3Event-SQS-ServiceEndpoint
+
+  SQSServiceRegion:
+    Description: SQS service region
+    Value: !Sub ${AWS::Region}
+    Export:
+      Name: MynaviSampleLambdaS3Event-SQS-Region
+
+  SQSSampleQueue:
+    Description: SQS sample queue name
+    Value: !Ref SQSSampleQueue
+    Export:
+      Name: MynaviSampleLambdaS3Event-SQS-QueueName
+</pre></div>
+</div>
+<p><br/></p>
+<p>続いて、LambdaファクションをデプロイするCloudFormationテンプレートを実装します。</p>
+<p><br/></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>AWSTemplateFormatVersion: &#39;2010-09-09&#39;
+
+Description: Lambda template with YAML
+
+Resources:
+  SampleLambdaS3Event:
+    Type: AWS::Lambda::Function                                              # (A)
+    Properties:
+      Code:
+        S3Bucket:
+          Fn::ImportValue: MynaviSampleLambdaS3Event-deployS3Bucket          # (B)
+      S3Key: mynavi-sample-aws-lambda-s3event-0.0.1-SNAPSHOT-aws.jar         # (C)
+      Handler: org.debugroom.mynavi.sample.aws.lambda.s3event.app.handler.S3UploadEventHandler::handleRequest
+                                                                             # (D)
+      FunctionName: mynavi-sample-aws-lambda-s3event-function
+      Environment:
+        Variables:
+          FUNCTION_NAME: sampleFunction                                      # (E)
+      MemorySize: 1024                                                       # (F)
+      Runtime: java8
+      Timeout: 120
+      Role: !GetAtt LambdaRole.Arn                                           # (G)
+
+  LambdaRole:                                                                # (H)
+    Type: AWS::IAM::Role
+    Properties:
+      Path: /
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+      ManagedPolicyArns:
+        - &quot;arn:aws:iam::aws:policy/CloudWatchLogsFullAccess&quot;
+
+  SQSAccessPolicy:                                                           # (I)
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: mynavi-sample-lambda-s3event-sqs-access-policy
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Action:
+              - &quot;sqs:*&quot;
+            Resource: &quot;*&quot;
+      Roles:
+        - !Ref LambdaRole
+
+  DynamoDBAccessPolicy:                                                      # (J)
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: mynavi-sample-lambda-s3event-dynamodb-access-policy
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Action:
+              - &quot;dynamodb:*&quot;
+              # omit
+        Resource: &quot;*&quot;
+      Roles:
+        - !Ref LambdaRole
+
+  CloudFormationAccessPolicy:                                                # (K)
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: mynavi-sample-lambda-s3event-cloudformation-access-policy
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Action:
+              - &quot;cloudformation:*&quot;
+            Resource: &quot;*&quot;
+    Roles:
+      - !Ref LambdaRole
+
+  SSMAccessPolicy:                                                           # (L)
+    Type: AWS::IAM::Policy
+    Properties:
+    PolicyName: mynavi-sample-lambda-s3event-ssm-access-policy
+    PolicyDocument:
+      Statement:
+        - Effect: Allow
+          Action:
+            - &quot;cloudwatch:PutMetricData&quot;
+            # omit
+    Roles:
+      - !Ref LambdaRole
+
+Outputs:
+  SampleLambdaS3EventArn:                                                    # (M)
+    Value: !GetAtt SampleLambdaS3Event.Arn
+    Export:
+    Name: MynaviSampleLambdaS3Event-LambdaArn
+</pre></div>
+</div>
+<p><br/></p>
+<p>Lambdaをデプロイするテンプレートのポイントになる設定箇所は以下の通りです。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id7">
+<caption><span class="caption-text">Lambdaファンクションのデプロイ用のテンプレートの作成</span><a class="headerlink" href="#id7" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>項番</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple">
+<li></li>
+</ol>
+</td>
+<td>Lambdaファンクションとしてのリソースを定義します。定義の詳細は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-function.html">AWS::Lambda::Function</a> も参照してください。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="2">
+<li></li>
+</ol>
+</td>
+<td>前節で作成したデプロイ用S3テンプレートのOutput要素で出力したバケット名をクロススタックリファレンスを使って取得します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="3">
+<li></li>
+</ol>
+</td>
+<td>前節のシェルスクリプト内でMavenビルドしたLambdaファンクションのJarファイル名を指定します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="4">
+<li></li>
+</ol>
+</td>
+<td>前回実装したHandlerクラスのFQCNとハンドラメソッドを指定します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="5">
+<li></li>
+</ol>
+</td>
+<td>クラウドネイティブ基本編の <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4318">第2回</a> と同様、環境変数にFUNCATION_NAMEとして、ファンクションクラスとなるBean名を指定しておきます(Spring Cloud Functionでは、実行する関数を環境変数FUNCTION_NAMEで指定したBean名で取得するためです。)。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="6">
+<li></li>
+</ol>
+</td>
+<td>ファンクション実行時のメモリサイズを指定します。SpringアプリケーションをLambdaで実行する場合1024MB以上のメモリサイズを確保しなければ、起動時間が大幅にかかってしまうケースがあります。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="7">
+<li></li>
+</ol>
+</td>
+<td>Lambdaに設定するIAMロールのARNを指定します。ここでは(H)で定義したARNを設定します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="8">
+<li></li>
+</ol>
+</td>
+<td>Lambdaに設定するIAMロールを定義します。ファンクション内の実装では、DynamoDBやSQSに加えて。CloudFormationのスタック参照、SystemsManager Parameter Storeの参照を行いますが、(I)〜(L)で定義したポリシーからアタッチして、このロールを参照するように設定します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperroman simple">
+<li></li>
+</ol>
+</td>
+<td>SQSのアクセスを可能にするIAMポリシーを定義し、(H)のロールへアタッチします。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="10">
+<li></li>
+</ol>
+</td>
+<td>DynamoDBのアクセスを可能にするIAMポリシーを定義し、(H)のロールへアタッチします。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="11">
+<li></li>
+</ol>
+</td>
+<td>CloudFormationスタックのアクセスを可能にするIAMポリシーを定義し、(H)のロールへアタッチします。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="12">
+<li></li>
+</ol>
+</td>
+<td>SystemsManager Parameter Storeへのアクセスを可能にするIAMポリシーを定義し、(H)のロールへアタッチします。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="13">
+<li></li>
+</ol>
+</td>
+<td>後述するアップロード用のS3テンプレートのイベント設定で参照するため、LambdaファンクションのARNをOutput要素として出力します。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>続いて、アップロードによりイベントを発生させるためのS3の設定を行います。前回の連載までに使用してきたアップロード用のS3バケットを一度削除して、下記の通りLambdaへのイベントトリガーの設定を加えてCloudFormationで作成しなおします。</p>
+<p><br/></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>AWSTemplateFormatVersion: &#39;2010-09-09&#39;
+
+Description: Sample CloudFormation template with YAML - S3 Bucket Definition
+
+Resources:
+  S3Bucket:                                                                  # (A)
+    Type: AWS::S3::Bucket
+    DependsOn: LambdaInvokePermission                                        # (B)
+    Properties:
+      BucketName: debugroom-mynavi-sample-lambda-s3event
+      AccessControl: Private
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: True
+        BlockPublicPolicy: True
+        IgnorePublicAcls: True
+        RestrictPublicBuckets: True
+      NotificationConfiguration:                                             # (C)
+        LambdaConfigurations:
+          - Event: s3:ObjectCreated:*                                        # (D)
+            Function:
+              Fn::ImportValue: MynaviSampleLambdaS3Event-LambdaArn           # (E)
+  LambdaInvokePermission:                                                    # (F)
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName:
+        Fn::ImportValue: MynaviSampleLambdaS3Event-LambdaArn                 # (G)
+      Principal: s3.amazonaws.com
+      Action: lambda:InvokeFunction
+      SourceArn: !Join
+        - &quot;&quot;
+        - - &quot;arn:aws:s3:::&quot;
+          - &quot;debugroom-mynavi-sample-lambda-s3event&quot;                         # (H)
+
+Outputs:
+  S3Bucket:
+    Description: Lambda S3 bucket name
+    Value: !Ref S3Bucket
+    Export:
+      Name: MynaviSampleLambdaS3Event-s3Bucket                               # (I)
+
+  # omit
+</pre></div>
+</div>
+<p><br/></p>
+<p>S3テンプレートの設定のポイントは以下の通りです。</p>
+<table border="1" class="colwidths-given docutils" id="id8">
+<caption><span class="caption-text">アップロードをイベントとしてLambdaファンクションを実行するS3テンプレートの詳細</span><a class="headerlink" href="#id8" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>項番</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple">
+<li></li>
+</ol>
+</td>
+<td>S3のリソース定義を行います。定義の要領はクラウドネイティブ基本編 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4896">第30回</a> と同様です。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="2">
+<li></li>
+</ol>
+</td>
+<td>DependsOn属性を使って、リソースLambdaInvokePermissionの作成が完了してから、S3リソースの作成を行います。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="3">
+<li></li>
+</ol>
+</td>
+<td>イベント通知の設定はNotificationConfigurationで行います。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="4">
+<li></li>
+</ol>
+</td>
+<td>イベントとして、当バケットでオブジェクトが生成されたときを設定します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="5">
+<li></li>
+</ol>
+</td>
+<td>実行するファンクションとして、上記で作成したLambdaファンクションのARNをクロススタックリファレンスで参照します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="6">
+<li></li>
+</ol>
+</td>
+<td>Lambdaの実行許可をリソースとして定義します。定義の詳細は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-permission.html">AWS::Lambda::Permission</a> も参照してください。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="7">
+<li></li>
+</ol>
+</td>
+<td>対象のファンクションとして、上記で作成したLambdaファンクションのARNをクロススタックリファレンスで参照します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="8">
+<li></li>
+</ol>
+</td>
+<td>Lambdaの実行元となるARNを設定します。(A)の定義と相互参照になるため、!Ref参照は行わず、直接S3のARNを定義します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperroman simple">
+<li></li>
+</ol>
+</td>
+<td>ダイレクトアップロードを行うアプリケーションから参照するため、Output要素として、S3のバケット名を出力しておきます。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>各テンプレートを順次実行して環境を構築した後、対象のS3にファイルがアップロードされると、以下の通り、DynamoDBやS3に処理結果が残り、CloudWatch Logsにも処理のログが出力されます。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/management-console-dynamodb.png" src="../_images/management-console-dynamodb.png" />
+</div>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/management-console-sqs.png" src="../_images/management-console-sqs.png" />
+</div>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/management-console-cloudwatch-logs.png" src="../_images/management-console-cloudwatch-logs.png" />
+</div>
+<p><br/></p>
+<p>今回は、Lambdaファンクションの処理に必要な環境構築とLambdaのデプロイをCloudFormaitonを使って実装しました。次回はファンクション内でエラーが発生した際のCloudWatchでのイベント発生やエラーハンドリングの実装方法を解説していきます。</p>
+<p><br/></p>
+</div>
+<div class="section" id="id6">
+<h2>著者紹介<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei) - NTTデータ</p>
+<div class="figure">
+<img alt="../_images/aws_361383_0752.jpeg" src="../_images/aws_361383_0752.jpeg" />
+</div>
+<p>金融機関システム業務アプリケーション開発・システム基盤担当、ソフトウェア開発自動化関連の研究開発を経て、デジタル技術関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p><a class="reference external" href="https://aws.amazon.com/jp/partners/ambassadors/?cards-body.sort-by=item.additionalFields.ambassadorName&amp;cards-body.sort-order=asc&amp;cards-body.q=kawabata&amp;cards-body.q_operator=AND">AWS Top Engineers &amp; Ambassadors</a> 選出。</p>
+<p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
