@@ -165,7 +165,7 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">【第43回】AWS CloudFormationを用いた基盤自動化(23)継続的インテグレーション環境の構築(4)</a><ul>
 <li><a class="reference internal" href="#sonarqubeserverdockerfile">SonarQubeServerを起動するスクリプトとDockerfile</a></li>
-<li><a class="reference internal" href="#sobarqubeecsecs">SobarQubeECSタスク定義とターゲットグループ、ECSサービスのテンプレートテンプレート</a></li>
+<li><a class="reference internal" href="#sobarqubeecsecs">SobarQubeECSタスク定義とターゲットグループ、ECSサービスのテンプレート</a></li>
 <li><a class="reference internal" href="#id5">著者紹介</a></li>
 </ul>
 </li>
@@ -271,7 +271,7 @@ ENV SONAR_VERSION=7.7 \
 <p><br/></p>
 </div>
 <div class="section" id="sobarqubeecsecs">
-<span id="section-cloudformation-sonarqube-ecs-label"></span><h2>SobarQubeECSタスク定義とターゲットグループ、ECSサービスのテンプレートテンプレート<a class="headerlink" href="#sobarqubeecsecs" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<span id="section-cloudformation-sonarqube-ecs-label"></span><h2>SobarQubeECSタスク定義とターゲットグループ、ECSサービスのテンプレート<a class="headerlink" href="#sobarqubeecsecs" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
 <p>次に、ECSタスク定義とターゲットグループのテンプレートを作成します。実装したものは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-sonarqube-aws/tree/master/sonarqube-server">こちら</a> ですが、
 このテンプレートは、<a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/5002">第37回 ECSタスク定義の構築自動化テンプレート</a> 、 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/5007">第38回 ECSタスクロール定義の構築テンプレート</a> 、 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/5007">第39回 ECSサービス構築テンプレート</a> で解説したものとほぼ同等です。
