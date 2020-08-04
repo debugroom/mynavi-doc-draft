@@ -120,6 +120,10 @@
    automation_infra_devops/automation_infra_devops_cloudformation_ecs_task.rst
    automation_infra_devops/automation_infra_devops_cloudformation_ecs_taskrole.rst
    automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.rst
+   automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_base.rst
+   automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_lambda.rst
+   automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_custom_resource.rst
+   automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_server.rst
 
 |br|
 

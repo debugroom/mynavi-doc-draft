@@ -1,0 +1,51 @@
+.. include:: ../module.txt
+
+.. _section-automation-infra-devops-cloudformation-22-label:
+
+【第41回】AWS CloudFormationを用いた基盤自動化(22)継続的インテグレーション環境の構築(3)
+-------------------------------------------------------------------------------------------------------------------------------------
+
+|br|
+
+本連載では、AWSリソース基盤構築の自動化を実践しています。今回以降は `第2回 <https://news.mynavi.jp/itsearch/article/devsoft/4463>`_ から複数回解説してきた継続的インテグレーション環境をCloudFormationを使って自動構築しています。
+
+|br|
+
+.. figure:: img/automation_infra_devops_cloudformation/cloudformation-ci-environment.png
+
+|br|
+
+前回は、CloudFormationのカスタムリソースを使って、RDS構築後のデータベースにユーザを追加するLambdaファンクションを実装しています。
+続く今回は、RDSを構築するCloudFormationや前回実装したファンクションを実行するカスタムリソーステンプレートを作成します。
+
+本連載で実際に作成するアプリケーションでは `GitHub <https://github.com/debugroom/mynavi-sample-sonarqube-aws>`_ 上にコミットしています。
+以降に記載するソースコードでは、import文など本質的でない記述を省略している部分があるので、実行コードを作成する際は、必要に応じて適宜GitHubにあるソースコードも参照してください。
+
+.. _section-cloudformation-sonarqube-server-rds-label:
+
+SonarQubeServerが接続するRDS環境構築テンプレート
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+|br|
+
+まず、SonarQubeServerが接続するRDSリソースを構築します。
+
+|br|
+
+今回はRDSへの初期化処理を行うLambdaファンクションを実装しました。次回はSonarQubeServerがアクセスするRDSやカスタムリソースを実行するCloudFormationテンプレートを実装します。
+
+|br|
+
+著者紹介
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理
+
+.. figure:: img/automation_infra_devops_overview/pic_image01.jpg
+
+
+金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。
+
+Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。
+
+`2019 APN AWS Top Engineers & Ambassadors <https://aws.amazon.com/jp/blogs/psa/japan-apn-ambassador-2019/>`_ 選出。

@@ -141,6 +141,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_task.html">【第37回】AWS CloudFormationを用いた基盤自動化(17)ECSタスク定義の構築</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_taskrole.html">【第38回】AWS CloudFormationを用いた基盤自動化(18)ECSタスクロール定義の構築</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.html">【第39回】AWS CloudFormationを用いた基盤自動化(19)ECSサービスの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_base.html">【第40回】AWS CloudFormationを用いた基盤自動化(20)継続的インテグレーション環境の構築(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_rds.html">【第41回】AWS CloudFormationを用いた基盤自動化(21)継続的インテグレーション環境の構築(2)</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -216,7 +218,7 @@
 <span id="section-cloud-native-s3-and-lambda-1st-label"></span><h1>【第4回】AmazonS3で発生したイベント契機で実行するサーバレスアプリケーション(1)<a class="headerlink" href="#amazons3-1" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p><br/></p>
 <p>前回は、S3へファイルをダイレクトアップロードするアプリケーションを実装しました。続く今回はアップロードした後の後続処理を
-AWS Lambdaを使ってサーバレスに実行するアプリケーションを実装していきます。なお、動作するAWS Lambdaファンクションは以下のランタイム・ライブラリを使って実装するものとします。</p>
+AWS Lambdaを使ってサーバレスで実行するアプリケーションを実装していきます。なお、動作するAWS Lambdaファンクションは以下のランタイム・ライブラリを使って実装するものとします。</p>
 <p><br/></p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
@@ -258,7 +260,7 @@ AWS Lambdaを使ってサーバレスに実行するアプリケーションを�
 <p>前回実装したS3へのダイレクトアップロード処理が完了した後、後処理が必要なケースが多くあります。
 例えば、アップロードしたファイルのオブジェクトキーをデータベースに保存したり、アップロードされたファイルのチェックや加工など、
 実行したい内容に応じて後続処理を実装しますが、性能負荷を気にせずスケール可能なAWS Lambdaを有力な選択肢の一つとして選択できます。
-ただし、Lambdaファンクションで実装する処理に応じて適切なマネージドサービスやミドルウェアを選択し、エラー発生時のハンドリングも同時に考慮しなければなりません。
+ただし、Lambdaファンクション内で実装する処理に応じて適切なマネージドサービスやミドルウェアを選択し、エラー発生時のハンドリングも同時に考慮しなければなりません。
 代表的な処理パターンとして、以下の図のようなケースが挙げられます。</p>
 <p><br/></p>
 <div class="figure">
@@ -417,8 +419,8 @@ DynamoDBは、連載クラウドネイティブアプリケーション基本編
 <span class="nt">&lt;/dependency&gt;</span>
 </pre></div>
 </div>
-<p><br/>
-それでは、第一回同様、HandlerクラスとイベントとしてLamnda関数から実行されるFunctionクラスから解説を進みます。今回は、S3のファイルアップロードを契機にイベント受信するので、
+<p><br/></p>
+<p>それでは、第一回同様、HandlerクラスとイベントとしてLamnda関数から実行されるFunctionクラスから解説を進みます。今回は、S3のファイルアップロードを契機にイベント受信するので、
 HandlerクラスはSpirngBootRequestHandlerを継承して作成します。継承するクラスの型パラメータとしては、Inputにcom.amazonaws.services.s3.event.S3EventNotificationを、OutputにはString型を指定します。</p>
 <p><br/></p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.lambda.s3event.app.handler</span><span class="o">;</span>

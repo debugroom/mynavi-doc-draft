@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>【第41回】AWS CloudFormationを用いた基盤自動化(21)継続的インテグレーション環境の構築(2) &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="【第42回】AWS CloudFormationを用いた基盤自動化(22)継続的インテグレーション環境の構築(3)" href="automation_infra_devops_cloudformation_sonarqube_custom_resource.html" />
+    <link rel="prev" title="【第40回】AWS CloudFormationを用いた基盤自動化(20)継続的インテグレーション環境の構築(1)" href="automation_infra_devops_cloudformation_sonarqube_base.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">【第1回】サーバレス開発(1)Spring Cloud Functionの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">【第2回】サーバレス開発(2)Amazon Lambdaの利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">【第3回】サーバレス開発(3)AWS API Gatewayの利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-1.html">【第4回】ECSコンテナAP開発(1)VPC構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-2.html">【第5回】ECSコンテナAP開発(2)ALB構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-3.html">【第6回】ECSコンテナAP開発(3)SpringBootアプリケーション実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-4.html">【第7回】ECSコンテナAP開発(4)Dockerイメージ作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-5.html">【第8回】ECSコンテナAP開発(5)ECSクラスタ設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-6.html">【第9回】ECSコンテナAP開発(6)ECSタスク設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-7.html">【第10回】ECSコンテナAP開発(7)ECSサービス設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-1.html">【第11回】Amazon RDSの概要とデータベース構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-2.html">【第12回】RDSへのテーブル構築とSpring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-3.html">【第13回】RDSへのテーブル構築とSpring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-1.html">【第14回】NoSQL(1)-基礎-CAP定理を元にしたデータベースの分類とデータ特性</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-2.html">【第15回】NoSQL(2)-基礎-AP型データベースAmazon DynamoDBとApache Cassandraの特徴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-1.html">【第16回】NoSQL(3)-DynamoDB-Amazon DynamoDBの概要及び構築と認証情報の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-2.html">【第17回】NoSQL(4)-DynamoDB-Spring Data DynamoDBを用いたアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-3.html">【第18回】NoSQL(5)-DynamoDB-Spring Data DynamoDBを用いたアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-1.html">【第N回】NoSQL-Managed Apache Cassandra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-2.html">【第N回】NoSQL-Spring Data Cassandraを用いたアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-3.html">【第N回】NoSQL-Spring Data Cassandraを用いたアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-1.html">【第19回】NoSQL(6)-AmazonElasiCacheの概要及びローカル環境でのRedisServer構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-2.html">【第20回】NoSQL(10)-Spring SessionとSpring Data Redisを用いたアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-3.html">【第21回】NoSQL(11)-Spring SessionとSpring Data Redisを用いたアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-4.html">【第22回】NoSQL(12)-Amazon ElastiCacheの設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-5.html">【第23回】NoSQL(13)-セッション共有するECSアプリケーションの構築(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-6.html">【第24回】NoSQL(14)-セッション共有するECSアプリケーションの構築(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-1.html">【第25回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-2.html">【第26回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-3.html">【第27回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-1.html">【第28回】AmazonSQSを使用する実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-2.html">【第29回】AmazonSQSを使用する実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-3.html">【第30回】AmazonSQSを使用する実装(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-4.html">【第31回】AmazonSQSを使用する実装(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-5.html">【第32回】AmazonSQSを使用する実装(5)</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-4.html">【第1回】AmazonS3へダイレクトアクセスするアプリケーション実装(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-5.html">【第2回】AmazonS3へダイレクトアクセスするアプリケーション実装(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-6.html">【第3回】AmazonS3へダイレクトアクセスするアプリケーション実装(6)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-and-lambda-1.html">【第4回】AmazonS3で発生したイベント契機で実行するサーバレスアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-and-lambda-2.html">【第5回】AmazonS3で発生したイベント契機で実行するサーバレスアプリケーション(2)</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_actual_experience.html">【第1回】マイクロサービスアーキテクチャの基盤・デプロイ自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarqube.html">【第2回】SonarQubeを利用した静的解析環境の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_sonarlint.html">【第3回】SonarLintを利用した開発端末の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_architecture.html">【第4回】マイクロサービスにおけるテスト自動化とテスト戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-1.html">【第5回】マイクロサービスの単体試験コード実装(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_unittest-2.html">【第6回】マイクロサービスの単体試験コード実装(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_micro_service_integrationtest.html">【第7回】マイクロサービスの結合試験コード実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unittest.html">【第8回】マイクロサービスを呼び出すWebAPの単体テストコード・E2Eテストの実装(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_web_app_unit_e2e_test.html">【第9回】マイクロサービスを呼び出すWebAPの単体テストコード・E2Eテストの実装(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codebuild_local.html">【第10回】AWS CodeBuildを使用したCI環境構築(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codebuild.html">【第11回】AWS CodeBuildを使用したCI環境構築(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_1.html">【第12回】AWS CodePipeLineを用いた継続的デリバリ自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_2.html">【第13回】AWS CodePipeLineを用いた継続的デリバリ自動化(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_3.html">【第14回】AWS CodePipeLineを用いた継続的デリバリ自動化(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_4.html">【第15回】AWS CodePipeLineを用いた継続的デリバリ自動化(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_5.html">【第16回】AWS CodePipeLineを用いた継続的デリバリ自動化(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_6.html">【第17回】AWS CodePipeLineを用いた継続的デリバリ自動化(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_7.html">【第18回】AWS CodePipeLineを用いた継続的デリバリ自動化(6)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_8.html">【第19回】AWS CodePipeLineを用いた継続的デリバリ自動化(7)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_codepipeline_9.html">【第20回】AWS CodePipeLineを用いた継続的デリバリ自動化(8)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_overview.html">【第21回】AWS CloudFormationを用いた基盤自動化(1)CloudFormationの概要</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_cli.html">【第22回】AWS CloudFormationを用いた基盤自動化(2)AWS CLIの実行環境</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_lint.html">【第23回】AWS CloudFormationを用いた基盤自動化(3)各種検証プラグインインストールと統合開発環境の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_script.html">【第24回】AWS CloudFormationを用いた基盤自動化(4)テンプレート記述の基本と実行ヘルパースクリプトの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_taskcat.html">【第25回】AWS CloudFormationを用いた基盤自動化(5)CloudFormationテスト環境の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_vpc.html">【第26回】AWS CloudFormationを用いた基盤自動化(6)VPC、サブネット、ルートテーブル、インターネットGWの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_sg_nat.html">【第27回】AWS CloudFormationを用いた基盤自動化(7)SecurityGroup/NATGatewayの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_alb.html">【第28回】AWS CloudFormationを用いた基盤自動化(8)ApplicationLoadBalancer/TargetGroupの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_rds.html">【第29回】AWS CloudFormationを用いた基盤自動化(9)RDSの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_dynamodb.html">【第30回】AWS CloudFormationを用いた基盤自動化(10)DynamoDBの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_elasticache.html">【第31回】AWS CloudFormationを用いた基盤自動化(11)ElastiCacheの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_s3_sqs.html">【第32回】AWS CloudFormationを用いた基盤自動化(12)SQS/S3の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_nest.html">【第33回】AWS CloudFormationを用いた基盤自動化(13)NestedStackの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_app_backend.html">【第34回】AWS CloudFormationを用いた基盤自動化(14)SpringCloudAWSを利用したBackend Serviceアプリケーションにおけるスタック情報の取得・設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_webapp_frontend.html">【第35回】AWS CloudFormationを用いた基盤自動化(15)SpringCloudAWSを利用したFrontend Webアプリケーションにおけるスタック情報の取得・設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_ecs_cluster.html">【第36回】AWS CloudFormationを用いた基盤自動化(16)ECSクラスタの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_ecs_task.html">【第37回】AWS CloudFormationを用いた基盤自動化(17)ECSタスク定義の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_ecs_taskrole.html">【第38回】AWS CloudFormationを用いた基盤自動化(18)ECSタスクロール定義の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_ecs_service.html">【第39回】AWS CloudFormationを用いた基盤自動化(19)ECSサービスの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_sonarqube_base.html">【第40回】AWS CloudFormationを用いた基盤自動化(20)継続的インテグレーション環境の構築(1)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">【第41回】AWS CloudFormationを用いた基盤自動化(21)継続的インテグレーション環境の構築(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_sonarqube_custom_resource.html">【第42回】AWS CloudFormationを用いた基盤自動化(22)継続的インテグレーション環境の構築(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation_infra_devops_cloudformation_sonarqube_server.html">【第43回】AWS CloudFormationを用いた基盤自動化(23)継続的インテグレーション環境の構築(4)</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../microservice/microservice_overview.html">【第1回】マイクロサービスアーキテクチャで目指すもの</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../microservice/microservice_architecture.html">【第2回】マイクロサービスアーキテクチャの全体像</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">【第41回】AWS CloudFormationを用いた基盤自動化(21)継続的インテグレーション環境の構築(2)</a><ul>
+<li><a class="reference internal" href="#cloudformation-aws-lambda-backed-lambda">CloudFormationカスタムリソース(AWS Lambda-backed カスタムリソース)とLambdaファンクションの実装</a></li>
+<li><a class="reference internal" href="#id6">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="automation_infra_devops_cloudformation_sonarqube_base.html" title="Previous Chapter: 【第40回】AWS CloudFormationを用いた基盤自動化(20)継続的インテグレーション環境の構築(1)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 【第40回】AWS Clo...</span>
+    </a>
+  </li>
+  <li>
+    <a href="automation_infra_devops_cloudformation_sonarqube_custom_resource.html" title="Next Chapter: 【第42回】AWS CloudFormationを用いた基盤自動化(22)継続的インテグレーション環境の構築(3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">【第42回】AWS Clo... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_lambda.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="aws-cloudformation-21-2">
+<span id="section-automation-infra-devops-cloudformation-21-label"></span><h1>【第41回】AWS CloudFormationを用いた基盤自動化(21)継続的インテグレーション環境の構築(2)<a class="headerlink" href="#aws-cloudformation-21-2" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p><br/></p>
+<p>本連載では、AWSリソース基盤構築の自動化を実践しています。現在は <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4463">第2回</a> から解説してきた継続的インテグレーション環境をCloudFormationを使って自動構築しています。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/cloudformation-ci-environment.png" src="../_images/cloudformation-ci-environment.png" />
+</div>
+<p><br/></p>
+<p>前回は、SonarQubeServerのベース環境となるAWSリソース(VPC、セキュリティグループ、ALB、ECSクラスタ)の実装とRDS環境を作成しています。
+続く今回は、CloudFormationのカスタムリソースを使って、RDS構築後のデータベースにユーザを追加するLambdaファンクションを実装します。</p>
+<p>本連載で実際に作成するアプリケーションでは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-sonarqube-aws">GitHub</a> 上にコミットしています。
+以降に記載するソースコードでは、import文など本質的でない記述を省略している部分があるので、実行コードを作成する際は、必要に応じて適宜GitHubにあるソースコードも参照してください。</p>
+<p>なお、今回実装するAWS Lambdaファンクションは以下のランタイム・ライブラリを使って実装するものとします。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>動作対象</td>
+<td>バージョン</td>
+</tr>
+<tr class="row-even"><td>Java</td>
+<td>1.8</td>
+</tr>
+<tr class="row-odd"><td>Spring Boot</td>
+<td>2.3.2.RELEASE</td>
+</tr>
+<tr class="row-even"><td>Spring Cloud Function</td>
+<td>3.0.8.RELEASE</td>
+</tr>
+<tr class="row-odd"><td>Spring Cloud AWS</td>
+<td>2.2.2.RELEASE</td>
+</tr>
+<tr class="row-even"><td>AmazonSDK Lambda Java event</td>
+<td>2.0.2</td>
+</tr>
+<tr class="row-odd"><td>AmazonSDK Lambda Java core</td>
+<td>1.1.0</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<div class="section" id="cloudformation-aws-lambda-backed-lambda">
+<span id="section-cloudformation-aws-lambda-backed-custom-resource-label"></span><h2>CloudFormationカスタムリソース(AWS Lambda-backed カスタムリソース)とLambdaファンクションの実装<a class="headerlink" href="#cloudformation-aws-lambda-backed-lambda" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p><a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/template-custom-resources.html">CloundFormationのカスタムリソース</a> とは、
+ユーザが任意のリソースタイプ名を定義し、CloudFormationスタックとして利用できる機能です。 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/template-custom-resources-lambda.html">AWS Lambda-backed カスタムリソース</a> は
+AWS Lambdaファンクションと関連づけることができるカスタムリソースで、CloudFormationスタックが作成、更新、削除されるたびにLambdaファンクションを呼び出すことができます。</p>
+<p>今回は、クラウドネイティブ基本編 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4316">第1回</a> でも解説した Spring Cloud Functionや
+<a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4426">第12回</a> でも解説したSpring Cloud AWSを使用して、RDSに初期処理を行う(ユーザの作成を行うDDLを実行する)Lambdaファンクションを実装します。
+以下の通り、spring-cloud-functionやspring-cloud-starter-aws、DDLを実行するのでJDBC Templateが使えるspring-boot-starter-data-jdbcを含めておいてください。
+また、RDSのエンドポイントやパスワードはCloudFormationのスタック情報やSystems Manager Parameter Storeから取得するので、AWS SDKのaws-java-sdk-ssm、aws-java-sdk-core、
+Lambdaファンクション実装のためのaws-lambda-java-coreおよび、aws-lambda-java-eventsも必要になります。CloudFormationのスタック情報からデータを取得する実装の詳細は <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4948">本連載の第34回</a> も適宜参考にしてください。
+今回は、設定クラスなど既に解説が行っているものは省略して、差分があるポイントのみ説明していきます。</p>
+<p><br/></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependencies&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-data-jdbc<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>spring-cloud-function-context<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>spring-cloud-function-adapter-aws<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-aws<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-aws-jdbc<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>com.amazonaws<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>aws-lambda-java-events<span class="nt">&lt;/artifactId&gt;</span>
+     <span class="nt">&lt;version&gt;</span>2.0.2<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>com.amazonaws<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>aws-lambda-java-core<span class="nt">&lt;/artifactId&gt;</span>
+     <span class="nt">&lt;version&gt;</span>1.1.0<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>com.amazonaws<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>aws-java-sdk-ssm<span class="nt">&lt;/artifactId&gt;</span>
+     <span class="nt">&lt;version&gt;</span>1.11.756<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>com.amazonaws<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>aws-java-sdk-core<span class="nt">&lt;/artifactId&gt;</span>
+     <span class="nt">&lt;version&gt;</span>1.11.756<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>クラウドネイティブ基本編 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4316">第1回</a> と同様、HandlerクラスとFunctionクラスを実装します。
+これまでのhandleRequest()メソッドは継承クラスのものをオーバーライドするのみでしたが、今回はCloudFormationからの複数のイベントをハンドリングするので以下の通り実装します。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.sonarqube.initdb.app.handler</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.lambda.runtime.Context</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.sonarqube.initdb.app.CloudFormationResponseSender</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.sonarqube.initdb.app.model.Status</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.function.adapter.aws.SpringBootRequestHandler</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">reactor.core.publisher.Flux</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Objects</span><span class="o">;</span>
+
+<span class="nd">@Slf4j</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LambdaTriggerHandler</span> <span class="kd">extends</span>
+     <span class="n">SpringBootRequestHandler</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="o">{</span>                                       <span class="c1">// (A)</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">handleRequest</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">event</span><span class="o">,</span> <span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>                      <span class="c1">// (B)</span>
+        <span class="k">for</span><span class="o">(</span><span class="n">String</span> <span class="n">key</span> <span class="o">:</span> <span class="n">event</span><span class="o">.</span><span class="na">keySet</span><span class="o">()){</span>
+            <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;[Key]&quot;</span> <span class="o">+</span> <span class="n">key</span> <span class="o">+</span> <span class="s">&quot; [Value]&quot;</span> <span class="o">+</span> <span class="n">event</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">).</span><span class="na">toString</span><span class="o">());</span>                      <span class="c1">// (C)</span>
+        <span class="o">}</span>
+        <span class="n">Object</span> <span class="n">requestType</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;RequestType&quot;</span><span class="o">);</span>                                             <span class="c1">// (D)</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">requestType</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">Objects</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">requestType</span><span class="o">.</span><span class="na">toString</span><span class="o">(),</span> <span class="s">&quot;Delete&quot;</span><span class="o">)){</span>               <span class="c1">// (E)</span>
+            <span class="n">CloudFormationResponseSender</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">context</span><span class="o">,</span> <span class="n">Status</span><span class="o">.</span><span class="na">SUCCESS</span><span class="o">,</span>
+              <span class="n">event</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;ResourceProperties&quot;</span><span class="o">),</span> <span class="n">event</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;PhysicalResourceId&quot;</span><span class="o">).</span><span class="na">toString</span><span class="o">(),</span> <span class="kc">false</span><span class="o">);</span> <span class="c1">// (F)</span>
+            <span class="k">return</span> <span class="n">Flux</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="s">&quot;Complete!&quot;</span><span class="o">);</span>                                                         <span class="c1">// (G)</span>
+        <span class="o">}</span>
+        <span class="n">Object</span> <span class="n">result</span> <span class="o">=</span> <span class="kd">super</span><span class="o">.</span><span class="na">handleRequest</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">context</span><span class="o">);</span>                                       <span class="c1">// (H)</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">requestType</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">result</span> <span class="k">instanceof</span> <span class="n">Flux</span><span class="o">){</span>
+            <span class="n">CloudFormationResponseSender</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">context</span><span class="o">,</span> <span class="n">Status</span><span class="o">.</span><span class="na">SUCCESS</span><span class="o">,</span>
+              <span class="n">event</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;ResourceProperties&quot;</span><span class="o">),</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>                                       <span class="c1">// (I)</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+     <span class="o">}</span>
+
+ <span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>各実装の詳細は以下の通りです。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id7">
+<caption><span class="caption-text">Handlerクラスで実装する処理</span><a class="headerlink" href="#id7" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>項番</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple">
+<li></li>
+</ol>
+</td>
+<td>CloudFormationからのイベントを受け取るため、SpringBootRequestHandlerをInput型パラメータとしてMap&lt;String, Object&gt;型を、Output型パラメータとしてStringを指定します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="2">
+<li></li>
+</ol>
+</td>
+<td>handleRequest()メソッドをオーバーライドします。CloudFormationからは、スタックの作成、更新、削除といったイベントでLambdaファンクションがコールされるため、イベントに応じて異なる処理を行うように実装します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="3">
+<li></li>
+</ol>
+</td>
+<td>イベントのパラメータをログ出力して表示させます。このログはCloudWatchに出力されますが、トラブルシューティング時に必要なデータになります。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="4">
+<li></li>
+</ol>
+</td>
+<td>イベントの種別を取得します。スタックの作成、更新、削除がそれぞれ&quot;Create&quot;、&quot;Update&quot;、&quot;Delete&quot;に対応します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="5">
+<li></li>
+</ol>
+</td>
+<td>スタックを削除する場合の処理を実装します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="6">
+<li></li>
+</ol>
+</td>
+<td>イベントのパラメータに含まれているResponseURLに、&quot;SUCCESS&quot;シグナルを送信します。実装の詳細は後述します。この処理がなければ、スタックの削除処理が完了しません。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="7">
+<li></li>
+</ol>
+</td>
+<td>処理完了後は適当な文字列を出力します。この文字列はCloudWatch上に出力されるので、完了通知などに利用することができます。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="8">
+<li></li>
+</ol>
+</td>
+<td>Functionクラスに実装した処理を呼び出します。実装の詳細は後述します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperroman simple">
+<li></li>
+</ol>
+</td>
+<td>(H)の実行後、イベントのパラメータに含まれているResponseURLに、&quot;SUCCESS&quot;シグナルを送信します。実装の詳細は後述します。この処理がなければ、スタックの作成・更新処理が完了しません。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>また、CloudFormationにシグナルを送信するためのCloudFormationResponseSenderの実装は以下の通りです。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.sonarqube.initdb.app</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.lambda.runtime.Context</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.fasterxml.jackson.databind.ObjectMapper</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.fasterxml.jackson.databind.PropertyNamingStrategy</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.sonarqube.initdb.app.model.CfnResponse</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.sonarqube.initdb.app.model.Status</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.web.client.RestTemplateBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.http.HttpEntity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.http.HttpHeaders</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.http.HttpMethod</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.http.MediaType</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.http.converter.json.MappingJackson2HttpMessageConverter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.util.LinkedMultiValueMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.util.MultiValueMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.client.RestOperations</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.util.UriComponentsBuilder</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.UnsupportedEncodingException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URI</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URLDecoder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URLEncoder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.nio.charset.StandardCharsets</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Collections</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+
+<span class="nd">@Slf4j</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CloudFormationResponseSender</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="nf">send</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">event</span><span class="o">,</span> <span class="n">Context</span> <span class="n">context</span><span class="o">,</span>
+                          <span class="n">Status</span> <span class="n">status</span><span class="o">,</span> <span class="n">T</span> <span class="n">responseData</span><span class="o">,</span> <span class="n">String</span> <span class="n">physicalResourceId</span><span class="o">,</span>
+                          <span class="kt">boolean</span> <span class="n">noEcho</span><span class="o">){</span>
+        <span class="n">Object</span> <span class="n">responseURL</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;ResponseURL&quot;</span><span class="o">);</span>                              <span class="c1">// (A)</span>
+
+        <span class="n">ObjectMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectMapper</span><span class="o">()</span>
+          <span class="o">.</span><span class="na">setPropertyNamingStrategy</span><span class="o">(</span><span class="n">PropertyNamingStrategy</span><span class="o">.</span><span class="na">UPPER_CAMEL_CASE</span><span class="o">);</span>      <span class="c1">// (B)</span>
+        <span class="n">MappingJackson2HttpMessageConverter</span> <span class="n">converter</span> <span class="o">=</span>
+          <span class="k">new</span> <span class="n">MappingJackson2HttpMessageConverter</span><span class="o">();</span>
+        <span class="n">converter</span><span class="o">.</span><span class="na">setObjectMapper</span><span class="o">(</span><span class="n">mapper</span><span class="o">);</span>
+        <span class="n">RestOperations</span> <span class="n">restOperations</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RestTemplateBuilder</span><span class="o">()</span>
+          <span class="o">.</span><span class="na">messageConverters</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">converter</span><span class="o">))</span>
+          <span class="o">.</span><span class="na">build</span><span class="o">();</span>                                                                 <span class="c1">// (C)</span>
+
+        <span class="k">if</span><span class="o">(</span><span class="n">responseURL</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+            <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;ResponseURL : &quot;</span> <span class="o">+</span> <span class="n">responseURL</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+            <span class="n">CfnResponse</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">cfnResponse</span> <span class="o">=</span> <span class="n">CfnResponse</span><span class="o">.&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="n">builder</span><span class="o">()</span>
+              <span class="o">.</span><span class="na">Status</span><span class="o">(</span><span class="n">status</span><span class="o">)</span>
+              <span class="o">.</span><span class="na">Reason</span><span class="o">(</span><span class="s">&quot;See the details in CloudWatch Log Stream: &quot;</span> <span class="o">+</span> <span class="n">context</span><span class="o">.</span><span class="na">getLogStreamName</span><span class="o">())</span>
+              <span class="o">.</span><span class="na">PhysicalResourceId</span><span class="o">(</span><span class="n">physicalResourceId</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span>
+                      <span class="n">context</span><span class="o">.</span><span class="na">getLogStreamName</span><span class="o">():</span> <span class="n">physicalResourceId</span><span class="o">)</span>
+              <span class="o">.</span><span class="na">StackId</span><span class="o">(</span><span class="n">event</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;StackId&quot;</span><span class="o">).</span><span class="na">toString</span><span class="o">())</span>
+              <span class="o">.</span><span class="na">RequestId</span><span class="o">(</span><span class="n">event</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;RequestId&quot;</span><span class="o">).</span><span class="na">toString</span><span class="o">())</span>
+              <span class="o">.</span><span class="na">LogicalResourceId</span><span class="o">(</span><span class="n">event</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;LogicalResourceId&quot;</span><span class="o">).</span><span class="na">toString</span><span class="o">())</span>
+              <span class="o">.</span><span class="na">NoEcho</span><span class="o">(</span><span class="n">noEcho</span><span class="o">)</span>
+              <span class="o">.</span><span class="na">Data</span><span class="o">(</span><span class="n">responseData</span><span class="o">)</span>
+              <span class="o">.</span><span class="na">build</span><span class="o">();</span>                                                              <span class="c1">// (D)</span>
+
+            <span class="n">HttpHeaders</span> <span class="n">headers</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HttpHeaders</span><span class="o">();</span>
+            <span class="n">headers</span><span class="o">.</span><span class="na">setContentType</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">);</span>
+            <span class="n">HttpEntity</span><span class="o">&lt;</span><span class="n">CfnResponse</span><span class="o">&gt;</span> <span class="n">requestEntity</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HttpEntity</span><span class="o">&lt;&gt;(</span><span class="n">cfnResponse</span><span class="o">,</span> <span class="n">headers</span><span class="o">);</span>
+            <span class="n">restOperations</span><span class="o">.</span><span class="na">exchange</span><span class="o">(</span><span class="n">getUri</span><span class="o">(</span><span class="n">responseURL</span><span class="o">.</span><span class="na">toString</span><span class="o">()),</span>
+              <span class="n">HttpMethod</span><span class="o">.</span><span class="na">PUT</span><span class="o">,</span> <span class="n">requestEntity</span><span class="o">,</span> <span class="n">Void</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>                            <span class="c1">// (E)</span>
+       <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+           <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="o">(</span><span class="s">&quot;No ResponseURL to send.&quot;</span><span class="o">);</span>
+       <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">protected</span> <span class="kd">static</span> <span class="n">URI</span> <span class="nf">getUri</span><span class="o">(</span><span class="n">String</span> <span class="n">responseURL</span><span class="o">){</span>                                 <span class="c1">// (F)</span>
+
+        <span class="n">String</span> <span class="n">url</span> <span class="o">=</span> <span class="n">responseURL</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&quot;\\?&quot;</span><span class="o">)[</span><span class="mi">0</span><span class="o">];</span>
+        <span class="n">MultiValueMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedMultiValueMap</span><span class="o">&lt;&gt;();</span>
+
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">String</span><span class="o">[]</span> <span class="n">urlParams</span> <span class="o">=</span> <span class="n">responseURL</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&quot;\\?&quot;</span><span class="o">)[</span><span class="mi">1</span><span class="o">].</span><span class="na">split</span><span class="o">(</span><span class="s">&quot;&amp;&quot;</span><span class="o">);</span>
+            <span class="k">for</span><span class="o">(</span><span class="n">String</span> <span class="n">param</span> <span class="o">:</span> <span class="n">urlParams</span><span class="o">){</span>
+                <span class="n">String</span> <span class="n">key</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&quot;=&quot;</span><span class="o">)[</span><span class="mi">0</span><span class="o">];</span>
+                <span class="n">String</span> <span class="n">value</span> <span class="o">=</span> <span class="n">URLDecoder</span><span class="o">.</span><span class="na">decode</span><span class="o">(</span><span class="n">param</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&quot;=&quot;</span><span class="o">)[</span><span class="mi">1</span><span class="o">],</span> <span class="n">StandardCharsets</span><span class="o">.</span><span class="na">UTF_8</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+                <span class="n">params</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">Collections</span><span class="o">.</span><span class="na">singletonList</span><span class="o">(</span><span class="n">URLEncoder</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span><span class="n">value</span><span class="o">,</span> <span class="s">&quot;UTF-8&quot;</span><span class="o">)));</span>
+            <span class="o">}</span>
+        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">UnsupportedEncodingException</span> <span class="n">e</span><span class="o">){</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">UriComponentsBuilder</span><span class="o">.</span><span class="na">fromHttpUrl</span><span class="o">(</span><span class="n">url</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">queryParams</span><span class="o">(</span><span class="n">params</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">build</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">toUri</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>実装のポイントは以下の通りです。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id8">
+<caption><span class="caption-text">CloudFormationResponseSenderの実装のポイント</span><a class="headerlink" href="#id8" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>項番</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple">
+<li></li>
+</ol>
+</td>
+<td>インプットパラメータから、ResponseURLを抽出します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="2">
+<li></li>
+</ol>
+</td>
+<td>CloudFormationに送信するJSON文字列パラメータの変数は英大文字で始まるため、JacksonのマッパーライブラリのPropertyNamingStrategyをUPPER_CAMEL_CASEに指定します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="3">
+<li></li>
+</ol>
+</td>
+<td>(B)を設定したコンバータをセットして、RestOperationsを生成します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="4">
+<li></li>
+</ol>
+</td>
+<td>送信するJSON文字列パラメータを生成します。パラメータの詳細は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/cfn-lambda-function-code-cfnresponsemodule.html">AWSドキュメント「cfn-response モジュール」</a> を参考にしてください。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="5">
+<li></li>
+</ol>
+</td>
+<td>ResponseURLに対し、(D)のパラメータやHTTPヘッダを付与して、PUTメソッドでリクエストを送信します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="6">
+<li></li>
+</ol>
+</td>
+<td>既にURLエンコードされたResponseURLが2重エンコードにならないよう、パラメータを分解して取得し直してからURIを再作成します。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">使用する通信ライブラリによっては、既にURLエンコードされた文字列を２重にエンコードして無効なリクエストになってしまう場合があるため、ライブラリの仕様に注意して実装する必要があります。</p>
+</div>
+<p><br/></p>
+<p>また、Handlerから呼び出されるFunctionクラスの実装は以下の通りです。JdbcTemplateを使ってDDLをRDSに対して実行します。パスワードなどの秘匿データはSystemsManager ParameterStoreから取得する実装にしています。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.sonarqube.initdb.app.function</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.simplesystemsmanagement.AWSSimpleSystemsManagement</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.simplesystemsmanagement.model.GetParameterRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.jdbc.core.JdbcTemplate</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">reactor.core.publisher.Flux</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.function.Function</span><span class="o">;</span>
+
+<span class="nd">@Slf4j</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">InitDBFunction</span> <span class="kd">implements</span> <span class="n">Function</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;,</span> <span class="n">Flux</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;&gt;</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">JdbcTemplate</span> <span class="n">jdbcTemplate</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">AWSSimpleSystemsManagement</span> <span class="n">awsSimpleSystemsManagement</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Flux</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">apply</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">stringObjectMap</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">GetParameterRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GetParameterRequest</span><span class="o">();</span>
+        <span class="n">request</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">&quot;mynavi-sonarqube-rds-sonar-password&quot;</span><span class="o">);</span>
+        <span class="n">request</span><span class="o">.</span><span class="na">setWithDecryption</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+        <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="s">&quot;CREATE ROLE sonar WITH LOGIN PASSWORD &#39;&quot;</span>
+          <span class="o">+</span> <span class="n">awsSimpleSystemsManagement</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="n">request</span><span class="o">).</span><span class="na">getParameter</span><span class="o">().</span><span class="na">getValue</span><span class="o">()</span>
+          <span class="o">+</span> <span class="s">&quot;&#39;;&quot;</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">Flux</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="s">&quot;Complete!&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>第一回のやり方と同じく、実装したソースコードをLambdaファンクションとしてビルドして、前回作成したS3バケットにアップロードするシェルスクリプトを作成して実行します。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+
+<span class="nv">bucket_name</span><span class="o">=</span>debugroom-mynavi-sonarqube-cfn-lambda-bucket
+<span class="nv">stack_name</span><span class="o">=</span><span class="s2">&quot;mynavi-sonarqube-s3-lambda&quot;</span>
+<span class="nv">template_path</span><span class="o">=</span><span class="s2">&quot;rds/1-s3-lambda-deploy-cfn.yml&quot;</span>
+<span class="nv">s3_objectkey</span><span class="o">=</span><span class="s2">&quot;mynavi-sample-sonarqube-initdb-0.0.1-SNAPSHOT-aws.jar&quot;</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;&quot;</span> <span class="o">==</span> <span class="s2">&quot;`aws s3 ls | grep </span><span class="nv">$bucket_name</span><span class="s2">`&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    aws cloudformation deploy --stack-name <span class="si">${</span><span class="nv">stack_name</span><span class="si">}</span> --template-file <span class="si">${</span><span class="nv">template_path</span><span class="si">}</span> --capabilities CAPABILITY_IAM
+<span class="k">fi</span>
+
+<span class="nb">cd</span> rds/lambda-sonarqube-dbinit
+./mvnw package
+aws s3 cp target/<span class="si">${</span><span class="nv">s3_objectkey</span><span class="si">}</span> s3://<span class="si">${</span><span class="nv">bucket_name</span><span class="si">}</span>/
+</pre></div>
+</div>
+<p><br/></p>
+<p>今回はRDSへの初期化処理を行うLambdaファンクションを実装して、S3へアップロードしました。次回はLambdaデプロイやカスタムリソースを実行するCloudFormationテンプレートを実装します。</p>
+<p><br/></p>
+</div>
+<div class="section" id="id6">
+<h2>著者紹介<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei) - NTTデータ 課長代理</p>
+<div class="figure">
+<img alt="../_images/pic_image01.jpg" src="../_images/pic_image01.jpg" />
+</div>
+<p>金融機関システム業務アプリケーション開発・システム基盤担当を経て、現在はソフトウェア開発自動化関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p><a class="reference external" href="https://aws.amazon.com/jp/blogs/psa/japan-apn-ambassador-2019/">2019 APN AWS Top Engineers &amp; Ambassadors</a> 選出。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

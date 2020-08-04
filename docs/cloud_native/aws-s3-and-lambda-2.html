@@ -141,6 +141,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_task.html">【第37回】AWS CloudFormationを用いた基盤自動化(17)ECSタスク定義の構築</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_taskrole.html">【第38回】AWS CloudFormationを用いた基盤自動化(18)ECSタスクロール定義の構築</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.html">【第39回】AWS CloudFormationを用いた基盤自動化(19)ECSサービスの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_base.html">【第40回】AWS CloudFormationを用いた基盤自動化(20)継続的インテグレーション環境の構築(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_lambda.html">【第41回】AWS CloudFormationを用いた基盤自動化(21)継続的インテグレーション環境の構築(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_custom_resource.html">【第41回】AWS CloudFormationを用いた基盤自動化(22)継続的インテグレーション環境の構築(3)</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -441,8 +444,8 @@ Resources:
             Action:
               - &quot;cloudformation:*&quot;
             Resource: &quot;*&quot;
-    Roles:
-      - !Ref LambdaRole
+      Roles:
+        - !Ref LambdaRole
 
   SSMAccessPolicy:                                                           # (L)
     Type: AWS::IAM::Policy
@@ -454,14 +457,14 @@ Resources:
           Action:
             - &quot;cloudwatch:PutMetricData&quot;
             # omit
-    Roles:
-      - !Ref LambdaRole
+      Roles:
+        - !Ref LambdaRole
 
 Outputs:
   SampleLambdaS3EventArn:                                                    # (M)
     Value: !GetAtt SampleLambdaS3Event.Arn
     Export:
-    Name: MynaviSampleLambdaS3Event-LambdaArn
+      Name: MynaviSampleLambdaS3Event-LambdaArn
 </pre></div>
 </div>
 <p><br/></p>

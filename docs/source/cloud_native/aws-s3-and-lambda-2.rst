@@ -267,8 +267,8 @@ DynamoDBのテンプレートでは、テーブル定義をリソースとして
                Action:
                  - "cloudformation:*"
                Resource: "*"
-       Roles:
-         - !Ref LambdaRole
+         Roles:
+           - !Ref LambdaRole
 
      SSMAccessPolicy:                                                           # (L)
        Type: AWS::IAM::Policy
@@ -280,14 +280,14 @@ DynamoDBのテンプレートでは、テーブル定義をリソースとして
              Action:
                - "cloudwatch:PutMetricData"
                # omit
-       Roles:
-         - !Ref LambdaRole
+         Roles:
+           - !Ref LambdaRole
 
    Outputs:
      SampleLambdaS3EventArn:                                                    # (M)
        Value: !GetAtt SampleLambdaS3Event.Arn
        Export:
-       Name: MynaviSampleLambdaS3Event-LambdaArn
+         Name: MynaviSampleLambdaS3Event-LambdaArn
 
 |br|
 

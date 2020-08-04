@@ -188,6 +188,7 @@ S3アップロード後に実行するLambdaファンクションの実装
    </dependency>
 
 |br|
+
 それでは、第一回同様、HandlerクラスとイベントとしてLamnda関数から実行されるFunctionクラスから解説を進みます。今回は、S3のファイルアップロードを契機にイベント受信するので、
 HandlerクラスはSpirngBootRequestHandlerを継承して作成します。継承するクラスの型パラメータとしては、Inputにcom.amazonaws.services.s3.event.S3EventNotificationを、OutputにはString型を指定します。
 
