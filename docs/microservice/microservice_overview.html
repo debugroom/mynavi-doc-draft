@@ -18,8 +18,8 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="【第2回】本連載でモデルとするマイクロサービスアーキテクチャ" href="microservice_architecture.html" />
-    <link rel="prev" title="【第39回】AWS CloudFormationを用いた基盤自動化(19)ECSサービスの構築" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.html" />
+    <link rel="next" title="【第2回】マイクロサービスアーキテクチャの全体像" href="microservice_architecture.html" />
+    <link rel="prev" title="【第43回】AWS CloudFormationを用いた基盤自動化(23)継続的インテグレーション環境の構築(4)" href="../automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_server.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -96,6 +96,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-4.html">【第1回】AmazonS3へダイレクトアクセスするアプリケーション実装(4)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-5.html">【第2回】AmazonS3へダイレクトアクセスするアプリケーション実装(5)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-6.html">【第3回】AmazonS3へダイレクトアクセスするアプリケーション実装(6)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-and-lambda-1.html">【第4回】AmazonS3で発生したイベント契機で実行するサーバレスアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-and-lambda-2.html">【第5回】AmazonS3で発生したイベント契機で実行するサーバレスアプリケーション(2)</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -139,11 +141,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_task.html">【第37回】AWS CloudFormationを用いた基盤自動化(17)ECSタスク定義の構築</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_taskrole.html">【第38回】AWS CloudFormationを用いた基盤自動化(18)ECSタスクロール定義の構築</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.html">【第39回】AWS CloudFormationを用いた基盤自動化(19)ECSサービスの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_base.html">【第40回】AWS CloudFormationを用いた基盤自動化(20)継続的インテグレーション環境の構築(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_lambda.html">【第41回】AWS CloudFormationを用いた基盤自動化(21)継続的インテグレーション環境の構築(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_custom_resource.html">【第42回】AWS CloudFormationを用いた基盤自動化(22)継続的インテグレーション環境の構築(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_server.html">【第43回】AWS CloudFormationを用いた基盤自動化(23)継続的インテグレーション環境の構築(4)</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">【第1回】マイクロサービスアーキテクチャで目指すもの</a></li>
-<li class="toctree-l1"><a class="reference internal" href="microservice_architecture.html">【第2回】本連載でモデルとするマイクロサービスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_architecture.html">【第2回】マイクロサービスアーキテクチャの全体像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_webapp-1.html">【第3回】Webアプリケーションの実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_webapp-2.html">【第4回】Webアプリケーションの実装(2)</a></li>
 </ul>
 </ul>
 </li>
@@ -173,11 +181,11 @@
               
                 
   <li>
-    <a href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.html" title="Previous Chapter: 【第39回】AWS CloudFormationを用いた基盤自動化(19)ECSサービスの構築"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 【第39回】AWS Clo...</span>
+    <a href="../automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_server.html" title="Previous Chapter: 【第43回】AWS CloudFormationを用いた基盤自動化(23)継続的インテグレーション環境の構築(4)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 【第43回】AWS Clo...</span>
     </a>
   </li>
   <li>
-    <a href="microservice_architecture.html" title="Next Chapter: 【第2回】本連載でモデルとするマイクロサービスアーキテクチャ"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">【第2回】本連載でモデルと... &raquo;</span>
+    <a href="microservice_architecture.html" title="Next Chapter: 【第2回】マイクロサービスアーキテクチャの全体像"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">【第2回】マイクロサービス... &raquo;</span>
     </a>
   </li>
               
@@ -377,7 +385,7 @@ ALBでは、各コンテナにデプロイされたマイクロサービスのIP
 <h2>著者紹介<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei) - NTTデータ</p>
 <div class="figure">
-<img alt="../_images/aws_361383_0751.jpeg" src="../_images/aws_361383_0751.jpeg" />
+<img alt="../_images/aws_361383_0752.jpeg" src="../_images/aws_361383_0752.jpeg" />
 </div>
 <p>金融機関システム業務アプリケーション開発・システム基盤担当、ソフトウェア開発自動化関連の研究開発を経て、デジタル技術関連の研究開発・推進に従事。</p>
 <p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>

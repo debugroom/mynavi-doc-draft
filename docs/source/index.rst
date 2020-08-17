@@ -137,3 +137,5 @@
 
    microservice/microservice_overview.rst
    microservice/microservice_architecture.rst
+   microservice/microservice_webapp-1.rst
+   microservice/microservice_webapp-2.rst

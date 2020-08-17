@@ -1,0 +1,257 @@
+.. include:: ../module.txt
+
+.. _section-aws-microservice-webapp-label:
+
+【第3回】Webアプリケーションの実装
+====================================================================
+
+マイクロサービスアプリケーション環境の詳細と利用するサービス・ライブラリ
+----------------------------------------------------------------------------------
+
+|br|
+
+前回はマイクロサービスの具体的なアーキテクチャの全体像と、そのアーキテクチャを実現する上で、難しいハードルのひとつである認証／認可処理の全体像や考え方を解説しました。
+今回からアプリケーションを実装していくにあたり、詳細なアーキテクチャや使用するマネージドサービス・ライブラリなどを整理し、実際に実装を進めていきます。
+本連載では、段階的にアプリケーションやそれを実行するのに必要な環境を構築していきますが、まず最初に最終的なアプリケーション構成や使用するサービスのイメージを示します。
+下記の図は代表的なクライアントになるWebアプリケーションとそれが呼び出すマイクロサービスをピックアップして詳細化したものです。
+
+|br|
+
+.. figure:: img/webapp/service-architecture.png
+
+|br|
+
+何故こういう構成にするのかを簡単に説明します。前回も解説した通り、Webアプリケーションや管理用のアプリケーション、モバイルアプリケーションに加えてサードパーティの外部サービスなど
+様々なクライアントがマイクロサービスを利用したいとします。マイクロサービスは時々のリクエスト量に応じてスケールアウト、スケールインして負荷を分散しながらも、
+正しい権限をもったクライアントからのリクエストであるか、その正当性を確認しなければなりません。基本的にクライアントはWebアプリケーションの他にもモバイルやサードパーティ製サービスからなる不特定多数であり、
+VPCを分けて、全て信頼されたネットワークからしかアクセスできないように制御したインターナルなALBを経由して、オートスケーリング設定を施したECSクラスタに配置されたマイクロサービスを呼び出させるように構成します。
+
+このような構成により不正アクセスやDDos攻撃などのセキュリティの脅威を可能な限り排除します。モノリシックなアプリケーション構成と比べて多段化するので、
+AWS X-Rayを用いてアプリケーションやサービス間の呼び出しを可視化します。リクエスト頻度が高いサービスがアクセスするデータベースは、場合によってRDSの他にも
+DynamoDBのようなスケーラビリティ性を有するものを使用した方がよいでしょう。アプリケーション環境の構築やデプロイは迅速性・正確性が要求されるため、CloudFormationを使って構築します。
+なお、フロントエンドサブネットでElastiCacheを配置しているのは、フロントに配置されたアプリケーションをスケールさせた場合にセッション共有するためです。
+その他、不要なバックエンドのマイクロサービスの呼び出しをさけるためにキャッシュとしても利用します。
+
+今回からはフロントエンドサブネットにあるマイクロサービスを利用するクライアントとなるWebアプリケーションを実装していきます。
+このアプリケーションは連載「AWSで実践! 基盤構築・デプロイ自動化」の `第4回 <https://news.mynavi.jp/itsearch/article/devsoft/4475>`_ で示したアプリケーションパッケージ・コンポーネントとほぼ同等に構成していきます。
+まず作成するのは、バックエンドの呼び出しを行わない簡単なWebアプリケーションのサンプルですが、通常Webアプリケーション自体にも認証認可処理が必要であり、これを追加します。SpringBootアプリケーションで認証認可を行う場合、一般にSpringSecurityを使用します。
+次回以降の解説で、Webアプリケーションから呼び出すマイクロサービスにもAWS CognitoおよびSpring Securityを使ったOAuth2のアクセストークンによる認可制御を実装するので、まずSpring Securityの基本的な概要や使い方を押さえておきましょう。
+
+|br|
+
+Spring Securityの概要
+------------------------------------------------------------------
+
+|br|
+
+Spring Securityに関するドキュメントは `Springの公式 <https://spring.io/projects/spring-security#overview>`_ 以外にも `TERASOLUNAのガイドライン セキュリティ対策 <http://terasolunaorg.github.io/guideline/5.6.0.RELEASE/ja/Security/index.html>`_ が詳しいですが、
+端的に説明すれば、SpringFrameworkを用いてWebアプリケーションを作成する場合に認証認可処理を簡単に実装できるフレームワークです。JavaWebアプリケーションの標準的な機能であるサーブレットフィルタを使って、
+リクエストが処理される前に正当性の検証や不正リクエストのブロックなど一般的なセキュリティ脆弱性をついた攻撃に対して防御となる機能を提供しています。
+他にもパスワードのハッシュ化や暗号化、本連載のメイントピックの一つになるOAuth2を使ったトークン認証など様々なセキュリティ対策の処理を実装しています。
+セキュリティ脆弱性をついた攻撃に対する防御方法は一般に難解であり、このような問題に個々で対処するには難易度も高いのでこのようなライブラリを使用する方がベターです。
+セキュリティ対策の難解性ゆえに、SpringSecurityを扱うこと自体も難しく捉えられがちですが、非常に拡張性も高く、少量のコーディングで様々なセキュリティ対策処理を実装することが可能です。
+
+|br|
+
+Spring Securityを使ったWebアプリケーション
+------------------------------------------------------------------
+
+|br|
+では早速、SpringSecurityを使ってIDとパスワードを使ってログイン・認証を行う簡単なアプリケーションを実装してみましょう。
+本連載で実際に作成するアプリケーションでは `GitHub <https://github.com/debugroom/mynavi-sample-aws-microservice/tree/feature_1-frontend-webapp>`_ 上にコミットしています。
+以降に記載するソースコードでは、import文など本質的でない記述を省略している部分があるので、実行コードを作成する際は、必要に応じて適宜GitHubにあるソースコードも参照してください。
+
+なお、本連載は以下の前提知識がある開発者を想定しています。
+
+|br|
+
+.. list-table::
+   :widths: 3, 7
+
+   * - 対象読者
+     - 前提知識
+
+   * - エンタープライズ開発者
+     - Java言語及びSpringFrameworkを使った開発に従事したことがある経験者。経験がなければ、|br|
+       `こちらのチュートリアル <http://terasolunaorg.github.io/guideline/5.6.0.RELEASE/ja/Tutorial/index.html>`_ を実施することを推奨します。TERASOLUNAはSpringのベストプラクティスをまとめた開発方法論で、
+       このチュートリアルでは、JavaやSpring Frameworkを使った開発に必要な最低限の知識を得ることができます。
+
+   * -
+     - GitHubなどのバージョン管理ツールやApache Mavenなどのライブラリ管理ツールを使った開発に従事したことがある経験者。
+
+   * - AWS開発経験者
+     - AWSアカウントをもち、コンソール上で各サービスを実行したことがある経験者
+
+|br|
+
+また、動作環境は以下のバージョンで実施しています。
+
+|br|
+
+
+.. list-table::
+   :widths: 5, 5
+
+   * - 動作対象
+     - バージョン
+
+   * - Java
+     - 11
+
+   * - Spring Boot
+     - 2.3.3.RELEASE
+
+   * - Spring Security
+     - 5.3.4.RELEASE
+
+|br|
+
+まず、使用するライブラリを以下の通り、pom.xmlに定義します。SpringBootを使ったWebアプリケーション、SpringSecurity、およびテンプレートエンジンであるThymeleafを使用します。
+
+|br|
+
+.. sourcecode:: xml
+
+   <dependency>
+     <groupId>org.springframework.boot</groupId>
+     <artifactId>spring-boot-starter-security</artifactId>
+   </dependency>
+   <dependency>
+     <groupId>org.springframework.boot</groupId>
+     <artifactId>spring-boot-starter-thymeleaf</artifactId>
+   </dependency>
+   <dependency>
+     <groupId>org.springframework.boot</groupId>
+     <artifactId>spring-boot-starter-web</artifactId>
+   </dependency>
+
+|br|
+
+SpringSecurityを使った認証をアプリケーションに組み込むには、設定クラスを実装して、アプリケーション起動クラスの読み込み設定対象に加える必要があります。
+今回は以下のような設定クラスを実装し、起動クラスと同一パッケージに配置しておきます。
+
+|br|
+
+.. sourcecode:: java
+
+   package org.debugroom.mynavi.sample.aws.microservice.frontend.webapp.config;
+
+   import org.springframework.beans.factory.annotation.Autowired;
+   import org.springframework.context.annotation.Bean;
+   import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+   import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+   import org.springframework.security.config.annotation.web.builders.WebSecurity;
+   import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+   import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+   import org.springframework.security.core.userdetails.UserDetailsService;
+   import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+   import org.springframework.security.crypto.password.PasswordEncoder;
+   import org.springframework.security.web.AuthenticationEntryPoint;
+
+   import org.debugroom.mynavi.sample.aws.microservice.frontend.webapp.app.web.security.CustomUserDetailsService;
+   import org.debugroom.mynavi.sample.aws.microservice.frontend.webapp.app.web.security.LoginSuccessHandler;
+   import org.debugroom.mynavi.sample.aws.microservice.frontend.webapp.app.web.security.SessionExpiredDetectingLoginUrlAuthenticationEntryPoint;
+
+   @EnableWebSecurity                                                           //(A)
+   public class SecurityConfig extends WebSecurityConfigurerAdapter {           //(B)
+
+       @Autowired
+       PasswordEncoder passwordEncoder;                                         //(C)
+
+       @Override
+       public void configure(WebSecurity web) throws Exception {
+           web.ignoring().antMatchers("/static/**");                            //(D)
+       }
+
+       @Override
+       protected void configure(HttpSecurity http) throws Exception {
+           http.authorizeRequests()
+                .antMatchers("/favicon.ico").permitAll()                        //(E)
+                .antMatchers("/webjars/**").permitAll()
+                .antMatchers("/static/**").permitAll()
+                .antMatchers("/timeout").permitAll()
+                .anyRequest().authenticated()                                   //(F)
+                .and()
+                .csrf().disable()                                               //(G)
+                .formLogin()
+                .loginProcessingUrl("/authenticate")                            //(H)
+                .loginPage("/login")                                            //(I)
+                .successHandler(loginSuccessHandler())                          //(J)
+                .failureUrl("/login")                                           //(K)
+                .usernameParameter("username")                                  //(L)
+                .passwordParameter("password")                                  //(M)
+                .permitAll()                                                    //(O)
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(authenticationEntryPoint())           //(P)
+                .and()
+                .logout()                                                       //(Q)
+                .logoutSuccessUrl("/login")
+                .permitAll();
+       }
+
+       @Bean
+       public LoginSuccessHandler loginSuccessHandler(){                        //(R)
+           return new LoginSuccessHandler();
+       }
+
+       @Bean
+       AuthenticationEntryPoint authenticationEntryPoint() {                    //(S)
+           return new SessionExpiredDetectingLoginUrlAuthenticationEntryPoint("/login");
+       }
+
+       @Bean
+       public PasswordEncoder passwordEncoder(){                                //(T)
+           return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+       }
+
+       @Override
+       protected UserDetailsService userDetailsService() {                      //(U)
+           return new CustomUserDetailsService();
+       }
+
+       @Override
+       protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+            auth
+                .userDetailsService(userDetailsService())
+                .passwordEncoder(passwordEncoder);                              //(V)
+       }
+   }
+
+|br|
+
+S3DirectDownloadHelperクラスコードの説明は以下の通りです。
+
+|br|
+
+.. list-table:: SecurityConfigクラスコードの説明
+   :widths: 1, 19
+
+   * - 項番
+     - 説明
+
+   * - (A)
+     -
+
+   * - (B)
+     - application.ymlに前回作成したIAMロール名を記載しておき、@Valueでインジェクションします。
+
+
+今回は、本連載でAWS上に構成、実装していくアーキテクチャと認証・認可の全体像や考え方を解説しました。次回以降は、実際にアプリケーションを実装するためのベースとなる環境を構築していきます。
+
+|br|
+
+著者紹介
+------------------------------------------------------------------
+
+川畑 光平(KAWABATA Kohei) - NTTデータ
+
+.. figure:: img/overview/aws_361383_075.jpeg
+
+金融機関システム業務アプリケーション開発・システム基盤担当、ソフトウェア開発自動化関連の研究開発を経て、デジタル技術関連の研究開発・推進に従事。
+
+Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。
+
+`AWS Top Engineers & Ambassadors <https://aws.amazon.com/jp/partners/ambassadors/?cards-body.sort-by=item.additionalFields.ambassadorName&cards-body.sort-order=asc&cards-body.q=kawabata&cards-body.q_operator=AND>`_ 選出。
+
+本連載記事の内容に対するご意見・ご質問は `Facebook <https://www.facebook.com/kohei.kawabata.5>`_ まで。
