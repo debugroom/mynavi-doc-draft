@@ -152,6 +152,9 @@
 <li class="toctree-l1"><a class="reference internal" href="microservice_architecture.html">【第2回】マイクロサービスアーキテクチャの全体像</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">【第3回】Webアプリケーションの実装(1)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="microservice_webapp-2.html">【第4回】Webアプリケーションの実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_backend_user-1.html">【第5回】バックエンドマイクロサービスの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_webapp-3.html">【第6回】Webアプリケーションからマイクロサービスを呼び出す実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_webapp-4.html">【第7回】Webアプリケーションからマイクロサービスを呼び出す実装(2)</a></li>
 </ul>
 </ul>
 </li>
@@ -298,6 +301,8 @@ OIDCやOAuth2.0では、前回も説明した通り、あるアプリケーシ�
 <p>まず、使用するライブラリを以下の通り、pom.xmlに定義します。SpringBootを使ったWebアプリケーションを作成するためのspring-boot-starter-web、
 SpringSecurityを使用するためのspring-boot-starter-security、およびテンプレートエンジンであるThymeleafを使用するためのspring-boot-starter-thymeleafを依存定義します。</p>
 <p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">pom.xml</span><a class="headerlink" href="#id4" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
   <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
   <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-security<span class="nt">&lt;/artifactId&gt;</span>
@@ -312,10 +317,11 @@ SpringSecurityを使用するためのspring-boot-starter-security、および�
 <span class="nt">&lt;/dependency&gt;</span>
 </pre></div>
 </div>
+</div>
 <p><br/></p>
 <p>それでは、アプリケーションの実装に進みます。今回作成するアプリケーションは以下の構成です。</p>
-<table border="1" class="colwidths-given docutils" id="id4">
-<caption><span class="caption-text">アプリケーション</span><a class="headerlink" href="#id4" title="このテーブルへのパーマリンク">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id5">
+<caption><span class="caption-text">アプリケーション</span><a class="headerlink" href="#id5" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col width="30%" />
 <col width="60%" />
@@ -364,6 +370,8 @@ SpringSecurityを使用するためのspring-boot-starter-security、および�
 <p>SpringSecurityを使った認証をアプリケーションに組み込むには、設定クラスを実装して、アプリケーション起動クラスの読み込み設定対象に加える必要があります。
 今回は以下のような設定クラスを実装し、起動クラスと同一パッケージに配置しておきます。</p>
 <p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">SecurityConfig</span><a class="headerlink" href="#id6" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.frontend.webapp.config</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
@@ -448,11 +456,12 @@ SpringSecurityを使用するためのspring-boot-starter-security、および�
 <span class="o">}</span>
 </pre></div>
 </div>
+</div>
 <p><br/></p>
 <p>SecurityConfigクラスコードの説明は以下の通りです。</p>
 <p><br/></p>
-<table border="1" class="colwidths-given docutils" id="id5">
-<caption><span class="caption-text">SecurityConfigクラスコードの説明</span><a class="headerlink" href="#id5" title="このテーブルへのパーマリンク">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id7">
+<caption><span class="caption-text">SecurityConfigクラスコードの説明</span><a class="headerlink" href="#id7" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col width="5%" />
 <col width="95%" />

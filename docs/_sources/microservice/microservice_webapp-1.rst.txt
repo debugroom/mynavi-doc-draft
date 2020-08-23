@@ -94,6 +94,7 @@ SpringSecurityを使用するためのspring-boot-starter-security、および�
 |br|
 
 .. sourcecode:: xml
+   :caption: pom.xml
 
    <dependency>
      <groupId>org.springframework.boot</groupId>
@@ -159,6 +160,7 @@ SpringSecurityを使った認証をアプリケーションに組み込むには
 |br|
 
 .. sourcecode:: java
+   :caption: SecurityConfig
 
    package org.debugroom.mynavi.sample.aws.microservice.frontend.webapp.config;
 

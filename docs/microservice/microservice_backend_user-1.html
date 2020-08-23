@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>【第5回】バックエンドマイクロサービスの実装 &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="【第6回】Webアプリケーションからマイクロサービスを呼び出す実装(1)" href="microservice_webapp-3.html" />
+    <link rel="prev" title="【第4回】Webアプリケーションの実装(2)" href="microservice_webapp-2.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">【第1回】サーバレス開発(1)Spring Cloud Functionの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">【第2回】サーバレス開発(2)Amazon Lambdaの利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">【第3回】サーバレス開発(3)AWS API Gatewayの利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-1.html">【第4回】ECSコンテナAP開発(1)VPC構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-2.html">【第5回】ECSコンテナAP開発(2)ALB構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-3.html">【第6回】ECSコンテナAP開発(3)SpringBootアプリケーション実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-4.html">【第7回】ECSコンテナAP開発(4)Dockerイメージ作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-5.html">【第8回】ECSコンテナAP開発(5)ECSクラスタ設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-6.html">【第9回】ECSコンテナAP開発(6)ECSタスク設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-7.html">【第10回】ECSコンテナAP開発(7)ECSサービス設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-1.html">【第11回】Amazon RDSの概要とデータベース構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-2.html">【第12回】RDSへのテーブル構築とSpring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-3.html">【第13回】RDSへのテーブル構築とSpring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-1.html">【第14回】NoSQL(1)-基礎-CAP定理を元にしたデータベースの分類とデータ特性</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-2.html">【第15回】NoSQL(2)-基礎-AP型データベースAmazon DynamoDBとApache Cassandraの特徴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-1.html">【第16回】NoSQL(3)-DynamoDB-Amazon DynamoDBの概要及び構築と認証情報の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-2.html">【第17回】NoSQL(4)-DynamoDB-Spring Data DynamoDBを用いたアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-3.html">【第18回】NoSQL(5)-DynamoDB-Spring Data DynamoDBを用いたアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-1.html">【第N回】NoSQL-Managed Apache Cassandra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-2.html">【第N回】NoSQL-Spring Data Cassandraを用いたアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-3.html">【第N回】NoSQL-Spring Data Cassandraを用いたアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-1.html">【第19回】NoSQL(6)-AmazonElasiCacheの概要及びローカル環境でのRedisServer構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-2.html">【第20回】NoSQL(10)-Spring SessionとSpring Data Redisを用いたアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-3.html">【第21回】NoSQL(11)-Spring SessionとSpring Data Redisを用いたアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-4.html">【第22回】NoSQL(12)-Amazon ElastiCacheの設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-5.html">【第23回】NoSQL(13)-セッション共有するECSアプリケーションの構築(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-6.html">【第24回】NoSQL(14)-セッション共有するECSアプリケーションの構築(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-1.html">【第25回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-2.html">【第26回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-3.html">【第27回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-1.html">【第28回】AmazonSQSを使用する実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-2.html">【第29回】AmazonSQSを使用する実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-3.html">【第30回】AmazonSQSを使用する実装(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-4.html">【第31回】AmazonSQSを使用する実装(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-5.html">【第32回】AmazonSQSを使用する実装(5)</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-4.html">【第1回】AmazonS3へダイレクトアクセスするアプリケーション実装(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-5.html">【第2回】AmazonS3へダイレクトアクセスするアプリケーション実装(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-6.html">【第3回】AmazonS3へダイレクトアクセスするアプリケーション実装(6)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-and-lambda-1.html">【第4回】AmazonS3で発生したイベント契機で実行するサーバレスアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-and-lambda-2.html">【第5回】AmazonS3で発生したイベント契機で実行するサーバレスアプリケーション(2)</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_actual_experience.html">【第1回】マイクロサービスアーキテクチャの基盤・デプロイ自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_sonarqube.html">【第2回】SonarQubeを利用した静的解析環境の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_sonarlint.html">【第3回】SonarLintを利用した開発端末の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_architecture.html">【第4回】マイクロサービスにおけるテスト自動化とテスト戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_unittest-1.html">【第5回】マイクロサービスの単体試験コード実装(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_unittest-2.html">【第6回】マイクロサービスの単体試験コード実装(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html">【第7回】マイクロサービスの結合試験コード実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unittest.html">【第8回】マイクロサービスを呼び出すWebAPの単体テストコード・E2Eテストの実装(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html">【第9回】マイクロサービスを呼び出すWebAPの単体テストコード・E2Eテストの実装(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild_local.html">【第10回】AWS CodeBuildを使用したCI環境構築(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild.html">【第11回】AWS CodeBuildを使用したCI環境構築(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_1.html">【第12回】AWS CodePipeLineを用いた継続的デリバリ自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_2.html">【第13回】AWS CodePipeLineを用いた継続的デリバリ自動化(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_3.html">【第14回】AWS CodePipeLineを用いた継続的デリバリ自動化(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_4.html">【第15回】AWS CodePipeLineを用いた継続的デリバリ自動化(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_5.html">【第16回】AWS CodePipeLineを用いた継続的デリバリ自動化(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_6.html">【第17回】AWS CodePipeLineを用いた継続的デリバリ自動化(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_7.html">【第18回】AWS CodePipeLineを用いた継続的デリバリ自動化(6)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_8.html">【第19回】AWS CodePipeLineを用いた継続的デリバリ自動化(7)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_9.html">【第20回】AWS CodePipeLineを用いた継続的デリバリ自動化(8)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_overview.html">【第21回】AWS CloudFormationを用いた基盤自動化(1)CloudFormationの概要</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_cli.html">【第22回】AWS CloudFormationを用いた基盤自動化(2)AWS CLIの実行環境</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_lint.html">【第23回】AWS CloudFormationを用いた基盤自動化(3)各種検証プラグインインストールと統合開発環境の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_script.html">【第24回】AWS CloudFormationを用いた基盤自動化(4)テンプレート記述の基本と実行ヘルパースクリプトの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_taskcat.html">【第25回】AWS CloudFormationを用いた基盤自動化(5)CloudFormationテスト環境の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_vpc.html">【第26回】AWS CloudFormationを用いた基盤自動化(6)VPC、サブネット、ルートテーブル、インターネットGWの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sg_nat.html">【第27回】AWS CloudFormationを用いた基盤自動化(7)SecurityGroup/NATGatewayの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_alb.html">【第28回】AWS CloudFormationを用いた基盤自動化(8)ApplicationLoadBalancer/TargetGroupの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_rds.html">【第29回】AWS CloudFormationを用いた基盤自動化(9)RDSの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_dynamodb.html">【第30回】AWS CloudFormationを用いた基盤自動化(10)DynamoDBの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_elasticache.html">【第31回】AWS CloudFormationを用いた基盤自動化(11)ElastiCacheの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_s3_sqs.html">【第32回】AWS CloudFormationを用いた基盤自動化(12)SQS/S3の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_nest.html">【第33回】AWS CloudFormationを用いた基盤自動化(13)NestedStackの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_app_backend.html">【第34回】AWS CloudFormationを用いた基盤自動化(14)SpringCloudAWSを利用したBackend Serviceアプリケーションにおけるスタック情報の取得・設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_webapp_frontend.html">【第35回】AWS CloudFormationを用いた基盤自動化(15)SpringCloudAWSを利用したFrontend Webアプリケーションにおけるスタック情報の取得・設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_cluster.html">【第36回】AWS CloudFormationを用いた基盤自動化(16)ECSクラスタの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_task.html">【第37回】AWS CloudFormationを用いた基盤自動化(17)ECSタスク定義の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_taskrole.html">【第38回】AWS CloudFormationを用いた基盤自動化(18)ECSタスクロール定義の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.html">【第39回】AWS CloudFormationを用いた基盤自動化(19)ECSサービスの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_base.html">【第40回】AWS CloudFormationを用いた基盤自動化(20)継続的インテグレーション環境の構築(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_lambda.html">【第41回】AWS CloudFormationを用いた基盤自動化(21)継続的インテグレーション環境の構築(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_custom_resource.html">【第42回】AWS CloudFormationを用いた基盤自動化(22)継続的インテグレーション環境の構築(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_server.html">【第43回】AWS CloudFormationを用いた基盤自動化(23)継続的インテグレーション環境の構築(4)</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="microservice_overview.html">【第1回】マイクロサービスアーキテクチャで目指すもの</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_architecture.html">【第2回】マイクロサービスアーキテクチャの全体像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_webapp-1.html">【第3回】Webアプリケーションの実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_webapp-2.html">【第4回】Webアプリケーションの実装(2)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">【第5回】バックエンドマイクロサービスの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_webapp-3.html">【第6回】Webアプリケーションからマイクロサービスを呼び出す実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_webapp-4.html">【第7回】Webアプリケーションからマイクロサービスを呼び出す実装(2)</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">【第5回】バックエンドマイクロサービスの実装</a><ul>
+<li><a class="reference internal" href="#id2">バックエンドマイクロサービスの実装</a></li>
+<li><a class="reference internal" href="#id5">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="microservice_webapp-2.html" title="Previous Chapter: 【第4回】Webアプリケーションの実装(2)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 【第4回】Webアプリケー...</span>
+    </a>
+  </li>
+  <li>
+    <a href="microservice_webapp-3.html" title="Next Chapter: 【第6回】Webアプリケーションからマイクロサービスを呼び出す実装(1)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">【第6回】Webアプリケー... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/microservice/microservice_backend_user-1.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="section-aws-microservice-backend-user-1-label">
+<span id="id1"></span><h1>【第5回】バックエンドマイクロサービスの実装<a class="headerlink" href="#section-aws-microservice-backend-user-1-label" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p><br/></p>
+<p>本連載では、以下に示すようなマイクロサービスアーキテクチャのアプリケーション環境を構築しています。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/service-architecture.png" src="../_images/service-architecture.png" />
+</div>
+<p><br/></p>
+<p>前回はSpringSecutiyを使った様々なカスタム設定やWebアプリケーションログインページの実装の解説を行い、実際にアプリケーションを起動してみました。
+今回はバックエンドにユーザ情報をリソースとして取り扱うマイクロサービスを作成します。</p>
+<p>本連載で実際に作成するアプリケーションでは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-aws-microservice/tree/feature_2-backend-user-service">GitHub</a> 上にコミットしています。
+なお、前回の実装とブランチを変更しているので参照する際は留意してください。以降に記載するソースコードでは、import文など本質的でない記述を省略している部分があるので、実行コードを作成する際は、必要に応じて適宜GitHubにあるソースコードも参照してください。</p>
+<p><br/></p>
+<div class="section" id="id2">
+<h2>バックエンドマイクロサービスの実装<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>バックエンドサブネットに構築するマイクロサービスですが、連載「AWSで実践！基盤・デプロイ自動化」の連載 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4475">第4回</a> と同様のプロジェクト・パッケージ構成で、
+シンプルなRESTfulなアプリケーションとして作成します。マイクロサービスから共通的に利用するcommonプロジェクトも合わせて作成し、Mavenのpom.xmlから参照設定を行っています。</p>
+<p>アプリケーションコンポーネントのレイヤ構成は第4回と同様、 <a class="reference external" href="http://terasolunaorg.github.io/guideline/5.6.0.RELEASE/ja/Overview/ApplicationLayering.html">TERAOLUNAのガイドライン 「アプリケーションのレイヤ化」</a> の考え方に準拠するものとします。
+今回実装するユーザリソースを返却するバックエンドマイクロサービスのコンポーネント構成は以下の通りです。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id6">
+<caption><span class="caption-text">バックエンドマイクロサービスのコンポーネント構成</span><a class="headerlink" href="#id6" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="30%" />
+<col width="60%" />
+<col width="10%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>コンポーネント</td>
+<td>説明</td>
+<td>必須</td>
+</tr>
+<tr class="row-even"><td>App</td>
+<td>SpringBootアプリケーションを実行する起動クラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-odd"><td>MvcConfig</td>
+<td>SpringMVCの設定を行うクラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-even"><td>JpaConfig</td>
+<td>JPAおよびSpringDataJPAの設定クラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-odd"><td>DomainConfig</td>
+<td>ServiceやRepository等ドメイン層の設定クラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-even"><td>DevConfig</td>
+<td>プロファイル「dev」におけるHSQLの環境構築やデータソース接続設定クラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-odd"><td>BackendUserController</td>
+<td>ユーザリソースを返すRestController</td>
+<td>◯</td>
+</tr>
+<tr class="row-even"><td>XxxxResourceMapper</td>
+<td>リソースとエンティティクラスを変換するMapper</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>SampleService(Impl)</td>
+<td>データベースへアクセスするRepositoryなどを使ってユーザエンティティクラスを返却するサービスクラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-even"><td>UserRepository</td>
+<td>ユーザテーブルへアクセスするためのSpringDataJPAにおけるRepositoryインターフェースクラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-odd"><td>User</td>
+<td>ユーザを表すエンティティクラス</td>
+<td>◯</td>
+</tr>
+<tr class="row-even"><td>Credential・CredentialPK</td>
+<td>認証を表すエンティティクラスおよびプライマリキークラス</td>
+<td>◯</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>今回の実装でポイントとなる箇所を説明します。まずローカル環境で起動するアプリケーションをプロファイル「dev」で実行する構成とします。devプロファイル環境ではインメモリDBであるHSQLを利用します。</p>
+<p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">DevConfig</span><a class="headerlink" href="#id7" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.backend.user.config</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="nd">@Profile</span><span class="o">(</span><span class="s">&quot;dev&quot;</span><span class="o">)</span>
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DevConfig</span> <span class="o">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">DataSource</span> <span class="nf">dataSource</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="o">(</span><span class="k">new</span> <span class="n">EmbeddedDatabaseBuilder</span><span class="o">())</span>
+             <span class="o">.</span><span class="na">setType</span><span class="o">(</span><span class="n">EmbeddedDatabaseType</span><span class="o">.</span><span class="na">HSQL</span><span class="o">)</span>
+             <span class="o">.</span><span class="na">addScript</span><span class="o">(</span><span class="s">&quot;classpath:schema-hsql.sql&quot;</span><span class="o">)</span>
+             <span class="o">.</span><span class="na">addScript</span><span class="o">(</span><span class="s">&quot;classpath:data-hsql.sql&quot;</span><span class="o">)</span>
+             <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<p>アプリケーション内のデータベースアクセスはSpring Data JPAを用いており、ここでは詳細な解説は行いませんが、必要に応じて 連載「AWSで作るクラウドネイティブアプリケーションの基本」の <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4426">第12回</a> や
+TERASOLUNAのガイドライン「 <a class="reference external" href="http://terasolunaorg.github.io/guideline/5.6.0.RELEASE/ja/ArchitectureInDetail/DataAccessDetail/DataAccessJpa.html">データベースアクセス（JPA編）</a> 」 を参照してください。
+なお、返却するユーザリソースの元になるUserエンティティおよび、それと1対多の関係を持つCredentialエンティティは以下のようなプロパティをもつクラスとします。</p>
+<p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">User</span><a class="headerlink" href="#id8" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.backend.user.domain.model.entity</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="nd">@Entity</span>
+<span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;usr&quot;</span><span class="o">,</span> <span class="n">schema</span> <span class="o">=</span> <span class="s">&quot;public&quot;</span><span class="o">,</span> <span class="n">catalog</span><span class="o">=</span><span class="s">&quot;sample&quot;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="kd">implements</span> <span class="n">Serializable</span><span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kt">long</span> <span class="n">userId</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">firstName</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">familyName</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">loginId</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Boolean</span> <span class="n">isLogin</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Boolean</span> <span class="n">isAdmin</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">ver</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Timestamp</span> <span class="n">lastUpdatedAt</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">Credential</span><span class="o">&gt;</span> <span class="n">credentialsByUserId</span><span class="o">;</span>
+
+    <span class="c1">// omit</span>
+</pre></div>
+</div>
+</div>
+<p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Credential</span><a class="headerlink" href="#id9" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.backend.user.domain.model.entity</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="nd">@Entity</span>
+<span class="nd">@IdClass</span><span class="o">(</span><span class="n">CredentialPK</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Credential</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kt">long</span> <span class="n">userId</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">credentialType</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">credentialKey</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Timestamp</span> <span class="n">validDate</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">ver</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">User</span> <span class="n">usrByUserId</span><span class="o">;</span>
+
+    <span class="c1">// omit</span>
+</pre></div>
+</div>
+</div>
+<p><br/></p>
+<p>BackendUserControllerクラスでは、以下のようにマッピングされたエンドポイントをもつREST API構成とします。
+なお、JSONで返却されるリソースクラスは、バックエンドのマイクロサービスやフロントエンドのWebアプリケーション双方で参照可能なよう、commonプロジェクト内に作成します。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id10">
+<caption><span class="caption-text">バックエンドマイクロサービスのエンドポイント構成</span><a class="headerlink" href="#id10" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="10%" />
+<col width="40%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>No</td>
+<td>エンドポイント</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td>1</td>
+<td>/backend/user/api/v1/users</td>
+<td>データベースにあるユーザリソースを全て返却するAPI</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>/backend/user/api/v1/users/X</td>
+<td>Xで指定されたユーザIDをもつユーザリソースを返却するAPI</td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td>/backend/user/api/v1/users/user?loginId=Y</td>
+<td>yで指定されたログインID情報をもつユーザリソース返却するAPI</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>このAPIを構成するためのController実装やアプリケーション設定ファイル(application.yml)は以下の通りです。</p>
+<p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">BackendUserController</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.backend.user.app.web</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.common.apinfra.exception.BusinessException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.common.model.UserResource</span><span class="o">;</span>
+
+<span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&quot;api/v1&quot;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BackendUserController</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">SampleService</span> <span class="n">sampleService</span><span class="o">;</span>
+
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&quot;/users&quot;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">UserResource</span><span class="o">&gt;</span> <span class="nf">getUsers</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">UserResourceMapper</span><span class="o">.</span><span class="na">mapWithCredentials</span><span class="o">(</span><span class="n">sampleService</span><span class="o">.</span><span class="na">getUsers</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&quot;/users/{id:[0-9]+}&quot;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">UserResource</span> <span class="nf">getUser</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="n">Long</span> <span class="n">id</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">BusinessException</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">UserResourceMapper</span><span class="o">.</span><span class="na">mapWithCredentials</span><span class="o">(</span><span class="n">sampleService</span><span class="o">.</span><span class="na">getUser</span><span class="o">(</span><span class="n">id</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&quot;/users/user&quot;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">UserResource</span> <span class="nf">getUserByLoginId</span><span class="o">(</span>
+      <span class="nd">@RequestParam</span><span class="o">(</span><span class="s">&quot;loginId&quot;</span><span class="o">)</span> <span class="n">String</span> <span class="n">loginId</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">BusinessException</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">UserResourceMapper</span><span class="o">.</span><span class="na">mapWithCredentials</span><span class="o">(</span>
+          <span class="n">sampleService</span><span class="o">.</span><span class="na">getUserByLoginId</span><span class="o">(</span><span class="n">loginId</span><span class="o">));</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">application.yml</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>server:
+  servlet:
+    context-path: /backend/user
+</pre></div>
+</div>
+</div>
+<p><br/></p>
+<p>application.ymlのserver.servlet.context-pathで指定している「/backend/user」はアプリケーションのURLドメイン名の配下に指定されるコンテキストパスになりますが、これを指定する理由は
+複数のマイクロサービスが実行される場合に、ALBでターゲットグループを指定する際の識別子として利用するためです。また、今回は実装していませんが、
+APIのバージョン変更が発生していく際は&#64;ProfileアノテーションなどSpringのプロファイル機能を使って、バージョン情報を指定して実行するとよいです。
+実行されるコンテナ内のマイクロサービスアプリケーションのControllerをプロファイルで切り替えつつ、ターゲットグループに「/backend/user/api/vX」といったかたちでバージョン事に異なるコンテナへ
+ルーティングされるように構成すれば、複数のAPIバージョンをもつアプリケーションコンテナが混在する場合でも同一のECSクラスタ内に並行して実行でき、より柔軟性の高い運用が可能になります。
+これらはまたALBやターゲットグループを作成するときに解説します。</p>
+<p><br/></p>
+<p>なお、マイクロサービス内で発生した例外はcommonプロジェクト内に作成した、&#64;ControllerAdviceを付与した以下のExceptionHanlderを使って一元的に設定することが可能です。
+今回の実装では、想定されるビジネス例外やチェックエラーについて、必要なエラーステータスコードを設定して返却するものとします。
+システム例外となるRuntimeException系のエラーはSpringが自動的に500系のInternalServerErrorでレスポンスするので設定はしていません。</p>
+<p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">CommonExceptionHandler</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.common.apinfra.exception</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.http.HttpStatus</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.http.ResponseEntity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.validation.BindException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.validation.BindingResult</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.validation.FieldError</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.MethodArgumentNotValidException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.ControllerAdvice</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.ExceptionHandler</span><span class="o">;</span>
+
+<span class="nd">@ControllerAdvice</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CommonExceptionHandler</span> <span class="o">{</span>
+
+    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">BusinessException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">ErrorResponse</span><span class="o">&gt;</span> <span class="nf">handleBusinessException</span><span class="o">(</span>
+      <span class="n">BusinessException</span> <span class="n">businessException</span><span class="o">){</span>
+        <span class="n">businessException</span><span class="o">.</span><span class="na">setStackTrace</span><span class="o">(</span><span class="k">new</span> <span class="n">StackTraceElement</span><span class="o">[]{});</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">ResponseEntity</span><span class="o">&lt;&gt;(</span>
+          <span class="n">BusinessExceptionResponse</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                  <span class="o">.</span><span class="na">businessException</span><span class="o">(</span><span class="n">businessException</span><span class="o">).</span><span class="na">build</span><span class="o">(),</span> <span class="n">HttpStatus</span><span class="o">.</span><span class="na">BAD_REQUEST</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@ExceptionHandler</span><span class="o">({</span><span class="n">MethodArgumentNotValidException</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">BindException</span><span class="o">.</span><span class="na">class</span><span class="o">})</span>
+    <span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">ErrorResponse</span><span class="o">&gt;</span> <span class="nf">handleValidationException</span><span class="o">(</span><span class="n">Exception</span> <span class="n">exception</span><span class="o">){</span>
+        <span class="n">BindingResult</span> <span class="n">bindingResult</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">exception</span> <span class="k">instanceof</span> <span class="n">MethodArgumentNotValidException</span><span class="o">){</span>
+            <span class="n">bindingResult</span> <span class="o">=</span> <span class="o">((</span><span class="n">MethodArgumentNotValidException</span><span class="o">)</span><span class="n">exception</span><span class="o">).</span><span class="na">getBindingResult</span><span class="o">();</span>
+        <span class="o">}</span><span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">exception</span> <span class="k">instanceof</span> <span class="n">BindException</span><span class="o">){</span>
+            <span class="n">bindingResult</span> <span class="o">=</span> <span class="o">((</span><span class="n">BindException</span><span class="o">)</span><span class="n">exception</span><span class="o">).</span><span class="na">getBindingResult</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">FieldError</span><span class="o">&gt;</span> <span class="n">fieldErrors</span> <span class="o">=</span> <span class="n">bindingResult</span><span class="o">.</span><span class="na">getFieldErrors</span><span class="o">();</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">ResponseEntity</span><span class="o">&lt;&gt;(</span>
+          <span class="n">ValidationErrorResponse</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">validationErrors</span><span class="o">(</span>
+                  <span class="n">ValidationErrorMapper</span><span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">fieldErrors</span><span class="o">)).</span><span class="na">build</span><span class="o">(),</span>
+          <span class="n">HttpStatus</span><span class="o">.</span><span class="na">BAD_REQUEST</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<p><br/></p>
+<p>アプリケーションをメインクラスから起動した後、エンドポイントにアクセスすると以下のような応答が返されます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl --dump-header - http://localhost:8081/backend/user/api/v1/users/user?loginId<span class="o">=</span>jiro.mynavi
+
+HTTP/1.1 <span class="m">200</span>
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Fri, <span class="m">21</span> Aug <span class="m">2020</span> <span class="m">16</span>:53:47 GMT
+
+<span class="o">{</span><span class="s2">&quot;userId&quot;</span>:<span class="s2">&quot;2&quot;</span>,<span class="s2">&quot;firstName&quot;</span>:<span class="s2">&quot;jiro&quot;</span>,<span class="s2">&quot;familyName&quot;</span>:<span class="s2">&quot;mynavi&quot;</span>,<span class="s2">&quot;loginId&quot;</span>:<span class="s2">&quot;jiro.mynavi&quot;</span>,<span class="s2">&quot;credentialResources&quot;</span>:<span class="o">[{</span><span class="s2">&quot;userId&quot;</span>:2,<span class="s2">&quot;credentialType&quot;</span>:<span class="s2">&quot;PASSWORD&quot;</span>,<span class="s2">&quot;credentialKey&quot;</span>:<span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">a</span><span class="nv">$11$5</span><span class="s2">knhINqfA8BgXY1Xkvdhvu0kOhdlAeN1H/TlJbTbuUPDdqq.H.zzi&quot;</span>,<span class="s2">&quot;validDate&quot;</span>:<span class="s2">&quot;2018-12-31T15:00:00.000+00:00&quot;</span><span class="o">}</span>,<span class="o">{</span><span class="s2">&quot;userId&quot;</span>:2,<span class="s2">&quot;credentialType&quot;</span>:<span class="s2">&quot;ACCESSTOKEN&quot;</span>,<span class="s2">&quot;credentialKey&quot;</span>:<span class="s2">&quot;987654321poiuytrewq&quot;</span>,<span class="s2">&quot;validDate&quot;</span>:<span class="s2">&quot;2015-12-31T15:00:00.000+00:00&quot;</span><span class="o">}]</span>,<span class="s2">&quot;login&quot;</span>:false,<span class="s2">&quot;admin&quot;</span>:false<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>指定したログインIDをもつユーザが存在しないなど、想定されるビジネス例外の場合は以下のようなレスポンスが返却されます。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl --dump-header - http://localhost:8081/backend/user/api/v1/users/user?loginId<span class="o">=</span>jiro.mynavi2
+
+HTTP/1.1 <span class="m">400</span>
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Thu, <span class="m">20</span> Aug <span class="m">2020</span> <span class="m">19</span>:31:43 GMT
+Connection: close
+
+<span class="o">{</span><span class="s2">&quot;@class&quot;</span>:<span class="s2">&quot;org.debugroom.mynavi.sample.aws.microservice.common.apinfra.exception.BusinessExceptionResponse&quot;</span>,<span class="s2">&quot;businessException&quot;</span>:<span class="o">{</span><span class="s2">&quot;cause&quot;</span>:null,<span class="s2">&quot;stackTrace&quot;</span>:<span class="o">[]</span>,<span class="s2">&quot;code&quot;</span>:<span class="s2">&quot;BE0002&quot;</span>,<span class="s2">&quot;args&quot;</span>:null,<span class="s2">&quot;message&quot;</span>:<span class="s2">&quot;ログインIDは存在しません。 LoginID : jiro.mynavi2&quot;</span>,<span class="s2">&quot;suppresslizedMessage&quot;</span>:<span class="s2">&quot;ログインIDは存在しません。 LoginID : jiro.mynavi2&quot;</span><span class="o">}}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">本来はHTTPステータスコードで404指定し、リソースが存在しないなどで返す方法が妥当なケースもありますが、複雑な理由でのビジネス例外やレスポンスにエラー内容を表すパラメータが必要な場合を想定して、今回はこのようにBusinessExceptionをJSONで返す形式で実装しています。
+APIの規約に応じて適切なレスポンスステータスコードを返却するように実装してください。</p>
+</div>
+<p><br/></p>
+<p>今回はデータベースに保存したユーザ情報を取得するバックエンドマイクロサービスを作成しました。
+次回は、前回作成したフロントのWebアプリケーションからこのマイクロサービスを呼び出すようなかたちにして
+認証処理がデータベースに保存されたものを使って正しく行われるように実装しなおしてみます。</p>
+<p><br/></p>
+</div>
+<div class="section" id="id5">
+<h2>著者紹介<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei) - NTTデータ</p>
+<div class="figure">
+<img alt="../_images/aws_361383_0752.jpeg" src="../_images/aws_361383_0752.jpeg" />
+</div>
+<p>金融機関システム業務アプリケーション開発・システム基盤担当、ソフトウェア開発自動化関連の研究開発を経て、デジタル技術関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p><a class="reference external" href="https://aws.amazon.com/jp/partners/ambassadors/?cards-body.sort-by=item.additionalFields.ambassadorName&amp;cards-body.sort-order=asc&amp;cards-body.q=kawabata&amp;cards-body.q_operator=AND">AWS Top Engineers &amp; Ambassadors</a> 選出。</p>
+<p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -27,7 +27,7 @@ Spring Securityを使ったWebアプリケーション(2)
 |br|
 
 前回実装したSpringSecurity設定クラスにBean定義したカスタムクラスを解説します。まずCustomUserDetailsServiceです。
-SpringSecurityによるログイン処理では。リクエストパラメータとして送信されてきたIDとパスワードと一致しているか検証するロジックが既に実装されて組み込まれています。
+SpringSecurityによるログイン処理では、リクエストパラメータとして送信されてきたIDとパスワードと一致しているか検証するロジックが既に実装されて組み込まれています。
 リクエストパラメータのID・パスワードと一致するかを検証する対象となるモデルのオブジェクトは、IDとパスワードがプロパティとして定義されている
 org.springframework.security.core.userdetails.UserDetailsというインターフェースを実装していればよく、このモデルオブジェクトを取得できるサービスクラスをユーザが任意にカスタマイズできます。
 このサービスクラスはorg.springframework.security.core.userdetails.UserDetailsServiceインターフェースを実装しておく必要があります。
@@ -36,6 +36,7 @@ org.springframework.security.core.userdetails.UserDetailsというインター�
 |br|
 
 .. sourcecode:: java
+   :caption: CustomUserDetailsService
 
    package org.debugroom.mynavi.sample.aws.microservice.frontend.webapp.app.web.security;
 
@@ -60,16 +61,17 @@ org.springframework.security.core.userdetails.UserDetailsというインター�
 
 |br|
 
-UserDetailsServiceではloadUserByUsername()メソッドを実装する必要があります。これは戻り値としてUserDetailsクラスを返却します。
-ログイン処理におけるIDとパスワードはこの返却したUserDetailsを実装したモデルオブジェクトを使ってSpringSecurityが検証処理を行います。
-したがって、このメソッド内でユーザのIDとパスワードに相当する情報を取得してUserDetailsオブジェクトを実装したモデルオブジェクトを生成して返却する処理を実装すればよいです。
-通常、データベースなどからキーとなるIDを元にパスワードが格納されているユーザ情報を取得して、UserDetailsオブジェクトを実装したモデルオブジェクトにマッピングして返せば良いですが、
+UserDetailsServiceではloadUserByUsername()メソッドを実装する必要があります。これは戻り値としてUserDetailsインターフェースを実装したクラスを返却します。
+ログイン処理におけるIDとパスワードはこの返却したUserDetailsを実装したクラスオブジェクトを使ってSpringSecurityが検証処理を行います。
+したがって、このメソッド内でユーザのIDとパスワードに相当する情報を取得してUserDetailsを実装したクラスオブジェクトを生成して返却する処理を実装すればよいです。
+通常、データベースなどからキーとなるIDを元にパスワードが格納されているユーザ情報を取得して、UserDetailsクラスを実装したモデルオブジェクトにマッピングして返せば良いですが、
 上記の例では、簡単のために特にloadUserByUsername()メソッドの引数として渡される文字列型のIDパラメータによらず、UserDetailsクラスを実装したCustomUserDetailsに、認可情報となるAuthorityListを生成・設定して返しています。
 このメソッドの中で生成されるCustumUserDetailsの実装は以下の通りです。
 
 |br|
 
 .. sourcecode:: java
+   :caption: CustomUserDetails
 
    package org.debugroom.mynavi.sample.aws.microservice.frontend.webapp.app.web.security;
 
@@ -166,6 +168,7 @@ CustomUserDetailsクラスコードの説明は以下の通りです。
 |br|
 
 .. sourcecode:: java
+   :caption: LogoutSuccessHandler
 
    package org.debugroom.mynavi.sample.aws.microservice.frontend.webapp.app.web.security;
 
@@ -204,6 +207,7 @@ LoginUrlAuthenticationEntryPointを継承して、リダイレクトURLを生成
 |br|
 
 .. sourcecode:: java
+   :caption: SessionExpiredDetectingLoginUrlAuthenticationEntryPoint
 
    package org.debugroom.mynavi.sample.aws.microservice.frontend.webapp.app.web.security;
 
@@ -245,9 +249,15 @@ LoginUrlAuthenticationEntryPointを継承して、リダイレクトURLを生成
 最後にログイン画面やログイン成功後に遷移するポータル画面を実装しましょう。ポイントとなるのはログイン画面でエラーが発生した場合に、同じ画面に遷移しますが、エラーメッセージが表示されるようにしておくことと、
 ログイン処理を行うURLのパスやフォームのIDとパスワードのリクエストパラメータ名をSpringSecurity設定クラスで指定したものと合わせておくことです。なお、ポータル画面は特に説明すべきことはないので割愛します。
 
+なお、本稿の趣旨とは外れるので、Thymeleafテンプレートエンジンに関する説明は省略しますが、必要に応じて、`Thymeleaf公式ドキュメント <https://www.thymeleaf.org/documentation.html>`_ や
+`Macchinetta Framework テンプレートエンジン <https://macchinetta.github.io/server-guideline-thymeleaf/current/ja/ArchitectureInDetail/WebApplicationDetail/Thymeleaf.html>`_ を参照してください。
+
+
+
 |br|
 
 .. sourcecode:: html
+   :caption: templates/login.html
 
    <!DOCTYPE HTML>
    <html xmlns:th="http://www.thymeleaf.org" lang="ja">
@@ -288,11 +298,11 @@ LoginUrlAuthenticationEntryPointを継承して、リダイレクトURLを生成
 
 |br|
 
-.. figure:: img/webapp/webapp-login.png
+.. figure:: img/webapp/webapp-login-1.png
 
 |br|
 
-.. figure:: img/webapp/webapp-portal.png
+.. figure:: img/webapp/webapp-portal-1.png
 
 |br|
 

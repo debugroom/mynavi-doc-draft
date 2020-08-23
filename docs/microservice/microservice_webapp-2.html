@@ -18,6 +18,7 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="【第5回】バックエンドマイクロサービスの実装" href="microservice_backend_user-1.html" />
     <link rel="prev" title="【第3回】Webアプリケーションの実装(1)" href="microservice_webapp-1.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -151,6 +152,9 @@
 <li class="toctree-l1"><a class="reference internal" href="microservice_architecture.html">【第2回】マイクロサービスアーキテクチャの全体像</a></li>
 <li class="toctree-l1"><a class="reference internal" href="microservice_webapp-1.html">【第3回】Webアプリケーションの実装(1)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">【第4回】Webアプリケーションの実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_backend_user-1.html">【第5回】バックエンドマイクロサービスの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_webapp-3.html">【第6回】Webアプリケーションからマイクロサービスを呼び出す実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_webapp-4.html">【第7回】Webアプリケーションからマイクロサービスを呼び出す実装(2)</a></li>
 </ul>
 </ul>
 </li>
@@ -179,6 +183,10 @@
                 
   <li>
     <a href="microservice_webapp-1.html" title="Previous Chapter: 【第3回】Webアプリケーションの実装(1)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 【第3回】Webアプリケー...</span>
+    </a>
+  </li>
+  <li>
+    <a href="microservice_backend_user-1.html" title="Next Chapter: 【第5回】バックエンドマイクロサービスの実装"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">【第5回】バックエンドマイ... &raquo;</span>
     </a>
   </li>
               
@@ -228,12 +236,14 @@
 <h2>Spring Securityを使ったWebアプリケーション(2)<a class="headerlink" href="#spring-securityweb-2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
 <p>前回実装したSpringSecurity設定クラスにBean定義したカスタムクラスを解説します。まずCustomUserDetailsServiceです。
-SpringSecurityによるログイン処理では。リクエストパラメータとして送信されてきたIDとパスワードと一致しているか検証するロジックが既に実装されて組み込まれています。
+SpringSecurityによるログイン処理では、リクエストパラメータとして送信されてきたIDとパスワードと一致しているか検証するロジックが既に実装されて組み込まれています。
 リクエストパラメータのID・パスワードと一致するかを検証する対象となるモデルのオブジェクトは、IDとパスワードがプロパティとして定義されている
 org.springframework.security.core.userdetails.UserDetailsというインターフェースを実装していればよく、このモデルオブジェクトを取得できるサービスクラスをユーザが任意にカスタマイズできます。
 このサービスクラスはorg.springframework.security.core.userdetails.UserDetailsServiceインターフェースを実装しておく必要があります。
 今回簡単なサンプルとして以下の通り、CustomUserDetailsServiceを実装しています。こちらの作成は任意ですが、認証情報のモデルオブジェクトをSpringSecurityのデフォルトほぼそのまま利用するケースはないので、必須と考えてよいでしょう。</p>
 <p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">CustomUserDetailsService</span><a class="headerlink" href="#id2" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.frontend.webapp.app.web.security</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">org.springframework.stereotype.Service</span><span class="o">;</span>
@@ -256,14 +266,17 @@ org.springframework.security.core.userdetails.UserDetailsというインター�
 <span class="o">}</span>
 </pre></div>
 </div>
+</div>
 <p><br/></p>
-<p>UserDetailsServiceではloadUserByUsername()メソッドを実装する必要があります。これは戻り値としてUserDetailsクラスを返却します。
-ログイン処理におけるIDとパスワードはこの返却したUserDetailsを実装したモデルオブジェクトを使ってSpringSecurityが検証処理を行います。
-したがって、このメソッド内でユーザのIDとパスワードに相当する情報を取得してUserDetailsオブジェクトを実装したモデルオブジェクトを生成して返却する処理を実装すればよいです。
-通常、データベースなどからキーとなるIDを元にパスワードが格納されているユーザ情報を取得して、UserDetailsオブジェクトを実装したモデルオブジェクトにマッピングして返せば良いですが、
+<p>UserDetailsServiceではloadUserByUsername()メソッドを実装する必要があります。これは戻り値としてUserDetailsインターフェースを実装したクラスを返却します。
+ログイン処理におけるIDとパスワードはこの返却したUserDetailsを実装したクラスオブジェクトを使ってSpringSecurityが検証処理を行います。
+したがって、このメソッド内でユーザのIDとパスワードに相当する情報を取得してUserDetailsを実装したクラスオブジェクトを生成して返却する処理を実装すればよいです。
+通常、データベースなどからキーとなるIDを元にパスワードが格納されているユーザ情報を取得して、UserDetailsクラスを実装したモデルオブジェクトにマッピングして返せば良いですが、
 上記の例では、簡単のために特にloadUserByUsername()メソッドの引数として渡される文字列型のIDパラメータによらず、UserDetailsクラスを実装したCustomUserDetailsに、認可情報となるAuthorityListを生成・設定して返しています。
 このメソッドの中で生成されるCustumUserDetailsの実装は以下の通りです。</p>
 <p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">CustomUserDetails</span><a class="headerlink" href="#id3" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.frontend.webapp.app.web.security</span><span class="o">;</span>
 
 <span class="c1">// omit</span>
@@ -313,11 +326,12 @@ org.springframework.security.core.userdetails.UserDetailsというインター�
 <span class="o">}</span>
 </pre></div>
 </div>
+</div>
 <p><br/></p>
 <p>CustomUserDetailsクラスコードの説明は以下の通りです。</p>
 <p><br/></p>
-<table border="1" class="colwidths-given docutils" id="id2">
-<caption><span class="caption-text">SecurityConfigクラスコードの説明</span><a class="headerlink" href="#id2" title="このテーブルへのパーマリンク">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id4">
+<caption><span class="caption-text">SecurityConfigクラスコードの説明</span><a class="headerlink" href="#id4" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col width="5%" />
 <col width="95%" />
@@ -386,6 +400,8 @@ org.springframework.security.core.userdetails.UserDetailsというインター�
 <p>次にログインが成功した後に実行されるLoginSuccessHanderクラスです。AuthenticationSuccessHandlerを実装し、onAuthenticationSuccess()メソッドを実行しておくと、
 ログインが成功した後、このハンドラクラスが呼ばれます。以下はパス&quot;/frontend/portal&quot;へリダイレクトする処理を実装しています。</p>
 <p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">LogoutSuccessHandler</span><a class="headerlink" href="#id5" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.frontend.webapp.app.web.security</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">org.springframework.security.core.Authentication</span><span class="o">;</span>
@@ -408,6 +424,7 @@ org.springframework.security.core.userdetails.UserDetailsというインター�
 <span class="o">}</span>
 </pre></div>
 </div>
+</div>
 <p><br/></p>
 <div class="admonition note">
 <p class="first admonition-title">注釈</p>
@@ -421,6 +438,8 @@ SessionExpiredDetectingLoginUrlAuthenticationEntryPointはセッションが無�
 に設定されたloginFormUrlに基づいてリダイレクトされますが、その処理の過程でセッションの有効状態を検証し、無効な状態になっているようであれば、別の画面へリダイレクトさせるという例です。
 LoginUrlAuthenticationEntryPointを継承して、リダイレクトURLを生成する箇所をオーバーライドして挙動をカスタマイズします。</p>
 <p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">SessionExpiredDetectingLoginUrlAuthenticationEntryPoint</span><a class="headerlink" href="#id6" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.frontend.webapp.app.web.security</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">org.springframework.security.core.AuthenticationException</span><span class="o">;</span>
@@ -456,11 +475,16 @@ LoginUrlAuthenticationEntryPointを継承して、リダイレクトURLを生成
 <span class="o">}</span>
 </pre></div>
 </div>
+</div>
 <p><br/></p>
 <p>このようにSpringSecurityではアプリケーションの認証・認可を行う処理の実装をほぼほぼ提供しながらも、要件に応じて様々なカスタマイズができるようにカスタムエントリポイントとなるクラスやメソッドを多数提供しています。
 最後にログイン画面やログイン成功後に遷移するポータル画面を実装しましょう。ポイントとなるのはログイン画面でエラーが発生した場合に、同じ画面に遷移しますが、エラーメッセージが表示されるようにしておくことと、
 ログイン処理を行うURLのパスやフォームのIDとパスワードのリクエストパラメータ名をSpringSecurity設定クラスで指定したものと合わせておくことです。なお、ポータル画面は特に説明すべきことはないので割愛します。</p>
+<p>なお、本稿の趣旨とは外れるので、Thymeleafテンプレートエンジンに関する説明は省略しますが、必要に応じて、<a class="reference external" href="https://www.thymeleaf.org/documentation.html">Thymeleaf公式ドキュメント</a> や
+<a class="reference external" href="https://macchinetta.github.io/server-guideline-thymeleaf/current/ja/ArchitectureInDetail/WebApplicationDetail/Thymeleaf.html">Macchinetta Framework テンプレートエンジン</a> を参照してください。</p>
 <p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">templates/login.html</span><a class="headerlink" href="#id7" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE HTML&gt;</span>
 <span class="p">&lt;</span><span class="nt">html</span> <span class="na">xmlns:th</span><span class="o">=</span><span class="s">&quot;http://www.thymeleaf.org&quot;</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;ja&quot;</span><span class="p">&gt;</span>
 <span class="c">&lt;!-- omit --&gt;</span>
@@ -495,15 +519,16 @@ LoginUrlAuthenticationEntryPointを継承して、リダイレクトURLを生成
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 </pre></div>
 </div>
+</div>
 <p><br/></p>
 <p>起動クラスを実行し。アプリケーションを起動して、以下の通りログインを行うと、ポータル画面へ遷移できます。ログイン後はセッションが有効になるのでセッションIDを表示させています。</p>
 <p><br/></p>
 <div class="figure">
-<img alt="../_images/webapp-login.png" src="../_images/webapp-login.png" />
+<img alt="../_images/webapp-login-1.png" src="../_images/webapp-login-1.png" />
 </div>
 <p><br/></p>
 <div class="figure">
-<img alt="../_images/webapp-portal.png" src="../_images/webapp-portal.png" />
+<img alt="../_images/webapp-portal-1.png" src="../_images/webapp-portal-1.png" />
 </div>
 <p><br/></p>
 <p>今回はSpringSecutiyを使ったWebアプリケーションログインページの実装やカスタム設定について解説を行い、実際にアプリケーションを起動してみました。

@@ -139,3 +139,6 @@
    microservice/microservice_architecture.rst
    microservice/microservice_webapp-1.rst
    microservice/microservice_webapp-2.rst
+   microservice/microservice_backend_user-1.rst
+   microservice/microservice_webapp-3.rst
+   microservice/microservice_webapp-4.rst
