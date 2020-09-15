@@ -155,6 +155,10 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">【第5回】バックエンドマイクロサービスの実装</a></li>
 <li class="toctree-l1"><a class="reference internal" href="microservice_webapp-3.html">【第6回】Webアプリケーションからマイクロサービスを呼び出す実装(1)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="microservice_webapp-4.html">【第7回】Webアプリケーションからマイクロサービスを呼び出す実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_xray-1.html">【第8回】AWS X-Rayを用いたマイクロサービスの可視化(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_xray-2.html">【第9回】AWS X-Rayを用いたマイクロサービスの可視化(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_xray-3.html">【第10回】AWS X-Rayを用いたマイクロサービスの可視化(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_xray-4.html">【第11回】AWS X-Rayを用いたマイクロサービスの可視化(4)</a></li>
 </ul>
 </ul>
 </li>
@@ -325,6 +329,7 @@
 </pre></div>
 </div>
 </div>
+<p><br/></p>
 <p>アプリケーション内のデータベースアクセスはSpring Data JPAを用いており、ここでは詳細な解説は行いませんが、必要に応じて 連載「AWSで作るクラウドネイティブアプリケーションの基本」の <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4426">第12回</a> や
 TERASOLUNAのガイドライン「 <a class="reference external" href="http://terasolunaorg.github.io/guideline/5.6.0.RELEASE/ja/ArchitectureInDetail/DataAccessDetail/DataAccessJpa.html">データベースアクセス（JPA編）</a> 」 を参照してください。
 なお、返却するユーザリソースの元になるUserエンティティおよび、それと1対多の関係を持つCredentialエンティティは以下のようなプロパティをもつクラスとします。</p>
@@ -376,7 +381,7 @@ TERASOLUNAのガイドライン「 <a class="reference external" href="http://te
 </div>
 </div>
 <p><br/></p>
-<p>BackendUserControllerクラスでは、以下のようにマッピングされたエンドポイントをもつREST API構成とします。
+<p>BackendUserControllerクラスでは、以下のようにエンドポイントをもつREST API構成とします。
 なお、JSONで返却されるリソースクラスは、バックエンドのマイクロサービスやフロントエンドのWebアプリケーション双方で参照可能なよう、commonプロジェクト内に作成します。</p>
 <p><br/></p>
 <table border="1" class="colwidths-given docutils" id="id10">
@@ -546,7 +551,7 @@ APIの規約に応じて適切なレスポンスステータスコードを返�
 <p><br/></p>
 <p>今回はデータベースに保存したユーザ情報を取得するバックエンドマイクロサービスを作成しました。
 次回は、前回作成したフロントのWebアプリケーションからこのマイクロサービスを呼び出すようなかたちにして
-認証処理がデータベースに保存されたものを使って正しく行われるように実装しなおしてみます。</p>
+認証処理がデータベースに保存されたものを使って正しく行われるように実装しなおしていきます。</p>
 <p><br/></p>
 </div>
 <div class="section" id="id5">

@@ -142,3 +142,7 @@
    microservice/microservice_backend_user-1.rst
    microservice/microservice_webapp-3.rst
    microservice/microservice_webapp-4.rst
+   microservice/microservice_xray-1.rst
+   microservice/microservice_xray-2.rst
+   microservice/microservice_xray-3.rst
+   microservice/microservice_xray-4.rst

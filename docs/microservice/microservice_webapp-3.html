@@ -155,6 +155,10 @@
 <li class="toctree-l1"><a class="reference internal" href="microservice_backend_user-1.html">【第5回】バックエンドマイクロサービスの実装</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">【第6回】Webアプリケーションからマイクロサービスを呼び出す実装(1)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="microservice_webapp-4.html">【第7回】Webアプリケーションからマイクロサービスを呼び出す実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_xray-1.html">【第8回】AWS X-Rayを用いたマイクロサービスの可視化(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_xray-2.html">【第9回】AWS X-Rayを用いたマイクロサービスの可視化(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_xray-3.html">【第10回】AWS X-Rayを用いたマイクロサービスの可視化(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_xray-4.html">【第11回】AWS X-Rayを用いたマイクロサービスの可視化(4)</a></li>
 </ul>
 </ul>
 </li>
@@ -230,7 +234,7 @@
 </div>
 <p><br/></p>
 <p>前回は上図に示すバックエンドサブネットに配置することを想定し、ユーザ情報をリソースとして取り扱うマイクロサービスをローカルで実行できるように実装しました。
-今回は第3・4回で作成したWebアプリケーションのSpringSecurityを使った実装で、バックエンドのマイクロサービスから取得したユーザリソースを使って認証処理を行うようアプリケーションを修正してみます。
+今回は第3・4回で作成したWebアプリケーションのSpringSecurityを使った実装で、バックエンドのマイクロサービスから取得したユーザリソースを使って認証処理を行うようアプリケーションを修正していきます。
 なお、本連載で実際に作成するアプリケーションでは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-aws-microservice/tree/feature_2-backend-user-service">GitHub</a> 上にコミットしています。
 以降に記載するソースコードでは、import文など本質的でない記述を省略している部分があるので、実行コードを作成する際は、必要に応じて適宜GitHubにあるソースコードも参照してください。</p>
 <p><br/></p>

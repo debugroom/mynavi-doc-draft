@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>【第9回】AWS X-Rayを用いたマイクロサービスの可視化(2) &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="【第10回】AWS X-Rayを用いたマイクロサービスの可視化(3)" href="microservice_xray-3.html" />
+    <link rel="prev" title="【第8回】AWS X-Rayを用いたマイクロサービスの可視化(1)" href="microservice_xray-1.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-1.html">【第1回】サーバレス開発(1)Spring Cloud Functionの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-2.html">【第2回】サーバレス開発(2)Amazon Lambdaの利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-lambda-and-api-gateway-3.html">【第3回】サーバレス開発(3)AWS API Gatewayの利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-1.html">【第4回】ECSコンテナAP開発(1)VPC構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-2.html">【第5回】ECSコンテナAP開発(2)ALB構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-3.html">【第6回】ECSコンテナAP開発(3)SpringBootアプリケーション実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-4.html">【第7回】ECSコンテナAP開発(4)Dockerイメージ作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-5.html">【第8回】ECSコンテナAP開発(5)ECSクラスタ設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-6.html">【第9回】ECSコンテナAP開発(6)ECSタスク設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-ecs-7.html">【第10回】ECSコンテナAP開発(7)ECSサービス設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-1.html">【第11回】Amazon RDSの概要とデータベース構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-2.html">【第12回】RDSへのテーブル構築とSpring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-rds-3.html">【第13回】RDSへのテーブル構築とSpring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-1.html">【第14回】NoSQL(1)-基礎-CAP定理を元にしたデータベースの分類とデータ特性</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-1-2.html">【第15回】NoSQL(2)-基礎-AP型データベースAmazon DynamoDBとApache Cassandraの特徴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-1.html">【第16回】NoSQL(3)-DynamoDB-Amazon DynamoDBの概要及び構築と認証情報の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-2.html">【第17回】NoSQL(4)-DynamoDB-Spring Data DynamoDBを用いたアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-2-3.html">【第18回】NoSQL(5)-DynamoDB-Spring Data DynamoDBを用いたアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-1.html">【第N回】NoSQL-Managed Apache Cassandra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-2.html">【第N回】NoSQL-Spring Data Cassandraを用いたアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-3-3.html">【第N回】NoSQL-Spring Data Cassandraを用いたアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-1.html">【第19回】NoSQL(6)-AmazonElasiCacheの概要及びローカル環境でのRedisServer構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-2.html">【第20回】NoSQL(10)-Spring SessionとSpring Data Redisを用いたアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-3.html">【第21回】NoSQL(11)-Spring SessionとSpring Data Redisを用いたアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-4.html">【第22回】NoSQL(12)-Amazon ElastiCacheの設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-5.html">【第23回】NoSQL(13)-セッション共有するECSアプリケーションの構築(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-nosql-4-6.html">【第24回】NoSQL(14)-セッション共有するECSアプリケーションの構築(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-1.html">【第25回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-2.html">【第26回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-3.html">【第27回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-1.html">【第28回】AmazonSQSを使用する実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-2.html">【第29回】AmazonSQSを使用する実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-3.html">【第30回】AmazonSQSを使用する実装(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-4.html">【第31回】AmazonSQSを使用する実装(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-sqs-5.html">【第32回】AmazonSQSを使用する実装(5)</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-4.html">【第1回】AmazonS3へダイレクトアクセスするアプリケーション実装(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-5.html">【第2回】AmazonS3へダイレクトアクセスするアプリケーション実装(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-6.html">【第3回】AmazonS3へダイレクトアクセスするアプリケーション実装(6)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-and-lambda-1.html">【第4回】AmazonS3で発生したイベント契機で実行するサーバレスアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloud_native/aws-s3-and-lambda-2.html">【第5回】AmazonS3で発生したイベント契機で実行するサーバレスアプリケーション(2)</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_actual_experience.html">【第1回】マイクロサービスアーキテクチャの基盤・デプロイ自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_sonarqube.html">【第2回】SonarQubeを利用した静的解析環境の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_sonarlint.html">【第3回】SonarLintを利用した開発端末の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_architecture.html">【第4回】マイクロサービスにおけるテスト自動化とテスト戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_unittest-1.html">【第5回】マイクロサービスの単体試験コード実装(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_unittest-2.html">【第6回】マイクロサービスの単体試験コード実装(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html">【第7回】マイクロサービスの結合試験コード実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unittest.html">【第8回】マイクロサービスを呼び出すWebAPの単体テストコード・E2Eテストの実装(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html">【第9回】マイクロサービスを呼び出すWebAPの単体テストコード・E2Eテストの実装(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild_local.html">【第10回】AWS CodeBuildを使用したCI環境構築(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild.html">【第11回】AWS CodeBuildを使用したCI環境構築(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_1.html">【第12回】AWS CodePipeLineを用いた継続的デリバリ自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_2.html">【第13回】AWS CodePipeLineを用いた継続的デリバリ自動化(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_3.html">【第14回】AWS CodePipeLineを用いた継続的デリバリ自動化(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_4.html">【第15回】AWS CodePipeLineを用いた継続的デリバリ自動化(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_5.html">【第16回】AWS CodePipeLineを用いた継続的デリバリ自動化(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_6.html">【第17回】AWS CodePipeLineを用いた継続的デリバリ自動化(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_7.html">【第18回】AWS CodePipeLineを用いた継続的デリバリ自動化(6)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_8.html">【第19回】AWS CodePipeLineを用いた継続的デリバリ自動化(7)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_9.html">【第20回】AWS CodePipeLineを用いた継続的デリバリ自動化(8)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_overview.html">【第21回】AWS CloudFormationを用いた基盤自動化(1)CloudFormationの概要</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_cli.html">【第22回】AWS CloudFormationを用いた基盤自動化(2)AWS CLIの実行環境</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_lint.html">【第23回】AWS CloudFormationを用いた基盤自動化(3)各種検証プラグインインストールと統合開発環境の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_script.html">【第24回】AWS CloudFormationを用いた基盤自動化(4)テンプレート記述の基本と実行ヘルパースクリプトの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_taskcat.html">【第25回】AWS CloudFormationを用いた基盤自動化(5)CloudFormationテスト環境の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_vpc.html">【第26回】AWS CloudFormationを用いた基盤自動化(6)VPC、サブネット、ルートテーブル、インターネットGWの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sg_nat.html">【第27回】AWS CloudFormationを用いた基盤自動化(7)SecurityGroup/NATGatewayの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_alb.html">【第28回】AWS CloudFormationを用いた基盤自動化(8)ApplicationLoadBalancer/TargetGroupの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_rds.html">【第29回】AWS CloudFormationを用いた基盤自動化(9)RDSの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_dynamodb.html">【第30回】AWS CloudFormationを用いた基盤自動化(10)DynamoDBの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_elasticache.html">【第31回】AWS CloudFormationを用いた基盤自動化(11)ElastiCacheの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_s3_sqs.html">【第32回】AWS CloudFormationを用いた基盤自動化(12)SQS/S3の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_nest.html">【第33回】AWS CloudFormationを用いた基盤自動化(13)NestedStackの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_app_backend.html">【第34回】AWS CloudFormationを用いた基盤自動化(14)SpringCloudAWSを利用したBackend Serviceアプリケーションにおけるスタック情報の取得・設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_webapp_frontend.html">【第35回】AWS CloudFormationを用いた基盤自動化(15)SpringCloudAWSを利用したFrontend Webアプリケーションにおけるスタック情報の取得・設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_cluster.html">【第36回】AWS CloudFormationを用いた基盤自動化(16)ECSクラスタの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_task.html">【第37回】AWS CloudFormationを用いた基盤自動化(17)ECSタスク定義の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_taskrole.html">【第38回】AWS CloudFormationを用いた基盤自動化(18)ECSタスクロール定義の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.html">【第39回】AWS CloudFormationを用いた基盤自動化(19)ECSサービスの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_base.html">【第40回】AWS CloudFormationを用いた基盤自動化(20)継続的インテグレーション環境の構築(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_lambda.html">【第41回】AWS CloudFormationを用いた基盤自動化(21)継続的インテグレーション環境の構築(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_custom_resource.html">【第42回】AWS CloudFormationを用いた基盤自動化(22)継続的インテグレーション環境の構築(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_server.html">【第43回】AWS CloudFormationを用いた基盤自動化(23)継続的インテグレーション環境の構築(4)</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="microservice_overview.html">【第1回】マイクロサービスアーキテクチャで目指すもの</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_architecture.html">【第2回】マイクロサービスアーキテクチャの全体像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_webapp-1.html">【第3回】Webアプリケーションの実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_webapp-2.html">【第4回】Webアプリケーションの実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_backend_user-1.html">【第5回】バックエンドマイクロサービスの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_webapp-3.html">【第6回】Webアプリケーションからマイクロサービスを呼び出す実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_webapp-4.html">【第7回】Webアプリケーションからマイクロサービスを呼び出す実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_xray-1.html">【第8回】AWS X-Rayを用いたマイクロサービスの可視化(1)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">【第9回】AWS X-Rayを用いたマイクロサービスの可視化(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_xray-3.html">【第10回】AWS X-Rayを用いたマイクロサービスの可視化(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_xray-4.html">【第11回】AWS X-Rayを用いたマイクロサービスの可視化(4)</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">【第9回】AWS X-Rayを用いたマイクロサービスの可視化(2)</a><ul>
+<li><a class="reference internal" href="#id1">セグメントとサブセグメント</a></li>
+<li><a class="reference internal" href="#x-ray">X-Rayを使用するためのアプリケーション共通設定</a></li>
+<li><a class="reference internal" href="#id7">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="microservice_xray-1.html" title="Previous Chapter: 【第8回】AWS X-Rayを用いたマイクロサービスの可視化(1)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 【第8回】AWS X-Ra...</span>
+    </a>
+  </li>
+  <li>
+    <a href="microservice_xray-3.html" title="Next Chapter: 【第10回】AWS X-Rayを用いたマイクロサービスの可視化(3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">【第10回】AWS X-R... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/microservice/microservice_xray-2.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="aws-x-ray-2">
+<span id="section-aws-microservice-xray-2-label"></span><h1>【第9回】AWS X-Rayを用いたマイクロサービスの可視化(2)<a class="headerlink" href="#aws-x-ray-2" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p><br/></p>
+<p>本連載では、以下に示すようなマイクロサービスアーキテクチャのアプリケーション環境を構築しています。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/service-architecture.png" src="../_images/service-architecture.png" />
+</div>
+<p><br/></p>
+<p>前回はマイクロサービスの呼び出し状況の可視化を行うAWSのサービスとしてX-Rayの概要を説明し、
+ローカル端末へX-Rayデーモンを実行するDockerコンテナイメージの作成、実行を行いました。
+今回からはX-Rayデーモンへトレースデータを送信するためのアプリケーションの設定の実装を解説していきます。</p>
+<p><br/></p>
+<div class="section" id="id1">
+<h2>セグメントとサブセグメント<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>AWS X-Rayの使用を始める前に、十分理解しておかなければならない概念としてセグメントとサブセグメントがあります。
+計測対象とするアプリケーションの処理単位をセグメントと呼び、セグメントはいくつかのサブセグメントに分けることができます。</p>
+<p><br/></p>
+<div class="figure align-center" id="id8">
+<img alt="../_images/xray-concept.png" src="../_images/xray-concept.png" />
+<p class="caption"><span class="caption-text">AWS X-Rayのセグメントとサブセグメントの概念</span></p>
+</div>
+<p><br/></p>
+<p>セグメントはTraceIDによって識別されます。アプリケーションが複数のマイクロサービスを呼び出した時にTraceIDをリクエストヘッダに指定しておけば、
+TraceIDを持ち回り、複数のセグメントの呼び出しを透過的にトレースすることができるようになります。
+サブセグメントはユーザがアプリケーションのコンポーネント構成に応じて自由に設定することができます( <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/xray/latest/devguide/xray-sdk-java-subsegments.html">カスタムサブセグメント</a> )。
+サブセグメントの設定は、Apache HttpCompoentsやSpringAOPを拡張したライブラリとしてAWS SDKから組み込まれて提供されているものもあれば、上記のカスタムサブセグメントのようにライブラリをコールして任意のタイミングで開始することも可能です。
+なお、S3やDynamoDB、SQSといった主要なAWSリソースへのサブセグメントの設定は各クライアントライブラリの設定でトレースを有効化できます。</p>
+<p><br/></p>
+<div class="figure align-center" id="id9">
+<img alt="../_images/xray-segment-detail.png" src="../_images/xray-segment-detail.png" />
+<p class="caption"><span class="caption-text">AWS X-Rayのトレース</span></p>
+</div>
+<p><br/></p>
+<p>これらの設定方法は次節以降、順次説明していきますが、必要に応じて、AWS公式ドキュメント <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/xray/latest/devguide/xray-concepts.html">AWS X-Rayの概念</a> も適宜参照するようにしてください。</p>
+<p><br/></p>
+</div>
+<div class="section" id="x-ray">
+<h2>X-Rayを使用するためのアプリケーション共通設定<a class="headerlink" href="#x-ray" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>それでは、X-Rayを使用するためのアプリケーションの設定を実装していきましょう。
+本連載で実際に作成するアプリケーションでは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-aws-microservice/tree/feature_3-xray">GitHub</a> 上にコミットしています。
+以降に記載するソースコードでは、import文など本質的でない記述を省略している部分があるので、実行コードを作成する際は、必要に応じて適宜GitHubにあるソースコードも参照してください。</p>
+<p>なお、動作環境は以下のバージョンで実施しています。JavaやSpringのバージョンは前回から同じものを利用するので変わっていませんが、新たにX-Ray SDKを追加します。
+SDKに関するAWS公式の日本語ドキュメントは2020年9月現在では最新ではないため、英語にはなりますが、<a class="reference external" href="https://github.com/aws/aws-xray-sdk-java">SDKのGitHubのREADME</a> を参照した方が良いでしょう(提供されているライブラリの種類が変更されていて日本語ページのものとは一致しません)。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>動作対象</td>
+<td>バージョン</td>
+</tr>
+<tr class="row-even"><td>Java</td>
+<td>11</td>
+</tr>
+<tr class="row-odd"><td>Spring Boot</td>
+<td>2.3.3.RELEASE</td>
+</tr>
+<tr class="row-even"><td>AWS XRay Recorder SDK</td>
+<td>2.7.1</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>まず、使用するライブラリを以下の通り、pom.xmlに追加します。X-Ray利用の基本的なものとして、aws-xray-recorder-sdk-core、aws-xray-recorder-sdk-aws-sdk、aws-xray-recorder-sdk-aws-sdk-instrumentorを追加して下さい。
+また、RDBへアクセスするためのDataSourceに対してサブセグメントのトレースを設定するaws-xray-recorder-sdk-sqlと、任意のSpringアプリケーションのコンポーネントにAOPを使ってサブセグメントトレースを設定する
+aws-xray-recorder-sdk-springを追加します。Dependencyタグ内でバージョンを指定していませんが、代わりにDependencyManagementタグ内にaws-xray-recorder-sdk-bomを設定していますので、こちらの設定も忘れないように注意してください。</p>
+<p>また、今回の実装では、X-Rayの機能とは別に、処理結果を独自でDynamoDBにトレースログとして保存する処理を実装するので、連載「AWSで作るクラウドネイティブアプリケーションの基本」
+<a class="reference external" href="https://news.mynavi.jp/itsearch/article/cloud/4506">第17回</a> と同様、DynamoDBのライブラリを追加します。DynamoDBのリージョンやエンドポイントなどの
+設定はCloudFormationをベースとした基盤自動化により構築されたCloudFormationスタック情報やSystems Manager Parameter Storeから取得するので、AWS SDKのaws-java-sdk-ssm、aws-java-sdk-coreも必要になります。
+なお、CloudFormationのスタック情報からデータを取得する実装の詳細は 連載「AWSで実践！基盤構築・デプロイ自動化」の <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4948">第34回</a> も適宜参考にしてください。
+最後に文字列処理のライブラリとしてcommons-lang3を含めておきます(StringUtilsを使用します)。</p>
+<p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">pom.xml</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="c">&lt;!-- For X-Ray --&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.amazonaws<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>aws-xray-recorder-sdk-core<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.amazonaws<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>aws-xray-recorder-sdk-apache-http<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.amazonaws<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>aws-xray-recorder-sdk-aws-sdk<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.amazonaws<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>aws-xray-recorder-sdk-aws-sdk-instrumentor<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.amazonaws<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>aws-xray-recorder-sdk-sql<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.amazonaws<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>aws-xray-recorder-sdk-spring<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="c">&lt;!-- For Setting Spring Data DynamoDB --&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>io.github.boostchicken<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-data-dynamodb<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>5.2.1<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="c">&lt;!-- For Setting AWS Systems Manager Parameter Store --&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.amazonaws<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>aws-java-sdk-ssm<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.11.756<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.amazonaws<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>aws-java-sdk-core<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.11.756<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="c">&lt;!-- For Utility --&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.apache.commons<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>commons-lang3<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+
+<span class="nt">&lt;dependencyManagement&gt;</span>
+    <span class="nt">&lt;dependencies&gt;</span>
+        <span class="c">&lt;!-- omit --&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>com.amazonaws<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>aws-xray-recorder-sdk-bom<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>2.7.1<span class="nt">&lt;/version&gt;</span>
+            <span class="nt">&lt;type&gt;</span>pom<span class="nt">&lt;/type&gt;</span>
+            <span class="nt">&lt;scope&gt;</span>import<span class="nt">&lt;/scope&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;/dependencies&gt;</span>
+<span class="nt">&lt;/dependencyManagement&gt;</span>
+</pre></div>
+</div>
+</div>
+<p><br/></p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">なお、dependencyManagementタグに設定しているbomとはライブラリのバージョンを一括して定義するためにライブラリの提供元が公開しているMavenのペアレントpom.xmlを総称した呼び方です。</p>
+</div>
+<p><br/></p>
+<p>それでは、アプリケーションの設定を解説します。次回以降、フロントエンドのWebアプリケーションとバックエンドのマイクロサービス双方の設定の解説を行いますが、まず共通する設定要素を解説します。
+これらの設定は各アプリケーションの設定クラスXRayConfigにまとめています(内容は２つともほぼ同等です)。フロントエンドのWebアプリケーションのXRayConfigを例に解説します。</p>
+<p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">frontend-webapp/src/main/java/org/debugroom/mynavi/sample/aws/microservice/frontend/webapp/config/XRayConfig.java</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.frontend.webapp.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.amazonaws.client.builder.AwsClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.dynamodbv2.AmazonDynamoDB</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.dynamodbv2.AmazonDynamoDBAsyncClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.xray.AWSXRay</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.xray.AWSXRayRecorderBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.xray.handlers.TracingHandler</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.xray.javax.servlet.AWSXRayServletFilter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.xray.spring.aop.AbstractXRayInterceptor</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.xray.strategy.sampling.LocalizedSamplingStrategy</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.aspectj.lang.annotation.Aspect</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.aspectj.lang.annotation.Pointcut</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.context.event.ApplicationReadyEvent</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.web.servlet.FilterRegistrationBean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.EnableAspectJAutoProxy</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.event.EventListener</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.core.Ordered</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.util.ResourceUtils</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.common.apinfra.cloud.aws.CloudFormationStackResolver</span><span class="o">;</span>
+
+<span class="nd">@Aspect</span>                                                                              <span class="c1">//(A)</span>
+<span class="nd">@Configuration</span>
+<span class="nd">@EnableAspectJAutoProxy</span>                                                              <span class="c1">//(B)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">XRayConfig</span> <span class="kd">extends</span> <span class="n">AbstractXRayInterceptor</span> <span class="o">{</span>                            <span class="c1">//(C)</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">DYNAMODB_ENDPOINT_EXPORT</span> <span class="o">=</span> <span class="s">&quot;mynavi-sample-microservice-vpc-DynamoDB-Dev-ServiceEndpoint&quot;</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">DYNAMODB_REGION_EXPORT</span> <span class="o">=</span> <span class="s">&quot;mynavi-sample-microservice-vpc-DynamoDB-Dev-Region&quot;</span><span class="o">;</span>
+                                                                                     <span class="c1">//(D)</span>
+    <span class="nd">@Autowired</span>
+    <span class="n">CloudFormationStackResolver</span> <span class="n">cloudFormationStackResolver</span><span class="o">;</span>                         <span class="c1">//(E)</span>
+
+    <span class="kd">static</span> <span class="o">{</span>
+        <span class="k">try</span><span class="o">{</span>
+            <span class="n">AWSXRayRecorderBuilder</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">AWSXRayRecorderBuilder</span><span class="o">.</span><span class="na">standard</span><span class="o">()</span>
+                 <span class="o">.</span><span class="na">withSamplingStrategy</span><span class="o">(</span><span class="k">new</span> <span class="n">LocalizedSamplingStrategy</span><span class="o">(</span>
+                         <span class="n">ResourceUtils</span><span class="o">.</span><span class="na">getURL</span><span class="o">(</span><span class="s">&quot;classpath:sampling-rules.json&quot;</span><span class="o">)));</span>    <span class="c1">//(F)</span>
+            <span class="n">AWSXRay</span><span class="o">.</span><span class="na">setGlobalRecorder</span><span class="o">(</span><span class="n">builder</span><span class="o">.</span><span class="na">build</span><span class="o">());</span>                              <span class="c1">//(G)</span>
+        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">){</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">AWSXRayServletFilter</span> <span class="nf">awsXrayServletFitler</span><span class="o">(){</span>                              <span class="c1">//(H)</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">AWSXRayServletFilter</span><span class="o">(</span><span class="s">&quot;MynaviSampleMicroServiceFrontendApp&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">FilterRegistrationBean</span> <span class="nf">filterRegistrationBean</span><span class="o">(){</span>                          <span class="c1">//(I)</span>
+        <span class="n">FilterRegistrationBean</span> <span class="n">filterRegistrationBean</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FilterRegistrationBean</span><span class="o">(</span><span class="n">awsXrayServletFitler</span><span class="o">());</span>
+        <span class="n">filterRegistrationBean</span><span class="o">.</span><span class="na">setOrder</span><span class="o">(</span><span class="n">Ordered</span><span class="o">.</span><span class="na">HIGHEST_PRECEDENCE</span><span class="o">);</span>                 <span class="c1">//(J)</span>
+        <span class="k">return</span> <span class="n">filterRegistrationBean</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="n">AmazonDynamoDB</span> <span class="nf">amazonDynamoDB</span><span class="o">(){</span>                                                 <span class="c1">//(K)</span>
+        <span class="k">return</span> <span class="n">AmazonDynamoDBAsyncClientBuilder</span><span class="o">.</span><span class="na">standard</span><span class="o">()</span>
+             <span class="o">.</span><span class="na">withEndpointConfiguration</span><span class="o">(</span>
+                     <span class="k">new</span> <span class="n">AwsClientBuilder</span><span class="o">.</span><span class="na">EndpointConfiguration</span><span class="o">(</span>
+                             <span class="n">cloudFormationStackResolver</span><span class="o">.</span><span class="na">getExportValue</span><span class="o">(</span><span class="n">DYNAMODB_ENDPOINT_EXPORT</span><span class="o">),</span>
+                             <span class="n">cloudFormationStackResolver</span><span class="o">.</span><span class="na">getExportValue</span><span class="o">(</span><span class="n">DYNAMODB_REGION_EXPORT</span><span class="o">)))</span>
+             <span class="o">.</span><span class="na">withRequestHandlers</span><span class="o">(</span><span class="k">new</span> <span class="n">TracingHandler</span><span class="o">(</span><span class="n">AWSXRay</span><span class="o">.</span><span class="na">getGlobalRecorder</span><span class="o">()))</span>   <span class="c1">//(L)</span>
+             <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="nd">@Pointcut</span><span class="o">(</span><span class="s">&quot;@within(com.amazonaws.xray.spring.aop.XRayEnabled) &quot;</span> <span class="o">+</span>
+         <span class="s">&quot; &amp;&amp; execution(* org.debugroom.mynavi.sample.aws.microservice..*.*(..))&quot;</span> <span class="o">)</span>  <span class="c1">//(M)</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">xrayEnabledClasses</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="nd">@EventListener</span><span class="o">(</span><span class="n">ApplicationReadyEvent</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>                                      <span class="c1">//(N)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onStartup</span><span class="o">(){</span>
+        <span class="n">AWSXRay</span><span class="o">.</span><span class="na">endSegment</span><span class="o">();</span>                                                        <span class="c1">//(O)</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<p><br/></p>
+<p>XRayConfigクラスコードの説明は以下の通りです。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id12">
+<caption><span class="caption-text">XRayConfigクラスコードの説明</span><a class="headerlink" href="#id12" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>項番</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple">
+<li></li>
+</ol>
+</td>
+<td>SpringAOPの機能を利用して、このクラスをアスペクト機能をもつコンポーネントとして定義します。実際の機能利用箇所は(M)にあるPointCutで定義したコンポーネントおよび(C)で継承しているAbstractXRayInspectorになります。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="2">
+<li></li>
+</ol>
+</td>
+<td>SpringAOPの機能を利用するクラスとして宣言を行います。これはSpringAOPを利用する際に必要な設定です。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="3">
+<li></li>
+</ol>
+</td>
+<td>com.amazonaws.xray.spring.aop.AbstractXRayInterceptorを継承します。このクラスはSpringAOPを用いてサブセグメントの開始終了処理を担うインターセプターとなっており、(M)でジョインポイントを定義することにより、任意の条件でサブセグメントを開始してトレースデータを収集できるようになっています。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="4">
+<li></li>
+</ol>
+</td>
+<td>DynamoDBのエンドポイントとリージョンをCloudFormationのスタック情報から取得するのでエクスポート名を定義します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="4">
+<li></li>
+</ol>
+</td>
+<td>CloudFormationのスタック情報を取得するためのユーティリティクラスをインジェクションします。詳細は連載「AWSで実践！基盤構築・デプロイ自動化」の <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4948">第34回</a> を適宜参考にしてください。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="6">
+<li></li>
+</ol>
+</td>
+<td>XRayデーモンにトレースデータを送信するためのAWSXRayRecorderの設定を行います。トレースをサンプリングするためのルールをsampling-rules.jsonとして定義し、src/main/resources配下に配置したファイルをResourceUtilsを使って読み込んで設定します。
+なお、この設定はクラス変数としてstatic要素内で定義されていますが、内部でスレッドローカル内にTraceIDをMDCを使って保護する仕組みになっており、マルチスレッド環境で動くWebアプリケーションでも正常に動作する仕様になっています。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="7">
+<li></li>
+</ol>
+</td>
+<td>(F)で設定したAWSXrayRecorderをAWSXRayクラスの変数としてセットします。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="8">
+<li></li>
+</ol>
+</td>
+<td>リクエストにTraceIDをセットするためのサーブレットフィルタの設定を行います。インスタンス生成時に指定した文字列がマネジメントコンソール上でのサービス名として定義されます。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperroman simple">
+<li></li>
+</ol>
+</td>
+<td>(H)で定義したサーブレットフィルタを登録します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="10">
+<li></li>
+</ol>
+</td>
+<td>SpringSecurityと併用した際にも、先にTraceIDが付与されるようにフィルタ適用条件に高いプライオリティを設定します。この設定により認証などのSpringSecurityが請け負う処理もトレーシングされます。なお、バックエンドのマイクロサービスでは現状、OAuth2によるアクセストークンを使った認可処理は実装していないのでバックエンド側にはまだ設定していません。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="11">
+<li></li>
+</ol>
+</td>
+<td>トレースログを保存するためのDynamoDB設定を定義します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="12">
+<li></li>
+</ol>
+</td>
+<td>DynamoDBへのアクセスのトレーシングを有効にする場合、リクエストハンドラにcom.amazonaws.xray.handlers.TracingHandlerを設定し、(F)で定義したAWSXRayRecorderを設定します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="13">
+<li></li>
+</ol>
+</td>
+<td>サブセグメントを開始終了するコンポーネントの定義条件を設定します。ここでは、com.amazonaws.xray.spring.aop.XRayEnabledアノテーションを付与した、org.debugroom.mynavi.sample.aws.microservice配下のパッケージにある全てのクラスのメソッド実行時を指定しています。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="14">
+<li></li>
+</ol>
+</td>
+<td>アプリケーション起動時もCloudFormationスタックやSystems Manager Parameter Storeへアクセスするため、セグメントの設定が必要になります。SpringBootを起動する際のメインクラスでセグメントの開始を宣言していますが(後述)、SpringのEventListener機能を使って、アプリケーションの起動が終了した際にXRayのセグメントを終了する処理を実装します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="15">
+<li></li>
+</ol>
+</td>
+<td>(N)でも解説した通り、セグメントを終了する処理を実装します。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>なお、アプリケーションの起動時にCloudFormationのスタック情報やSystems Manager Parameter Storeへアクセスする場合、
+デフォルトの設定ではAWS X-RayがAWSリソースへのアクセスを記録しようとする(SpringのAutoConfigrationで設定されたAWS SDKクライアントがX-Rayデーモンへデータ送信する挙動になる)ため、
+起動時にセグメントを開始するよう、メインクラスを以下の通り編集します(セグメントの終了処理は上記の(O)でアプリケーションの起動完了時に終了します)。</p>
+<p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">frontend-webapp/src/main/java/org/debugroom/mynavi/sample/aws/microservice/frontend/webapp/config/WebApp.java</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.frontend.webapp.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.amazonaws.xray.AWSXRay</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WebApp</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">AWSXRay</span><span class="o">.</span><span class="na">beginSegment</span><span class="o">(</span><span class="s">&quot;frontend-webapp-init&quot;</span><span class="o">);</span>
+        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">WebApp</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="c1">// omit</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<p><br/></p>
+<p>また、今回の連載では、TraceIDの引き回しや取得方法を確認するために、各アプリケーション、マイクロサービスでリクエスト実行時にDynamoDBへトレースログを保存する処理を次回以降の連載で加えます。
+AWS X-RayではデフォルトでCloudWatchと連携する機能があり、 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/xray/latest/devguide/xray-sdk-java-segment.html">セグメントをメタデータとして任意のパラメータを追加して検索する</a> こともできますが。
+ログデータの永続化や任意のパラメータ検索の容易性を踏まえて、ログの保存要件に適したものを選択した方が良いでしょう。
+今回は以下のように、ユーザIDと日時をキーとしたテーブルデータを作成するものとします。また、検索用にTraceIDをグローバルセカンダリインデックスとして作成しておきます。
+モデルクラスやDynamoDB構築のCloudFormationテンプレートは共通プロジェクトに配置します。
+過去の連載で解説は実施済みのため、DynamoDBの構築やアクセス実装の詳しい説明は省略しますが、必要に応じて 「クラウドネイティブの基本編」 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/cloud/4506">第17回 Spring Data DynamoDBを用いたアプリケーション</a> や
+「AWSで実践! 基盤構築・デプロイ自動化」の <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4896">第30回 DynamoDB構築自動化テンプート</a> 、<a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4948">第34回 Backend Serviceアプリケーションにおけるスタック情報の取得／設定</a> を参照してください。</p>
+<p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">common/src/main/java/org/debugroom/mynavi/sample/aws/microservice/common/apinfra/cloud/aws/log/dynamodb/model/Log.java</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.common.apinfra.cloud.aws.log.dynamodb.model</span><span class="o">;</span>
+
+<span class="c1">// omit</span>
+
+<span class="nd">@DynamoDBTable</span><span class="o">(</span><span class="n">tableName</span> <span class="o">=</span> <span class="s">&quot;mynavi-sample-microservice-log-table&quot;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Log</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
+
+    <span class="nd">@Id</span>
+    <span class="nd">@Getter</span><span class="o">(</span><span class="n">AccessLevel</span><span class="o">.</span><span class="na">NONE</span><span class="o">)</span>
+    <span class="nd">@Setter</span><span class="o">(</span><span class="n">AccessLevel</span><span class="o">.</span><span class="na">NONE</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">LogKey</span> <span class="n">logKey</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">userId</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">createdAt</span><span class="o">;</span>
+
+    <span class="nd">@DynamoDBAttribute</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">traceId</span><span class="o">;</span>
+
+    <span class="nd">@DynamoDBHashKey</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getUserId</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">userId</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@DynamoDBRangeKey</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getCreatedAt</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">createdAt</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<p><br/></p>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">cloudformation/2-dynamodb-cfn.yml</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># omit
+
+Resources:
+  MynaviSampleMicroserviceLogTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !If [&quot;ProductionResources&quot;, &quot;mynavi-sample-microservice-log-table&quot;,  !If [&quot;StagingResources&quot;, &quot;staging_mynavi-sample-microservice-log-table&quot;, &quot;dev_mynavi-sample-microservice-log-table&quot;]]
+      BillingMode: PROVISIONED
+      SSESpecification: !If [&quot;ProductionResources&quot;, { &quot;SSEEnabled&quot; : true }, !Ref &quot;AWS::NoValue&quot;]
+      AttributeDefinitions:
+        - AttributeName: userId
+          AttributeType: S
+        - AttributeName: createdAt
+          AttributeType: S
+        - AttributeName: traceId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: userId
+          KeyType: HASH
+        - AttributeName: createdAt
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: traceIdIndex
+          KeySchema:
+            - AttributeName: traceId
+              KeyType: HASH
+            - AttributeName: createdAt
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+          ProvisionedThroughput:
+            ReadCapacityUnits: 5
+            WriteCapacityUnits: 5
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+</pre></div>
+</div>
+</div>
+<p><br/></p>
+<p>今回はAWS X-Rayのセグメント・サブセグメントの概念を解説し、フロントエンドのWebアプリケーション、バックエンドのマイクロサービス双方に共通する設定を紹介しました。次回はフロントエンドアプリケーションに必要なAWS X-Rayの設定について解説を進めていきます。</p>
+<p><br/></p>
+</div>
+<div class="section" id="id7">
+<h2>著者紹介<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei) - NTTデータ</p>
+<div class="figure">
+<img alt="../_images/aws_361383_0752.jpeg" src="../_images/aws_361383_0752.jpeg" />
+</div>
+<p>金融機関システム業務アプリケーション開発・システム基盤担当、ソフトウェア開発自動化関連の研究開発を経て、デジタル技術関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p><a class="reference external" href="https://aws.amazon.com/jp/partners/ambassadors/?cards-body.sort-by=item.additionalFields.ambassadorName&amp;cards-body.sort-order=asc&amp;cards-body.q=kawabata&amp;cards-body.q_operator=AND">AWS Top Engineers &amp; Ambassadors</a> 選出。</p>
+<p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
