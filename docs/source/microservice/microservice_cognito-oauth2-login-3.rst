@@ -2,7 +2,7 @@
 
 .. _section-aws-microservice-cognito-oauth2-login-3-label:
 
-【第13回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(3)
+【第14回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(3)
 ===============================================================================================
 
 |br|

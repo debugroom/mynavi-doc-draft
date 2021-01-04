@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>【第13回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(3) &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <title>【第14回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(3) &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -160,7 +160,7 @@
 <li class="toctree-l1"><a class="reference internal" href="microservice_xray-4.html">【第11回】AWS X-Rayを用いたマイクロサービスの可視化(4)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="microservice_cognito-oauth2-login-1.html">【第12回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(1)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="microservice_cognito-oauth2-login-2.html">【第13回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(2)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">【第13回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">【第14回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(3)</a></li>
 </ul>
 </ul>
 </li>
@@ -174,7 +174,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">【第13回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(3)</a><ul>
+<li><a class="reference internal" href="#">【第14回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(3)</a><ul>
 <li><a class="reference internal" href="#id1">アプリクライアント・ドメインの設定</a></li>
 <li><a class="reference internal" href="#id">IDプールの設定</a></li>
 <li><a class="reference internal" href="#id2">著者紹介</a></li>
@@ -224,7 +224,7 @@
     <div class="col-md-12 content">
       
   <div class="section" id="amazon-cognito-spring-sercurityoauth2-login-3">
-<span id="section-aws-microservice-cognito-oauth2-login-3-label"></span><h1>【第13回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(3)<a class="headerlink" href="#amazon-cognito-spring-sercurityoauth2-login-3" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<span id="section-aws-microservice-cognito-oauth2-login-3-label"></span><h1>【第14回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(3)<a class="headerlink" href="#amazon-cognito-spring-sercurityoauth2-login-3" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p><br/></p>
 <p>前回から、以下のイメージのようにOAuth2 Loginをベースとしたアーキテクチャを想定した環境構築を進めています。</p>
 <p><br/></p>
@@ -232,7 +232,7 @@
 <img alt="../_images/oauth2-login-flow.png" src="../_images/oauth2-login-flow.png" />
 </div>
 <p><br/></p>
-<p>OAuth2 Loginを実現するための認証・認可サーバとなるAmazon Cognitoについて概説し、ユーザプールをマネジメントコンソール上から構築しました。
+<p>前回は、OAuth2 Loginを実現するための認証・認可サーバとなるAmazon Cognitoについて概説し、ユーザプールをマネジメントコンソール上から構築しました。
 今回以降は、OAuth2 Loginに必要なアプリクライアントの設定を行い、IDプールを構築していきます。</p>
 <div class="section" id="id1">
 <h2>アプリクライアント・ドメインの設定<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>

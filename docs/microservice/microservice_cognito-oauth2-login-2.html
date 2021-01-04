@@ -18,7 +18,7 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="【第13回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(3)" href="microservice_cognito-oauth2-login-3.html" />
+    <link rel="next" title="【第14回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(3)" href="microservice_cognito-oauth2-login-3.html" />
     <link rel="prev" title="【第12回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(1)" href="microservice_cognito-oauth2-login-1.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -161,7 +161,7 @@
 <li class="toctree-l1"><a class="reference internal" href="microservice_xray-4.html">【第11回】AWS X-Rayを用いたマイクロサービスの可視化(4)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="microservice_cognito-oauth2-login-1.html">【第12回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(1)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">【第13回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(2)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="microservice_cognito-oauth2-login-3.html">【第13回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_cognito-oauth2-login-3.html">【第14回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(3)</a></li>
 </ul>
 </ul>
 </li>
@@ -194,7 +194,7 @@
     </a>
   </li>
   <li>
-    <a href="microservice_cognito-oauth2-login-3.html" title="Next Chapter: 【第13回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">【第13回】Amazon ... &raquo;</span>
+    <a href="microservice_cognito-oauth2-login-3.html" title="Next Chapter: 【第14回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">【第14回】Amazon ... &raquo;</span>
     </a>
   </li>
               
@@ -243,7 +243,7 @@
 <p><br/></p>
 <p>Amazon CognitoはAWSを提供する認証・認可機能を提供するサービスです。
 主要な機能はユーザディレクトリ(ユーザ情報データベース)機能を提供する「ユーザプール」と、
-認証されたユーザやGoogle、Apple、Facebookなどサードパーティプロバイダで認証されたユーザにAWSサービスへアクセスのたの認可を提供する「IDプール」機能に大別されます。</p>
+認証されたユーザやGoogle、Apple、Facebookなどサードパーティプロバイダで認証されたユーザに、AWSサービスへアクセスするための認可を提供する「IDプール」機能に大別されます。</p>
 <p>ユーザプールの主要な機能は以下の通りです。</p>
 <p><br/></p>
 <table border="1" class="colwidths-given docutils">
@@ -281,7 +281,7 @@
 <p><br/></p>
 <p>それでは、Cognitoを使ってユーザプールおよびIDプール、加えてOIDCプロバイダとしてOAuth2 Loginが可能な設定を進めましょう。
 手順はコンソールから設定する方法とCloudFormationを使って構築する2種類あり、双方取り扱いますが、本連載では、アプリケーションから設定値をスタック経由で参照できる
-CloudFormationを使う方法を推奨します。まず設定内容の説明のため、今回は先にコンソールからの構築手順を解説します。</p>
+CloudFormationを使う方法を推奨します。ただし、まず設定内容の説明のため、今回は先にコンソールからの構築手順を解説します。</p>
 <p>AWSコンソール上で Amazon Cognitoサービスから、「ユーザプールの管理」&gt;「ユーザープールを作成する」を選択してください。</p>
 <p><br/></p>
 <div class="figure">
@@ -339,7 +339,7 @@ CloudFormationを使う方法を推奨します。まず設定内容の説明の
 <td>SMSを発信するためのロールを作成するためロール名を入力します。ここではデフォルトのままで設定しておきます。</td>
 </tr>
 <tr class="row-odd"><td>Eメールアドレスのカスタマイズ</td>
-<td>メールをユーザに発信する際の設定を行います。発信できるリージョンは「米国東部(バージニア)」などに限られますが、検証時に使われるメール送信の発出元なので問題ありません。その他、送信元として表示されるメール設定やリプライ用のメール設定なども可能です。
+<td>メールをユーザに発信する際の設定を行います。発信できるリージョンは「米国東部(バージニア)」などに限られますが、検証時に使われるメール送信の発出元なので、環境構築しているリージョンと異なっていても問題ありません。その他、送信元として表示されるメール設定やリプライ用のメール設定なども可能です。
 ここではデフォルトのままで設定します。</td>
 </tr>
 <tr class="row-even"><td>SESによるメール発信設定</td>
@@ -358,7 +358,7 @@ CloudFormationを使う方法を推奨します。まず設定内容の説明の
 <td>一度ログインが完了したブラウザの情報を通じてログイン状態を継続する、俗にいうRemembermeサービス設定です。ここでは、設定は行いません。</td>
 </tr>
 <tr class="row-odd"><td>アプリクライアント名</td>
-<td>Cognitoへアクセスするアプリケーションクライアントの設定を行います。本連載では現在フロントエンドに配置したWebアプリケーションが相当します。ここではクライアントの名称を設定します。</td>
+<td>Cognitoへアクセスするアプリケーションクライアントの設定を行います。本連載では、現状フロントエンドサブネットに配置したWebアプリケーションが相当します。ここではクライアントの名称を設定します。</td>
 </tr>
 <tr class="row-even"><td>トークンの有効期限を更新</td>
 <td>リフレッシュトークンの有効期限の設定を行います。ここではデフォルトの30日に設定します。</td>
@@ -370,8 +370,8 @@ CloudFormationを使う方法を推奨します。まず設定内容の説明の
 <td>IDトークンの有効期限の設定を行います。ここではデフォルトの60分に設定します。</td>
 </tr>
 <tr class="row-odd"><td>クライアントシークレットの生成</td>
-<td>アクセスしてくるアプリケーションのパスワードに相当するクライアントシークレットを生成します。一般的にサーバサイドでトークンを授受する際に必要なパラメータとなります。
-JavaScriptやモバイルアプリケーションなどのユーザ側に渡ってしまう可能性があるものは、クライアントシークレットを渡さずに実現しますが、
+<td>アクセスしてくるアプリケーションのパスワードに相当するクライアントシークレットを生成します。これは、一般的にサーバサイドでトークンを授受する際に必要なパラメータとなります。
+JavaScriptやモバイルアプリケーションなどのユーザ側に渡ってしまう可能性がある環境では、クライアントシークレットを渡さずに実現しますが、
 ここでWebアプリケーションはサーバサイド側に配置されるのでクライアントシークレットを生成しておきます。</td>
 </tr>
 <tr class="row-even"><td>認証フローの設定</td>
@@ -385,7 +385,7 @@ LambdaでCognitoオーソライザーを行うときに利用します。「ユ�
 参考にしてください。</td>
 </tr>
 <tr class="row-odd"><td>セキュリティ設定(ユーザ存在エラー)</td>
-<td>ユーザが存在しない時の応答エラーを、隠蔽したメッセージにカスタマイズするオプションです。デフォルトのままで設定しておきます。</td>
+<td>ユーザが存在しない時の応答エラーを隠蔽したメッセージへとカスタマイズするオプションです。デフォルトのままで設定しておきます。</td>
 </tr>
 <tr class="row-even"><td>トリガー設定</td>
 <td>ユーザプールにおける様々なイベント発生時にLambda関数を実行したい場合の設定オプションです。デフォルトのままで設定しておきます。</td>
@@ -429,7 +429,7 @@ LambdaでCognitoオーソライザーを行うときに利用します。「ユ�
 </div>
 <p><br/></p>
 <p>今回は、Amazon Cognitoの概要を説明し、ユーザプールの設定方法について説明しました。
-次回以降は、作成したアプリクライアント定義にOAuth2 Loginとして必要な設定を行い、続いてIDプールを作成していきます。</p>
+次回以降は、このユーザプールの構築の中で作成したアプリクライアント定義にOAuth2 Loginとして必要な設定を行い、続いてIDプールを作成していきます。</p>
 <p><br/></p>
 </div>
 <div class="section" id="id3">

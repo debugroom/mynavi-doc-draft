@@ -2,7 +2,7 @@
 
 .. _section-aws-microservice-cognito-oauth2-login-3-label:
 
-【第13回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(3)
+【第14回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(3)
 ===============================================================================================
 
 |br|
@@ -15,7 +15,7 @@
 
 |br|
 
-OAuth2 Loginを実現するための認証・認可サーバとなるAmazon Cognitoについて概説し、ユーザプールをマネジメントコンソール上から構築しました。
+前回は、OAuth2 Loginを実現するための認証・認可サーバとなるAmazon Cognitoについて概説し、ユーザプールをマネジメントコンソール上から構築しました。
 今回以降は、OAuth2 Loginに必要なアプリクライアントの設定を行い、IDプールを構築していきます。
 
 アプリクライアント・ドメインの設定
