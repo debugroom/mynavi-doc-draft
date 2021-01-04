@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>【第11回】AWS X-Rayを用いたマイクロサービスの可視化(4) &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <title>【第13回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(2) &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -18,8 +18,8 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="【第12回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(1)" href="microservice_cognito-oauth2-login-1.html" />
-    <link rel="prev" title="【第10回】AWS X-Rayを用いたマイクロサービスの可視化(3)" href="microservice_xray-3.html" />
+    <link rel="next" title="【第13回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(3)" href="microservice_cognito-oauth2-login-3.html" />
+    <link rel="prev" title="【第12回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(1)" href="microservice_cognito-oauth2-login-1.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -158,8 +158,10 @@
 <li class="toctree-l1"><a class="reference internal" href="microservice_xray-1.html">【第8回】AWS X-Rayを用いたマイクロサービスの可視化(1)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="microservice_xray-2.html">【第9回】AWS X-Rayを用いたマイクロサービスの可視化(2)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="microservice_xray-3.html">【第10回】AWS X-Rayを用いたマイクロサービスの可視化(3)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">【第11回】AWS X-Rayを用いたマイクロサービスの可視化(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_xray-4.html">【第11回】AWS X-Rayを用いたマイクロサービスの可視化(4)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="microservice_cognito-oauth2-login-1.html">【第12回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(1)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">【第13回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_cognito-oauth2-login-3.html">【第13回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(3)</a></li>
 </ul>
 </ul>
 </li>
@@ -173,9 +175,9 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">【第11回】AWS X-Rayを用いたマイクロサービスの可視化(4)</a><ul>
-<li><a class="reference internal" href="#id1">サンプリングルールの設定</a></li>
-<li><a class="reference internal" href="#x-ray">バックエンドのマイクロサービスにおけるX-Rayの設定</a></li>
+<li><a class="reference internal" href="#">【第13回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(2)</a><ul>
+<li><a class="reference internal" href="#amazon-cognito">Amazon Cognitoの概要</a></li>
+<li><a class="reference internal" href="#id1">ユーザプールの環境構築</a></li>
 <li><a class="reference internal" href="#id3">著者紹介</a></li>
 </ul>
 </li>
@@ -188,11 +190,11 @@
               
                 
   <li>
-    <a href="microservice_xray-3.html" title="Previous Chapter: 【第10回】AWS X-Rayを用いたマイクロサービスの可視化(3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 【第10回】AWS X-R...</span>
+    <a href="microservice_cognito-oauth2-login-1.html" title="Previous Chapter: 【第12回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(1)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 【第12回】Amazon ...</span>
     </a>
   </li>
   <li>
-    <a href="microservice_cognito-oauth2-login-1.html" title="Next Chapter: 【第12回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(1)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">【第12回】Amazon ... &raquo;</span>
+    <a href="microservice_cognito-oauth2-login-3.html" title="Next Chapter: 【第13回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">【第13回】Amazon ... &raquo;</span>
     </a>
   </li>
               
@@ -202,7 +204,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/microservice/microservice_xray-4.rst.txt"
+  <a href="../_sources/microservice/microservice_cognito-oauth2-login-2.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -226,193 +228,208 @@
   <div class="row">
     <div class="col-md-12 content">
       
-  <div class="section" id="aws-x-ray-4">
-<span id="section-aws-microservice-xray-4-label"></span><h1>【第11回】AWS X-Rayを用いたマイクロサービスの可視化(4)<a class="headerlink" href="#aws-x-ray-4" title="このヘッドラインへのパーマリンク">¶</a></h1>
+  <div class="section" id="amazon-cognito-spring-sercurityoauth2-login-2">
+<span id="section-aws-microservice-cognito-oauth2-login-2-label"></span><h1>【第13回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(2)<a class="headerlink" href="#amazon-cognito-spring-sercurityoauth2-login-2" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p><br/></p>
-<p>本連載では、以下に示すようなマイクロサービスアーキテクチャのアプリケーション環境を構築しています。</p>
+<p>前回は、現在の実装状況や今後実現するOAuth2 Loginをベースとしたアーキテクチャを、以下のイメージのように整理しました。
+今回以降は、OAuth2 Loginを実現するための認証・認可サーバとなるAmazon Cognitoについて概説し、環境を構築していきます。</p>
 <p><br/></p>
 <div class="figure">
-<img alt="../_images/service-architecture.png" src="../_images/service-architecture.png" />
+<img alt="../_images/oauth2-login-flow.png" src="../_images/oauth2-login-flow.png" />
 </div>
 <p><br/></p>
-<p>前回はX-Rayデーモンへトレースデータを送信するためのフロントエンドのWebアプリケーションの設定を個別に実装しました。
-今回はバックエンドのマイクロサービスにおけるX-Rayの設定実装を解説していきます。
-本連載で実際に作成するアプリケーションでは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-aws-microservice/tree/feature_3-xray">GitHub</a> 上にコミットしています。
-以降に記載するソースコードでは、import文など本質的でない記述を省略している部分があるので、実行コードを作成する際は、必要に応じて適宜GitHubにあるソースコードも参照してください。</p>
+<div class="section" id="amazon-cognito">
+<h2>Amazon Cognitoの概要<a class="headerlink" href="#amazon-cognito" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
+<p>Amazon CognitoはAWSを提供する認証・認可機能を提供するサービスです。
+主要な機能はユーザディレクトリ(ユーザ情報データベース)機能を提供する「ユーザプール」と、
+認証されたユーザやGoogle、Apple、Facebookなどサードパーティプロバイダで認証されたユーザにAWSサービスへアクセスのたの認可を提供する「IDプール」機能に大別されます。</p>
+<p>ユーザプールの主要な機能は以下の通りです。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="17%" />
+<col width="83%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>機能</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td>ユーザデータベース管理</td>
+<td>ユーザ属性を定義し、ユーザ情報を管理できます。パスワードポリシーなどを定義してルール化や、電話番号・Emailの認証機能をサポートします。</td>
+</tr>
+<tr class="row-odd"><td>サインアップ・サインイン</td>
+<td>ユーザを作成したり、自身にサインアップさせたりすることができます。登録後はHostedUIを用いたサインイン機能をサポートします。サインアップ・サインイン機能については環境構築上重要なため、次節詳細に解説します。</td>
+</tr>
+<tr class="row-even"><td>多認証要素(Multi Factor Authentication : MFA)</td>
+<td>EmailやスマートフォンのSMSを使った複数の認証を利用することができます。</td>
+</tr>
+<tr class="row-odd"><td>サードパーティプロバイダ連携</td>
+<td>他のソーシャルメディアをはじめとしたサードパーティ認証プロバイダと連携し、ユーザ情報管理ができます。</td>
+</tr>
+<tr class="row-even"><td>AWSサービス連携</td>
+<td>Amazon API GatewayやLambdaなどのサービスと連携し、認証を行うオーソライザ機能を持っています。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>また、IDプールでは認証されたユーザに対して発行されたトークンを検証して、AWSサービスにアクセス可能な一時クレデンシャルを発行できます。</p>
+<p><br/></p>
+</div>
 <div class="section" id="id1">
-<h2>サンプリングルールの設定<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h2>ユーザプールの環境構築<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
-<p>前回と同様、共通のX-Rayの設定クラスで、クラスパス配下にある、サンプリングルールを設定したsampling-rules.jsonを読み込んでいます。
-ここでも、全てのリクエストが計測対象となるよう、レートを1に設定しておきます。サンプリングルールは対象のホストやHTTPメソッド、URLパスなど細かい設定が可能です。
-詳細は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/xray/latest/devguide/xray-console-sampling.html">サンプリングルールの設定</a> を参照してください。</p>
-<p><br/></p>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">backend-user-service/src/main/resources/sampling-rules.json</span><a class="headerlink" href="#id4" title="このコードへのパーマリンク">¶</a></div>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="s2">&quot;version&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-  <span class="s2">&quot;rules&quot;</span><span class="o">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Sample description.&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;http_method&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;url_path&quot;</span><span class="o">:</span> <span class="s2">&quot;/api/*&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;fixed_target&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="s2">&quot;rate&quot;</span><span class="o">:</span> <span class="mi">1</span>
-    <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="s2">&quot;default&quot;</span><span class="o">:</span> <span class="p">{</span>
-     <span class="s2">&quot;fixed_target&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-     <span class="s2">&quot;rate&quot;</span><span class="o">:</span> <span class="mf">0.1</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
-<p><br/></p>
-</div>
-<div class="section" id="x-ray">
-<h2>バックエンドのマイクロサービスにおけるX-Rayの設定<a class="headerlink" href="#x-ray" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p><br/></p>
-<p>計測するサブセグメントとして、フロントエンドのWebアプリケーションと同様、Controller、Service、Repositoryごとに実行時間を計測します。前回設定したXRayConfigクラスのAOPポイントカット定義に基づき、各コンポーネントの実装クラスに&#64;XRayEnabledアノテーションを付与します。
-下記はControllerにアノテーションを付与する例です。</p>
-<p><br/></p>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">backend-user-service/src/main/java/org/debugroom/mynavi/sample/aws/microservice/backend/user/app/web/BackendUserController.java</span><a class="headerlink" href="#id5" title="このコードへのパーマリンク">¶</a></div>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.backend.user.app.web</span><span class="o">;</span>
-
-<span class="c1">// omit</span>
-
-<span class="kn">import</span> <span class="nn">com.amazonaws.xray.spring.aop.XRayEnabled</span><span class="o">;</span>
-
-<span class="c1">// omit</span>
-
-<span class="nd">@XRayEnabled</span>
-<span class="nd">@RestController</span>
-<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&quot;api/v1&quot;</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BackendUserController</span> <span class="o">{</span>
-    <span class="c1">// omit</span>
-<span class="o">}</span>
-</pre></div>
-</div>
-</div>
-<p><br/></p>
-<p>ただし、Repositoryのクラスについては、org.springframework.data.repository.Repositoryインターフェースを継承しているので、特にアノテーションは設定する必要はありません。
-これはXRayConfigの継承クラス <a class="reference external" href="https://github.com/aws/aws-xray-sdk-java/blob/master/aws-xray-recorder-sdk-spring/src/main/java/com/amazonaws/xray/spring/aop/AbstractXRayInterceptor.java">com.amazonaws.xray.spring.aop.AbstractXRayInterceptorクラスが既にそのインターフェースをポイントカット定義しているため</a> です。
-代わりに、バックエンドのマイクロサービスは現状インメモリデータベースHSQLを使ってユーザ情報を取得しているので、以下の通りDataSourceを com.amazonaws.xray.sql.TracingDataSourcでラップして定義しておきます。</p>
-<p><br/></p>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">backend-user-service/src/main/java/org/debugroom/mynavi/sample/aws/microservice/backend/user/app/web/BackendUserController.java</span><a class="headerlink" href="#id6" title="このコードへのパーマリンク">¶</a></div>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.backend.user.config</span><span class="o">;</span>
-
-<span class="c1">// omit</span>
-
-<span class="kn">import</span> <span class="nn">com.amazonaws.xray.sql.TracingDataSource</span><span class="o">;</span>
-
-<span class="c1">// omit</span>
-
-<span class="nd">@Profile</span><span class="o">(</span><span class="s">&quot;dev&quot;</span><span class="o">)</span>
-<span class="nd">@Configuration</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DevConfig</span> <span class="o">{</span>
-
-    <span class="c1">// omit</span>
-
-    <span class="nd">@Bean</span>
-    <span class="kd">public</span> <span class="n">DataSource</span> <span class="nf">dataSource</span><span class="o">(){</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="n">TracingDataSource</span><span class="o">(</span><span class="k">new</span> <span class="n">EmbeddedDatabaseBuilder</span><span class="o">()</span>
-                <span class="o">.</span><span class="na">setType</span><span class="o">(</span><span class="n">EmbeddedDatabaseType</span><span class="o">.</span><span class="na">HSQL</span><span class="o">)</span>
-                <span class="o">.</span><span class="na">addScript</span><span class="o">(</span><span class="s">&quot;classpath:schema-hsql.sql&quot;</span><span class="o">)</span>
-                <span class="o">.</span><span class="na">addScript</span><span class="o">(</span><span class="s">&quot;classpath:data-hsql.sql&quot;</span><span class="o">)</span>
-                <span class="o">.</span><span class="na">build</span><span class="o">());</span>
-    <span class="o">}</span>
-
-<span class="o">}</span>
-</pre></div>
-</div>
-</div>
-<p><br/></p>
-<p>最後にフロントエンドのWebアプリケーションの時と同じく、Controllerの処理が完了した後、TraceIDやユーザID、実行時間をDynamoDBに保存するよう、HanderInterceptorAdapterを継承したコンポーネントを生成します。
-TraceIDは前回の実装と同様Segmentオブジェクトをcom.amazonaws.xray.AWSXRayから取得してもよいですが、リクエストヘッダにもTraceIDは設定されているため、そこから取得するように実装してみましょう。
-最終的には、前回と同じくLogクラスに設定してDynamoDBへ保存します。</p>
-<p><br/></p>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">backend-user-service/src/main/java/org/debugroom/mynavi/sample/aws/microservice/backend/user/app/web/interceptor/AuditLoggingInterceptor.java</span><a class="headerlink" href="#id7" title="このコードへのパーマリンク">¶</a></div>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.backend.user.app.web.interceptor</span><span class="o">;</span>
-
-<span class="c1">// omit</span>
-
-<span class="kn">import</span> <span class="nn">org.apache.commons.lang3.StringUtils</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.ModelAndView</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.handler.HandlerInterceptorAdapter</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.common.apinfra.cloud.aws.log.dynamodb.model.Log</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.common.apinfra.cloud.aws.log.dynamodb.repository.LogRepository</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.common.apinfra.util.DateStringUtil</span><span class="o">;</span>
-
-<span class="nd">@Component</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AuditLoggingInterceptor</span> <span class="kd">extends</span> <span class="n">HandlerInterceptorAdapter</span> <span class="o">{</span>
-
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">HEADER_KEY</span> <span class="o">=</span> <span class="s">&quot;X-Amzn-Trace-Id&quot;</span><span class="o">;</span>
-
-    <span class="nd">@Autowired</span><span class="o">(</span><span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
-    <span class="n">LogRepository</span> <span class="n">logRepository</span><span class="o">;</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">postHandle</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span>
-                           <span class="n">Object</span> <span class="n">handler</span><span class="o">,</span> <span class="n">ModelAndView</span> <span class="n">modelAndView</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-        <span class="n">Log</span> <span class="n">log</span> <span class="o">=</span> <span class="n">Log</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-                <span class="o">.</span><span class="na">userId</span><span class="o">(</span><span class="s">&quot;1&quot;</span><span class="o">)</span>
-                <span class="o">.</span><span class="na">traceId</span><span class="o">(</span><span class="n">getTraceId</span><span class="o">(</span><span class="n">request</span><span class="o">))</span>
-                <span class="o">.</span><span class="na">createdAt</span><span class="o">(</span><span class="n">DateStringUtil</span><span class="o">.</span><span class="na">now</span><span class="o">())</span>
-                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
-
-        <span class="n">logRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">log</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="kd">private</span> <span class="n">String</span> <span class="nf">getTraceId</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">){</span>
-        <span class="n">String</span> <span class="n">header</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getHeader</span><span class="o">(</span><span class="n">HEADER_KEY</span><span class="o">);</span>
-        <span class="n">String</span><span class="o">[]</span> <span class="n">headerElements</span> <span class="o">=</span> <span class="n">StringUtils</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="n">header</span><span class="o">,</span> <span class="s">&quot;;&quot;</span><span class="o">);</span>
-        <span class="n">String</span> <span class="n">rootElements</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="n">headerElements</span><span class="o">)</span>
-                <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">headerElement</span> <span class="o">-&gt;</span> <span class="n">headerElement</span><span class="o">.</span><span class="na">startsWith</span><span class="o">(</span><span class="s">&quot;Root=&quot;</span><span class="o">))</span>
-                <span class="o">.</span><span class="na">findFirst</span><span class="o">().</span><span class="na">get</span><span class="o">();</span>
-        <span class="n">String</span><span class="o">[]</span> <span class="n">traceIdElement</span> <span class="o">=</span> <span class="n">StringUtils</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="n">rootElements</span><span class="o">,</span> <span class="s">&quot;=&quot;</span><span class="o">);</span>
-        <span class="k">return</span> <span class="n">traceIdElement</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
-    <span class="o">}</span>
-
-<span class="o">}</span>
-</pre></div>
-</div>
-</div>
-<p><br/></p>
-<div class="admonition note">
-<p class="first admonition-title">注釈</p>
-<p class="last">Webアプリケーションから送信されたリクエストに設定されているTraceIDはcom.amazonaws.xray.javax.servlet.AWSXRayServletFilterで取り出されて、バックエンドマイクロサービスのセグメントに設定されます。</p>
-</div>
-<p><br/></p>
-<p>実装が完了したら、双方のアプリケーションを起動して、同じくログイン処理を行ってみましょう。以下の通り、アプリケーション起動にかかる処理と、Webアプリケーションからマイクロサービスへの呼び出しが以下のように可視化されるはずです。</p>
+<p>それでは、Cognitoを使ってユーザプールおよびIDプール、加えてOIDCプロバイダとしてOAuth2 Loginが可能な設定を進めましょう。
+手順はコンソールから設定する方法とCloudFormationを使って構築する2種類あり、双方取り扱いますが、本連載では、アプリケーションから設定値をスタック経由で参照できる
+CloudFormationを使う方法を推奨します。まず設定内容の説明のため、今回は先にコンソールからの構築手順を解説します。</p>
+<p>AWSコンソール上で Amazon Cognitoサービスから、「ユーザプールの管理」&gt;「ユーザープールを作成する」を選択してください。</p>
 <p><br/></p>
 <div class="figure">
-<img alt="../_images/xray-start-app-service.png" src="../_images/xray-start-app-service.png" />
+<img alt="../_images/management-console-cognito-create-userpool-1.png" src="../_images/management-console-cognito-create-userpool-1.png" />
 </div>
 <p><br/></p>
-<p>Webアプリケーションがバックエンドマイクロサービスにアクセスしてデータ取得し、認証を行う処理をトレースして可視化すると以下のようになります。
-各コンポーネントの処理でどれくらい時間がかかっているのか、ビジネスロジックにほぼ手を加えることがなく可視化することができます。</p>
+<p>以下の設定内容に従って、ユーザープールの定義を行います。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="17%" />
+<col width="83%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>設定内容</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td>プール名</td>
+<td>ユーザプール名の名称を入力します。</td>
+</tr>
+<tr class="row-odd"><td>ユーザ名</td>
+<td>ユーザ名ではサインイン時の識別子(ログインID)に関する設定を行います。ここでは、検証済みの(ユーザから応答があった)メールを許可する設定を追加します。</td>
+</tr>
+<tr class="row-even"><td>Eメールアドレスおよび電話番号</td>
+<td>Eメールか電話番号自体をユーザ名とするオプションを設定します。本連載では、ユーザ名を「taro.mynavi」などで設定したいのでここでは設定しません。</td>
+</tr>
+<tr class="row-odd"><td>(推奨)小文字と大文字を区別しない</td>
+<td>ユーザ名で英大文字と小文字を区別するか選択します。ここでは区別する設定を行います。</td>
+</tr>
+<tr class="row-even"><td>必須の標準属性</td>
+<td>ユーザープール(ユーザディレクトリ)として設定するユーザ属性を定義します。ここでは、「苗字」と「名前」を選択しておきます。</td>
+</tr>
+<tr class="row-odd"><td>カスタム属性</td>
+<td>ユーザープール(ユーザディレクトリ)として設定するカスタムのユーザ属性を定義します。ここでは、「ログインID」と「管理者か否かを表す属性」を作成しておきます。</td>
+</tr>
+<tr class="row-even"><td>パスワードポリシー</td>
+<td>パスワードのルールをポリシーとして設定します。ここでは簡単のために緩い条件を設定していますが、実際はパスワード要件に沿ったものを設定するようにしてください。</td>
+</tr>
+<tr class="row-odd"><td>自己サインアップ</td>
+<td>ユーザ自身でサインアップを許可するか、管理者のみにユーザ作成を許可するか選択します。ここではユーザにも自己サインアップを許可する設定を行います。</td>
+</tr>
+<tr class="row-even"><td>有効期限</td>
+<td>ユーザ作成時に有効な一時パスワードの有効期限を設定します。これを過ぎるとユーザを作り直す必要があります。ここではデフォルトの7日のままで設定しておきます。</td>
+</tr>
+<tr class="row-odd"><td>多認証要素(MFA)設定</td>
+<td>サインアップ・サインイン時の認証方法で、Eメールおよび電話番号を使用したSMSを多認証要素として設定します。ここではなしに設定します。</td>
+</tr>
+<tr class="row-even"><td>アカウント回復方法設定</td>
+<td>ユーザがパスワードを忘れた際の、パスワードリセット方法に対する設定を行います。ここでは「使用可能な場合は E メール、それ以外の場合は電話。ただし、MFA にも使用している場合、電話でパスワードをリセットすることは許可しません」を設定します。</td>
+</tr>
+<tr class="row-odd"><td>検証時に確認する属性</td>
+<td>サインアップ時やパスワードリセット時の確認方法を設定します。ここではEメールを選択します。</td>
+</tr>
+<tr class="row-even"><td>SMSロール名</td>
+<td>SMSを発信するためのロールを作成するためロール名を入力します。ここではデフォルトのままで設定しておきます。</td>
+</tr>
+<tr class="row-odd"><td>Eメールアドレスのカスタマイズ</td>
+<td>メールをユーザに発信する際の設定を行います。発信できるリージョンは「米国東部(バージニア)」などに限られますが、検証時に使われるメール送信の発出元なので問題ありません。その他、送信元として表示されるメール設定やリプライ用のメール設定なども可能です。
+ここではデフォルトのままで設定します。</td>
+</tr>
+<tr class="row-even"><td>SESによるメール発信設定</td>
+<td>大幅な数のユーザ追加が見込まれるようであれば、より大規模なメール発信が可能なSESによるメール設定を行います。ここではCognitoのままで設定しておきます。</td>
+</tr>
+<tr class="row-odd"><td>Eメール検証メッセージ設定</td>
+<td>検証メールの内容をカスタマイズします。ここではデフォルトのままで設定しておきます。</td>
+</tr>
+<tr class="row-even"><td>ユーザ招待メッセージ設定</td>
+<td>招待メールおよび招待メッセージの内容をカスタマイズします。ここではデフォルトのままで設定しておきます。</td>
+</tr>
+<tr class="row-odd"><td>タグ設定</td>
+<td>Cognitoで作成するリソースにタグを付与します。ここでは何も設定は行いません。</td>
+</tr>
+<tr class="row-even"><td>ユーザデバイス記憶設定</td>
+<td>一度ログインが完了したブラウザの情報を通じてログイン状態を継続する、俗にいうRemembermeサービス設定です。ここでは、設定は行いません。</td>
+</tr>
+<tr class="row-odd"><td>アプリクライアント名</td>
+<td>Cognitoへアクセスするアプリケーションクライアントの設定を行います。本連載では現在フロントエンドに配置したWebアプリケーションが相当します。ここではクライアントの名称を設定します。</td>
+</tr>
+<tr class="row-even"><td>トークンの有効期限を更新</td>
+<td>リフレッシュトークンの有効期限の設定を行います。ここではデフォルトの30日に設定します。</td>
+</tr>
+<tr class="row-odd"><td>アクセストークンの有効期限を更新</td>
+<td>アクセストークンの有効期限の設定を行います。ここではデフォルトの60分に設定します。</td>
+</tr>
+<tr class="row-even"><td>IDトークンの有効期限を更新</td>
+<td>IDトークンの有効期限の設定を行います。ここではデフォルトの60分に設定します。</td>
+</tr>
+<tr class="row-odd"><td>クライアントシークレットの生成</td>
+<td>アクセスしてくるアプリケーションのパスワードに相当するクライアントシークレットを生成します。一般的にサーバサイドでトークンを授受する際に必要なパラメータとなります。
+JavaScriptやモバイルアプリケーションなどのユーザ側に渡ってしまう可能性があるものは、クライアントシークレットを渡さずに実現しますが、
+ここでWebアプリケーションはサーバサイド側に配置されるのでクライアントシークレットを生成しておきます。</td>
+</tr>
+<tr class="row-even"><td>認証フローの設定</td>
+<td>ここでの認証フローとはOAuth2による認証フローではなく、ユーザサインアップ時のユーザ認証フローのことを指します。
+ここでは、サーバサイドでCLIやSDKを使ってパスワード認証を有効可能にする「認証用の管理 API のユーザー名パスワード認証を有効にする (ALLOW_ADMIN_USER_PASSWORD_AUTH)」および、
+「更新トークンベースの認証を有効にする (ALLOW_REFRESH_TOKEN_AUTH)」を選択しておきます。なお、「Lambda トリガーベースのカスタム認証を有効にする (ALLOW_CUSTOM_AUTH)」は
+LambdaでCognitoオーソライザーを行うときに利用します。「ユーザー名パスワードベースの認証を有効にする (ALLOW_USER_PASSWORD_AUTH)」および
+「SRP (セキュアリモートパスワード) プロトコルベースの認証を有効にする (ALLOW_USER_SRP_AUTH)」はいずれも、JavaScriptやモバイルアプリケーションなどから
+ユーザ名パスワード認証を行うAPIを実行する場合に利用するオプションですが、特別な理由がない限り、セキュアパラメータやソルトを使ってより安全性を高めたSRPプロトコルベースの認証を選択した方が良いでしょう。
+詳細は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow.html#amazon-cognito-user-pools-client-side-authentication-flow">クライアント側の認証フロー</a> も
+参考にしてください。</td>
+</tr>
+<tr class="row-odd"><td>セキュリティ設定(ユーザ存在エラー)</td>
+<td>ユーザが存在しない時の応答エラーを、隠蔽したメッセージにカスタマイズするオプションです。デフォルトのままで設定しておきます。</td>
+</tr>
+<tr class="row-even"><td>トリガー設定</td>
+<td>ユーザプールにおける様々なイベント発生時にLambda関数を実行したい場合の設定オプションです。デフォルトのままで設定しておきます。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
 <p><br/></p>
 <div class="figure">
-<img alt="../_images/xray-start-app-trace.png" src="../_images/xray-start-app-trace.png" />
+<img alt="../_images/management-console-cognito-create-userpool-2.png" src="../_images/management-console-cognito-create-userpool-2.png" />
 </div>
 <p><br/></p>
-<p>DynamoDBに保存したログは以下のようになります。ユーザIDやTraceIDなどで容易に検索しやすくなるので、必要に応じて保存する項目をカスタマイズするとよいでしょう。</p>
 <p><br/></p>
 <div class="figure">
-<img alt="../_images/management-console-dynamodb1.png" src="../_images/management-console-dynamodb1.png" />
+<img alt="../_images/management-console-cognito-create-userpool-3.png" src="../_images/management-console-cognito-create-userpool-3.png" />
 </div>
 <p><br/></p>
-<p>以上、バックエンドのマイクロサービスにX-Rayを設定する実装を行い、フロントエンドのWebアプリケーションから呼び出して一連の処理の流れを可視化しました。
-実装の初期から各処理を可視化して、性能上ボトルネックになりそうな箇所を早めに特定して、問題のあるものは必要に応じて改善し、製造していく中で品質を作り込む開発を心がけましょう。
-次回以降はAWS Cognitoを使った、認証認可処理の組み込みやバックエンドのマイクロサービスに、アクセストークンによる認可制御を組み込んでいきます。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/management-console-cognito-create-userpool-4.png" src="../_images/management-console-cognito-create-userpool-4.png" />
+</div>
+<p><br/></p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/management-console-cognito-create-userpool-5.png" src="../_images/management-console-cognito-create-userpool-5.png" />
+</div>
+<p><br/></p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/management-console-cognito-create-userpool-6.png" src="../_images/management-console-cognito-create-userpool-6.png" />
+</div>
+<p><br/></p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/management-console-cognito-create-userpool-7.png" src="../_images/management-console-cognito-create-userpool-7.png" />
+</div>
+<p><br/></p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/management-console-cognito-create-userpool-8.png" src="../_images/management-console-cognito-create-userpool-8.png" />
+</div>
+<p><br/></p>
+<p>今回は、Amazon Cognitoの概要を説明し、ユーザプールの設定方法について説明しました。
+次回以降は、作成したアプリクライアント定義にOAuth2 Loginとして必要な設定を行い、続いてIDプールを作成していきます。</p>
 <p><br/></p>
 </div>
 <div class="section" id="id3">

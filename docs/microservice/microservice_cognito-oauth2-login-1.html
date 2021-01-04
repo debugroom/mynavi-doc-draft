@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>【第11回】AWS X-Rayを用いたマイクロサービスの可視化(4) &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <title>【第12回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(1) &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -18,8 +18,8 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="【第12回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(1)" href="microservice_cognito-oauth2-login-1.html" />
-    <link rel="prev" title="【第10回】AWS X-Rayを用いたマイクロサービスの可視化(3)" href="microservice_xray-3.html" />
+    <link rel="next" title="【第13回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(2)" href="microservice_cognito-oauth2-login-2.html" />
+    <link rel="prev" title="【第11回】AWS X-Rayを用いたマイクロサービスの可視化(4)" href="microservice_xray-4.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -158,8 +158,10 @@
 <li class="toctree-l1"><a class="reference internal" href="microservice_xray-1.html">【第8回】AWS X-Rayを用いたマイクロサービスの可視化(1)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="microservice_xray-2.html">【第9回】AWS X-Rayを用いたマイクロサービスの可視化(2)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="microservice_xray-3.html">【第10回】AWS X-Rayを用いたマイクロサービスの可視化(3)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">【第11回】AWS X-Rayを用いたマイクロサービスの可視化(4)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="microservice_cognito-oauth2-login-1.html">【第12回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_xray-4.html">【第11回】AWS X-Rayを用いたマイクロサービスの可視化(4)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">【第12回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_cognito-oauth2-login-2.html">【第13回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_cognito-oauth2-login-3.html">【第13回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(3)</a></li>
 </ul>
 </ul>
 </li>
@@ -173,10 +175,10 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">【第11回】AWS X-Rayを用いたマイクロサービスの可視化(4)</a><ul>
-<li><a class="reference internal" href="#id1">サンプリングルールの設定</a></li>
-<li><a class="reference internal" href="#x-ray">バックエンドのマイクロサービスにおけるX-Rayの設定</a></li>
-<li><a class="reference internal" href="#id3">著者紹介</a></li>
+<li><a class="reference internal" href="#">【第12回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(1)</a><ul>
+<li><a class="reference internal" href="#id1">現状の実装状況と目指すかたち</a></li>
+<li><a class="reference internal" href="#oauth2-login">OAuth2 Loginとは何か？</a></li>
+<li><a class="reference internal" href="#id4">著者紹介</a></li>
 </ul>
 </li>
 </ul>
@@ -188,11 +190,11 @@
               
                 
   <li>
-    <a href="microservice_xray-3.html" title="Previous Chapter: 【第10回】AWS X-Rayを用いたマイクロサービスの可視化(3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 【第10回】AWS X-R...</span>
+    <a href="microservice_xray-4.html" title="Previous Chapter: 【第11回】AWS X-Rayを用いたマイクロサービスの可視化(4)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 【第11回】AWS X-R...</span>
     </a>
   </li>
   <li>
-    <a href="microservice_cognito-oauth2-login-1.html" title="Next Chapter: 【第12回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(1)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">【第12回】Amazon ... &raquo;</span>
+    <a href="microservice_cognito-oauth2-login-2.html" title="Next Chapter: 【第13回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(2)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">【第13回】Amazon ... &raquo;</span>
     </a>
   </li>
               
@@ -202,7 +204,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/microservice/microservice_xray-4.rst.txt"
+  <a href="../_sources/microservice/microservice_cognito-oauth2-login-1.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -226,197 +228,105 @@
   <div class="row">
     <div class="col-md-12 content">
       
-  <div class="section" id="aws-x-ray-4">
-<span id="section-aws-microservice-xray-4-label"></span><h1>【第11回】AWS X-Rayを用いたマイクロサービスの可視化(4)<a class="headerlink" href="#aws-x-ray-4" title="このヘッドラインへのパーマリンク">¶</a></h1>
+  <div class="section" id="amazon-cognito-spring-sercurityoauth2-login-1">
+<span id="section-aws-microservice-cognito-oauth2-login-1-label"></span><h1>【第12回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(1)<a class="headerlink" href="#amazon-cognito-spring-sercurityoauth2-login-1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id1">
+<h2>現状の実装状況と目指すかたち<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><br/></p>
-<p>本連載では、以下に示すようなマイクロサービスアーキテクチャのアプリケーション環境を構築しています。</p>
+<p>前回までに、以下の図のようなバックエンドに配置したマイクロサービスとフロントエンドに配置したWebアプリケーションを想定して実装してきました。</p>
 <p><br/></p>
 <div class="figure">
 <img alt="../_images/service-architecture.png" src="../_images/service-architecture.png" />
 </div>
 <p><br/></p>
-<p>前回はX-Rayデーモンへトレースデータを送信するためのフロントエンドのWebアプリケーションの設定を個別に実装しました。
-今回はバックエンドのマイクロサービスにおけるX-Rayの設定実装を解説していきます。
-本連載で実際に作成するアプリケーションでは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-aws-microservice/tree/feature_3-xray">GitHub</a> 上にコミットしています。
-以降に記載するソースコードでは、import文など本質的でない記述を省略している部分があるので、実行コードを作成する際は、必要に応じて適宜GitHubにあるソースコードも参照してください。</p>
-<p><br/></p>
-<div class="section" id="id1">
-<h2>サンプリングルールの設定<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p><br/></p>
-<p>前回と同様、共通のX-Rayの設定クラスで、クラスパス配下にある、サンプリングルールを設定したsampling-rules.jsonを読み込んでいます。
-ここでも、全てのリクエストが計測対象となるよう、レートを1に設定しておきます。サンプリングルールは対象のホストやHTTPメソッド、URLパスなど細かい設定が可能です。
-詳細は <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/xray/latest/devguide/xray-console-sampling.html">サンプリングルールの設定</a> を参照してください。</p>
-<p><br/></p>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">backend-user-service/src/main/resources/sampling-rules.json</span><a class="headerlink" href="#id4" title="このコードへのパーマリンク">¶</a></div>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="s2">&quot;version&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-  <span class="s2">&quot;rules&quot;</span><span class="o">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Sample description.&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;http_method&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;url_path&quot;</span><span class="o">:</span> <span class="s2">&quot;/api/*&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;fixed_target&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="s2">&quot;rate&quot;</span><span class="o">:</span> <span class="mi">1</span>
-    <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="s2">&quot;default&quot;</span><span class="o">:</span> <span class="p">{</span>
-     <span class="s2">&quot;fixed_target&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-     <span class="s2">&quot;rate&quot;</span><span class="o">:</span> <span class="mf">0.1</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
-<p><br/></p>
-</div>
-<div class="section" id="x-ray">
-<h2>バックエンドのマイクロサービスにおけるX-Rayの設定<a class="headerlink" href="#x-ray" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p><br/></p>
-<p>計測するサブセグメントとして、フロントエンドのWebアプリケーションと同様、Controller、Service、Repositoryごとに実行時間を計測します。前回設定したXRayConfigクラスのAOPポイントカット定義に基づき、各コンポーネントの実装クラスに&#64;XRayEnabledアノテーションを付与します。
-下記はControllerにアノテーションを付与する例です。</p>
-<p><br/></p>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">backend-user-service/src/main/java/org/debugroom/mynavi/sample/aws/microservice/backend/user/app/web/BackendUserController.java</span><a class="headerlink" href="#id5" title="このコードへのパーマリンク">¶</a></div>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.backend.user.app.web</span><span class="o">;</span>
-
-<span class="c1">// omit</span>
-
-<span class="kn">import</span> <span class="nn">com.amazonaws.xray.spring.aop.XRayEnabled</span><span class="o">;</span>
-
-<span class="c1">// omit</span>
-
-<span class="nd">@XRayEnabled</span>
-<span class="nd">@RestController</span>
-<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&quot;api/v1&quot;</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BackendUserController</span> <span class="o">{</span>
-    <span class="c1">// omit</span>
-<span class="o">}</span>
-</pre></div>
-</div>
-</div>
-<p><br/></p>
-<p>ただし、Repositoryのクラスについては、org.springframework.data.repository.Repositoryインターフェースを継承しているので、特にアノテーションは設定する必要はありません。
-これはXRayConfigの継承クラス <a class="reference external" href="https://github.com/aws/aws-xray-sdk-java/blob/master/aws-xray-recorder-sdk-spring/src/main/java/com/amazonaws/xray/spring/aop/AbstractXRayInterceptor.java">com.amazonaws.xray.spring.aop.AbstractXRayInterceptorクラスが既にそのインターフェースをポイントカット定義しているため</a> です。
-代わりに、バックエンドのマイクロサービスは現状インメモリデータベースHSQLを使ってユーザ情報を取得しているので、以下の通りDataSourceを com.amazonaws.xray.sql.TracingDataSourcでラップして定義しておきます。</p>
-<p><br/></p>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">backend-user-service/src/main/java/org/debugroom/mynavi/sample/aws/microservice/backend/user/app/web/BackendUserController.java</span><a class="headerlink" href="#id6" title="このコードへのパーマリンク">¶</a></div>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.backend.user.config</span><span class="o">;</span>
-
-<span class="c1">// omit</span>
-
-<span class="kn">import</span> <span class="nn">com.amazonaws.xray.sql.TracingDataSource</span><span class="o">;</span>
-
-<span class="c1">// omit</span>
-
-<span class="nd">@Profile</span><span class="o">(</span><span class="s">&quot;dev&quot;</span><span class="o">)</span>
-<span class="nd">@Configuration</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DevConfig</span> <span class="o">{</span>
-
-    <span class="c1">// omit</span>
-
-    <span class="nd">@Bean</span>
-    <span class="kd">public</span> <span class="n">DataSource</span> <span class="nf">dataSource</span><span class="o">(){</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="n">TracingDataSource</span><span class="o">(</span><span class="k">new</span> <span class="n">EmbeddedDatabaseBuilder</span><span class="o">()</span>
-                <span class="o">.</span><span class="na">setType</span><span class="o">(</span><span class="n">EmbeddedDatabaseType</span><span class="o">.</span><span class="na">HSQL</span><span class="o">)</span>
-                <span class="o">.</span><span class="na">addScript</span><span class="o">(</span><span class="s">&quot;classpath:schema-hsql.sql&quot;</span><span class="o">)</span>
-                <span class="o">.</span><span class="na">addScript</span><span class="o">(</span><span class="s">&quot;classpath:data-hsql.sql&quot;</span><span class="o">)</span>
-                <span class="o">.</span><span class="na">build</span><span class="o">());</span>
-    <span class="o">}</span>
-
-<span class="o">}</span>
-</pre></div>
-</div>
-</div>
-<p><br/></p>
-<p>最後にフロントエンドのWebアプリケーションの時と同じく、Controllerの処理が完了した後、TraceIDやユーザID、実行時間をDynamoDBに保存するよう、HanderInterceptorAdapterを継承したコンポーネントを生成します。
-TraceIDは前回の実装と同様Segmentオブジェクトをcom.amazonaws.xray.AWSXRayから取得してもよいですが、リクエストヘッダにもTraceIDは設定されているため、そこから取得するように実装してみましょう。
-最終的には、前回と同じくLogクラスに設定してDynamoDBへ保存します。</p>
-<p><br/></p>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">backend-user-service/src/main/java/org/debugroom/mynavi/sample/aws/microservice/backend/user/app/web/interceptor/AuditLoggingInterceptor.java</span><a class="headerlink" href="#id7" title="このコードへのパーマリンク">¶</a></div>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.backend.user.app.web.interceptor</span><span class="o">;</span>
-
-<span class="c1">// omit</span>
-
-<span class="kn">import</span> <span class="nn">org.apache.commons.lang3.StringUtils</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.ModelAndView</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.handler.HandlerInterceptorAdapter</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.common.apinfra.cloud.aws.log.dynamodb.model.Log</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.common.apinfra.cloud.aws.log.dynamodb.repository.LogRepository</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.aws.microservice.common.apinfra.util.DateStringUtil</span><span class="o">;</span>
-
-<span class="nd">@Component</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AuditLoggingInterceptor</span> <span class="kd">extends</span> <span class="n">HandlerInterceptorAdapter</span> <span class="o">{</span>
-
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">HEADER_KEY</span> <span class="o">=</span> <span class="s">&quot;X-Amzn-Trace-Id&quot;</span><span class="o">;</span>
-
-    <span class="nd">@Autowired</span><span class="o">(</span><span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
-    <span class="n">LogRepository</span> <span class="n">logRepository</span><span class="o">;</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">postHandle</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span>
-                           <span class="n">Object</span> <span class="n">handler</span><span class="o">,</span> <span class="n">ModelAndView</span> <span class="n">modelAndView</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-        <span class="n">Log</span> <span class="n">log</span> <span class="o">=</span> <span class="n">Log</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-                <span class="o">.</span><span class="na">userId</span><span class="o">(</span><span class="s">&quot;1&quot;</span><span class="o">)</span>
-                <span class="o">.</span><span class="na">traceId</span><span class="o">(</span><span class="n">getTraceId</span><span class="o">(</span><span class="n">request</span><span class="o">))</span>
-                <span class="o">.</span><span class="na">createdAt</span><span class="o">(</span><span class="n">DateStringUtil</span><span class="o">.</span><span class="na">now</span><span class="o">())</span>
-                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
-
-        <span class="n">logRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">log</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="kd">private</span> <span class="n">String</span> <span class="nf">getTraceId</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">){</span>
-        <span class="n">String</span> <span class="n">header</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getHeader</span><span class="o">(</span><span class="n">HEADER_KEY</span><span class="o">);</span>
-        <span class="n">String</span><span class="o">[]</span> <span class="n">headerElements</span> <span class="o">=</span> <span class="n">StringUtils</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="n">header</span><span class="o">,</span> <span class="s">&quot;;&quot;</span><span class="o">);</span>
-        <span class="n">String</span> <span class="n">rootElements</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="n">headerElements</span><span class="o">)</span>
-                <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">headerElement</span> <span class="o">-&gt;</span> <span class="n">headerElement</span><span class="o">.</span><span class="na">startsWith</span><span class="o">(</span><span class="s">&quot;Root=&quot;</span><span class="o">))</span>
-                <span class="o">.</span><span class="na">findFirst</span><span class="o">().</span><span class="na">get</span><span class="o">();</span>
-        <span class="n">String</span><span class="o">[]</span> <span class="n">traceIdElement</span> <span class="o">=</span> <span class="n">StringUtils</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="n">rootElements</span><span class="o">,</span> <span class="s">&quot;=&quot;</span><span class="o">);</span>
-        <span class="k">return</span> <span class="n">traceIdElement</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
-    <span class="o">}</span>
-
-<span class="o">}</span>
-</pre></div>
-</div>
-</div>
-<p><br/></p>
-<div class="admonition note">
-<p class="first admonition-title">注釈</p>
-<p class="last">Webアプリケーションから送信されたリクエストに設定されているTraceIDはcom.amazonaws.xray.javax.servlet.AWSXRayServletFilterで取り出されて、バックエンドマイクロサービスのセグメントに設定されます。</p>
-</div>
-<p><br/></p>
-<p>実装が完了したら、双方のアプリケーションを起動して、同じくログイン処理を行ってみましょう。以下の通り、アプリケーション起動にかかる処理と、Webアプリケーションからマイクロサービスへの呼び出しが以下のように可視化されるはずです。</p>
+<p>フロントエンドのWebアプリケーションはバックエンドにあるユーザサービスにより取得した認証情報(IDとパスワード)により保護し、
+AWS X-Rayを使ってそれらの呼び出し関係を可視化する実装を解説してきました。しかし、認証方式はSpring Securityの理解を深めるもので、
+これまで解説してきた、最終的に目指していたアーキテクチャのかたちではありません。また、前回までの実装の説明では、以下のようにローカル環境で構築したアプリケーションの実装例しか示していませんでした。</p>
 <p><br/></p>
 <div class="figure">
-<img alt="../_images/xray-start-app-service.png" src="../_images/xray-start-app-service.png" />
+<img alt="../_images/current-environment.png" src="../_images/current-environment.png" />
 </div>
 <p><br/></p>
-<p>Webアプリケーションがバックエンドマイクロサービスにアクセスしてデータ取得し、認証を行う処理をトレースして可視化すると以下のようになります。
-各コンポーネントの処理でどれくらい時間がかかっているのか、ビジネスロジックにほぼ手を加えることがなく可視化することができます。</p>
+<p>途中経過ではありますが、現在の実装の状況と、最終的に目指すかたちを改めて整理してみましょう。
+まず、現状のアプリケーションの実装状況は上のイメージ通りですが、X-RayやDynamoDBといったリージョンサービスをローカル環境から利用しています。
+いくつかのサービスはCloudFormationで構築し、CloudFormationスタックからサービスエンドポイントなどの情報をローカル環境からも参照して、ローカル環境から各サービスにアクセスしています。
+バックエンドマイクロサービスのアクセスするデータベースは現状HSQLを使ったインメモリデータベースで代替していますが、
+次節以降解説していくCognitoとSpring Securityを使ったOAuth2 Loginとバックエンドマイクロサービスをアクセストークンで保護する実装が完了すれば、
+AWS環境へ移行する手順を解説する予定です。というのも、次節以降の解説や設定内容は、複雑で間違いやすいので、極力ローカルの統合開発環境などを使ってデバッグしやすい環境を整えて進めていく方がよいでしょう。</p>
+<p>次回以降もローカル環境での実装が続きますが、下記のようなAWS環境にあるアーキテクチャ想定のイメージになります。</p>
 <p><br/></p>
 <div class="figure">
-<img alt="../_images/xray-start-app-trace.png" src="../_images/xray-start-app-trace.png" />
+<img alt="../_images/next-step-environment.png" src="../_images/next-step-environment.png" />
 </div>
 <p><br/></p>
-<p>DynamoDBに保存したログは以下のようになります。ユーザIDやTraceIDなどで容易に検索しやすくなるので、必要に応じて保存する項目をカスタマイズするとよいでしょう。</p>
+<p>次節以降のOAuth2 Loginの解説のために、いったん最終的に構築するアーキテクチャイメージを切り取った、上記の図のスコープで解説を進めます。なお、第2回でも解した通り、最終的には以下のようになります。
+クラウドネイティブ・マイクロサービスなアーキテクチャでは段階的にクラウド環境と組み合わせてアプリケーション環境を構築していく手法も取りやすいので、小さな開発スコープで進めていくのが良い方法です。
+<br/></p>
+<div class="figure">
+<img alt="../_images/microservice-oauth.png" src="../_images/microservice-oauth.png" />
+</div>
+<p><br/></p>
+<p><br/></p>
+</div>
+<div class="section" id="oauth2-login">
+<h2>OAuth2 Loginとは何か？<a class="headerlink" href="#oauth2-login" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>OAuth2 Loginを本連載では、「OAuth2/OpenIDConnect(OIDC)で規定されたプロトコル(OIDCはOAuth2を拡張して認証まで広げたプロトコル)を用いて、アプリケーションへログインさせる仕組み」と定義します。これは、
+<a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/5044">第2回</a> でも解説した、認可コードグラントフローによるIDトークンや、アクセストークンを取得するフローそのものを指しています。
+一言で説明すると、最近の様々なウェブサイトでよく見かける「XXXX(GoogleやFacebookアカウント等)でログイン」が分かりやすいですが、
+ソーシャルログインやOAuth認証など、いくつか類似する紛らわしい語があり、明確に区別しておきます。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="17%" />
+<col width="83%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>用語</td>
+<td>説明・OAuth2 Loginとの違い</td>
+</tr>
+<tr class="row-even"><td>ソーシャルログイン</td>
+<td>Google、Facebook、TwitterやLINEをはじめとしたSNSが保持するID/パスワード等を用いて認証を行い、それによって払い出されたトークンを用いて、別のアプリケーションへのアクセスを許可する仕組み。
+OAuth2 Loginにはソーシャルメディアのみではなく、Amazon/AWSやApple、GitHubなどに加え、商用サービスとして提供されるOIDCプロバイダや、自前で構築したOIDC準拠のOSSサーバなども含んだ意味で利用する。</td>
+</tr>
+<tr class="row-odd"><td>OAuth認証</td>
+<td>通常、OAuthは認可のためのプロトコルであって、認証(そのユーザを正当なものとして認める処理)とは異なる。OAuth2 Loginでは、あくまで正当に正しく認証されたことを前提として取得されたトークンを使用して、
+ログイン処理を代替するものであって、OAuth2プロトコル(アクセストークン)を使って認証するものではない。OAuth認証は、インプリシットフロー等認可コードグラン都フロー以外のものを利用した中で不適切な実装を行うと、
+他のサーバで利用されるアクセストークンを流出させる可能性を高めてしまうため、基本的には、OIDCプロトコルに基づいて、IDトークンおよびアクセストークンを取得する必要がある。
+なお、払い出されるアクセストークンは合鍵のようなものであり、例えば、その合鍵をもってAPIアクセスしたリクエストが必ずしもそれを利用可能な正当なユーザとは限らない可能性に注意すること
+(アクセストークンを正当に取得したユーザであっても全てのユーザが、そのアクセストークンだけで保護されたAPIを実行できてしまう)。
+一方、OIDCにより払い出されるIDトークンは偽造不可能な名前付きの合鍵であり、サービス利用の権限をより細かく絞ることが可能である。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>さて、<a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/5044">第2回</a> で、以下の図における認可コードグラントを用いたフローで解説した通り、このOAuth2 Loginを使用して、OIDCプロバイダ(認可サーバ)からトークンを取得し、
+フロントエンドアプリケーションへのログインや、マイクロサービスへのアクセス制御に利用するというのが、本連載で実現する認証認可方式のアイデアでした。</p>
 <p><br/></p>
 <div class="figure">
-<img alt="../_images/management-console-dynamodb1.png" src="../_images/management-console-dynamodb1.png" />
+<img alt="../_images/granted-code-flow.png" src="../_images/granted-code-flow.png" />
 </div>
 <p><br/></p>
-<p>以上、バックエンドのマイクロサービスにX-Rayを設定する実装を行い、フロントエンドのWebアプリケーションから呼び出して一連の処理の流れを可視化しました。
-実装の初期から各処理を可視化して、性能上ボトルネックになりそうな箇所を早めに特定して、問題のあるものは必要に応じて改善し、製造していく中で品質を作り込む開発を心がけましょう。
-次回以降はAWS Cognitoを使った、認証認可処理の組み込みやバックエンドのマイクロサービスに、アクセストークンによる認可制御を組み込んでいきます。</p>
+<p>このOAuth2 Loginのフローを前節で示した想定のアーキテクチャ図にあてはめると以下のようになります。簡単化のために矢印をいくつか省略していますが、上記のフロー図の中で対応する番号は合わせています。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/oauth2-login-flow.png" src="../_images/oauth2-login-flow.png" />
+</div>
+<p><br/></p>
+<p>なお、第2回で記載した認可コードグラントのフローには事前に記載できなかったものがあり、それはバックエンドのマイクロサービスからCognitoへ出ている「(0)トークンデコードのための公開鍵を取得」になります。
+これは、事前にマイクロサービスが送信されてきたトークンを、復号化するためのキーを発行元の認可サーバから取得しておくことで、
+マイクロサービスのスケーラビリティを高めるための一助となるものです。もちろん、要件によっては、リクエスト送信時点のトークンの有効性を確認するために
+認可サーバ等へ問い合わせを行う必要があるケースもありますが、少なくとも送信されてきたトークンはJWT(JSON Web Token)形式で生成されるため、発行時点の有効性や偽造の有無などは
+公開鍵の復号可否によってある程度担保されるため、マイクロサービスを保護するための選択肢の有力なオプションのひとつとして考えると良いでしょう。
+なお、JWTトークンの検証について <a class="reference external" href="https://aws.amazon.com/jp/premiumsupport/knowledge-center/decode-verify-cognito-json-token/">AWS公式Q&amp;Aの「Amazon Cognito JSON ウェブトークンの署名をデコードして検証するにはどうすればよいですか?」</a>
+も参考にしてください。</p>
+<p><br/></p>
+<p>今回は、今後のアーキテクチャや実装の目指す方向を整理し、マイクロサービスを保護するために本連載で導入するOAuth2 Loginについて説明しました。
+次回以降は、当環境のアプリケーションでOAuth2 Loginを実現するための認証・認可サーバとして利用するAmazon Cognitoについて説明し、環境を構築していきます。</p>
 <p><br/></p>
 </div>
-<div class="section" id="id3">
-<h2>著者紹介<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id4">
+<h2>著者紹介<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei) - NTTデータ エグゼクティブ ITスペシャリスト ソフトウェアアーキテクト・デジタルテクノロジーストラテジスト(クラウド)</p>
 <div class="figure">
 <img alt="../_images/aws_361383_0752.jpeg" src="../_images/aws_361383_0752.jpeg" />

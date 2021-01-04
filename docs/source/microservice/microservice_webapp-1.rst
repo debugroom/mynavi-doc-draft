@@ -72,7 +72,7 @@ Spring Securityを使ったWebアプリケーション(1)
 |br|
 
 .. list-table::
-   :widths: 5, 5
+   :widths: 1, 5
 
    * - 動作対象
      - バージョン
