@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>【第7回】AWS Lambdaにおけるサーバレスエラーハンドリング(2) &#8212; mynavi-doc-draft 1.0.0.SNAPSHOT ドキュメント</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="【第8回】AWS Lambdaにおけるサーバレスエラーハンドリング(3)" href="aws-lambda-errorhandling-3.html" />
+    <link rel="prev" title="【第6回】AWS Lambdaにおけるサーバレスエラーハンドリング(1)" href="aws-lambda-errorhandling-1.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          mynavi-doc-draft</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-1.html">【第1回】サーバレス開発(1)Spring Cloud Functionの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-2.html">【第2回】サーバレス開発(2)Amazon Lambdaの利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-and-api-gateway-3.html">【第3回】サーバレス開発(3)AWS API Gatewayの利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-1.html">【第4回】ECSコンテナAP開発(1)VPC構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-2.html">【第5回】ECSコンテナAP開発(2)ALB構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-3.html">【第6回】ECSコンテナAP開発(3)SpringBootアプリケーション実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-4.html">【第7回】ECSコンテナAP開発(4)Dockerイメージ作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-5.html">【第8回】ECSコンテナAP開発(5)ECSクラスタ設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-6.html">【第9回】ECSコンテナAP開発(6)ECSタスク設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-ecs-7.html">【第10回】ECSコンテナAP開発(7)ECSサービス設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-1.html">【第11回】Amazon RDSの概要とデータベース構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-2.html">【第12回】RDSへのテーブル構築とSpring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-rds-3.html">【第13回】RDSへのテーブル構築とSpring Data JPAおよびSpring Cloud AWSを用いたRDSアクセスアプリケーションの実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-1.html">【第14回】NoSQL(1)-基礎-CAP定理を元にしたデータベースの分類とデータ特性</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-1-2.html">【第15回】NoSQL(2)-基礎-AP型データベースAmazon DynamoDBとApache Cassandraの特徴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-1.html">【第16回】NoSQL(3)-DynamoDB-Amazon DynamoDBの概要及び構築と認証情報の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-2.html">【第17回】NoSQL(4)-DynamoDB-Spring Data DynamoDBを用いたアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-2-3.html">【第18回】NoSQL(5)-DynamoDB-Spring Data DynamoDBを用いたアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-1.html">【第N回】NoSQL-Managed Apache Cassandra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-2.html">【第N回】NoSQL-Spring Data Cassandraを用いたアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-3-3.html">【第N回】NoSQL-Spring Data Cassandraを用いたアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-1.html">【第19回】NoSQL(6)-AmazonElasiCacheの概要及びローカル環境でのRedisServer構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-2.html">【第20回】NoSQL(10)-Spring SessionとSpring Data Redisを用いたアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-3.html">【第21回】NoSQL(11)-Spring SessionとSpring Data Redisを用いたアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-4.html">【第22回】NoSQL(12)-Amazon ElastiCacheの設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-5.html">【第23回】NoSQL(13)-セッション共有するECSアプリケーションの構築(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-nosql-4-6.html">【第24回】NoSQL(14)-セッション共有するECSアプリケーションの構築(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-1.html">【第25回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-2.html">【第26回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-3.html">【第27回】AmazonS3へSpringCloudAWSを使ってアクセスするアプリケーション実装(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-1.html">【第28回】AmazonSQSを使用する実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-2.html">【第29回】AmazonSQSを使用する実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-3.html">【第30回】AmazonSQSを使用する実装(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-4.html">【第31回】AmazonSQSを使用する実装(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-sqs-5.html">【第32回】AmazonSQSを使用する実装(5)</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-4.html">【第1回】AmazonS3へダイレクトアクセスするアプリケーション実装(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-5.html">【第2回】AmazonS3へダイレクトアクセスするアプリケーション実装(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-6.html">【第3回】AmazonS3へダイレクトアクセスするアプリケーション実装(6)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-and-lambda-1.html">【第4回】AmazonS3で発生したイベント契機で実行するサーバレスアプリケーション(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-s3-and-lambda-2.html">【第5回】AmazonS3で発生したイベント契機で実行するサーバレスアプリケーション(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-errorhandling-1.html">【第6回】AWS Lambdaにおけるサーバレスエラーハンドリング(1)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">【第7回】AWS Lambdaにおけるサーバレスエラーハンドリング(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-errorhandling-3.html">【第8回】AWS Lambdaにおけるサーバレスエラーハンドリング(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-errorhandling-4.html">【第9回】AWS Lambdaにおけるサーバレスエラーハンドリング(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-lambda-errorhandling-5.html">【第10回】AWS Lambdaにおけるサーバレスエラーハンドリング(5)</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_overview.html">ソフトウェア開発自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_actual_experience.html">【第1回】マイクロサービスアーキテクチャの基盤・デプロイ自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_sonarqube.html">【第2回】SonarQubeを利用した静的解析環境の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_sonarlint.html">【第3回】SonarLintを利用した開発端末の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_architecture.html">【第4回】マイクロサービスにおけるテスト自動化とテスト戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_unittest-1.html">【第5回】マイクロサービスの単体試験コード実装(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_unittest-2.html">【第6回】マイクロサービスの単体試験コード実装(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_micro_service_integrationtest.html">【第7回】マイクロサービスの結合試験コード実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unittest.html">【第8回】マイクロサービスを呼び出すWebAPの単体テストコード・E2Eテストの実装(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_web_app_unit_e2e_test.html">【第9回】マイクロサービスを呼び出すWebAPの単体テストコード・E2Eテストの実装(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild_local.html">【第10回】AWS CodeBuildを使用したCI環境構築(前編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codebuild.html">【第11回】AWS CodeBuildを使用したCI環境構築(後編)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_1.html">【第12回】AWS CodePipeLineを用いた継続的デリバリ自動化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_2.html">【第13回】AWS CodePipeLineを用いた継続的デリバリ自動化(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_3.html">【第14回】AWS CodePipeLineを用いた継続的デリバリ自動化(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_4.html">【第15回】AWS CodePipeLineを用いた継続的デリバリ自動化(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_5.html">【第16回】AWS CodePipeLineを用いた継続的デリバリ自動化(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_6.html">【第17回】AWS CodePipeLineを用いた継続的デリバリ自動化(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_7.html">【第18回】AWS CodePipeLineを用いた継続的デリバリ自動化(6)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_8.html">【第19回】AWS CodePipeLineを用いた継続的デリバリ自動化(7)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_codepipeline_9.html">【第20回】AWS CodePipeLineを用いた継続的デリバリ自動化(8)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_overview.html">【第21回】AWS CloudFormationを用いた基盤自動化(1)CloudFormationの概要</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_cli.html">【第22回】AWS CloudFormationを用いた基盤自動化(2)AWS CLIの実行環境</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_lint.html">【第23回】AWS CloudFormationを用いた基盤自動化(3)各種検証プラグインインストールと統合開発環境の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_script.html">【第24回】AWS CloudFormationを用いた基盤自動化(4)テンプレート記述の基本と実行ヘルパースクリプトの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_taskcat.html">【第25回】AWS CloudFormationを用いた基盤自動化(5)CloudFormationテスト環境の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_vpc.html">【第26回】AWS CloudFormationを用いた基盤自動化(6)VPC、サブネット、ルートテーブル、インターネットGWの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sg_nat.html">【第27回】AWS CloudFormationを用いた基盤自動化(7)SecurityGroup/NATGatewayの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_alb.html">【第28回】AWS CloudFormationを用いた基盤自動化(8)ApplicationLoadBalancer/TargetGroupの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_rds.html">【第29回】AWS CloudFormationを用いた基盤自動化(9)RDSの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_dynamodb.html">【第30回】AWS CloudFormationを用いた基盤自動化(10)DynamoDBの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_elasticache.html">【第31回】AWS CloudFormationを用いた基盤自動化(11)ElastiCacheの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_s3_sqs.html">【第32回】AWS CloudFormationを用いた基盤自動化(12)SQS/S3の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_nest.html">【第33回】AWS CloudFormationを用いた基盤自動化(13)NestedStackの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_app_backend.html">【第34回】AWS CloudFormationを用いた基盤自動化(14)SpringCloudAWSを利用したBackend Serviceアプリケーションにおけるスタック情報の取得・設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_webapp_frontend.html">【第35回】AWS CloudFormationを用いた基盤自動化(15)SpringCloudAWSを利用したFrontend Webアプリケーションにおけるスタック情報の取得・設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_cluster.html">【第36回】AWS CloudFormationを用いた基盤自動化(16)ECSクラスタの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_task.html">【第37回】AWS CloudFormationを用いた基盤自動化(17)ECSタスク定義の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_taskrole.html">【第38回】AWS CloudFormationを用いた基盤自動化(18)ECSタスクロール定義の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_ecs_service.html">【第39回】AWS CloudFormationを用いた基盤自動化(19)ECSサービスの構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_base.html">【第40回】AWS CloudFormationを用いた基盤自動化(20)継続的インテグレーション環境の構築(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_lambda.html">【第41回】AWS CloudFormationを用いた基盤自動化(21)継続的インテグレーション環境の構築(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_custom_resource.html">【第42回】AWS CloudFormationを用いた基盤自動化(22)継続的インテグレーション環境の構築(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation_infra_devops/automation_infra_devops_cloudformation_sonarqube_server.html">【第43回】AWS CloudFormationを用いた基盤自動化(23)継続的インテグレーション環境の構築(4)</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../microservice/microservice_overview.html">【第1回】マイクロサービスアーキテクチャで目指すもの</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../microservice/microservice_architecture.html">【第2回】マイクロサービスアーキテクチャの全体像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../microservice/microservice_webapp-1.html">【第3回】Webアプリケーションの実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../microservice/microservice_webapp-2.html">【第4回】Webアプリケーションの実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../microservice/microservice_backend_user-1.html">【第5回】バックエンドマイクロサービスの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../microservice/microservice_webapp-3.html">【第6回】Webアプリケーションからマイクロサービスを呼び出す実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../microservice/microservice_webapp-4.html">【第7回】Webアプリケーションからマイクロサービスを呼び出す実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../microservice/microservice_xray-1.html">【第8回】AWS X-Rayを用いたマイクロサービスの可視化(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../microservice/microservice_xray-2.html">【第9回】AWS X-Rayを用いたマイクロサービスの可視化(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../microservice/microservice_xray-3.html">【第10回】AWS X-Rayを用いたマイクロサービスの可視化(3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../microservice/microservice_xray-4.html">【第11回】AWS X-Rayを用いたマイクロサービスの可視化(4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../microservice/microservice_cognito-oauth2-login-1.html">【第12回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../microservice/microservice_cognito-oauth2-login-2.html">【第13回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../microservice/microservice_cognito-oauth2-login-3.html">【第14回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(3)</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">【第7回】AWS Lambdaにおけるサーバレスエラーハンドリング(2)</a><ul>
+<li><a class="reference internal" href="#spring-cloud-function-3-1aws-lambda">Spring Cloud Function 3.1以降を使った、AWS Lambdaの同期ビジネスエラー実装とライブラリ・パッケージの構成</a></li>
+<li><a class="reference internal" href="#id3">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="aws-lambda-errorhandling-1.html" title="Previous Chapter: 【第6回】AWS Lambdaにおけるサーバレスエラーハンドリング(1)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 【第6回】AWS Lamb...</span>
+    </a>
+  </li>
+  <li>
+    <a href="aws-lambda-errorhandling-3.html" title="Next Chapter: 【第8回】AWS Lambdaにおけるサーバレスエラーハンドリング(3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">【第8回】AWS Lamb... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/cloud_native/aws-lambda-errorhandling-2.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="aws-lambda-2">
+<span id="section-cloud-native-lambda-error-handling-2nd-label"></span><h1>【第7回】AWS Lambdaにおけるサーバレスエラーハンドリング(2)<a class="headerlink" href="#aws-lambda-2" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p><br/></p>
+<p>本連載では、以下の図のようなAWS Lambdaを使ったサーバレス処理でのエラーハンドリング方法を解説しています。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/errorhandling-overview.png" src="../_images/errorhandling-overview.png" />
+</div>
+<p><br/></p>
+<p>前回は、Lambdaファンクションのエラーハンドリングの特徴と代表的なパターン、エラーの概念・対処の考え方を説明しました。
+今回からはAPI GatewayとLambdaおよびSpringCloudFuntionを使って構築したLambdaを同期的に呼び出した場合に発生したエラーの取り扱い方や環境構築方法を解説します。</p>
+<p>なお、Lambdaファンクションは以下のランタイム・ライブラリを使って実装してくものとします。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>動作対象</td>
+<td>バージョン</td>
+</tr>
+<tr class="row-even"><td>Java</td>
+<td>11</td>
+</tr>
+<tr class="row-odd"><td>Spring Boot</td>
+<td>2.3.8.RELEASE</td>
+</tr>
+<tr class="row-even"><td>Spring Cloud Function</td>
+<td>3.0.11.RELEASE</td>
+</tr>
+<tr class="row-odd"><td>Spring Cloud AWS</td>
+<td>2.2.5.RELEASE</td>
+</tr>
+<tr class="row-even"><td>AmazonSDK Lambda Java event</td>
+<td>2.0.2</td>
+</tr>
+<tr class="row-odd"><td>AmazonSDK Lambda Java core</td>
+<td>1.1.0</td>
+</tr>
+<tr class="row-even"><td>AmazonSDK Java</td>
+<td>1.11.923</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<div class="section" id="spring-cloud-function-3-1aws-lambda">
+<span id="section-cloud-native-lambda-error-handling-spring-cloud-function-3-1-label"></span><h2>Spring Cloud Function 3.1以降を使った、AWS Lambdaの同期ビジネスエラー実装とライブラリ・パッケージの構成<a class="headerlink" href="#spring-cloud-function-3-1aws-lambda" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><br/></p>
+<p>まず最初のケースではAWS Lambdaで同期呼び出しのビジネスエラーについて考えます。同期型のビジネスエラーはLambdaファンクション中で発生したエラーを、
+ユーザに通知すれば良いので、下記のイメージの赤字の矢印がスコープとなります。ここのLambdaファンクションの実装を進めていきます。</p>
+<p><br/></p>
+<div class="figure">
+<img alt="../_images/errorhandling-sync-business-error.png" src="../_images/errorhandling-sync-business-error.png" />
+</div>
+<p><br/></p>
+<p>これまでの連載(<a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4316">「基本編第1回」</a> や <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/5082">「応用編第4回」</a> )でも、
+Spring Cloud Functionを使用したLambdaファンクションの実装の解説を行ってきましたが、Spring Cloud Functionがバージョン3.1以降、フレームワークの使い方に少し大きめの修正があり、
+org.springframework.cloud.function.adapter.aws.FunctionInvokerを使う方法にシフトしています。
+そこで、今回はこのFunctionInvokerを使ったプログラミングモデルでの同期エラー実装と、アプリケーションのパッケージ構成について、3.1より前のバージョンとの差分について触れながら解説を進めていきたいと思います。</p>
+<p>また、実際に作成したアプリケーションは <a class="reference external" href="https://github.com/debugroom/mynavi-sample-aws-lambda-errorhandling">GitHub</a> 上にコミットしています。
+以降記載されているソースコードで、インポート文など本質的でない記述を省略している部分がありますので、実行コードを作成する場合は、必要に応じて適宜GitHubソースコードも参照してください。</p>
+<p>アプリケーションの実装に必要なライブラリはこれまでと同様、以下の通りですが、後の非同期での実装を含め、SQSやSystemsManager ParameterStoreへアクセスするので、Spring Cloud AWSとSDKのライブラリのライブラリを追加します。
+また、Mattermostのようなチャットコミュニケーションツールのチャネルにメッセージを通知するためにWebClientを使用するので、spring-boot-starter-webfluxを追加します。
+各マネージドサービスなどのエンドポイント情報などはCloudFormationのスタック経由から取得しますが、スタックでエクスポートした名称を保持しておくためのプロパティクラスを使用するために、
+spring-boot-configuration-processorを含めておいてください。</p>
+<p><br/></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-cloud-function-context<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-cloud-function-adapter-aws<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-aws<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-aws-messaging<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-webflux<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.amazonaws<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>aws-lambda-java-events<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>2.0.2<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.amazonaws<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>aws-lambda-java-core<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.1.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.amazonaws<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>aws-java-sdk-ssm<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.11.923<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.amazonaws<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>aws-java-sdk-core<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.11.923<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-configuration-processor<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;optional&gt;</span>true<span class="nt">&lt;/optional&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>さて、Spring Cloud Functionを使用した使用方法ですが、これまで使用してきた、リクエストをハンドリングするSpringBootRequestHandlerクラスは非推奨となり、ハンドラクラスを実装せずに、
+FunctionInvokerを使って、ファンクションが実行されます。FunctionInvokerはLambdaのJava言語実装で必要になるhandleメソッドが実装されており、開発者はファンクションクラスを作成するだけですみます。
+FunctionInvokerは、API Gatewayをはじめ、S3イベントやKinesis、SNSといった複数のAWSマネージドサービスからのリクエストをサポートしていますが、 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/5135">「AWSで実践！基盤・デプロイ自動化 第41回」</a> で解説した
+CloudFormationのLambda-backedカスタムリソースのように、対応していないマネージドサービスのリクエストがいくつかあるので、その場合はFunctionInvokerを継承して、必要なリクエストハンドリング処理をオーバーライドして実装するようにしましょう。
+FunctionInvokerから実行される、同期的なビジネスエラーハンリングを実装したファンクションクラスは以下の通りです。</p>
+<p><br/></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">org.debugroom.mynavi.sample.aws.lambda.errorhandling.app.function</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.function.Function</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.messaging.Message</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.messaging.MessageHeaders</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.messaging.support.MessageBuilder</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.aws.lambda.errorhandling.app.model.SampleResource</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.aws.lambda.errorhandling.common.exception.BusinessException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.debugroom.mynavi.sample.aws.lambda.errorhandling.domain.service.CheckParameterService</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
+
+<span class="nd">@Slf4j</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SyncExecuteBusinessErrorFunction</span> <span class="kd">implements</span> <span class="n">Function</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;,</span> <span class="n">Message</span><span class="o">&lt;</span><span class="n">SampleResource</span><span class="o">&gt;&gt;</span> <span class="o">{</span>
+                                                                                              <span class="c1">// (1)</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">CheckParameterService</span> <span class="n">checkParameterService</span><span class="o">;</span> <span class="c1">//(2)</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Message</span><span class="o">&lt;</span><span class="n">SampleResource</span><span class="o">&gt;</span> <span class="nf">apply</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">stringObjectMap</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//(3)</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot; has started!&quot;</span><span class="o">);</span>
+        <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;[Input]&quot;</span> <span class="o">+</span> <span class="n">stringObjectMap</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">queryStringParameters</span> <span class="o">=</span> <span class="o">(</span><span class="n">Map</span><span class="o">)</span><span class="n">stringObjectMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;queryStringParameters&quot;</span><span class="o">);</span>
+        <span class="k">try</span><span class="o">{</span>
+            <span class="n">checkParameterService</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">queryStringParameters</span><span class="o">);</span> <span class="c1">//(4)</span>
+        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">BusinessException</span> <span class="n">e</span><span class="o">){</span> <span class="c1">//(5)</span>
+            <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">headers</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+            <span class="n">headers</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;statusCode&quot;</span><span class="o">,</span> <span class="mi">400</span><span class="o">);</span> <span class="c1">//(6)</span>
+            <span class="n">MessageHeaders</span> <span class="n">messageHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MessageHeaders</span><span class="o">(</span><span class="n">headers</span><span class="o">);</span>
+            <span class="k">return</span> <span class="n">MessageBuilder</span><span class="o">.</span><span class="na">createMessage</span><span class="o">(</span>
+                 <span class="n">SampleResource</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">message</span><span class="o">(</span><span class="s">&quot;No query string parameters.&quot;</span><span class="o">).</span><span class="na">build</span><span class="o">(),</span> <span class="n">messageHeaders</span><span class="o">);</span> <span class="c1">//(7)</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">MessageBuilder</span><span class="o">.</span><span class="na">withPayload</span><span class="o">(</span>
+             <span class="n">SampleResource</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">message</span><span class="o">(</span><span class="n">queryStringParameters</span><span class="o">.</span><span class="na">toString</span><span class="o">()).</span><span class="na">build</span><span class="o">()).</span><span class="na">build</span><span class="o">();</span> <span class="c1">//(8)</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><br/></p>
+<p>各コードの詳細は以下の通りです。</p>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id4">
+<caption><span class="caption-text">ビジネスエラーが発生するファンクションクラスの実装コードの詳細</span><a class="headerlink" href="#id4" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>項番</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple">
+<li></li>
+</ol>
+</td>
+<td>java.util.Functionクラスを実装します。インプットデータの型としてMapクラスを、アウトプット型として、返却するクラスオブジェクトSampleResourceを型パラメータに指定したorg.springframework.messaging.Messageを指定します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="2">
+<li></li>
+</ol>
+</td>
+<td>ビジネス例外(アプリケーションのビジネスロジックとして想定される例外)が発生するサービスクラスとして、リクエストパラメータの有無をチェックし、ビジネス例外クラスをスローするCheckParameterServiceを使用します。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="3">
+<li></li>
+</ol>
+</td>
+<td>FunctionInvokerクラスから、オーバーライドしたapply()メソッドがコールされます。リクエストパラメータおよびメタデータをMap型で受け取れます。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="4">
+<li></li>
+</ol>
+</td>
+<td>インプットMapオブジェクトからクエリ文字列パラメータを取得し、チェックします。ここでは、クエリ文字列がないとビジネス例外をスローするようにしています(クエリ文字列があれば何もしません)。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="5">
+<li></li>
+</ol>
+</td>
+<td>ビジネス例外が発生した場合、例外をキャッチして、呼び出し元のユーザにエラー内容を通知する処理を実装します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="6">
+<li></li>
+</ol>
+</td>
+<td>SpringCloud Funtion3.1以降では、MessageHeaderに&quot;statusCode&quot;を設定して返却すると、API Gatewayから返却するレスポンスのステータスコードを指定することができます。ここでは、送信されたリクエストが不適切なことを示す400を設定しています。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="7">
+<li></li>
+</ol>
+</td>
+<td>返却するメッセージのボディ部に設定するSampleResourceオブジェクトとして、メッセージを指定したMessageクラスを返却します。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>上記の実装を見て、気付いた方がいるかもしれませんが、当クラスの責務としてリクエストからパラメータを取り出し、ビジネス処理を実行して、エラーであればステータスコードを設定するといった、
+Spring MVCでいうところのControllerクラスに該当する処理が実装されています。ファンクションクラス自体にビジネス処理を実装するのもシンプル化の観点から悪くない方法ですが、
+例外ハンドリングの実装で複雑化することや単体テストの観点から、ファンクションクラスはコントローラがもつ単一責務を負うものとして実装した方がコードの見通しがすっきりします。
+そこで、本連載では、 <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/4475">「AWSで実践！基盤・デプロイ自動化 第4回マイクロサービスにおけるテスト自動化とテスト戦略」</a> で解説したパッケージ構成に則り、以下のようにLambdaファンクションのパッケージを構成します。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>spring-cloud-3-1-lambda-function<span class="o">]</span>
+  └src
+    └main
+      ├java
+      │ └org
+      │   └debugroom
+      │     └mynavi
+      │       └sample
+      │         └aws
+      │           └lambda
+      │             └errorhandling
+      │               └app                                         ... アプリケーション層のパッケージ
+      │               │ ├funtion                                   ... ファンクションクラスのパッケージ
+      │               │ │ ├・・・
+      │               │ <span class="p">|</span> └SyncExecuteBusinessErrorFuntion.java    ... FunctionInvokerから実行されるファンクションクラス
+      │               │ ├model                                     ... アプリケーション層モデルクラスパッケージ
+      │               │ <span class="p">|</span> └XxxxxResource.java                      ... Lambdaファンクションが返却するResourceクラス
+      │               │ ├ServiceProperties                         ... マネージドサービスのエンドポイントなど必要なプロパティクラスを保持するクラス
+      │               │ └CloudFormationStackResolver.java          ... CloudFormationからスタック情報を取得するためのユーティリティクラス
+      │               ├common                                      ... レイヤ共通で使用されるパッケージ
+      │               │ └exception                                 ... 例外クラス用のパッケージ
+      │               │   ├BusinessException.java                  ... ビジネスエラーを表す例外クラス
+      │               │   └SystemException.java                    ... システムエラーを表す例外クラス
+      │               ├domain                                      ... DomainConfigでコンポーネントスキャンの対象とするドメイン層のパッケージ
+      │               │ ├model                                     ... ドメイン層のモデルクラスパッケージ
+      │               │ <span class="p">|</span> └Xxxxx.java                              ... ドメイン層のモデルクラス
+      │               │ ├repository                                ... レポジトリクラスパッケージ
+      │               │ │ ├XxxxxRepository.java                    ... レポジトリインタフェースクラス
+      │               │ │ └XxxxxRepositoryYYYImpl.java             ... マネージドサービスや外部サーバへアクセスするWebClient等を使用したレポジトリ実装クラス
+      │               │ └service                                   ... サービスクラスパッケージ
+      │               │   ├CheckParameterService.java              ... パラメータをチェックし、ビジネス例外をスローするサービスクラス
+      │               │   ├・・・
+      │               │   └CreateSystemErrorService.java           ... システム例外をスローするサービスクラス
+      │               └config                                      ... 設定クラス用のパッケージ
+      │                   ├App.java                                ... アプリケーション起動クラス
+      │                   ├DomainConfig.java                       ... ドメイン層に関する設定クラス
+      │                   ├S3Config.java                           ... S3に関する設定クラス
+      │                   └SqsConfig.java                          ... SQSに関する設定クラス
+      └resources
+        ├application.yml                                        ... アプリケーション設定ファイル
+        ├messages.properties                                    ... デフォルトメッセージ定義ファイル
+        └messages_ja.properties                                 ... ロケールがjaの際に有効になるメッセージ定義ファイル
+</pre></div>
+</div>
+<p><br/></p>
+<p>また、アプリケーションの設定ファイルを以下の通り設定しておきます。</p>
+<p><br/></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cloud:
+  aws:
+    credentials:
+      profileName:
+      instanceProfile: <span class="nb">false</span>
+    stack:
+      auto: <span class="nb">false</span>
+    region:
+      auto: <span class="nb">false</span>
+      static: ap-northeast-1                                                 <span class="c1">#(A)</span>
+spring:
+  main:
+    web-application-type: none                                               <span class="c1">#(B)</span>
+  cloud:
+    <span class="k">function</span>:
+      scan:
+        packages: org.debugroom.mynavi.sample.aws.lambda.errorhandling.app.function
+                                                                             <span class="c1">#(C)</span>
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils : error                                           <span class="c1">#(D)</span>
+service:
+  systems-manager-parameter-store:
+    mattermost:
+      in-comming-webhook: sample-aws-lambda-errorhandling-mattermost-webhook-url
+                                                                             <span class="c1">#(E)</span>
+</pre></div>
+</div>
+<p><br/></p>
+<table border="1" class="colwidths-given docutils" id="id5">
+<caption><span class="caption-text">アプリケーション設定ファイル</span><a class="headerlink" href="#id5" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>項番</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple">
+<li></li>
+</ol>
+</td>
+<td>Spring Cloud AWSで起動時に実行されるインスタンスプロファイル、実行リージョン、スタック情報の自動取得をオフにしておきます。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="2">
+<li></li>
+</ol>
+</td>
+<td>WebClientの利用で追加したspring-boot-starter-webfluxがデフォルトだとファンクション実行時に組み込みアプリケーションサーバを起動してしまうため、設定をオフにしておきます。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="3">
+<li></li>
+</ol>
+</td>
+<td>ファンクションクラスがあるパッケージを指定します。</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last upperalpha simple" start="4">
+<li></li>
+</ol>
+</td>
+<td>Lambdaで実行されるものの、Spring Cloud AWSがファンクション起動時にEC2インスタンスメタデータを取得しようとして失敗するため、エラーが出力されても問題なように設定しておきます。</td>
+</tr>
+<tr class="row-even"><td><ol class="first last upperalpha simple" start="5">
+<li></li>
+</ol>
+</td>
+<td>SystemsManager ParameterStoreからMattermostのWebhookURLを取得するためのキー名を指定します。MattermostのWebhookについては次回以降改めて説明します。</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>今回はSpring Cloud Function 3.1以降のLambdaファンクションの実装方法やパッケージ構成を解説しました。次回は、API GatewayとLambdaをCloudFormationを使って構築し、Lambdaを同期的に呼び出す環境構築方法を解説します。</p>
+<p><br/></p>
+</div>
+<div class="section" id="id3">
+<h2>著者紹介<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>川畑 光平(KAWABATA Kohei) - NTTデータ エグゼクティブ ITスペシャリスト ソフトウェアアーキテクト・デジタルテクノロジーストラテジスト(クラウド)</p>
+<div class="figure">
+<img alt="../_images/aws_361383_075.jpeg" src="../_images/aws_361383_075.jpeg" />
+</div>
+<p>金融機関システム業務アプリケーション開発・システム基盤担当、ソフトウェア開発自動化関連の研究開発を経て、デジタル技術関連の研究開発・推進に従事。</p>
+<p>Red Hat Certified Engineer、Pivotal Certified Spring Professional、AWS Certified Solutions Architect Professional等の資格を持ち、アプリケーション基盤・クラウドなど様々な開発プロジェクト支援にも携わる。</p>
+<p><a class="reference external" href="https://aws.amazon.com/jp/partners/ambassadors/?cards-body.sort-by=item.additionalFields.ambassadorName&amp;cards-body.sort-order=asc&amp;cards-body.q=kawabata&amp;cards-body.q_operator=AND">AWS Top Engineers &amp; Ambassadors</a> 選出。</p>
+<p>本連載記事の内容に対するご意見・ご質問は <a class="reference external" href="https://www.facebook.com/kohei.kawabata.5">Facebook</a> まで。</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, kohei.kawabata.<br/>
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.6 で生成しました。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

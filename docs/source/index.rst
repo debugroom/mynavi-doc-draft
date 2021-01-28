@@ -68,6 +68,11 @@
    cloud_native/aws-s3-6.rst
    cloud_native/aws-s3-and-lambda-1.rst
    cloud_native/aws-s3-and-lambda-2.rst
+   cloud_native/aws-lambda-errorhandling-1.rst
+   cloud_native/aws-lambda-errorhandling-2.rst
+   cloud_native/aws-lambda-errorhandling-3.rst
+   cloud_native/aws-lambda-errorhandling-4.rst
+   cloud_native/aws-lambda-errorhandling-5.rst
 
 |br|
 
