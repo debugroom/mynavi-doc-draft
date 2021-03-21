@@ -270,7 +270,7 @@ CloudFormationを使ったCognitoユーザプール、IDプールの構築
      - 説明
 
    * - A
-     - 環境をパラメータとして指定します。パラメータの値に応じて、名称やドメインURLなど切り替えるために使用します。
+     - 環境を「EnvType」パラメータとして指定します。パラメータの値に応じて、名称やドメインURLなど切り替えるために使用します。
 
    * - B
      - Aで指定したパラメータを用いてConditions要素で切り替えます。Conditionsの使用方法については、 `「AWSで実践！基盤構築・デプロイ自動化第29回」 <https://news.mynavi.jp/itsearch/article/devsoft/4869>`_ も参考にしてください。
@@ -309,10 +309,10 @@ CloudFormationを使ったCognitoユーザプール、IDプールの構築
      - IDプールに設定するロールアタッチメントを定義します。各プロパティの詳細は、`AWS::Cognito::IdentityPoolRoleAttachment <https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-identitypoolroleattachment.html>`_ も参考にしてください。J、Lで作成したロールをアタッチします。
 
    * - O
-     - 今後解説するOAuth2 Loginアプリケーション実装でスタック情報経由で参照するため、ユーザプールIDを出力します。
+     - 今後解説するLambdaファンクションやOAuth2 Loginアプリケーション実装でスタック情報経由で参照するため、ユーザプールIDを出力します。
 
    * - P
-     - 今後解説するOAuth2 Loginアプリケーション実装でスタック情報経由で参照するため、アプリクライアントIDを出力します。
+     - 今後解説するLambdaファンクションやOAuth2 Loginアプリケーション実装でスタック情報経由で参照するため、アプリクライアントIDを出力します。
 
    * - Q
      - 今後解説するOAuth2 Loginアプリケーション実装でスタック情報経由で参照するため、OAuth2ログイン後のリダイレクトURLを出力します。
@@ -328,7 +328,7 @@ CloudFormationを使ったCognitoユーザプール、IDプールの構築
 
 .. note:: CloudFormationのOutputでは、実装アプリケーションに必要なアプリクライアントのクライアントシークレット値を出力することはできません。
    そのため、アプリケーションの実装では、Systems Manager Parameter Store経由でクライアントシークレットを取得する実装にするものとします。
-   次回、SDKを使って、構築したアプリクライアントからクライアントシークレットを取得し、Parameter StoreにセットするLambda関数を作成し、
+   次回、SDKを使って、構築したアプリクライアントからクライアントシークレットを取得し、Parameter StoreにセットするLambdaファンクションを作成し、
    CloudFormationのカスタムリソースとして実行する方法を紹介します。
 
 |br|

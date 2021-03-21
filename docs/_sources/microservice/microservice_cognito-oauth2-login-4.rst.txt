@@ -16,8 +16,8 @@
 |br|
 
 前回は、AWSコンソール上から、OAuth2 Loginに必要なアプリクライアントの設定を行い、IDプールを構築しました。
-今回からは前回までにマネジメントコンソールで手動設定した内容をAWS CloudFormationを使って構築します。なお、CloudFormationを使って構築するメリットのひとつに、
-アプリケーションからCloudFormationで構築したリソースの情報を参照できる点にあります。
+今回からは前回までにマネジメントコンソールで手動設定した内容をAWS CloudFormationを使って構築します。なお、CloudFormationを使って環境構築するメリットのひとつに、
+アプリケーションからCloudFormationで構築したリソースの情報をスタック経由で参照できる点にあります。
 こちらは連載 `「AWSで実践！基盤構築・デプロイ自動化第34回」 <https://news.mynavi.jp/itsearch/article/devsoft/4948>`_ でも詳しく解説しています。
 今後OAuth2 Loginアプリケーションを作成する際には、CloudFormationのスタック情報を参照するように実装していきますので、その点、踏まえた上で、
 今回からのCloudFormationによる環境構築の解説を読み進めていただければと思います。
@@ -270,7 +270,7 @@ CloudFormationを使ったCognitoユーザプール、IDプールの構築
      - 説明
 
    * - A
-     - 環境をパラメータとして指定します。パラメータの値に応じて、名称やドメインURLなど切り替えるために使用します。
+     - 環境を「EnvType」パラメータとして指定します。パラメータの値に応じて、名称やドメインURLなど切り替えるために使用します。
 
    * - B
      - Aで指定したパラメータを用いてConditions要素で切り替えます。Conditionsの使用方法については、 `「AWSで実践！基盤構築・デプロイ自動化第29回」 <https://news.mynavi.jp/itsearch/article/devsoft/4869>`_ も参考にしてください。
@@ -309,10 +309,10 @@ CloudFormationを使ったCognitoユーザプール、IDプールの構築
      - IDプールに設定するロールアタッチメントを定義します。各プロパティの詳細は、`AWS::Cognito::IdentityPoolRoleAttachment <https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-identitypoolroleattachment.html>`_ も参考にしてください。J、Lで作成したロールをアタッチします。
 
    * - O
-     - 今後解説するOAuth2 Loginアプリケーション実装でスタック情報経由で参照するため、ユーザプールIDを出力します。
+     - 今後解説するLambdaファンクションやOAuth2 Loginアプリケーション実装でスタック情報経由で参照するため、ユーザプールIDを出力します。
 
    * - P
-     - 今後解説するOAuth2 Loginアプリケーション実装でスタック情報経由で参照するため、アプリクライアントIDを出力します。
+     - 今後解説するLambdaファンクションやOAuth2 Loginアプリケーション実装でスタック情報経由で参照するため、アプリクライアントIDを出力します。
 
    * - Q
      - 今後解説するOAuth2 Loginアプリケーション実装でスタック情報経由で参照するため、OAuth2ログイン後のリダイレクトURLを出力します。
@@ -328,7 +328,7 @@ CloudFormationを使ったCognitoユーザプール、IDプールの構築
 
 .. note:: CloudFormationのOutputでは、実装アプリケーションに必要なアプリクライアントのクライアントシークレット値を出力することはできません。
    そのため、アプリケーションの実装では、Systems Manager Parameter Store経由でクライアントシークレットを取得する実装にするものとします。
-   次回、SDKを使って、構築したアプリクライアントからクライアントシークレットを取得し、Parameter StoreにセットするLambda関数を作成し、
+   次回、SDKを使って、構築したアプリクライアントからクライアントシークレットを取得し、Parameter StoreにセットするLambdaファンクションを作成し、
    CloudFormationのカスタムリソースとして実行する方法を紹介します。
 
 |br|
