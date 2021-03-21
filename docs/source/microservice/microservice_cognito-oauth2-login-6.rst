@@ -94,7 +94,7 @@ Cognitoにユーザを登録するLambdaファンクションの実装
      - java.util.function.Functionを実装します。Input型としてハンドラクラスで生成したMapオブジェクトクラスを、Output型としてorg.springframework.messaging.Messageを指定します。
 
    * - B
-     - CloudFormationのスタックから取得するためのエクスポート名をプロパティクラスに保持します。実際のエクスポート名はapplicaiton.ymlに記載します。
+     - CloudFormationのスタックから取得するためのエクスポート名をプロパティクラスに保持します。実際のエクスポート名は設定ファイルであるapplicaiton.ymlに記載します。設定ファイルの記載要領は `AWSで作るクラウドネイティブアプリケーションの応用 第7回 <https://news.mynavi.jp/itsearch/article/devsoft/5381>`_ も参考にしてください。
 
    * - C
      - CloudFormationのスタックからOutput要素で出力した値を取得するユーティリティクラスをインジェクションします。実装は `こちら <https://github.com/debugroom/mynavi-sample-aws-microservice/blob/master/common/src/main/java/org/debugroom/mynavi/sample/aws/microservice/common/apinfra/cloud/aws/CloudFormationStackResolver.java>`_ ですが、CloudFormationのSDKクライアントを使ってエクスポート値を取得します。

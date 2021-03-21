@@ -187,7 +187,7 @@
 <li><a class="reference internal" href="#">【第16回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(5)</a><ul>
 <li><a class="reference internal" href="#lambda">初期化処理として実装するLambdaファンクション</a></li>
 <li><a class="reference internal" href="#systemsmanager-parameter-storelambda">SystemsManager Parameter Storeにクライアントシークレットを設定するLambdaファンクションの実装</a></li>
-<li><a class="reference internal" href="#id3">著者紹介</a></li>
+<li><a class="reference internal" href="#id4">著者紹介</a></li>
 </ul>
 </li>
 </ul>
@@ -462,7 +462,7 @@ CloudFormationのカスタムリソースとして実行する方法を解説し
 <td>java.util.function.Functionを実装します。Input型としてハンドラクラスで生成したMapオブジェクトクラスを、Output型としてorg.springframework.messaging.Messageを指定します。</td>
 </tr>
 <tr class="row-odd"><td>B</td>
-<td>CloudFormationのスタックから取得するためのエクスポート名をプロパティクラスに保持します。実際のエクスポート名はapplicaiton.ymlに記載します。</td>
+<td>CloudFormationのスタックから取得するためのエクスポート名をプロパティクラスに保持します。実際のエクスポート名は設定ファイルであるapplicaiton.ymlに記載します。設定ファイルの記載要領は <a class="reference external" href="https://news.mynavi.jp/itsearch/article/devsoft/5381">AWSで作るクラウドネイティブアプリケーションの応用 第7回</a> も参考にしてください。</td>
 </tr>
 <tr class="row-even"><td>C</td>
 <td>CloudFormationのスタックからOutput要素で出力した値を取得するユーティリティクラスをインジェクションします。実装は <a class="reference external" href="https://github.com/debugroom/mynavi-sample-aws-microservice/blob/master/common/src/main/java/org/debugroom/mynavi/sample/aws/microservice/common/apinfra/cloud/aws/CloudFormationStackResolver.java">こちら</a> ですが、CloudFormationのSDKクライアントを使ってエクスポート値を取得します。</td>
@@ -498,8 +498,8 @@ CloudFormationのカスタムリソースとして実行する方法を解説し
 次回以降は、他の初期化処理のLambdaファンクション実装を引き続き、解説していきます。</p>
 <p><br/></p>
 </div>
-<div class="section" id="id3">
-<h2>著者紹介<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id4">
+<h2>著者紹介<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>川畑 光平(KAWABATA Kohei) - NTTデータ エグゼクティブ ITスペシャリスト ソフトウェアアーキテクト・デジタルテクノロジーストラテジスト(クラウド)</p>
 <div class="figure">
 <img alt="../_images/aws_361383_0752.jpeg" src="../_images/aws_361383_0752.jpeg" />
