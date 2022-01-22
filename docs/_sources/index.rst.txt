@@ -159,3 +159,4 @@
    microservice/microservice_cognito-oauth2-login-6.rst
    microservice/microservice_cognito-oauth2-login-7.rst
    microservice/microservice_cognito-oauth2-login-8.rst
+   microservice/microservice_cognito-oauth2-login-9.rst

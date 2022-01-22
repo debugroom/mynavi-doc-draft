@@ -18,6 +18,7 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="【第20回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(9)" href="microservice_cognito-oauth2-login-9.html" />
     <link rel="prev" title="【第18回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(7)" href="microservice_cognito-oauth2-login-7.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -171,6 +172,7 @@
 <li class="toctree-l1"><a class="reference internal" href="microservice_cognito-oauth2-login-6.html">【第17回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(6)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="microservice_cognito-oauth2-login-7.html">【第18回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(7)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">【第19回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(8)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservice_cognito-oauth2-login-9.html">【第20回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(9)</a></li>
 </ul>
 </ul>
 </li>
@@ -199,6 +201,10 @@
                 
   <li>
     <a href="microservice_cognito-oauth2-login-7.html" title="Previous Chapter: 【第18回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(7)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 【第18回】Amazon ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="microservice_cognito-oauth2-login-9.html" title="Next Chapter: 【第20回】Amazon Cognito + Spring Sercurityを使ったOAuth2 Loginの実装(9)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">【第20回】Amazon ... &raquo;</span>
     </a>
   </li>
               
@@ -477,7 +483,7 @@ Spring Securityの概要や基本的な設定などは、<a class="reference ext
 <td>Cognitoでadminグループに属している時も同様に、管理者となる権限を付与するように実装します。</td>
 </tr>
 <tr class="row-even"><td>S</td>
-<td>認証プロバイダとなるクライアントの情報を設定します。設定が必要な項目は、Cognitoで設定したアプリケーションのクライアントID、クライアントシークレット、Cognitoの認証エンドポイントURL、トークンエンドポイントURL、UserInfoエンドポイント、アプリケーションのリダイレクトURL、公開鍵のURL、スコープ、IDとなるユーザ属性が必須です。
+<td>認証プロバイダとなるクライアントの情報を設定します。設定が必要な項目は、Cognitoで設定したアプリケーションのクライアントID、クライアントシークレット、Cognitoの認証エンドポイントURL、トークンエンドポイントURL、UserInfoエンドポイントURL、アプリケーションのリダイレクトURL、公開鍵のURL、スコープ、IDとなるユーザ属性が必須です。
 その他、認証グラントタイプやログアウトエンドポイントの情報が設定されたメタデータを設定しておきます。これらのパラメータを、CloudFormationのスタック情報やSystems Manager Parameter Store、プロパティファイルなどから取得するよう適宜実装します。</td>
 </tr>
 <tr class="row-odd"><td>T</td>
